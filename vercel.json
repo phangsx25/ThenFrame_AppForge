@@ -1,5 +1,4 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "ignoreCommand": "test \"$VERCEL_GIT_COMMIT_REF\" = \"feature/sprint1-burgundy-wireframes\""
+  "outputDirectory": "dist"
 }
