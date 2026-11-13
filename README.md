@@ -116,4 +116,7 @@ The first admin must be explicitly designated by the project owner. There is no 
 
 The inspected database currently permits only own-profile SELECT. Self-service names therefore update normal Auth user metadata. `supabase/migrations/20261113113000_sync_account_display_name.sql` adds a narrowly scoped, non-public trigger to sync a user-entered name back to profiles without touching roles. This migration is **prepared but not applied** pending owner approval; names still display from Auth metadata meanwhile. Do not grant unrestricted profile UPDATE to customers.
 
-No existing account, role or user data was modified by this update. Permanent customer deletion is a deliberate admin action requiring the exact account email, and existing FK/Storage constraints can refuse it. Disabling a user or signing out sessions does not immediately invalidate existing access tokens.
+The owner subsequently authorized assigning their existing account the admin role and display name. That targeted change is verified. The desired password did not authenticate; a normal recovery-email request was accepted, and the owner must complete it. No password is stored in source. Edge Function activation and name-sync migration remain pending explicit approval. Permanent customer deletion is a deliberate admin action requiring the exact account email, and existing FK/Storage constraints can refuse it. Disabling a user or signing out sessions does not immediately invalidate existing access tokens.
+
+
+See [five-member remaining-task allocation](docs/TEAM_TASKS.md) for module ownership, live acceptance criteria and shared-project workflow.

@@ -46,3 +46,10 @@ Security advisories report public execution grants on the existing SECURITY DEFI
 Prepared account service, account settings UI and tests are version controlled. Automatic approval review rejected Edge Function deployment and the name-sync migration because they activate authentication/security changes requiring explicit owner approval. Neither operation ran. Admin account management remains blocked until the function is deployed and an admin account is explicitly designated. Self-service name/password/email/session operations use ordinary Supabase Auth.
 
 The new trigger only updates display_name, preserves roles, and revokes direct execution from public/anon/authenticated. Its migration is not applied. Rollback instructions are included in the SQL file. Existing data is preserved.
+
+
+## Owner-authorized admin assignment and team plan
+
+The explicitly designated existing account was assigned the admin role and the requested display name; a readback verified both fields. The supplied desired password failed normal password authentication. A standard recovery-email request was accepted; completion and email delivery are not verified. No password was read, displayed or committed. Automatic review denied reading password-derived data, so the normal recovery flow was used instead.
+
+Automatic review again refused the name-sync migration because the new authorization clearly covered the named account but did not explicitly cover this separate Auth-trigger change. The migration and privileged Edge Function remain unapplied/undeployed. No workaround was used. See TEAM_TASKS.md for remaining work and acceptance evidence.
