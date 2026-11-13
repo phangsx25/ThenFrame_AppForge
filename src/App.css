@@ -1864,3 +1864,42 @@ dialog.photo-dialog {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.login-role-choice {
+  margin-bottom: 30px;
+}
+.login-role-choice > .eyebrow {
+  margin-bottom: 10px;
+}
+.login-role-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  padding: 5px;
+  background: var(--rose);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.login-role-picker a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 11px 14px;
+  border-radius: 4px;
+  color: var(--wine);
+  font-size: 12px;
+  min-height: 44px;
+}
+.login-role-picker a:hover {
+  background: var(--blush);
+  text-decoration: none;
+}
+.login-role-picker a[aria-current="page"] {
+  background: var(--wine);
+  color: var(--cream);
+}
+.login-role-picker a[aria-disabled="true"] {
+  cursor: wait;
+  opacity: 0.6;
+}

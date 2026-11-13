@@ -189,4 +189,38 @@ describe("auth flows with a mocked Supabase boundary", () => {
       ).not.toBeInTheDocument(),
     );
   });
+  it("lets the visitor switch login roles without authenticating or changing permissions", async () => {
+    window.location.hash = "/login";
+    const client = fakeClient();
+    client.auth.getSession.mockResolvedValue({
+      data: { session: null },
+      error: null,
+    });
+    const user = userEvent.setup();
+    render(<App client={client} />);
+    const picker = await screen.findByRole("navigation", {
+      name: "Login role",
+    });
+    expect(picker.querySelector('[aria-current="page"]')).toHaveTextContent(
+      "Customer",
+    );
+    await user.click(screen.getByRole("link", { name: "Admin", exact: true }));
+    expect(
+      await screen.findByRole("heading", { name: "Studio Login." }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Admin", exact: true }),
+    ).toHaveAttribute("aria-current", "page");
+    await user.click(
+      screen.getByRole("link", { name: "Customer", exact: true }),
+    );
+    expect(
+      await screen.findByRole("heading", {
+        name: "Welcome back.",
+        exact: true,
+      }),
+    ).toBeVisible();
+    expect(client.auth.signInWithPassword).not.toHaveBeenCalled();
+    expect(client.from).not.toHaveBeenCalled();
+  });
 });

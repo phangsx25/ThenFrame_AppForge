@@ -134,6 +134,35 @@ export default function AuthPage({ client, auth, mode = "login" }) {
           )}
         </div>
         <section className="auth-form-panel">
+          {!register && !reset && (
+            <div className="login-role-choice">
+              <span className="eyebrow">LOG IN AS</span>
+              <nav className="login-role-picker" aria-label="Login role">
+                <a
+                  href="#/login"
+                  aria-current={!admin ? "page" : undefined}
+                  aria-disabled={busy || undefined}
+                  onClick={(event) => {
+                    if (busy) event.preventDefault();
+                  }}
+                >
+                  <Icon name="user" size={17} />
+                  Customer
+                </a>
+                <a
+                  href="#/admin/login"
+                  aria-current={admin ? "page" : undefined}
+                  aria-disabled={busy || undefined}
+                  onClick={(event) => {
+                    if (busy) event.preventDefault();
+                  }}
+                >
+                  <Icon name="shield" size={17} />
+                  Admin
+                </a>
+              </nav>
+            </div>
+          )}
           <span className="eyebrow">
             {admin
               ? "◎ AUTHORIZED STAFF ONLY"

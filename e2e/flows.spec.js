@@ -187,7 +187,21 @@ test("customer login, reload, direct admin denial and logout use Supabase sessio
 
 test("admin form refuses a customer account", async ({ page }) => {
   await backend(page);
-  await signIn(page, true);
+  await page.goto("/#/login");
+  await page
+    .getByRole("navigation", { name: "Login role" })
+    .getByRole("link", { name: "Admin", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Studio Login." }),
+  ).toBeVisible();
+  await page
+    .getByLabel("Staff email address", { exact: true })
+    .fill("fixture@example.test");
+  await page
+    .getByLabel("Password", { exact: true })
+    .fill("fixture-password123");
+  await page.getByRole("button", { name: "Login to Admin Dashboard" }).click();
   await expect(page.getByRole("alert")).toContainText(
     "does not have studio admin access",
   );

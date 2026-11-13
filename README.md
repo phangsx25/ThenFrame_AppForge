@@ -48,7 +48,7 @@ Use existing project `hoxtsapehydyaxvdibty`. Do not bootstrap, replace or clear 
 ## Sprint 1 behavior
 
 - US01 (3): customer registration, password confirmation, login, session restoration, logout and password-reset request/update.
-- US02 (3): separate admin login, database role verification, fail-closed protected route and late-session-response protection.
+- US02 (3): Customer/Admin selector on both login pages, separate admin login, database role verification, fail-closed protected route and late-session-response protection.
 - US03 (5): create/edit collections; hidden/public visibility; upload JPEG/PNG/WebP files up to 10 MB; edit photo caption/visibility; delete a confirmed individual photo; delete a confirmed empty collection. Metadata-upload failure triggers cleanup of only the new object. Cleanup failures are reported.
 - US04 (5): public collections/photos, title/description search, style filtering, collection details, photo viewer and signed image links.
 
