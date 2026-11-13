@@ -418,9 +418,9 @@ test("account settings save a real name, persist it on reload, request email cha
   ).toBeVisible();
   await page.getByLabel("New email address").fill("updated@example.test");
   await page.getByRole("button", { name: "Request email change" }).click();
-  await expect(page.getByRole("status")).toContainText(
-    "Email change requested",
-  );
+  await expect(
+    page.getByRole("status").filter({ hasText: "Email change requested" }),
+  ).toBeVisible();
   await page
     .getByLabel("Current password", { exact: true })
     .fill("oldPassword123");
@@ -440,9 +440,11 @@ test("account settings save a real name, persist it on reload, request email cha
   expect((await passwordUpdate).postDataJSON().current_password).toBe(
     "oldPassword123",
   );
-  await expect(page.getByRole("status")).toHaveText(
-    "Your password has been changed.",
-  );
+  await expect(
+    page
+      .getByRole("status")
+      .filter({ hasText: "Your password has been changed." }),
+  ).toHaveText("Your password has been changed.");
   await page.setViewportSize({ width: 390, height: 844 });
   await noOverflow(page);
   await page.screenshot({
