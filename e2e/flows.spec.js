@@ -44,7 +44,37 @@ async function backend(page, role = "customer") {
       });
     if (url.pathname.endsWith("/signup")) return send({ user, session: null });
     if (url.pathname.endsWith("/logout")) return send({});
-    if (url.pathname.endsWith("/user")) return send(user);
+    if (url.pathname.endsWith("/user")) {
+      if (method === "PUT") {
+        const changes = req.postDataJSON();
+        if (changes.data)
+          user.user_metadata = { ...user.user_metadata, ...changes.data };
+        if (changes.email) user.new_email = changes.email;
+      }
+      return send(user);
+    }
+    if (url.pathname.endsWith("/reauthenticate")) return send({});
+    if (url.pathname.includes("/functions/v1/account-admin")) {
+      if (role !== "admin")
+        return send({ error: "Studio admin access is required." }, 403);
+      const input = req.postDataJSON();
+      if (input.action === "list")
+        return send({
+          users: [
+            {
+              id: "22222222-2222-4222-8222-222222222222",
+              email: "client@example.test",
+              display_name: "Client Name",
+              role: "customer",
+              confirmed: true,
+              disabled: false,
+            },
+          ],
+          page: 1,
+          hasMore: false,
+        });
+      return send({ message: "Account action completed." });
+    }
     if (url.pathname.includes("/profiles"))
       return send({ id: user.id, display_name: "Test member", role });
     if (method === "GET" && url.pathname.includes("/storage/v1/"))
@@ -360,4 +390,88 @@ test("password recovery callback opens the update form and submits to Supabase",
     .click();
   expect((await update).postDataJSON().password).toBe("changedPassword123");
   await expect(page.getByRole("status")).toContainText("Password updated.");
+});
+
+test("account settings save a real name, persist it on reload, request email change and change password", async ({
+  page,
+}) => {
+  const state = await backend(page);
+  await signIn(page);
+  await expect(
+    page.getByRole("heading", { name: "Welcome back, Test member." }),
+  ).toBeVisible();
+  await page
+    .getByRole("link", { name: "Account settings", exact: true })
+    .first()
+    .click();
+  await page.getByLabel("Full name", { exact: true }).fill("Carina Phang");
+  await page.getByRole("button", { name: "Save profile", exact: true }).click();
+  await expect(page.getByRole("status")).toHaveText(
+    "Your name has been saved.",
+  );
+  await expect(
+    page.getByRole("heading", { name: "Carina Phang", exact: true }),
+  ).toBeVisible();
+  await page.reload();
+  await expect(
+    page.getByRole("heading", { name: "Carina Phang", exact: true }),
+  ).toBeVisible();
+  await page.getByLabel("New email address").fill("updated@example.test");
+  await page.getByRole("button", { name: "Request email change" }).click();
+  await expect(page.getByRole("status")).toContainText(
+    "Email change requested",
+  );
+  await page
+    .getByLabel("Current password", { exact: true })
+    .fill("oldPassword123");
+  await page.getByLabel("New password", { exact: true }).fill("newPassword123");
+  await page
+    .getByLabel("Confirm new password", { exact: true })
+    .fill("newPassword123");
+  const passwordUpdate = page.waitForRequest(
+    (req) =>
+      req.method() === "PUT" &&
+      req.url().includes("/auth/v1/user") &&
+      Boolean(req.postDataJSON().password),
+  );
+  await page
+    .getByRole("button", { name: "Change password", exact: true })
+    .click();
+  expect((await passwordUpdate).postDataJSON().current_password).toBe(
+    "oldPassword123",
+  );
+  await expect(page.getByRole("status")).toHaveText(
+    "Your password has been changed.",
+  );
+  await page.setViewportSize({ width: 390, height: 844 });
+  await noOverflow(page);
+  await page.screenshot({
+    path: "test-results/account-mobile.png",
+    fullPage: true,
+  });
+  expect(
+    state.requests.some(
+      (req) => req.path.endsWith("/user") && req.method === "PUT",
+    ),
+  ).toBe(true);
+});
+
+test("admin account management loads real account fields from the protected endpoint", async ({
+  page,
+}) => {
+  await backend(page, "admin");
+  await signIn(page, true);
+  await expect(
+    page.getByRole("heading", { name: "Welcome to ThenFrame Studio" }),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "Accounts", exact: true }).click();
+  await expect(
+    page.getByText("client@example.test", { exact: true }),
+  ).toBeVisible();
+  await page.getByLabel("Search this page").fill("unmatched");
+  await expect(
+    page.getByText("client@example.test", { exact: true }),
+  ).not.toBeVisible();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await noOverflow(page);
 });

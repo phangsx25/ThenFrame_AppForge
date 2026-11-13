@@ -9,6 +9,8 @@ export default defineConfig([
   {
     files: [
       "scripts/**/*.mjs",
+      "api/**/*.js",
+      "supabase/functions/**/*.js",
       "tests/**/*.{js,jsx}",
       "e2e/**/*.js",
       "playwright.config.js",

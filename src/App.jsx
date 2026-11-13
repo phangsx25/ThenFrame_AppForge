@@ -3,6 +3,9 @@ import { supabase } from "./lib/supabase";
 import { useAuth } from "./hooks/useAuth";
 import AuthPage from "./components/AuthPage";
 import PasswordPage from "./components/PasswordPage";
+import AccountSettings from "./components/AccountSettings";
+import AdminAccounts from "./components/AdminAccounts";
+import AdminSetup from "./components/AdminSetup";
 import AdminDashboard from "./components/AdminDashboard";
 import CustomerDashboard from "./components/CustomerDashboard";
 import { Home, PortfolioPage } from "./components/PublicPages";
@@ -41,7 +44,11 @@ export default function App({ client = supabase }) {
     if (target) document.getElementById(target)?.scrollIntoView();
   }, [route]);
   let page;
-  if (route === "/admin" || route === "/dashboard" || route === "/album") {
+  if (
+    ["/admin", "/admin/accounts", "/dashboard", "/album", "/account"].includes(
+      route,
+    )
+  ) {
     if (!client)
       page = (
         <main className="page-width route-message">
@@ -66,7 +73,7 @@ export default function App({ client = supabase }) {
           <p>Please log in to continue.</p>
           <a
             className="primary"
-            href={route === "/admin" ? "#/admin/login" : "#/login"}
+            href={route.startsWith("/admin") ? "#/admin/login" : "#/login"}
           >
             Go to login
           </a>
@@ -88,7 +95,7 @@ export default function App({ client = supabase }) {
           </button>
         </main>
       );
-    else if (route === "/admin" && !auth.isAdmin)
+    else if (route.startsWith("/admin") && !auth.isAdmin)
       page = (
         <main className="page-width route-message">
           <h1>Studio access only.</h1>
@@ -100,7 +107,11 @@ export default function App({ client = supabase }) {
       );
     else
       page =
-        route === "/admin" ? (
+        route === "/account" ? (
+          <AccountSettings client={client} auth={auth} />
+        ) : route === "/admin/accounts" ? (
+          <AdminAccounts client={client} auth={auth} />
+        ) : route === "/admin" ? (
           <AdminDashboard
             key={auth.session.user.id}
             client={client}
@@ -118,6 +129,7 @@ export default function App({ client = supabase }) {
         mode={route === "/admin/login" ? "admin" : route.slice(1)}
       />
     );
+  else if (route === "/admin/setup") page = <AdminSetup />;
   else if (route === "/password")
     page = <PasswordPage client={client} auth={auth} />;
   else if (route === "/portfolio" || route.startsWith("/portfolio/"))

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { accountName } from "../lib/account";
 import { Workspace } from "./Layout";
 import { Icon, LaterCard, Placeholder } from "./UI";
 export default function CustomerDashboard({ auth }) {
@@ -10,7 +11,7 @@ export default function CustomerDashboard({ auth }) {
           <span className="eyebrow">YOUR ACCOUNT / THENFRAME</span>
           <h1>
             {section === "Overview"
-              ? `Welcome back, ${auth.profile.display_name || "there"}.`
+              ? `Welcome back, ${accountName(auth.session.user, auth.profile)}.`
               : "Your private albums."}
           </h1>
           <p>

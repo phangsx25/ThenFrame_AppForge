@@ -104,3 +104,16 @@ Vite build command: `npm run build`; output: `dist`. Set both VITE variables in 
 The owner has approved Vercel Preview deployment of this feature branch for online testing. The branch ignore rule was removed; main remains unchanged and must not be merged without approval. Preview uses the configured Supabase project, so live authentication/RLS acceptance is still required. Preview URL: https://then-frame-app-forge-git-feature-sprint1-burgu-a5004e-phangsx25.vercel.app
 
 The PWA plugin and temporary PNG install icons are preserved. Manifest colors follow the wine theme. Only the static app shell is precached; no Supabase API or private image runtime cache is configured. Login, registration, galleries and uploads need internet. Verify install/offline shell/update behavior on the deployed HTTPS URL before the demo.
+
+
+## Account management update
+
+Customers and admins have Account settings in the sidebar and profile menu. They can edit their name, request a confirmed email change, change password using the current password, request a verification nonce when required, and sign out this/all/other devices. The displayed name uses Auth metadata, then a non-generic profile name, then the email prefix; it never invents a person’s name or uses Customer as the person’s name.
+
+`supabase/functions/account-admin/` contains the protected account service: server-verified JWT and database admin role, paginated account list, customer invitation, name editing, reset-email requests, enabling/disabling and confirmed customer deletion. It never exposes passwords or promotes users, and protects all admin accounts from disabling/deletion. Server credentials stay in Supabase’s function environment. The function is **prepared but not deployed**: activation requires owner approval. It accepts only the production and named Preview origins plus localhost ports 5173/4173. Add a trusted origin in source before using a new host.
+
+The first admin must be explicitly designated by the project owner. There is no pre-made admin password. Use the designated person’s existing Auth account and password, or the password reset email. Public `/#/admin/setup` explains this workflow.
+
+The inspected database currently permits only own-profile SELECT. Self-service names therefore update normal Auth user metadata. `supabase/migrations/20261113113000_sync_account_display_name.sql` adds a narrowly scoped, non-public trigger to sync a user-entered name back to profiles without touching roles. This migration is **prepared but not applied** pending owner approval; names still display from Auth metadata meanwhile. Do not grant unrestricted profile UPDATE to customers.
+
+No existing account, role or user data was modified by this update. Permanent customer deletion is a deliberate admin action requiring the exact account email, and existing FK/Storage constraints can refuse it. Disabling a user or signing out sessions does not immediately invalidate existing access tokens.

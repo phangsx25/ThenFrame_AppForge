@@ -35,3 +35,14 @@ Clean `npm ci` passed after lockfile synchronization. Production audit reported 
 ## Login role selector
 
 Both login pages now expose a Customer/Admin choice before credentials are entered. Switching opens the appropriate form and never changes an account role. A behavior test verifies both directions without an auth request; the browser rejection flow starts with the Admin choice and still rejects a customer account. No database or authorization rule changed.
+
+
+## Account management follow-up
+
+Live read-only inspection through the Supabase connection verified the actual profile schema, RLS policies, function definitions, registration trigger, constraints and private gallery bucket. The existing account has no name in Auth metadata and its profile contains the generic Customer name; there is currently no admin profile. No password was read, reset or created. No role was changed.
+
+Security advisories report public execution grants on the existing SECURITY DEFINER functions and disabled leaked-password protection. The existing functions have a fixed empty search path; `is_admin()` is required by the existing anonymous-read policies. No broad policy or grant was changed as part of this account update.
+
+Prepared account service, account settings UI and tests are version controlled. Automatic approval review rejected Edge Function deployment and the name-sync migration because they activate authentication/security changes requiring explicit owner approval. Neither operation ran. Admin account management remains blocked until the function is deployed and an admin account is explicitly designated. Self-service name/password/email/session operations use ordinary Supabase Auth.
+
+The new trigger only updates display_name, preserves roles, and revokes direct execution from public/anon/authenticated. Its migration is not applied. Rollback instructions are included in the SQL file. Existing data is preserved.

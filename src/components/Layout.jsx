@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Icon, Wordmark } from "./UI";
+import { accountName } from "../lib/account";
 export function Header({ auth }) {
   const [open, setOpen] = useState(false);
   return (
@@ -44,8 +45,7 @@ export function Workspace({
 }) {
   const [busy, setBusy] = useState(false),
     [error, setError] = useState("");
-  const name =
-    auth.profile?.display_name || (admin ? "Studio member" : "Customer");
+  const name = accountName(auth.session?.user, auth.profile);
   async function logout() {
     setBusy(true);
     try {
@@ -84,6 +84,22 @@ export function Workspace({
               {label}
             </button>
           ))}
+          {admin && (
+            <a
+              className={active === "Accounts" ? "active" : ""}
+              href="#/admin/accounts"
+            >
+              <Icon name="user" size={18} />
+              Accounts
+            </a>
+          )}
+          <a
+            className={active === "Account settings" ? "active" : ""}
+            href="#/account"
+          >
+            <Icon name="shield" size={18} />
+            Account settings
+          </a>
         </nav>
         <div className="sidebar-bottom">
           <p className="sidebar-note">
@@ -114,13 +130,17 @@ export function Workspace({
             <span className="breadcrumb">/</span>
             {active}
           </div>
-          <div className="profile-chip">
+          <a
+            href="#/account"
+            aria-label="Account settings"
+            className="profile-chip"
+          >
             <span className="avatar">{name.charAt(0).toUpperCase()}</span>
             <div>
               {name}
               <small>{admin ? "Studio admin" : "Customer account"}</small>
             </div>
-          </div>
+          </a>
         </header>
         <main id="main-content">{children}</main>
         <footer className="workspace-footer">

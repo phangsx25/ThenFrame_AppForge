@@ -15,7 +15,11 @@ export function useAuth(client) {
     const revisions = generation;
     async function resolve(session) {
       const version = ++generation.current;
-      setState({ session: null, profile: null, loading: true, error: "" });
+      setState((previous) =>
+        previous.session?.user.id === session?.user.id && previous.profile
+          ? { ...previous, session, error: "" }
+          : { session: null, profile: null, loading: true, error: "" },
+      );
       try {
         let profile = null;
         if (session) {
@@ -80,14 +84,26 @@ export function useAuth(client) {
       subscription.unsubscribe();
     };
   }, [client]);
-  const logout = useCallback(async () => {
-    const { error } = await client.auth.signOut();
-    if (error) throw error;
-    generation.current++;
-    setState({ session: null, profile: null, loading: false, error: "" });
-  }, [client]);
+  const logout = useCallback(
+    async (scope = "global") => {
+      const { error } = await client.auth.signOut({ scope });
+      if (error) throw error;
+      generation.current++;
+      setState({ session: null, profile: null, loading: false, error: "" });
+    },
+    [client],
+  );
+  const updateUserDetails = useCallback((user) => {
+    if (!user) return;
+    setState((previous) =>
+      previous.session?.user.id === user.id
+        ? { ...previous, session: { ...previous.session, user } }
+        : previous,
+    );
+  }, []);
   return {
     ...state,
+    updateUserDetails,
     logout,
     isAdmin: state.profile?.role === "admin" && !state.loading,
   };

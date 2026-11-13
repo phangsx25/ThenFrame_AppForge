@@ -188,6 +188,13 @@ export default function AuthPage({ client, auth, mode = "login" }) {
                   ? "We’ll email you a secure link to reset your password."
                   : "Log in to your ThenFrame customer space."}
           </p>
+          {admin && (
+            <p className="small-text">
+              <a href="#/admin/setup">
+                First admin account? View studio setup →
+              </a>
+            </p>
+          )}
           <form onSubmit={submit}>
             {register && (
               <label>
