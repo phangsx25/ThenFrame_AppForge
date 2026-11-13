@@ -35,4 +35,4 @@ Preview: https://then-frame-app-forge-git-feature-sprint1-burgu-a5004e-phangsx25
 
 ## Later sprints
 
-Booking requests/statuses, private-client assignment, photo proof selection/final delivery, heritage content, B40 support flow, AI categorization and FAQ chatbot are not marked complete by this Sprint 1 implementation.
+Booking requests/statuses, private-client assignment, photo proof selection/final delivery, heritage content, B40 support flow, AI enquiry / booking summarization (US08) and the package/studio FAQ chatbot (US11) are not marked complete by this Sprint 1 implementation.

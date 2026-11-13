@@ -410,8 +410,10 @@ export default function AdminDashboard({ auth, client }) {
             Client assignment, proof selection and final delivery are planned
             for a later sprint.
           </LaterCard>
-          <LaterCard title="AI photo categorization & FAQ chatbot">
-            AI features are planned. No AI result is generated on this screen.
+          <LaterCard title="AI enquiry / booking summaries & FAQ chatbot">
+            AI summaries of customer enquiries and booking requests, plus an FAQ
+            chatbot for packages and studio information, are planned for later
+            sprints. These features are not available yet.
           </LaterCard>
         </aside>
       </div>

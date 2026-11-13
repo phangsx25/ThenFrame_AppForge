@@ -58,7 +58,7 @@ Collection/photo visibility currently uses `public` and `hidden` from the provid
 
 Photo links expire after 60 seconds. Use Refresh photo links to renew them. Hiding a photo prevents new links only if RLS is correct; already issued links can remain usable until expiry. Storage and metadata are separate operations, not a database transaction. If a photo is deleted but its object cleanup fails, the UI reports the orphan path for owner cleanup. Do not retry bulk deletions.
 
-Cross-device refresh is manual; Realtime subscriptions are not implemented. Booking, private-client assignment, photo selection, final delivery, heritage articles and both AI features belong to later sprints. No fake customer records, example bookings or demo login are included in the running app.
+Cross-device refresh is manual; Realtime subscriptions are not implemented. Booking, private-client assignment, photo selection, final delivery and heritage articles belong to later sprints. The planned AI features are US08: enquiry / booking summarization and US11: a package and studio FAQ chatbot. AI photo categorization is not in scope. No fake customer records, example bookings or demo login are included in the running app.
 
 ## Verification
 
