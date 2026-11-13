@@ -11,7 +11,7 @@ Review all of these:
 - The registration trigger is enabled on `auth.users`, calls the intended function and handles names safely.
 - Anonymous/customer collection SELECT requires a public collection. Photo SELECT requires BOTH a public photo AND public collection.
 - Storage bucket `gallery` is private. Object SELECT/signed URL access joins its exact path to an accessible photo and collection. No broad policy overrides this check. Admin alone may create/update/delete files and gallery records.
-- Server-side Storage limits should allow JPEG/PNG/WebP and cap size at 10 MB. Client validation alone is not a security control.
+- Server-side Storage limits should allow JPEG/PNG/WebP and cap size at 8 MB. Client validation alone is not a security control.
 - Confirm Auth email confirmation, rate limits, password rules, production Site URL, trusted redirect allowlist and reset email delivery.
 
 ## Reproducible live checks

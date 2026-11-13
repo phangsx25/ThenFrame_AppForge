@@ -44,19 +44,6 @@ export default function AdminSetup() {
           The owner must explicitly designate the first admin account. Selecting
           Admin on the login page never grants that role.
         </Notice>
-        <section className="dashboard-card">
-          <h2>Secure account administration</h2>
-          <p>
-            Account management runs in the Supabase account-admin Edge Function.
-            It verifies your sign-in and database admin role on every request.
-            Server credentials remain in Supabase; they are never sent to the
-            browser.
-          </p>
-          <p>
-            The owner must allow the deployed site’s account-confirmation
-            callback URLs in Supabase Auth.
-          </p>
-        </section>
       </main>
       <Footer />
     </>

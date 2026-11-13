@@ -84,21 +84,19 @@ export function Workspace({
               {label}
             </button>
           ))}
-          {admin && (
-            <a
-              className={active === "Accounts" ? "active" : ""}
-              href="#/admin/accounts"
-            >
-              <Icon name="user" size={18} />
-              Accounts
-            </a>
-          )}
           <a
-            className={active === "Account settings" ? "active" : ""}
-            href="#/account"
+            className={active === "Heritage" ? "active" : ""}
+            href="#/heritage"
           >
-            <Icon name="shield" size={18} />
-            Account settings
+            <Icon name="photo" size={18} />
+            Heritage
+          </a>
+          <a
+            className={active === "Booking" ? "active" : ""}
+            href="#/booking"
+          >
+            <Icon name="grid" size={18} />
+            Booking
           </a>
         </nav>
         <div className="sidebar-bottom">

@@ -11,6 +11,13 @@ import {
 import { Workspace } from "./Layout";
 import { Icon, LaterCard, Modal, Notice } from "./UI";
 
+const photographyStyles = [
+  "Traditional Malay",
+  "Modern Malay",
+  "Engagement / Pertunangan",
+  "Wedding Reception / Majlis Resepsi",
+];
+
 export default function AdminDashboard({ auth, client }) {
   const [section, setSection] = useState("Overview"),
     [collections, setCollections] = useState([]),
@@ -269,10 +276,10 @@ export default function AdminDashboard({ auth, client }) {
                       aria-label="Photograph"
                       name="photo"
                       type="file"
-                      accept="image/jpeg,image/png,image/webp"
+                      accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
                       required
                     />
-                    <small>JPEG, PNG or WebP · up to 10 MB</small>
+                    <small>JPG / JPEG, PNG or WebP · up to 8 MB</small>
                   </label>
                   <label>
                     Caption
@@ -429,18 +436,26 @@ export default function AdminDashboard({ auth, client }) {
               Description
               <textarea
                 name="description"
-                maxLength={2000}
+                required
+                maxLength={3000}
                 defaultValue={editor.description || ""}
               />
             </label>
             <label>
-              Photography style
-              <input
+              Wedding category
+              <select
                 name="style"
-                maxLength={100}
+                required
                 defaultValue={editor.style || ""}
-                placeholder="e.g. Traditional Malay wedding"
-              />
+              >
+                <option value="" disabled>Choose a wedding category</option>
+                {[...new Set([
+                  ...photographyStyles,
+                  ...(editor.style ? [editor.style] : []),
+                ])].map((style) => (
+                  <option key={style} value={style}>{style}</option>
+                ))}
+              </select>
             </label>
             <label>
               Visibility

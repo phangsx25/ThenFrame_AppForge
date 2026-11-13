@@ -75,12 +75,27 @@ describe("gallery request behavior (mocked Supabase transport)", () => {
       visibility: "hidden",
     });
   });
+  it("rejects blank or overlong description/style before sending a write", async () => {
+    const valid = { title: "Story", description: "Day", style: "Malay", visibility: "hidden" };
+    for (const input of [
+      { ...valid, description: "   " },
+      { ...valid, description: "a".repeat(3001) },
+      { ...valid, style: "   " },
+      { ...valid, style: "a".repeat(81) },
+    ]) {
+      const { client } = clientFor();
+      await expect(saveCollection(client, input)).rejects.toThrow(/description|style/);
+      expect(client.from).not.toHaveBeenCalled();
+    }
+    const boundary = { ...valid, description: "a".repeat(3000), style: "a".repeat(80) };
+    expect(collectionValues(boundary)).toEqual(boundary);
+  });
   it("scopes collection updates to the selected ID and detects RLS zero-row errors", async () => {
     const { client, calls } = clientFor([
       { data: null, error: new Error("Cannot return single row") },
     ]);
     await expect(
-      saveCollection(client, { title: "Story", visibility: "hidden" }, "c1"),
+      saveCollection(client, { title: "Story", description: "Day", style: "Malay", visibility: "hidden" }, "c1"),
     ).rejects.toThrow(/single row/);
     expect(calls).toContainEqual(["gallery_collections", "eq", "id", "c1"]);
   });
@@ -135,12 +150,13 @@ describe("gallery request behavior (mocked Supabase transport)", () => {
     for (const file of [
       { type: "image/svg+xml", size: 10 },
       { type: "image/jpeg", size: 0 },
-      { type: "image/png", size: 11 * 1024 * 1024 },
+      { type: "image/png", size: 8 * 1024 * 1024 + 1 },
     ]) {
       await expect(uploadPhoto(client, "c1", file)).rejects.toThrow();
     }
     expect(storage.upload).not.toHaveBeenCalled();
     expect(validateImage({ type: "image/webp", size: 100 })).toBe("webp");
+    expect(validateImage({ type: "image/jpeg", size: 8 * 1024 * 1024 })).toBe("jpg");
   });
   it("uses a generated path and records metadata only after a successful upload", async () => {
     const { client, storage, calls } = clientFor([{ data: { id: "p1" } }]);
@@ -154,6 +170,21 @@ describe("gallery request behavior (mocked Supabase transport)", () => {
       caption: "Moment",
       visibility: "hidden",
     });
+  });
+  it.each([
+    ["portrait.jpg", "image/jpeg"],
+    ["portrait.jpeg", "image/jpeg"],
+    ["portrait.JPG", "image/jpeg"],
+    ["portrait.jpg", "image/jpg"],
+  ])("uploads %s (%s) as a canonical JPEG", async (name, type) => {
+    const { client, storage } = clientFor([{ data: { id: "p1" } }]);
+    const file = { name, type, size: 100 };
+    await uploadPhoto(client, "c1", file);
+    expect(storage.upload).toHaveBeenCalledWith(
+      expect.stringMatching(/\.jpg$/),
+      file,
+      { contentType: "image/jpeg", upsert: false },
+    );
   });
   it("never creates metadata if Storage denies upload", async () => {
     const { client, storage } = clientFor();

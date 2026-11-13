@@ -49,7 +49,7 @@ Use existing project `hoxtsapehydyaxvdibty`. Do not bootstrap, replace or clear 
 
 - US01 (3): customer registration, password confirmation, login, session restoration, logout and password-reset request/update.
 - US02 (3): Customer/Admin selector on both login pages, separate admin login, database role verification, fail-closed protected route and late-session-response protection.
-- US03 (5): create/edit collections; hidden/public visibility; upload JPEG/PNG/WebP files up to 10 MB; edit photo caption/visibility; delete a confirmed individual photo; delete a confirmed empty collection. Metadata-upload failure triggers cleanup of only the new object. Cleanup failures are reported.
+- US03 (5): create/edit collections; hidden/public visibility; upload JPEG/PNG/WebP files up to 8 MB; edit photo caption/visibility; delete a confirmed individual photo; delete a confirmed empty collection. Metadata-upload failure triggers cleanup of only the new object. Cleanup failures are reported.
 - US04 (5): public collections/photos, title/description search, style filtering, collection details, photo viewer and signed image links.
 
 Total: 16 points. SETUP-01 adds no story points. Implementation and mocked tests do not prove live RLS acceptance. Do not mark stories Done until the live checklist passes.
@@ -108,15 +108,17 @@ The PWA plugin and temporary PNG install icons are preserved. Manifest colors fo
 
 ## Account management update
 
-Customers and admins have Account settings in the sidebar and profile menu. They can edit their name, request a confirmed email change, change password using the current password, request a verification nonce when required, and sign out this/all/other devices. The displayed name uses Auth metadata, then a non-generic profile name, then the email prefix; it never invents a person’s name or uses Customer as the person’s name.
+Customers and admins open Account settings through the avatar/profile link. The sidebar contains Heritage and Booking links instead; these pages currently show later-sprint notices. They can edit their name, request a confirmed email change, change password using the current password, request a verification nonce when required, and sign out this/all/other devices. The displayed name uses Auth metadata, then a non-generic profile name, then the email prefix; it never invents a person’s name or uses Customer as the person’s name.
 
-`supabase/functions/account-admin/` contains the protected account service: server-verified JWT and database admin role, paginated account list, customer invitation, name editing, reset-email requests, enabling/disabling and confirmed customer deletion. It never exposes passwords or promotes users, and protects all admin accounts from disabling/deletion. Server credentials stay in Supabase’s function environment. The function is **prepared but not deployed**: activation requires owner approval. It accepts only the production and named Preview origins plus localhost ports 5173/4173. Add a trusted origin in source before using a new host.
+Customers register their own accounts. The out-of-scope Accounts page, account administration client and undeployed Edge Function source were removed on 14 November 2026. Account settings remains available for self-service profile and security changes.
 
 The first admin must be explicitly designated by the project owner. There is no pre-made admin password. Use the designated person’s existing Auth account and password, or the password reset email. Public `/#/admin/setup` explains this workflow.
 
-The inspected database currently permits only own-profile SELECT. Self-service names therefore update normal Auth user metadata. `supabase/migrations/20261113113000_sync_account_display_name.sql` adds a narrowly scoped, non-public trigger to sync a user-entered name back to profiles without touching roles. This migration is **prepared but not applied** pending owner approval; names still display from Auth metadata meanwhile. Do not grant unrestricted profile UPDATE to customers.
+The inspected database currently permits only own-profile SELECT. Self-service names therefore update normal Auth user metadata. `supabase/migrations/20261113113000_sync_account_display_name.sql` adds a narrowly scoped, non-public trigger to sync a user-entered name back to profiles without touching roles. This migration was **applied on 14 November 2026** after authorization. A rolled-back database check confirmed names sync and admin roles are preserved. Do not grant unrestricted profile UPDATE to customers.
 
-The owner subsequently authorized assigning their existing account the admin role and display name. That targeted change is verified. The desired password did not authenticate; a normal recovery-email request was accepted, and the owner must complete it. No password is stored in source. Edge Function activation and name-sync migration remain pending explicit approval. Permanent customer deletion is a deliberate admin action requiring the exact account email, and existing FK/Storage constraints can refuse it. Disabling a user or signing out sessions does not immediately invalidate existing access tokens.
+The designated admin role and password login were verified. Name synchronization is active. Customer account administration is excluded from scope. No passwords are stored in source.
 
 
 See [five-member remaining-task allocation](docs/TEAM_TASKS.md) for module ownership, live acceptance criteria and shared-project workflow.
+
+Customer invitation was removed on 14 November 2026: customers register their own accounts. It was not a requested Sprint 1 requirement.

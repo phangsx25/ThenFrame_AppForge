@@ -4,13 +4,12 @@ import { useAuth } from "./hooks/useAuth";
 import AuthPage from "./components/AuthPage";
 import PasswordPage from "./components/PasswordPage";
 import AccountSettings from "./components/AccountSettings";
-import AdminAccounts from "./components/AdminAccounts";
 import AdminSetup from "./components/AdminSetup";
 import AdminDashboard from "./components/AdminDashboard";
 import CustomerDashboard from "./components/CustomerDashboard";
 import { Home, PortfolioPage } from "./components/PublicPages";
-import { Header } from "./components/Layout";
-import { Notice } from "./components/UI";
+import { Header, Workspace } from "./components/Layout";
+import { LaterCard, Notice } from "./components/UI";
 import "./App.css";
 
 function routeFromHash() {
@@ -45,7 +44,7 @@ export default function App({ client = supabase }) {
   }, [route]);
   let page;
   if (
-    ["/admin", "/admin/accounts", "/dashboard", "/album", "/account"].includes(
+    ["/admin", "/dashboard", "/album", "/account", "/heritage", "/booking"].includes(
       route,
     )
   ) {
@@ -107,10 +106,26 @@ export default function App({ client = supabase }) {
       );
     else
       page =
-        route === "/account" ? (
+        ["/heritage", "/booking"].includes(route) ? (
+          <Workspace
+            auth={auth}
+            admin={auth.isAdmin}
+            active={route === "/heritage" ? "Heritage" : "Booking"}
+            onSection={(section) => {
+              window.location.hash = auth.isAdmin ? "/admin" : section === "My albums" ? "/album" : "/dashboard";
+            }}
+          >
+            <div className="dashboard-heading">
+              <h1>{route === "/heritage" ? "Heritage" : "Booking"}</h1>
+            </div>
+            <LaterCard title={route === "/heritage" ? "Malay wedding heritage" : "Wedding bookings"}>
+              {route === "/heritage"
+                ? "Explore Malay wedding traditions and stories. This feature is planned for a later sprint."
+                : "Booking enquiries, schedules and status tracking are planned for a later sprint."}
+            </LaterCard>
+          </Workspace>
+        ) : route === "/account" ? (
           <AccountSettings client={client} auth={auth} />
-        ) : route === "/admin/accounts" ? (
-          <AdminAccounts client={client} auth={auth} />
         ) : route === "/admin" ? (
           <AdminDashboard
             key={auth.session.user.id}

@@ -1,7 +1,8 @@
 export const VISIBILITIES = ["hidden", "public"];
-export const MAX_FILE_SIZE = 10 * 1024 * 1024;
+export const MAX_FILE_SIZE = 8 * 1024 * 1024;
 const imageTypes = {
   "image/jpeg": "jpg",
+  "image/jpg": "jpg",
   "image/png": "png",
   "image/webp": "webp",
 };
@@ -15,22 +16,24 @@ export function collectionValues(input) {
     throw new Error("Enter a collection title of 1–150 characters.");
   if (!VISIBILITIES.includes(input.visibility))
     throw new Error("Choose public or hidden visibility.");
+  const description = String(input.description || "").trim();
+  const style = String(input.style || "").trim();
+  if (!description || description.length > 3000)
+    throw new Error("Enter a collection description of 1–3000 characters.");
+  if (!style || style.length > 80)
+    throw new Error("Enter a photography style of 1–80 characters.");
   return {
     title,
-    description: String(input.description || "")
-      .trim()
-      .slice(0, 2000),
-    style: String(input.style || "")
-      .trim()
-      .slice(0, 100),
+    description,
+    style,
     visibility: input.visibility,
   };
 }
 export function validateImage(file) {
   if (!file || !imageTypes[file.type])
-    throw new Error("Choose a JPEG, PNG or WebP image.");
+    throw new Error("Choose a JPG / JPEG, PNG or WebP image.");
   if (!file.size || file.size > MAX_FILE_SIZE)
-    throw new Error("Choose an image smaller than 10 MB.");
+    throw new Error("Choose an image no larger than 8 MB.");
   return imageTypes[file.type];
 }
 export async function listCollections(client, admin = false) {
@@ -84,7 +87,10 @@ export async function uploadPhoto(
   required(
     await client.storage
       .from("gallery")
-      .upload(storage_path, file, { contentType: file.type, upsert: false }),
+      .upload(storage_path, file, {
+        contentType: ext === "jpg" ? "image/jpeg" : `image/${ext}`,
+        upsert: false,
+      }),
   );
   const result = await client
     .from("gallery_photos")

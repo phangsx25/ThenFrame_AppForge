@@ -79,11 +79,9 @@ export default function AccountSettings({ auth, client }) {
     window.location.hash =
       section === "Gallery management"
         ? "/admin"
-        : section === "Accounts"
-          ? "/admin/accounts"
-          : admin
-            ? "/admin"
-            : "/dashboard";
+        : admin
+          ? "/admin"
+          : "/dashboard";
   }
   return (
     <Workspace

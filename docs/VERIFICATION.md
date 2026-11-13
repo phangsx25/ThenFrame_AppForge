@@ -1,5 +1,61 @@
 # Verification — 13 November 2026
 
+## Scope correction — 14 November 2026
+
+Removed the Accounts navigation/page/route, administration client, undeployed
+account-admin Edge Function source, and tests/mocks specific to that feature.
+Customer account administration was an unrequested scope expansion. Customers
+register themselves; Account settings remains for users to manage their own details.
+Earlier account-admin implementation/deployment plans below are historical and
+no longer pending work. No live accounts or database policies were changed.
+After removal, lint, all 36 remaining unit tests, and the production build passed.
+
+## Profile name synchronization — 14 November 2026
+
+Applied the existing `sync_account_display_name` migration after authorization.
+The trigger updates only `profiles.display_name` when Auth user metadata changes
+and contains a trimmed name of 1–100 characters. It does not change roles or grant
+customers profile UPDATE access. A transaction containing an Auth metadata update
+and a subsequent read confirmed name synchronization and preserved the admin role;
+the transaction was rolled back to preserve existing account details.
+This is a database check, not complete browser acceptance of account settings.
+Earlier notes about this migration being pending are historical.
+Customer invitation/disable/delete administration is excluded from the agreed scope;
+the account-admin Edge Function remains undeployed.
+
+## Live Gallery acceptance — 14 November 2026
+
+Executed normal Supabase API requests against the existing project using an authorized
+admin and a separate anonymous client. No service-role bypass was used.
+
+- PASS: admin login/profile role, temporary collection creation, PNG Storage upload,
+  photo metadata insertion, caption update and object download.
+- PASS: all four public/hidden collection/photo combinations. Anonymous collection
+  reads follow collection visibility; photo reads, fresh signed URLs and direct
+  object downloads succeed only when both collection and photo are public.
+- PASS: anonymous collection update leaves the original title unchanged, verified
+  by an admin readback.
+- PASS: deleted the exact temporary photo row, Storage object and collection.
+
+No existing gallery records were modified. These checks did not exercise authenticated
+customer permissions, all unauthorized mutation methods, live JPEG/WebP uploads,
+previously issued signed-link expiry, or browser UI interactions. They do not establish
+complete US01–US04 acceptance.
+
+## Gallery configuration follow-up
+
+Read-only live inspection confirmed the gallery bucket is private, allows JPEG/PNG/WebP,
+and has an 8,388,608-byte limit. The client now uses that same limit. Collection
+validation matches the inspected database constraints: description is required with
+1–3000 trimmed characters; style is required with 1–80 trimmed characters. Values
+outside these bounds are rejected rather than silently truncated.
+
+An earlier manually reconstructed regex test incorrectly suggested that the photo
+path constraint rejected generated paths. Evaluating the actual expression obtained
+from `pg_get_expr` confirmed JPEG, PNG and WebP paths pass, while wrong-collection,
+SVG and traversal paths fail. No constraint or other database configuration was changed.
+These expression checks do not replace live upload/RLS acceptance tests.
+
 Base: original main `3d8696e7f3e5c2ca11af669e6e02cef5b6c3a248`. The earlier local Work implementation was not used.
 
 ## Executed locally

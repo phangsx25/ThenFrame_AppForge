@@ -54,27 +54,6 @@ async function backend(page, role = "customer") {
       return send(user);
     }
     if (url.pathname.endsWith("/reauthenticate")) return send({});
-    if (url.pathname.includes("/functions/v1/account-admin")) {
-      if (role !== "admin")
-        return send({ error: "Studio admin access is required." }, 403);
-      const input = req.postDataJSON();
-      if (input.action === "list")
-        return send({
-          users: [
-            {
-              id: "22222222-2222-4222-8222-222222222222",
-              email: "client@example.test",
-              display_name: "Client Name",
-              role: "customer",
-              confirmed: true,
-              disabled: false,
-            },
-          ],
-          page: 1,
-          hasMore: false,
-        });
-      return send({ message: "Account action completed." });
-    }
     if (url.pathname.includes("/profiles"))
       return send({ id: user.id, display_name: "Test member", role });
     if (method === "GET" && url.pathname.includes("/storage/v1/"))
@@ -256,8 +235,8 @@ test("admin creates, edits, uploads, publishes and deletes only its test gallery
     .getByLabel("Description", { exact: true })
     .fill("A real form submission with a test transport.");
   await page
-    .getByLabel("Photography style", { exact: true })
-    .fill("Traditional Malay");
+    .getByLabel("Wedding category", { exact: true })
+    .selectOption("Traditional Malay");
   await page
     .getByRole("button", { name: "Save collection", exact: true })
     .click();
@@ -456,24 +435,4 @@ test("account settings save a real name, persist it on reload, request email cha
       (req) => req.path.endsWith("/user") && req.method === "PUT",
     ),
   ).toBe(true);
-});
-
-test("admin account management loads real account fields from the protected endpoint", async ({
-  page,
-}) => {
-  await backend(page, "admin");
-  await signIn(page, true);
-  await expect(
-    page.getByRole("heading", { name: "Welcome to ThenFrame Studio" }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Accounts", exact: true }).click();
-  await expect(
-    page.getByText("client@example.test", { exact: true }),
-  ).toBeVisible();
-  await page.getByLabel("Search this page").fill("unmatched");
-  await expect(
-    page.getByText("client@example.test", { exact: true }),
-  ).not.toBeVisible();
-  await page.setViewportSize({ width: 390, height: 844 });
-  await noOverflow(page);
 });
