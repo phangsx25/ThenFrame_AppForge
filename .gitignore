@@ -24,3 +24,10 @@ dist-ssr
 *.sw?
 
 .env.local
+.env
+.env.*
+!.env.example
+.vercel
+playwright-report
+test-results
+security-results
