@@ -14,6 +14,11 @@ function routeFromHash() {
   const hash = window.location.hash;
   // Supabase consumes recovery/confirmation tokens. Keep those out of routes/UI.
   if (/^#(?:access_token|error|type)=/.test(hash)) return "/password";
+  if (!hash) {
+    const callback = new URLSearchParams(window.location.search).get("auth");
+    if (callback === "password") return "/password";
+    if (callback === "confirmed") return "/login";
+  }
   return (hash.slice(1) || "/").split("#")[0];
 }
 export default function App({ client = supabase }) {

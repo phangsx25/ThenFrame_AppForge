@@ -99,7 +99,7 @@ Agree actual names as a group. Branch from updated main as `feature/US01-descrip
 
 Existing production homepage: https://then-frame-app-forge.vercel.app. The current main commit has a successful Vercel status. This PR is not a production deployment.
 
-Vite build command: `npm run build`; output: `dist`. Set both VITE variables in the intended Vercel environment and rebuild after changes. Confirm the real production Site URL and trusted redirect URLs in Supabase Auth. Email confirmation redirects to `/#/login`; recovery to `/#/password`. Use hash routes so navigation works on static hosting without server rewrites.
+Vite build command: `npm run build`; output: `dist`. Set both VITE variables in the intended Vercel environment and rebuild after changes. Confirm the real production Site URL and trusted redirect URLs in Supabase Auth. Email confirmation redirects to `/?auth=confirmed`; recovery to `/?auth=password`. Query-based callbacks leave the URL fragment available for Supabase tokens. Use hash routes so navigation works on static hosting without server rewrites.
 
 `vercel.json` requests skipping automatic builds on this exact feature branch because live Auth/RLS acceptance is incomplete. Verify that the project honors the ignored-build command. Remove that condition only when an authorized preview is ready. Main deployment remains enabled, but this branch must not be merged without approval.
 

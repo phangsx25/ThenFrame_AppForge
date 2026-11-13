@@ -1856,3 +1856,11 @@ dialog.photo-dialog {
   object-fit: contain;
   margin: 20px auto 0;
 }
+.admin-columns > * {
+  min-width: 0;
+}
+@media (max-width: 1150px) {
+  .admin-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

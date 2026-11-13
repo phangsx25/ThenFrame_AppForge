@@ -47,6 +47,14 @@ async function backend(page, role = "customer") {
     if (url.pathname.endsWith("/user")) return send(user);
     if (url.pathname.includes("/profiles"))
       return send({ id: user.id, display_name: "Test member", role });
+    if (method === "GET" && url.pathname.includes("/storage/v1/"))
+      return route.fulfill({
+        contentType: "image/png",
+        body: Buffer.from(
+          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aJqkAAAAASUVORK5CYII=",
+          "base64",
+        ),
+      });
     if (url.pathname.includes("/storage/v1/object/sign/"))
       return send({
         signedURL: "/object/sign/gallery/fixture.jpg?token=fixture",
@@ -108,11 +116,24 @@ async function signIn(page, admin = false) {
     .click();
 }
 async function noOverflow(page) {
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= window.innerWidth + 1,
-    ),
-  ).toBe(true);
+  const layout = await page.evaluate(() => ({
+    fits: document.documentElement.scrollWidth <= window.innerWidth + 1,
+    viewport: window.innerWidth,
+    width: document.documentElement.scrollWidth,
+    overflowing: [...document.querySelectorAll("body *")]
+      .filter(
+        (el) =>
+          el.getBoundingClientRect().right > window.innerWidth + 1 &&
+          getComputedStyle(el).position !== "absolute",
+      )
+      .slice(0, 12)
+      .map((el) => ({
+        tag: el.tagName,
+        className: String(el.className),
+        right: Math.round(el.getBoundingClientRect().right),
+      })),
+  }));
+  expect(layout, JSON.stringify(layout)).toMatchObject({ fits: true });
 }
 
 test("customer registration sends the form and requests confirmation; no role is supplied", async ({
@@ -208,16 +229,14 @@ test("admin creates, edits, uploads, publishes and deletes only its test gallery
   await page
     .getByRole("button", { name: "Save collection", exact: true })
     .click();
-  await page
-    .getByLabel("Photograph", { exact: true })
-    .setInputFiles({
-      name: "photo.png",
-      mimeType: "image/png",
-      buffer: Buffer.from(
-        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aJqkAAAAASUVORK5CYII=",
-        "base64",
-      ),
-    });
+  await page.getByLabel("Photograph", { exact: true }).setInputFiles({
+    name: "photo.png",
+    mimeType: "image/png",
+    buffer: Buffer.from(
+      "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aJqkAAAAASUVORK5CYII=",
+      "base64",
+    ),
+  });
   await page.getByLabel("Caption", { exact: true }).fill("A wedding moment");
   await page.getByRole("button", { name: "Upload photo", exact: true }).click();
   await expect(page.getByRole("status")).toHaveText("Photo uploaded.");
@@ -299,4 +318,32 @@ test("wireframe theme and mobile layout remain consistent across public and auth
       fullPage: true,
     });
   }
+});
+
+test("password recovery callback opens the update form and submits to Supabase", async ({
+  page,
+}) => {
+  await backend(page);
+  await signIn(page);
+  await expect(
+    page.getByRole("heading", { name: "Welcome back, Test member." }),
+  ).toBeVisible();
+  await page.goto("/?auth=password");
+  await expect(
+    page.getByRole("heading", { name: "Choose a new password." }),
+  ).toBeVisible();
+  await page
+    .getByLabel("New password", { exact: true })
+    .fill("changedPassword123");
+  await page
+    .getByLabel("Confirm password", { exact: true })
+    .fill("changedPassword123");
+  const update = page.waitForRequest(
+    (req) => req.method() === "PUT" && req.url().includes("/auth/v1/user"),
+  );
+  await page
+    .getByRole("button", { name: "Update password", exact: true })
+    .click();
+  expect((await update).postDataJSON().password).toBe("changedPassword123");
+  await expect(page.getByRole("status")).toContainText("Password updated.");
 });

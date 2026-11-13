@@ -7,11 +7,9 @@ function fakeClient(role = "customer") {
   const query = {
     select: vi.fn().mockReturnThis(),
     eq: vi.fn().mockReturnThis(),
-    single: vi
-      .fn()
-      .mockResolvedValue({
-        data: { id: "u1", role, display_name: "Test customer" },
-      }),
+    single: vi.fn().mockResolvedValue({
+      data: { id: "u1", role, display_name: "Test customer" },
+    }),
   };
   const client = {
     from: vi.fn(() => query),
@@ -24,14 +22,12 @@ function fakeClient(role = "customer") {
         .mockResolvedValue({ data: { user: { id: "u1" } }, error: null }),
       signOut: vi.fn().mockResolvedValue({ error: null }),
       resetPasswordForEmail: vi.fn().mockResolvedValue({ error: null }),
-      getSession: vi
-        .fn()
-        .mockResolvedValue({
-          data: {
-            session: { user: { id: "u1", email: "fixture@example.test" } },
-          },
-          error: null,
-        }),
+      getSession: vi.fn().mockResolvedValue({
+        data: {
+          session: { user: { id: "u1", email: "fixture@example.test" } },
+        },
+        error: null,
+      }),
       onAuthStateChange: vi
         .fn()
         .mockReturnValue({ data: { subscription: { unsubscribe: vi.fn() } } }),
@@ -141,7 +137,7 @@ describe("auth flows with a mocked Supabase boundary", () => {
     expect(client.auth.resetPasswordForEmail).toHaveBeenCalledWith(
       "person@example.test",
       expect.objectContaining({
-        redirectTo: expect.stringContaining("/#/password"),
+        redirectTo: expect.stringContaining("/?auth=password"),
       }),
     );
   });
@@ -159,12 +155,10 @@ describe("auth flows with a mocked Supabase boundary", () => {
   it("fails closed if the profile lookup fails", async () => {
     window.location.hash = "/admin";
     const client = fakeClient("admin");
-    client
-      .from()
-      .single.mockResolvedValue({
-        data: null,
-        error: { message: "Profile permission denied" },
-      });
+    client.from().single.mockResolvedValue({
+      data: null,
+      error: { message: "Profile permission denied" },
+    });
     render(<App client={client} />);
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "Profile permission denied",

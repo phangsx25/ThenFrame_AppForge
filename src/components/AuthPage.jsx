@@ -35,7 +35,7 @@ export default function AuthPage({ client, auth, mode = "login" }) {
     try {
       if (reset) {
         const result = await client.auth.resetPasswordForEmail(email, {
-          redirectTo: window.location.origin + "/#/password",
+          redirectTo: window.location.origin + "/?auth=password",
         });
         if (result.error) throw result.error;
         setMessage(
@@ -47,7 +47,7 @@ export default function AuthPage({ client, auth, mode = "login" }) {
           password: data.get("password"),
           options: {
             data: { display_name: String(data.get("name")).trim() },
-            emailRedirectTo: window.location.origin + "/#/login",
+            emailRedirectTo: window.location.origin + "/?auth=confirmed",
           },
         });
         if (result.error) throw result.error;
