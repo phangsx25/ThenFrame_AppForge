@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 export function Icon({ name = "camera", size = 20 }) {
   const paths = {
     camera: (
@@ -110,7 +110,8 @@ export function Footer() {
     </footer>
   );
 }
-export function Modal({ title, onClose, children }) {
+export function Modal({ title, onClose, children, className = "" }) {
+  const titleId = useId();
   const ref = useRef(null);
   useEffect(() => {
     const dialog = ref.current;
@@ -119,6 +120,8 @@ export function Modal({ title, onClose, children }) {
   }, []);
   return (
     <dialog
+      aria-labelledby={titleId}
+      className={className}
       ref={ref}
       onCancel={onClose}
       onClick={(event) => {
@@ -126,7 +129,7 @@ export function Modal({ title, onClose, children }) {
       }}
     >
       <div className="dialog-heading">
-        <h2>{title}</h2>
+        <h2 id={titleId}>{title}</h2>
         <button
           className="icon-button"
           onClick={onClose}

@@ -6,7 +6,7 @@ export function Header({ auth }) {
     <header className="public-header">
       <Wordmark />
       <button
-        className="mobile-menu outline"
+        className="mobile-menu button-outline"
         aria-expanded={open}
         onClick={() => setOpen(!open)}
       >

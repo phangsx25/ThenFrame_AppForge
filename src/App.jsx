@@ -76,7 +76,7 @@ export default function App({ client = supabase }) {
           </Notice>
           <a href="#/login">Return to login</a>
           <button
-            className="outline"
+            className="button-outline"
             onClick={() => void auth.logout().catch(() => {})}
           >
             Sign out

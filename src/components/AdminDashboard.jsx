@@ -168,7 +168,7 @@ export default function AdminDashboard({ auth, client }) {
                 <p>Review your collections and manage their visibility.</p>
               </div>
               <button
-                className="outline small"
+                className="button-outline small"
                 disabled={busy}
                 onClick={() => run(refreshCollections)}
               >
@@ -179,7 +179,7 @@ export default function AdminDashboard({ auth, client }) {
               <p role="status">Loading collections…</p>
             ) : !collections.length ? (
               <div className="empty-state">
-                <Icon name="photo" size={28} />
+                <Icon aria-label="Photograph" name="photo" size={28} />
                 <h3>A new story starts here.</h3>
                 <p>
                   Create your first collection, then upload your photographs.
@@ -209,7 +209,7 @@ export default function AdminDashboard({ auth, client }) {
                         </td>
                         <td>
                           <button
-                            className="outline small"
+                            className="button-outline small"
                             disabled={busy}
                             onClick={() => choose(c)}
                           >
@@ -233,14 +233,14 @@ export default function AdminDashboard({ auth, client }) {
                 </div>
                 <div className="button-row">
                   <button
-                    className="outline small"
+                    className="button-outline small"
                     disabled={busy}
                     onClick={() => setEditor(selected)}
                   >
                     Edit collection
                   </button>
                   <button
-                    className="outline small danger"
+                    className="button-outline small danger"
                     disabled={busy}
                     onClick={() =>
                       setConfirmation({
@@ -266,6 +266,7 @@ export default function AdminDashboard({ auth, client }) {
                   <label>
                     Photograph
                     <input
+                      aria-label="Photograph"
                       name="photo"
                       type="file"
                       accept="image/jpeg,image/png,image/webp"
@@ -283,7 +284,11 @@ export default function AdminDashboard({ auth, client }) {
                   </label>
                   <label>
                     Visibility
-                    <select name="visibility" defaultValue="hidden">
+                    <select
+                      aria-label="Visibility"
+                      name="visibility"
+                      defaultValue="hidden"
+                    >
                       <option value="hidden">Hidden</option>
                       <option value="public">Public</option>
                     </select>
@@ -337,7 +342,7 @@ export default function AdminDashboard({ auth, client }) {
                         <div className="button-row">
                           <button
                             disabled={busy}
-                            className="outline small"
+                            className="button-outline small"
                             onClick={() => setPhotoEditor(photo)}
                           >
                             Edit photo
@@ -440,6 +445,7 @@ export default function AdminDashboard({ auth, client }) {
             <label>
               Visibility
               <select
+                aria-label="Visibility"
                 name="visibility"
                 defaultValue={editor.visibility || "hidden"}
               >
@@ -484,7 +490,11 @@ export default function AdminDashboard({ auth, client }) {
             </label>
             <label>
               Visibility
-              <select name="visibility" defaultValue={photoEditor.visibility}>
+              <select
+                aria-label="Visibility"
+                name="visibility"
+                defaultValue={photoEditor.visibility}
+              >
                 <option value="hidden">Hidden</option>
                 <option value="public">Public</option>
               </select>
@@ -508,7 +518,7 @@ export default function AdminDashboard({ auth, client }) {
           <div className="button-row">
             <button
               disabled={busy}
-              className="outline"
+              className="button-outline"
               onClick={() => setConfirmation(null)}
             >
               Cancel

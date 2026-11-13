@@ -146,7 +146,7 @@ a svg {
   display: none !important;
 }
 .primary,
-.outline {
+.button-outline {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -168,11 +168,11 @@ a svg {
   background: var(--wine-dark);
   text-decoration: none;
 }
-.outline {
+.button-outline {
   background: transparent;
   color: var(--wine);
 }
-.outline:hover {
+.button-outline:hover {
   background: var(--rose);
   text-decoration: none;
 }
@@ -1747,7 +1747,7 @@ dialog::backdrop {
   .dashboard-card .section-heading {
     align-items: start;
   }
-  .dashboard-card .section-heading .outline {
+  .dashboard-card .section-heading .button-outline {
     padding: 8px 12px;
     white-space: nowrap;
   }
@@ -1846,4 +1846,13 @@ dialog::backdrop {
   font-size: 10px;
   color: var(--muted);
   margin-top: 7px;
+}
+dialog.photo-dialog {
+  width: min(1100px, calc(100vw - 36px));
+}
+.photo-viewer-image {
+  max-height: 70vh;
+  max-width: 100%;
+  object-fit: contain;
+  margin: 20px auto 0;
 }

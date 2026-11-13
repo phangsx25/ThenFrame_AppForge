@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { listCollections, listPhotos } from "../lib/gallery";
-import { Footer, Icon, Notice, Placeholder } from "./UI";
+import { Footer, Icon, Modal, Notice, Placeholder } from "./UI";
 import { Header } from "./Layout";
 
 export function Home({ client, auth }) {
@@ -24,7 +24,7 @@ export function Home({ client, auth }) {
               matter.
             </p>
             <div className="button-row">
-              <a className="outline" href="#/portfolio">
+              <a className="button-outline" href="#/portfolio">
                 Portfolio
               </a>
               <a className="primary" href="#/register">
@@ -68,7 +68,7 @@ export function Home({ client, auth }) {
                 From the first conversation to the final frame, we’re here to
                 help you find a photography style that feels right.
               </p>
-              <a className="outline" href="#/portfolio#packages">
+              <a className="button-outline" href="#/portfolio#packages">
                 Explore our approach
               </a>
             </div>
@@ -263,7 +263,11 @@ export function PortfolioSection({
           </label>
           <label>
             Photography style
-            <select value={style} onChange={(e) => setStyle(e.target.value)}>
+            <select
+              aria-label="Photography style"
+              value={style}
+              onChange={(e) => setStyle(e.target.value)}
+            >
               <option value="">All styles</option>
               {[
                 ...new Set(collections.map((c) => c.style).filter(Boolean)),
@@ -401,7 +405,7 @@ function PublicCollection({ collection, client, detail }) {
         </div>
         {detail && (
           <button
-            className="outline small"
+            className="button-outline small"
             onClick={() => {
               setLoading(true);
               setError("");
@@ -461,24 +465,17 @@ function PublicCollection({ collection, client, detail }) {
         </a>
       )}
       {lightbox && (
-        <div
-          className="lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={lightbox.caption || "Photograph"}
-          onClick={() => setLightbox(null)}
+        <Modal
+          title={lightbox.caption || collection.title}
+          className="photo-dialog"
+          onClose={() => setLightbox(null)}
         >
-          <button
-            className="lightbox-close"
-            onClick={() => setLightbox(null)}
-            autoFocus
-            aria-label="Close photograph"
-          >
-            ×
-          </button>
-          <img src={lightbox.url} alt={lightbox.caption || collection.title} />
-          <p>{lightbox.caption}</p>
-        </div>
+          <img
+            className="photo-viewer-image"
+            src={lightbox.url}
+            alt={lightbox.caption || collection.title}
+          />
+        </Modal>
       )}
     </article>
   );
@@ -530,7 +527,7 @@ export function PortfolioPage({ client, auth, selectedId }) {
                   later sprint. For now, explore the portfolio and create your
                   customer account.
                 </p>
-                <a className="outline" href="#/register">
+                <a className="button-outline" href="#/register">
                   Create an account
                 </a>
               </div>
