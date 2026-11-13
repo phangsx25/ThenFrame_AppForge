@@ -6,7 +6,7 @@ Base: original main `3d8696e7f3e5c2ca11af669e6e02cef5b6c3a248`. The earlier loca
 
 - GitHub write access: branch creation succeeded after the user updated access.
 - Inspected all eight uploaded PNG wireframes. Applied wine/warm-white colors, arch placeholders, editorial typography, separate auth layouts and studio sidebar. Later-sprint data is not fabricated.
-- `npm test`: 24 behavioral tests passed (mocked Supabase boundary). Includes registration payload, password mismatch, auth errors, customer rejection on admin login, direct admin-route denial, failed profile lookup, stale-session race, visibility query scopes, selected-ID writes, invalid files, upload compensation and deletion cleanup.
+- `npm test`: 25 behavioral tests passed (mocked Supabase boundary). Includes registration payload, password mismatch, auth errors, customer rejection on admin login, direct admin-route denial, failed profile lookup, stale-session race, visibility query scopes, selected-ID writes, invalid files, upload compensation and deletion cleanup.
 - `npm run lint`: passed.
 - `npm run build`: passed, including PWA manifest, service worker and Workbox precache generation.
 - Anonymous GETs against the existing Supabase `gallery_collections` and `gallery_photos` endpoints: both HTTP 200, zero returned rows. This proves connectivity, not hidden-data isolation. The root REST OpenAPI endpoint returned HTTP 401, so catalog/constraint/policy inspection remains unavailable.
@@ -14,7 +14,9 @@ Base: original main `3d8696e7f3e5c2ca11af669e6e02cef5b6c3a248`. The earlier loca
 
 ## GitHub Actions
 
-The Verify Sprint 1 workflow runs clean install, lint, behavioral tests, production build, production audit and five Playwright flows on a GitHub-hosted Ubuntu runner. Browser flows use intercepted HTTP responses, not the live Supabase database. Results will be added after the remote run is inspected.
+GitHub-hosted run https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43410673787 passed all installation, lint, unit, build, audit and six Playwright flows on code commit `cdbc6bd58a41f3ede4d5a56f6529154b6dff1cbc`. The browser flows cover registration, login/reload/logout, admin rejection, collection/photo CRUD and portfolio filtering, desktop/mobile layout, and password recovery form submission. These flows use the real app and Supabase client with intercepted HTTP responses; they do not verify live RLS. Earlier browser failures exposed field-label and mobile-grid issues; both were fixed and rerun. A final focus-return regression check was added after screenshot review.
+
+Downloaded and visually reviewed desktop/mobile screenshots of the public/auth screens and admin gallery. Wine colors and wireframe layout were preserved. Vercel commit status explicitly reported `Canceled by Ignored Build Step`, confirming this feature branch did not deploy.
 
 ## Outstanding live checks
 

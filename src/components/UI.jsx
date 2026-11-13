@@ -115,8 +115,18 @@ export function Modal({ title, onClose, children, className = "" }) {
   const ref = useRef(null);
   useEffect(() => {
     const dialog = ref.current;
+    const trigger = document.activeElement;
     dialog.showModal();
-    return () => dialog.close();
+    return () => {
+      dialog.close();
+      if (trigger instanceof HTMLElement && trigger.isConnected)
+        trigger.focus({ preventScroll: true });
+      else {
+        const main = document.getElementById("main-content");
+        main?.setAttribute("tabindex", "-1");
+        main?.focus({ preventScroll: true });
+      }
+    };
   }, []);
   return (
     <dialog

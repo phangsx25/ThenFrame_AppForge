@@ -2,7 +2,7 @@ name: Verify Sprint 1
 on:
   pull_request:
   push:
-    branches: [main, feature/sprint1-burgundy-wireframes]
+    branches: [main]
 permissions:
   contents: read
 jobs:
