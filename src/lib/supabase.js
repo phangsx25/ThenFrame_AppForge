@@ -1,4 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
+import { readAuthCallback } from "./authCallback";
+
+// Supabase consumes the token fragment asynchronously during initialization.
+// Capture the non-secret intent first so rendering cannot lose the reset route.
+export const initialAuthCallback = typeof window === "undefined"
+  ? { route: null, error: "" }
+  : readAuthCallback(window.location);
 
 export function makeClient(url, key) {
   if (!url || !key) return null;

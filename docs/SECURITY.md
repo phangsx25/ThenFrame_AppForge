@@ -14,6 +14,25 @@ Review all of these:
 - Server-side Storage limits should allow JPEG/PNG/WebP and cap size at 8 MB. Client validation alone is not a security control.
 - Confirm Auth email confirmation, rate limits, password rules, production Site URL, trusted redirect allowlist and reset email delivery.
 
+## Password recovery configuration
+
+Use `https://then-frame-app-forge.vercel.app` as the current production Site URL.
+Allow both exact callbacks in Authentication → URL Configuration:
+
+- `https://then-frame-app-forge.vercel.app/?auth=password`
+- `https://then-frame-app-forge.vercel.app/?auth=confirmed`
+
+Preserve other approved development callbacks. Reset email templates must use
+Supabase's `{{ .ConfirmationURL }}` verification link rather than linking directly
+to a home page. The app also handles `PASSWORD_RECOVERY` if a valid recovery
+session reaches the root URL without the query marker. Callback intent is captured
+before the SDK clears tokens; raw tokens are not retained in app routing state.
+
+After changing the Site URL or allowlist, request a fresh email from the production
+site. Previously issued emails keep their original destination. Do not share or
+commit reset links. Verify the new password works and the old one fails with a
+disposable customer account; automated/mock checks do not establish real delivery.
+
 ## Reproducible live checks
 
 1. Run read-only catalog SQL and review the configuration above.

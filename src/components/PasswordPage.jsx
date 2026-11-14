@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Notice, Wordmark } from "./UI";
-export default function PasswordPage({ client, auth }) {
+export default function PasswordPage({ client, auth, linkError = "" }) {
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [done, setDone] = useState(false);
@@ -30,9 +30,9 @@ export default function PasswordPage({ client, auth }) {
       <h1>Choose a new password.</h1>
       {auth.loading ? (
         <p role="status">Checking reset link…</p>
-      ) : !auth.session ? (
+      ) : linkError || !auth.session ? (
         <Notice error>
-          Open the link from your password reset email first.{" "}
+          {linkError || auth.error || "Open the link from your password reset email first."}{" "}
           <a href="#/reset">Request a new link</a>.
         </Notice>
       ) : done ? (

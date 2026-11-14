@@ -11,10 +11,10 @@ export default function AuthPage({ client, auth, mode = "login" }) {
   const [show, setShow] = useState(false),
     [showConfirm, setShowConfirm] = useState(false);
   useEffect(() => {
-    if (auth.loading || !auth.profile) return;
+    if (reset || auth.loading || !auth.profile) return;
     if (admin && !auth.isAdmin) return;
     window.location.hash = auth.isAdmin ? "/admin" : "/dashboard";
-  }, [auth.loading, auth.profile, auth.isAdmin, admin]);
+  }, [auth.loading, auth.profile, auth.isAdmin, admin, reset]);
   async function submit(event) {
     event.preventDefault();
     setError("");

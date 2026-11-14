@@ -1,8 +1,10 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import AuthPage from "../src/components/AuthPage";
 import App from "../src/App";
+import PasswordPage from "../src/components/PasswordPage";
+import { readAuthCallback } from "../src/lib/authCallback";
 function fakeClient(role = "customer") {
   const query = {
     select: vi.fn().mockReturnThis(),
@@ -22,6 +24,7 @@ function fakeClient(role = "customer") {
         .mockResolvedValue({ data: { user: { id: "u1" } }, error: null }),
       signOut: vi.fn().mockResolvedValue({ error: null }),
       resetPasswordForEmail: vi.fn().mockResolvedValue({ error: null }),
+      updateUser: vi.fn().mockResolvedValue({ data: { user: { id: "u1" } }, error: null }),
       getSession: vi.fn().mockResolvedValue({
         data: {
           session: { user: { id: "u1", email: "fixture@example.test" } },
@@ -141,6 +144,52 @@ describe("auth flows with a mocked Supabase boundary", () => {
       }),
     );
   });
+  it("keeps the reset request form available for a signed-in account", async () => {
+    window.history.replaceState({}, "", "/#/reset");
+    const client = fakeClient();
+    render(<AuthPage client={client} auth={{ ...anonymous, profile: { id: "u1" }, session: { user: { id: "u1" } } }} mode="reset" />);
+    expect(screen.getByRole("button", { name: "Send reset link" })).toBeVisible();
+    expect(window.location.hash).toBe("#/reset");
+  });
+  it("routes PASSWORD_RECOVERY to the password form after the SDK clears the callback fragment", async () => {
+    window.history.replaceState({}, "", "/#/login");
+    const client = fakeClient();
+    client.auth.getSession.mockResolvedValue({ data: { session: null }, error: null });
+    const user = userEvent.setup();
+    render(<App client={client} />);
+    await screen.findByRole("button", { name: "Login" });
+    const callback = client.auth.onAuthStateChange.mock.calls[0][0];
+    act(() => {
+      window.history.replaceState({}, "", "/");
+      callback("PASSWORD_RECOVERY", { user: { id: "u1" } });
+    });
+    expect(await screen.findByRole("heading", { name: "Choose a new password." })).toBeVisible();
+    await user.type(await screen.findByLabelText("New password"), "new-password123");
+    await user.type(screen.getByLabelText("Confirm password"), "new-password123");
+    await user.click(screen.getByRole("button", { name: "Update password" }));
+    expect(await screen.findByRole("status")).toHaveTextContent("Password updated");
+    expect(client.auth.updateUser).toHaveBeenCalledWith({ password: "new-password123" });
+    expect(window.location.hash).toBe("#/password");
+    expect(window.location.search).toBe("?auth=password");
+  });
+  it("does not route an ordinary sign-in to the password form", async () => {
+    window.history.replaceState({}, "", "/#/login");
+    const client = fakeClient();
+    client.auth.getSession.mockResolvedValue({ data: { session: null }, error: null });
+    render(<App client={client} />);
+    await screen.findByRole("button", { name: "Login" });
+    act(() => client.auth.onAuthStateChange.mock.calls[0][0]("SIGNED_IN", { user: { id: "u1" } }));
+    await waitFor(() => expect(window.location.hash).toBe("#/dashboard"));
+    expect(screen.queryByRole("heading", { name: "Choose a new password." })).not.toBeInTheDocument();
+  });
+  it("shows a rejected-link message even when another account session already exists", () => {
+    const client = fakeClient();
+    render(<PasswordPage client={client} auth={{ ...anonymous, session: { user: { id: "u1" } } }}
+      linkError="This email link is invalid or has expired. Request a new password reset link." />);
+    expect(screen.getByRole("alert")).toHaveTextContent("invalid or has expired");
+    expect(screen.queryByRole("button", { name: "Update password" })).not.toBeInTheDocument();
+    expect(client.auth.updateUser).not.toHaveBeenCalled();
+  });
   it("blocks a direct admin URL for a customer before any gallery request", async () => {
     window.location.hash = "/admin";
     const client = fakeClient();
@@ -222,5 +271,27 @@ describe("auth flows with a mocked Supabase boundary", () => {
     ).toBeVisible();
     expect(client.auth.signInWithPassword).not.toHaveBeenCalled();
     expect(client.from).not.toHaveBeenCalled();
+  });
+});
+
+describe("auth callback intent without storing credentials", () => {
+  it("recognizes recovery type regardless of fragment parameter order", () => {
+    expect(readAuthCallback({ search: "", hash: "#expires_in=3600&type=recovery&access_token=fixture" }))
+      .toEqual({ route: "/password", error: "" });
+  });
+  it("accepts the reset query when a provider redirects to the home hash", () => {
+    expect(readAuthCallback({ search: "?auth=password", hash: "#/" }).route).toBe("/password");
+  });
+  it("lets explicit navigation leave the reset page after saving", () => {
+    expect(readAuthCallback({ search: "?auth=password", hash: "#/dashboard" }).route).toBeNull();
+  });
+  it("keeps signup confirmation separate from password recovery", () => {
+    expect(readAuthCallback({ search: "", hash: "#access_token=fixture&type=signup" }).route).toBe("/login");
+  });
+  it("handles expired links without reflecting raw provider descriptions", () => {
+    const callback = readAuthCallback({ search: "", hash: "#error_description=private-value&error_code=otp_expired&error=access_denied" });
+    expect(callback.route).toBe("/password");
+    expect(callback.error).toContain("invalid or has expired");
+    expect(JSON.stringify(callback)).not.toContain("private-value");
   });
 });

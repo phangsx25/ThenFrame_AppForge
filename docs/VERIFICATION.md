@@ -1,5 +1,24 @@
 # Development status and record
 
+## Password recovery routing fix
+
+The reported recovery email targeted the old Sites hostname rather than the current
+Vercel application. The owner reported saving the corrected production Site URL and
+callback allowlist. Configuration was not independently read back by the agent.
+
+The frontend now captures non-secret callback intent before SDK initialization,
+routes `PASSWORD_RECOVERY` events to the password form even after token removal,
+keeps signup confirmation separate, and displays an expired-link message even if
+an existing session is present. Signed-in users can open the reset-request form.
+
+Verification: all 45 Vitest cases, lint and production/PWA build passed. A local
+Edge browser using the installed Supabase SDK and intercepted Auth/profile API
+responses passed root recovery callback, password submission, reload and expired
+link handling. This does not establish actual email delivery or a real account
+password change. Fresh email → production form → password update → old/new password
+login checks remain live acceptance steps. The shared recovery URL was not opened
+or redeemed. See [configuration guidance](SECURITY.md#password-recovery-configuration).
+
 ## Current status — 14 November 2026
 
 Sprint 1 core Auth, gallery management and public portfolio are implemented.

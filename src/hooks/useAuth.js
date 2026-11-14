@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export function useAuth(client) {
+export function useAuth(client, onPasswordRecovery) {
   const [state, setState] = useState({
     session: null,
     profile: null,
@@ -49,11 +49,14 @@ export function useAuth(client) {
     }
     const {
       data: { subscription },
-    } = client.auth.onAuthStateChange((_event, session) => {
+    } = client.auth.onAuthStateChange((event, session) => {
       eventSeen = true;
       // Do not await Supabase queries inside the auth callback.
       setTimeout(() => {
-        if (alive) void resolve(session);
+        if (alive) {
+          if (event === "PASSWORD_RECOVERY") onPasswordRecovery?.();
+          void resolve(session);
+        }
       }, 0);
     });
     client.auth
@@ -83,7 +86,7 @@ export function useAuth(client) {
       revisions.current++;
       subscription.unsubscribe();
     };
-  }, [client]);
+  }, [client, onPasswordRecovery]);
   const logout = useCallback(
     async (scope = "global") => {
       const { error } = await client.auth.signOut({ scope });

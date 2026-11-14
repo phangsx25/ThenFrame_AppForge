@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { supabase } from "./lib/supabase";
+import { useCallback, useEffect, useState } from "react";
+import { initialAuthCallback, supabase } from "./lib/supabase";
+import { readAuthCallback } from "./lib/authCallback";
 import { useAuth } from "./hooks/useAuth";
 import AuthPage from "./components/AuthPage";
 import PasswordPage from "./components/PasswordPage";
@@ -14,18 +15,26 @@ import "./App.css";
 
 function routeFromHash() {
   const hash = window.location.hash;
-  // Supabase consumes recovery/confirmation tokens. Keep those out of routes/UI.
-  if (/^#(?:access_token|error|type)=/.test(hash)) return "/password";
-  if (!hash) {
-    const callback = new URLSearchParams(window.location.search).get("auth");
-    if (callback === "password") return "/password";
-    if (callback === "confirmed") return "/login";
-  }
+  const callback = readAuthCallback(window.location);
+  if (callback.route) return callback.route;
   return (hash.slice(1) || "/").split("#")[0];
 }
 export default function App({ client = supabase }) {
-  const auth = useAuth(client);
-  const [route, setRoute] = useState(routeFromHash);
+  const [callback] = useState(() => {
+    const current = readAuthCallback(window.location);
+    return current.route ? current : client === supabase ? initialAuthCallback : current;
+  });
+  const [route, setRoute] = useState(() => callback.route || routeFromHash());
+  const handlePasswordRecovery = useCallback(() => {
+    // This event fires after the SDK has consumed the tokens. Persist a clean
+    // route so refreshes and Site URL fallbacks still show the password form.
+    const url = new URL(window.location.href);
+    url.searchParams.set("auth", "password");
+    url.hash = "/password";
+    window.history.replaceState(window.history.state, "", url);
+    setRoute("/password");
+  }, []);
+  const auth = useAuth(client, handlePasswordRecovery);
   useEffect(() => {
     function change() {
       setRoute(routeFromHash());
@@ -146,7 +155,7 @@ export default function App({ client = supabase }) {
     );
   else if (route === "/admin/setup") page = <AdminSetup />;
   else if (route === "/password")
-    page = <PasswordPage client={client} auth={auth} />;
+    page = <PasswordPage client={client} auth={auth} linkError={callback.error} />;
   else if (route === "/portfolio" || route.startsWith("/portfolio/"))
     page = (
       <PortfolioPage
