@@ -1982,21 +1982,6 @@ dialog.photo-dialog {
   margin: 5px 0 0;
   overflow-wrap: anywhere;
 }
-.account-email {
-  display: block;
-  font-size: 11px;
-  color: var(--muted);
-  overflow-wrap: anywhere;
-}
-.account-row-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.account-pagination {
-  justify-content: center;
-  margin-top: 24px;
-}
 .admin-setup {
   padding: 55px 0;
 }

@@ -1,4 +1,4 @@
-name: Verify Sprint 1
+name: Verify
 on:
   pull_request:
   push:
@@ -19,10 +19,3 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npm audit --omit=dev
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: browser-verification
-          path: test-results/

@@ -1,6 +1,6 @@
 # Supabase security and acceptance checks
 
-No database migration has been applied. Anonymous REST requests can read visible gallery rows, but they cannot inspect the full database catalog. Run `scripts/inspect-security.sql` in the existing Supabase SQL Editor before proposing any database change. Save only configuration results, never passwords or tokens.
+The existing project has been inspected and the display-name synchronization migration was activated on 14 November 2026. Reinspect current configuration before backend changes using `scripts/inspect-security.sql`. Record configuration and outcomes without passwords or tokens.
 
 Review all of these:
 
