@@ -4,7 +4,7 @@
 | --- | --- |
 | Project | ThenFrame — AppForge, Group 3, Section 02 |
 | Sprint period | 5–18 November 2026 |
-| Contributors | Phang Souh Xin; [Name 2 — pending confirmation]; [Name 3 — pending confirmation]; [Name 4 — pending confirmation] |
+| Contributors | Awwab; Phang Souh Xin; Munif; Naqyuddin; Ezz |
 | Prepared on | 14 November 2026 |
 | Record basis | Retrospective activity dates provided by the contributor; Git commit dates listed separately as supporting references. |
 
