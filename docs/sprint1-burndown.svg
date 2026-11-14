@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="510" viewBox="0 0 1020 510" role="img" aria-labelledby="title desc">
+<title id="title">ThenFrame Sprint 1 Burndown</title>
+<desc id="desc">16 story points across US01 to US04. Dashed ideal line is a calendar-day reference. Actual points come from observed GitHub Done statuses; unavailable historical dates are not plotted.</desc>
+<rect width="1020" height="510" rx="16" fill="#fffaf8"/>
+<g font-family="Arial, sans-serif" fill="#35262c">
+<text x="45" y="42" font-size="25" font-weight="bold">ThenFrame / Sprint 1 Burndown</text>
+<text x="45" y="68" font-size="14">5–18 Nov 2026 · 16 points · Done only · Kuala Lumpur time</text>
+<line x1="85" y1="370" x2="925" y2="370" stroke="#e7dddf"/>
+<text x="69" y="375" font-size="13" text-anchor="end">0</text>
+<line x1="85" y1="305" x2="925" y2="305" stroke="#e7dddf"/>
+<text x="69" y="310" font-size="13" text-anchor="end">4</text>
+<line x1="85" y1="240" x2="925" y2="240" stroke="#e7dddf"/>
+<text x="69" y="245" font-size="13" text-anchor="end">8</text>
+<line x1="85" y1="175" x2="925" y2="175" stroke="#e7dddf"/>
+<text x="69" y="180" font-size="13" text-anchor="end">12</text>
+<line x1="85" y1="110" x2="925" y2="110" stroke="#e7dddf"/>
+<text x="69" y="115" font-size="13" text-anchor="end">16</text>
+<text x="85" y="396" font-size="12" text-anchor="middle">05 Nov</text>
+<text x="925" y="396" font-size="12" text-anchor="middle">06 Nov</text>
+<text x="1765" y="396" font-size="12" text-anchor="middle">07 Nov</text>
+<text x="2605" y="396" font-size="12" text-anchor="middle">08 Nov</text>
+<text x="3445" y="396" font-size="12" text-anchor="middle">09 Nov</text>
+<text x="4285" y="396" font-size="12" text-anchor="middle">10 Nov</text>
+<text x="5125" y="396" font-size="12" text-anchor="middle">11 Nov</text>
+<text x="5965" y="396" font-size="12" text-anchor="middle">12 Nov</text>
+<text x="6805" y="396" font-size="12" text-anchor="middle">13 Nov</text>
+<text x="7645" y="396" font-size="12" text-anchor="middle">14 Nov</text>
+<text x="8485" y="396" font-size="12" text-anchor="middle">15 Nov</text>
+<text x="9325" y="396" font-size="12" text-anchor="middle">16 Nov</text>
+<text x="10165" y="396" font-size="12" text-anchor="middle">17 Nov</text>
+<text x="11005" y="396" font-size="12" text-anchor="middle">18 Nov</text>
+<text x="22" y="258" font-size="13" transform="rotate(-90 22 258)">Remaining story points</text>
+<line x1="85" y1="110" x2="11005" y2="370" stroke="#9a9fa8" stroke-width="2.5" stroke-dasharray="8 6"/>
+<circle cx="7645" cy="110" r="6" fill="#852d4d"><title>2026-11-14: 16 points remaining</title></circle>
+<text x="7645" y="95" font-size="14" text-anchor="middle" fill="#852d4d">16 remaining</text>
+<line x1="85" y1="432" x2="125" y2="432" stroke="#9a9fa8" stroke-width="2.5" stroke-dasharray="8 6"/>
+<text x="135" y="437" font-size="13">Ideal (calendar days; includes weekends/holiday)</text>
+<circle cx="525" cy="432" r="5" fill="#852d4d"/>
+<text x="540" y="437" font-size="13">Actual observations</text>
+<text x="85" y="470" font-size="13">Missing earlier snapshots are left blank. In review / In progress do not count as Done.</text>
+<text x="85" y="490" font-size="12" fill="#756770">Latest observation: 2026-11-14T14:06:12.996Z (UTC)</text>
+</g></svg>
