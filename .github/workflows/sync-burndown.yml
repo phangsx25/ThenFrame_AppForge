@@ -1,0 +1,51 @@
+name: Sync Sprint 1 Burndown
+
+on:
+  schedule:
+    # Hourly at minute 17 (UTC); GitHub may delay scheduled runs.
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-burndown
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out default branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check Projects credential
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_READ_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo '::error::Add repository Actions secret PROJECTS_READ_TOKEN with read access to phangsx25 project 1. See docs/BURNDOWN_SYNC.md.'
+            exit 1
+          fi
+      - name: Read board and update burndown
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_READ_TOKEN }}
+        run: node scripts/update-burndown.mjs
+      - name: Commit changed snapshots
+        run: |
+          git add docs/sprint1-burndown.json docs/sprint1-burndown.md docs/sprint1-burndown.svg
+          if git diff --cached --quiet; then
+            echo 'Snapshots unchanged.'
+            exit 0
+          fi
+          git diff --cached --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'docs: sync Sprint 1 burndown'
+          git push origin HEAD:${{ github.event.repository.default_branch }}
