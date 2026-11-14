@@ -4,7 +4,7 @@
 | --- | --- |
 | Project | ThenFrame — AppForge, Group 3, Section 02 |
 | Sprint period | 5–18 November 2026 |
-| Contributors | Awwab; Phang Souh Xin; Munif; Naqyuddin; Ezz |
+| Contributors | Awwab; Phang; Munif; Naqyuddin; Ezz |
 | Prepared on | 14 November 2026 |
 | Record basis | Retrospective activity dates provided by the contributor; Git commit dates listed separately as supporting references. |
 
@@ -14,10 +14,10 @@ This is a development activity log. It does not record stand-up attendance or me
 
 | Date (2026) | Focus | Work summary | Responsible person | Next action | Blockers / outstanding checks |
 | --- | --- | --- | --- | --- | --- |
-| 9 November | Project Startup | Start the ThenFrame project; review the backlog and identify Sprint 1 scope: customer authentication, admin access, gallery management and public portfolio browsing (US01–US04). | Phang Souh Xin | Prepare the fundamental application design and project structure. | Confirm the scope and dependencies before implementation. |
-| 11 November | Fundamental Design | Establish the application structure and Burgundy Editorial visual direction; outline customer/admin navigation, authentication pages, gallery management and public portfolio screens. | Phang Souh Xin | Begin backend implementation and connect the application flows. | Keep the design aligned with the selected user stories and access requirements. |
-| 13 November | Backend Development and Integration | Begin backend implementation using Supabase Auth, Database and Storage; work on customer/admin authentication, roles, gallery data and application integration. Related repository work also includes UI fixes and Preview configuration. | Phang Souh Xin | Verify account permissions, uploads, collection management and public visibility. | Complete live account and access checks; verify deployment separately from configuration. |
-| 14 November | Backend Refinement and Documentation | Refine gallery validation, signup guidance, category labels and collection deletion; clarify AI scope and clean up project assets/testing setup; organize backlog and Sprint story documents and update dates. | Phang Souh Xin | Review and integrate Sprint 1 fixes; complete live acceptance and prepare user-review evidence. | Sprint 1 fixes remain separate from main in the inspected refs; complete testing, staging and Product Owner acceptance evidence. |
+| 9 November | Project Startup | Start the ThenFrame project; review the backlog and identify Sprint 1 scope: customer authentication, admin access, gallery management and public portfolio browsing (US01–US04). | Phang | Prepare the fundamental application design and project structure. | Confirm the scope and dependencies before implementation. |
+| 11 November | Fundamental Design | Establish the application structure and Burgundy Editorial visual direction; outline customer/admin navigation, authentication pages, gallery management and public portfolio screens. | Phang | Begin backend implementation and connect the application flows. | Keep the design aligned with the selected user stories and access requirements. |
+| 13 November | Backend Development and Integration | Begin backend implementation using Supabase Auth, Database and Storage; work on customer/admin authentication, roles, gallery data and application integration. Related repository work also includes UI fixes and Preview configuration. | Phang | Verify account permissions, uploads, collection management and public visibility. | Complete live account and access checks; verify deployment separately from configuration. |
+| 14 November | Backend Refinement and Documentation | Refine gallery validation, signup guidance, category labels and collection deletion; clarify AI scope and clean up project assets/testing setup; organize backlog and Sprint story documents and update dates. | Phang | Review and integrate Sprint 1 fixes; complete live acceptance and prepare user-review evidence. | Sprint 1 fixes remain separate from main in the inspected refs; complete testing, staging and Product Owner acceptance evidence. |
 
 
 ## Supporting references
