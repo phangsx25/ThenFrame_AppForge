@@ -11,13 +11,18 @@ routes `PASSWORD_RECOVERY` events to the password form even after token removal,
 keeps signup confirmation separate, and displays an expired-link message even if
 an existing session is present. Signed-in users can open the reset-request form.
 
-Verification: all 45 Vitest cases, lint and production/PWA build passed. A local
+Verification: all 46 Vitest cases, lint and production/PWA build passed. A local
 Edge browser using the installed Supabase SDK and intercepted Auth/profile API
 responses passed root recovery callback, password submission, reload and expired
 link handling. This does not establish actual email delivery or a real account
 password change. Fresh email → production form → password update → old/new password
 login checks remain live acceptance steps. The shared recovery URL was not opened
 or redeemed. See [configuration guidance](SECURITY.md#password-recovery-configuration).
+
+A production smoke check also identified same-tab navigation to an expired-link
+fragment retaining the earlier page's error state. Callback errors are now read
+on route changes, and a fresh valid recovery event clears previous errors. A
+regression test covers this sequence.
 
 ## Current status — 14 November 2026
 

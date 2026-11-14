@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import AuthPage from "../src/components/AuthPage";
 import App from "../src/App";
@@ -181,6 +181,21 @@ describe("auth flows with a mocked Supabase boundary", () => {
     act(() => client.auth.onAuthStateChange.mock.calls[0][0]("SIGNED_IN", { user: { id: "u1" } }));
     await waitFor(() => expect(window.location.hash).toBe("#/dashboard"));
     expect(screen.queryByRole("heading", { name: "Choose a new password." })).not.toBeInTheDocument();
+  });
+  it("shows expiry when an invalid callback is opened in the same application tab", async () => {
+    window.history.replaceState({}, "", "/#/reset");
+    const client = fakeClient();
+    client.auth.getSession.mockResolvedValue({ data: { session: null }, error: null });
+    render(<App client={client} />);
+    await screen.findByRole("button", { name: "Send reset link" });
+    act(() => {
+      window.history.replaceState({}, "", "/#error=access_denied&error_code=otp_expired");
+      fireEvent(window, new Event("hashchange"));
+    });
+    expect(await screen.findByRole("alert")).toHaveTextContent("invalid or has expired");
+    act(() => client.auth.onAuthStateChange.mock.calls[0][0]("PASSWORD_RECOVERY", { user: { id: "u1" } }));
+    expect(await screen.findByLabelText("New password")).toBeVisible();
+    expect(screen.queryByText(/invalid or has expired/)).not.toBeInTheDocument();
   });
   it("shows a rejected-link message even when another account session already exists", () => {
     const client = fakeClient();

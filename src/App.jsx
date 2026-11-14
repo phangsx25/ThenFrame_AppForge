@@ -20,7 +20,7 @@ function routeFromHash() {
   return (hash.slice(1) || "/").split("#")[0];
 }
 export default function App({ client = supabase }) {
-  const [callback] = useState(() => {
+  const [callback, setCallback] = useState(() => {
     const current = readAuthCallback(window.location);
     return current.route ? current : client === supabase ? initialAuthCallback : current;
   });
@@ -32,6 +32,7 @@ export default function App({ client = supabase }) {
     url.searchParams.set("auth", "password");
     url.hash = "/password";
     window.history.replaceState(window.history.state, "", url);
+    setCallback({ route: "/password", error: "" });
     setRoute("/password");
   }, []);
   const auth = useAuth(client, handlePasswordRecovery);
@@ -155,7 +156,8 @@ export default function App({ client = supabase }) {
     );
   else if (route === "/admin/setup") page = <AdminSetup />;
   else if (route === "/password")
-    page = <PasswordPage client={client} auth={auth} linkError={callback.error} />;
+    page = <PasswordPage client={client} auth={auth}
+      linkError={readAuthCallback(window.location).error || callback.error} />;
   else if (route === "/portfolio" || route.startsWith("/portfolio/"))
     page = (
       <PortfolioPage
