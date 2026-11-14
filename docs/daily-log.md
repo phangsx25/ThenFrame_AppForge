@@ -14,12 +14,15 @@ This is a development activity log. It does not record stand-up attendance or me
 
 ### Daily progress
 
+Record who worked on what and the next action here. Keep test steps, results and retest evidence in the [Sprint 1 test report](sprint-1/sprint1-test-report.md).
+
 | Date (2026) | Focus | Work summary | Responsible person | Next action | Blockers / outstanding checks |
 | --- | --- | --- | --- | --- | --- |
 | 9 November | Project Startup | Start the ThenFrame project; review the backlog and identify Sprint 1 scope: customer authentication, admin access, gallery management and public portfolio browsing (US01–US04). | Phang | Prepare the fundamental application design and project structure. | Confirm the scope and dependencies before implementation. |
 | 11 November | Fundamental Design | Establish the application structure and Burgundy Editorial visual direction; outline customer/admin navigation, authentication pages, gallery management and public portfolio screens. | Phang | Begin backend implementation and connect the application flows. | Keep the design aligned with the selected user stories and access requirements. |
 | 13 November | Backend Development and Integration | Begin backend implementation using Supabase Auth, Database and Storage; work on customer/admin authentication, roles, gallery data and application integration. Related repository work also includes UI fixes and Preview configuration. | Phang | Verify account permissions, uploads, collection management and public visibility. | Complete live account and access checks; verify deployment separately from configuration. |
 | 14 November | Backend Refinement and Documentation | Refine gallery validation, signup guidance, category labels and collection deletion; clarify AI scope and clean up project assets/testing setup; organize backlog and Sprint story documents and update dates. | Phang | Review and integrate Sprint 1 fixes; complete live acceptance and prepare user-review evidence. | Sprint 1 fixes remain separate from main in the inspected refs; complete testing, staging and Product Owner acceptance evidence. |
+| 14 November | Password Recovery Fix and Retest | Correct the reset-email destination and recovery routing; fix same-tab expired-link handling and deploy the fixes. Recovery routing confirmed by Phang; [test results](sprint-1/sprint1-test-report.md#password-recovery-regression--us01-account-security) record automated and live evidence separately. | Phang | Verify real login with the new password and rejection of the old password; continue remaining Sprint 1 acceptance checks. | New/old password login results are not yet recorded. |
 
 
 ### Supporting references
@@ -39,8 +42,8 @@ Git timestamps below identify when code was committed, not the start date of eve
 | Item | Next step | Status |
 | --- | --- | --- |
 | Stand-up evidence | Add actual meeting attendance and duration if available. | Not recorded |
-| Kanban and burndown/burnup | Add confirmed board/chart updates; count only fully Done stories. | Evidence not supplied |
-| Testing and acceptance | Finish live verification, confirm staging deployment and record Product Owner acceptance. | Incomplete |
+| Kanban and burndown/burnup | Maintain [Projects](https://github.com/users/phangsx25/projects/1) and [burndown](sprint-1/sprint1-burndown.md); count only fully Done stories. | Current snapshot exists; scheduled updater still requires the Actions secret |
+| Testing and acceptance | Track executed checks and remaining live acceptance in the [test report](sprint-1/sprint1-test-report.md). | Password recovery routing confirmed; remaining acceptance incomplete |
 | 16–18 November | Record testing, user feedback, review and retrospective after they occur. | Planned |
 
 ## Sprint 2 — 19 November–9 December 2026

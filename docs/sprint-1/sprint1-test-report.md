@@ -1,8 +1,10 @@
 # Sprint 1 — Test Report
 
-**Scope:** US01–US04, 5–18 November 2026.  
-**Status:** Password recovery regression recorded; remaining acceptance cases await execution.  
+**Scope:** US01–US04, 5–18 November 2026.
+**Status:** Password recovery regression recorded; remaining acceptance cases await execution.
 **Requirements:** [Sprint 1 stories](sprint1-user-story.md). Existing historical checks and their limits remain in [VERIFICATION.md](../VERIFICATION.md); this template does not reset or replace those records.
+
+Work progress and responsibility are recorded in the [shared daily log](../daily-log.md). This report records test steps, actual outcomes, defects and retest evidence.
 
 ## Test session
 
