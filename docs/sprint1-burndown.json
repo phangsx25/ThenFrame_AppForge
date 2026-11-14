@@ -37,6 +37,38 @@
           "url": "https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/4"
         }
       ]
+    },
+    {
+      "date": "2026-11-14",
+      "recordedAt": "2026-11-14T14:13:14.554Z",
+      "completedPoints": 0,
+      "remainingPoints": 16,
+      "stories": [
+        {
+          "id": "US01",
+          "points": 3,
+          "status": "In review",
+          "url": "https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/1"
+        },
+        {
+          "id": "US02",
+          "points": 3,
+          "status": "In review",
+          "url": "https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/2"
+        },
+        {
+          "id": "US03",
+          "points": 5,
+          "status": "In review",
+          "url": "https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/3"
+        },
+        {
+          "id": "US04",
+          "points": 5,
+          "status": "In review",
+          "url": "https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/4"
+        }
+      ]
     }
   ]
 }

@@ -38,5 +38,5 @@
 <circle cx="525" cy="432" r="5" fill="#852d4d"/>
 <text x="540" y="437" font-size="13">Actual observations</text>
 <text x="85" y="470" font-size="13">Missing earlier snapshots are left blank. In review / In progress do not count as Done.</text>
-<text x="85" y="490" font-size="12" fill="#756770">Latest observation: 2026-11-14T14:06:12.996Z (UTC)</text>
+<text x="85" y="490" font-size="12" fill="#756770">Latest observation: 2026-11-14T14:13:14.554Z (UTC)</text>
 </g></svg>
