@@ -29,9 +29,9 @@ Planned activities, assumptions and synthetic examples must remain labeled. Do n
 Detailed stories and refinement templates by sprint:
 
 - [Sprint 1 — US01–US04](sprint-1/sprint1-user-story.md): source acceptance criteria and original task allocation.
-- [Sprint 2 — US05–US07](sprint2-user-story.md): source stories with detail templates.
-- [Sprint 3 — US08–US10](sprint3-user-story.md): source stories with detail templates.
-- [Sprint 4 — US10–US13](sprint4-user-story.md): source stories with detail templates; US10 continues from Sprint 3.
+- [Sprint 2 — US05–US07](sprint-2/sprint2-user-story.md): source stories with detail templates.
+- [Sprint 3 — US08–US10](sprint-3/sprint3-user-story.md): source stories with detail templates.
+- [Sprint 4 — US10–US13](sprint-4/sprint4-user-story.md): source stories with detail templates; US10 continues from Sprint 3.
 
 Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative effort, complexity and uncertainty, not hours. Initial estimates were prepared by Phang Souh Xin for team review. Sprint allocation is a forecast and may change with progress and partner feedback.
 

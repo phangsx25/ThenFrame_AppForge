@@ -5,15 +5,15 @@ Photo Delivery, FAQ, Feedback and Heritage
 - Stories: US10–US13
 - Planned dates: 24 December 2026 – 6 January 2027 (two weeks).
 - Source: `S04-02-G03-AppForge.pdf`, version 1.0, 4 November 2026.
-- Reference: [Product backlog](PRODUCT_BACKLOG.md).
-- Requirements and templates do not establish implementation or acceptance. Track evidence in [VERIFICATION.md](VERIFICATION.md).
+- Reference: [Product backlog](../PRODUCT_BACKLOG.md).
+- Requirements and templates do not establish implementation or acceptance. Track evidence in [VERIFICATION.md](../VERIFICATION.md).
 
 Schedule basis: user-provided Sprint 1 calendar, adopted 14 November 2026. Sprint 1 runs 5–18 November; Sprint 2 runs 19 November–9 December, extended by one week for a holiday per user clarification (specific holiday dates not supplied). Sprints 3–4 continue from 10 December in consecutive 14-day blocks, replacing the PDF date forecast. Later-sprint dates are extrapolated, not additional dates shown in the calendar.
 
 
 The PDF supplies the stories and forecast (pp. 4–6, 14), but no detailed acceptance criteria for these stories. Existing story text below is from the source; all TBD sections are templates, not approved requirements. No owners, task estimates or acceptance results are assumed.
 
-**US10 spans Sprints 3–4.** Its 8 points are the estimate for the whole story, not 8 points per sprint. The exact split and handoff remain TBD; Sprint 4 is forecast to complete selection and download. [Sprint 3 details](sprint3-user-story.md) · [Sprint 4 details](sprint4-user-story.md).
+**US10 spans Sprints 3–4.** Its 8 points are the estimate for the whole story, not 8 points per sprint. The exact split and handoff remain TBD; Sprint 4 is forecast to complete selection and download. [Sprint 3 details](../sprint-3/sprint3-user-story.md) · [Sprint 4 details](sprint4-user-story.md).
 
 ## US10 — Customer private album viewing, selection and download
 
@@ -185,4 +185,4 @@ The PDF supplies the stories and forecast (pp. 4–6, 14), but no detailed accep
 
 ## Refinement and completion
 
-Replace TBD entries with agreed requirements during refinement. Record dated scope changes and Product Owner decisions. Apply the [source Definition of Done](PRODUCT_BACKLOG.md#definition-of-done--source-wording-p-17), preserving the documented test-framework discrepancy.
+Replace TBD entries with agreed requirements during refinement. Record dated scope changes and Product Owner decisions. Apply the [source Definition of Done](../PRODUCT_BACKLOG.md#definition-of-done--source-wording-p-17), preserving the documented test-framework discrepancy.

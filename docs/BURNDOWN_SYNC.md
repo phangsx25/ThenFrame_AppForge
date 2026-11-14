@@ -1,6 +1,8 @@
-# Automatic Sprint 1 Burndown Updates
+# Burndown Automation Guide
 
 The interactive [GitHub Projects Kanban](https://github.com/users/phangsx25/projects/1) is the only Kanban. No Markdown board copy is generated.
+
+This shared guide describes the current Sprint 1 updater. Later sprint folders contain planning templates only; adding folders does not enable automatic charts for those sprints.
 
 ## Behavior
 
@@ -10,7 +12,7 @@ Only Done burns points. A new day or changed Sprint 1 status creates an observat
 
 ## Activation
 
-1. Review and merge this PR into the default branch (`main`); scheduled workflows do not run from the PR branch.
+1. The workflow must exist on the default branch (`main`), where the Sprint 1 workflow has already been merged. Scheduled workflows do not run from feature branches.
 2. Create a dedicated GitHub token with read access to the personal Project. A classic PAT can use `read:project`; private linked issues additionally require repository access. Do not reuse the local CLI credential.
 3. Open **ThenFrame_AppForge → Settings → Secrets and variables → Actions → New repository secret**. Add **PROJECTS_READ_TOKEN**, pasting the token only into GitHub Secret, not chat/source. Set an expiry and rotate when needed.
 4. The secret reads Projects; the built-in `GITHUB_TOKEN` with `contents: write` commits only the three generated files. Branch rules must permit publishing these commits. If they require PRs, use a PR-based publishing design instead of disabling rules.

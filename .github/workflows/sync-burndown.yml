@@ -30,7 +30,7 @@ jobs:
           GH_TOKEN: ${{ secrets.PROJECTS_READ_TOKEN }}
         run: |
           if [ -z "$GH_TOKEN" ]; then
-            echo '::error::Add repository Actions secret PROJECTS_READ_TOKEN with read access to phangsx25 project 1. See docs/sprint-1/BURNDOWN_SYNC.md.'
+            echo '::error::Add repository Actions secret PROJECTS_READ_TOKEN with read access to phangsx25 project 1. See docs/BURNDOWN_SYNC.md.'
             exit 1
           fi
       - name: Read board and update burndown

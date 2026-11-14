@@ -138,7 +138,7 @@ After changing Kanban statuses, run from the repository root:
 node scripts/update-burndown.mjs
 \`\`\`
 
-Requires Node.js and GitHub CLI signed in with project read access. If gh is absent from the terminal PATH, set THENFRAME_GH_PATH to its executable path. A new day or changed story status appends an observation to [sprint1-burndown.json](sprint1-burndown.json); unchanged same-day runs do not add duplicates. The displayed daily value uses the last observation that day. Outside Sprint 1, history is preserved without adding observations. The script does not modify GitHub cards. [Automatic sync setup](BURNDOWN_SYNC.md) explains the hourly workflow, required secret and activation steps.
+Requires Node.js and GitHub CLI signed in with project read access. If gh is absent from the terminal PATH, set THENFRAME_GH_PATH to its executable path. A new day or changed story status appends an observation to [sprint1-burndown.json](sprint1-burndown.json); unchanged same-day runs do not add duplicates. The displayed daily value uses the last observation that day. Outside Sprint 1, history is preserved without adding observations. The script does not modify GitHub cards. [Automatic sync setup](../BURNDOWN_SYNC.md) explains the hourly workflow, required secret and activation steps.
 `;
 writeFileSync(resolve(docDir, 'sprint1-burndown.md'), summary);
 console.log(`Sprint 1: ${done}/${total} Done, ${total - done} remaining (${localDate}). Chart: docs/sprint-1/sprint1-burndown.svg`);
