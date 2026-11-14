@@ -6,6 +6,8 @@ Product requirements, user stories and Sprint 1 acceptance criteria are in
 [PRODUCT_BACKLOG.md](docs/PRODUCT_BACKLOG.md), transcribed from the original backlog PDF.
 Sprint progress is shown in [Sprint 1 Burndown](docs/sprint1-burndown.md).
 See the [Kanban snapshot and live board link](docs/KANBAN.md) for task statuses.
+Hourly snapshot synchronization is configured in GitHub Actions; see
+[activation and credential setup](docs/KANBAN_SYNC.md).
 
 ## Stack
 

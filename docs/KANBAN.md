@@ -2,23 +2,23 @@
 
 [Open the live GitHub Kanban](https://github.com/users/phangsx25/projects/1)
 
-This document is a read-only snapshot of GitHub Projects, not a replacement for the interactive board. Editing this Markdown does not move GitHub cards. Refresh the snapshot after board changes.
+This is a one-way snapshot: **GitHub Projects → this document**. Edit cards in Projects; editing Markdown does not move cards. See [automatic sync setup](KANBAN_SYNC.md).
 
-**Captured:** 2026-11-14T22:13:14+08:00 (Asia/Kuala_Lumpur).
+**Last snapshot change:** 2026-11-14T14:17:47.459Z (UTC). Unchanged runs keep this timestamp.
 
 ## Status meaning
 
 - **Backlog:** Not selected for current work.
 - **Sprint Backlog:** Selected, not started.
 - **In progress:** Development underway.
-- **In review:** Implementation ready for review; merge, testing or acceptance may still be pending.
-- **Done:** Meets the agreed Definition of Done.
+- **In review:** Ready for review; merge, testing or acceptance may still be pending.
+- **Done:** Meets the agreed Definition of Done. The sync copies statuses; it does not certify acceptance.
 
 ## Current cards
 
 | Story | Sprint | Points | Status |
 | --- | --- | --- | --- |
-| [US01 — Customer Registration & Login](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/1) | 1 | 3 | In review |
+| [US01 — Customer Registration &amp; Login](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/1) | 1 | 3 | In review |
 | [US02 - Admin Secure Login](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/2) | 1 | 3 | In review |
 | [US03 — Gallery Management](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/3) | 1 | 5 | In review |
 | [US04 — Public Portfolio Browsing](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/4) | 1 | 5 | In review |
@@ -27,20 +27,25 @@ This document is a read-only snapshot of GitHub Projects, not a replacement for 
 | [US07 — Consultation Scheduling (5 points)](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/7) | 2 | 5 | Backlog |
 | [US08 — AI Booking Enquiry Summaries (5 points)](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/8) | 3 | 5 | Backlog |
 | [US09 — Private Album Management (8 points)](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/9) | 3 | 8 | Backlog |
-| [US10 — Customer Private Album, Photo Selection & Download (8 points)](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/10) | 3–4 | 8 | Backlog |
+| [US10 — Customer Private Album, Photo Selection &amp; Download (8 points)](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/10) | 3–4 | 8 | Backlog |
 | [US11 — AI FAQ Chatbot (5 points)](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/11) | 4 | 5 | Backlog |
-| [US12 — Ratings & Feedback (3 points)](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/12) | 4 | 3 | Backlog |
+| [US12 — Ratings &amp; Feedback (3 points)](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/12) | 4 | 3 | Backlog |
 | [US13 — Traditional Malay Wedding Heritage Content (3 points)](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/13) | 4 | 3 | Backlog |
 
-## Sprint 1 review notes
+Points and sprint allocation use the [product backlog baseline](PRODUCT_BACKLOG.md), not an empty or conflicting board Estimate field. US10's 8 points apply to the whole story across Sprints 3–4.
 
-- **US01:** Duplicate-email signup guidance is implemented on the Sprint 1 branch; integration and full live account acceptance remain pending.
-- **US02:** Admin access is implemented; remaining live permission/logout cases require review evidence.
-- **US03:** Populated-collection deletion is implemented on the Sprint 1 branch; integration and acceptance remain pending.
-- **US04:** Public portfolio is implemented; responsive/accessibility and remaining visibility checks require acceptance evidence.
+## Status totals
 
-All four Sprint 1 stories are In review. None is Done, so the [burndown](sprint1-burndown.md) still has 16 points remaining. See [verification details](VERIFICATION.md).
+| Status | Stories |
+| --- | --- |
+| Backlog | 9 |
+| Sprint Backlog | 0 |
+| In progress | 0 |
+| In review | 4 |
+| Done | 0 |
 
-## Refresh this snapshot
+Sprint 1 has **16/16 points remaining** according to the latest board statuses. The [burndown](sprint1-burndown.md) records observations only during 5–18 November 2026; after that its history is preserved. Later board edits can therefore differ from the historical chart. See [verification evidence](VERIFICATION.md) for actual acceptance limits.
 
-Read project 1 owned by phangsx25 using GitHub CLI (`gh project item-list 1 --owner phangsx25 --format json --limit 1000`), then update this table from the returned statuses. Board changes do not automatically update this file.
+## Refresh
+
+Run `node scripts/sync-kanban.mjs` to refresh both this table and the Sprint 1 burndown from one board export. Once configured on the default branch, the workflow runs hourly and can be dispatched manually. It commits changed generated files only. Future sprint charts are not generated by this Sprint 1 workflow.

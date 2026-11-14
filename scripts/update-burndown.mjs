@@ -35,7 +35,8 @@ const localDate = new Intl.DateTimeFormat('en-CA', {
 const start = '2026-11-05';
 const end = '2026-11-18';
 if (localDate < start || localDate > end) {
-  throw new Error('Current Kuala Lumpur date is outside Sprint 1; no snapshot saved');
+  console.log('Outside Sprint 1: historical burndown preserved; no observation added.');
+  process.exit(0);
 }
 const total = Object.values(points).reduce((sum, n) => sum + n, 0);
 const done = stories.filter(story => story.status === 'Done').reduce((sum, story) => sum + story.points, 0);
@@ -46,9 +47,12 @@ const history = existsSync(dataPath)
 if (history.start !== start || history.end !== end || history.totalPoints !== total) {
   throw new Error('Sprint baseline changed; reconcile history before saving');
 }
-// Preserve observations, including multiple observations on the same day.
-history.snapshots.push({ date: localDate, recordedAt: now.toISOString(),
-  completedPoints: done, remainingPoints: total - done, stories });
+// Record daily values and status changes without hourly duplicate commits.
+const previous = history.snapshots.at(-1);
+if (!previous || previous.date !== localDate || JSON.stringify(previous.stories) !== JSON.stringify(stories)) {
+  history.snapshots.push({ date: localDate, recordedAt: now.toISOString(),
+    completedPoints: done, remainingPoints: total - done, stories });
+}
 mkdirSync(docDir, { recursive: true });
 writeFileSync(dataPath, `${JSON.stringify(history, null, 2)}\n`);
 
@@ -134,7 +138,7 @@ After changing Kanban statuses, run from the repository root:
 node scripts/update-burndown.mjs
 \`\`\`
 
-Requires Node.js and GitHub CLI signed in with project read access. If gh is absent from the terminal PATH, set THENFRAME_GH_PATH to its executable path. Each successful run appends an observation to [sprint1-burndown.json](sprint1-burndown.json) and regenerates the chart and this report; the displayed daily value uses the last observation that day. The script refuses dates outside this sprint and does not modify GitHub cards. It currently runs manually; no scheduled automation is installed.
+Requires Node.js and GitHub CLI signed in with project read access. If gh is absent from the terminal PATH, set THENFRAME_GH_PATH to its executable path. A new day or changed story status appends an observation to [sprint1-burndown.json](sprint1-burndown.json); unchanged same-day runs do not add duplicates. The displayed daily value uses the last observation that day. Outside Sprint 1, history is preserved without adding observations. The script does not modify GitHub cards. [Automatic sync setup](KANBAN_SYNC.md) explains the hourly workflow, required secret and activation steps.
 `;
 writeFileSync(resolve(docDir, 'sprint1-burndown.md'), summary);
 console.log(`Sprint 1: ${done}/${total} Done, ${total - done} remaining (${localDate}). Chart: docs/sprint1-burndown.svg`);
