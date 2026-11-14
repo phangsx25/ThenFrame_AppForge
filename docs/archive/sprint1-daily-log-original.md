@@ -1,3 +1,5 @@
+> Archived original entry from `docs/sprint1-daily-log` (commit `b812a56`). Use [the current daily log](../sprint1-daily-log.md) for ongoing records. Historical claims below are preserved as originally recorded, not newly verified.
+
 # ThenFrame — Sprint 1 Daily Development Log
 
 **Project:** ThenFrame — Wedding Photography Portfolio & Gallery Management PWA
