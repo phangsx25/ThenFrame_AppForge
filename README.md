@@ -1,5 +1,7 @@
 # ThenFrame
 
+[Backlog](docs/PRODUCT_BACKLOG.md) | [Daily Log](docs/daily-log.md) | [Sprint 1](docs/sprint-1/README.md) | [Sprint 2](docs/sprint-2/README.md) | [Sprint 3](docs/sprint-3/README.md) | [Sprint 4](docs/sprint-4/README.md)
+
 Malay wedding photography portfolio and gallery management PWA.
 
 Browse the [documentation index](docs/README.md) for sprint plans, daily logs,
