@@ -5,7 +5,7 @@
 | Project | ThenFrame — AppForge, Group 3, Section 02 |
 | Sprint period | 5–18 November 2026 |
 | Contributors | Awwab; Phang; Munif; Naqyuddin; Ezz |
-| Prepared on | 14 November 2026 |
+| Prepared on | 9 November 2026 |
 | Record basis | Retrospective activity dates provided by the contributor; Git commit dates listed separately as supporting references. |
 
 This is a development activity log. It does not record stand-up attendance or meeting duration. The course calendar marks 9 November as a public holiday; the startup entry describes contributor activity, not a required team meeting.
