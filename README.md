@@ -5,9 +5,9 @@ Malay wedding photography portfolio and gallery management PWA.
 Product requirements, user stories and Sprint 1 acceptance criteria are in
 [PRODUCT_BACKLOG.md](docs/PRODUCT_BACKLOG.md), transcribed from the original backlog PDF.
 Sprint progress is shown in [Sprint 1 Burndown](docs/sprint1-burndown.md).
-See the [Kanban snapshot and live board link](docs/KANBAN.md) for task statuses.
-Hourly snapshot synchronization is configured in GitHub Actions; see
-[activation and credential setup](docs/KANBAN_SYNC.md).
+Manage task statuses on the [GitHub Projects Kanban](https://github.com/users/phangsx25/projects/1).
+Hourly burndown synchronization is configured in GitHub Actions; see
+[activation and credential setup](docs/BURNDOWN_SYNC.md).
 
 ## Stack
 
