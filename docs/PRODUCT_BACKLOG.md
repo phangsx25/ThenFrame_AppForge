@@ -1,14 +1,12 @@
 # ThenFrame — Product Backlog and MVP Plan
 
-## Source and use
+## Overview
 
-Source: `S04-02-G03-AppForge.pdf`, **Product Backlog and MVP Plan**, version 1.0, 4 November 2026, Group 3 — AppForge — Section 02.
+ThenFrame's product backlog covers US01–US13, their priorities, estimates, dependencies and four-sprint delivery plan. The MVP includes US01–US07.
 
-This is a structured Markdown reference transcribed and summarized from the PDF on 14 November 2026. User stories, priorities, estimates, Sprint 1 acceptance criteria, MVP boundaries and planning rules are preserved. Sprint dates were updated on 14 November 2026 to follow the user-provided calendar; original PDF dates are historical context only. Page references refer to the PDF. This document describes requirements and plans, **not proof of implementation, testing or partner acceptance**. See [VERIFICATION.md](VERIFICATION.md) for implementation evidence and outstanding checks, and [SECURITY.md](SECURITY.md) for security verification.
+Use the sprint documents for detailed requirements and tasks, [GitHub Projects](https://github.com/users/phangsx25/projects/1) for current ownership and status, and [VERIFICATION.md](VERIFICATION.md) for implementation and test evidence.
 
-The PDF provides detailed acceptance criteria only for US01–US04. No additional acceptance criteria for US05–US13 are invented here. Original planning assignments are historical; current ownership belongs on the team's Kanban board. PDF diagrams are summarized in text rather than reproduced.
-
-## Product outcome and evidence (pp. 1–3, 6)
+## Product outcome and evidence
 
 ThenFrame: Wedding Photography Portfolio & Gallery Management Website serves couples, visitors and ThenFrame Photography Studio administrators. The intended outcome is one system for exploring photography, customized booking enquiries, studio management and eventual photo selection/delivery, with traditional Malay wedding education.
 
@@ -16,24 +14,22 @@ Partner: ThenFrame Photography Studio; contact: Encik Izzudin, studio owner, via
 
 | Evidence ID | Source | Planning implication / qualification |
 | --- | --- | --- |
-| INT01 | Written owner interview in the “ThenFrame AD Stakeholder” WhatsApp group, 28 October 2026; questions/answers in S02 Lean Business Canvas appendix, Figures A1–A6 | Manual booking, communication, photo organization and final delivery take too much time. Supports US03, US05–US07 and US09–US10. |
-| OBS01 | Planned studio observation; PDF originally proposed 19 November 2026, current session date to be confirmed | Not collected in the source document. Record response/delivery baselines and verify actual tools; findings may change US05–US07 ordering. |
+| INT01 | Written owner interview in the “ThenFrame AD Stakeholder” WhatsApp group, 28 October 2026 | Manual booking, communication, photo organization and final delivery take too much time. Supports US03, US05–US07 and US09–US10. |
+| OBS01 | Planned studio observation; session date to be confirmed | Pending. Record response/delivery baselines and verify actual tools; findings may change US05–US07 ordering. |
 | ASM01 | Team assumption, not confirmed in INT01 | Customer accounts, public browsing, AI summaries, AI FAQ and customer feedback need owner validation at Sprint 1 Review. |
 | ASM02 | S02 assumption, not confirmed in INT01 | WhatsApp, calls, Google Drive and hard disks are assumed current tools; verify through OBS01. |
 | SULAM01 | Course community objective | Supports US13; course goal rather than partner evidence. |
 
-Planned activities, assumptions and synthetic examples must remain labeled. Do not record invented partner approval or observations as evidence.
-
-## Ordered backlog (pp. 4–6)
+## Ordered backlog
 
 Detailed stories and refinement templates by sprint:
 
-- [Sprint 1 — US01–US04](sprint-1/sprint1-user-story.md): source acceptance criteria and original task allocation.
-- [Sprint 2 — US05–US07](sprint-2/sprint2-user-story.md): source stories with detail templates.
-- [Sprint 3 — US08–US10](sprint-3/sprint3-user-story.md): source stories with detail templates.
-- [Sprint 4 — US10–US13](sprint-4/sprint4-user-story.md): source stories with detail templates; US10 continues from Sprint 3.
+- [Sprint 1 — US01–US04](sprint-1/sprint1-user-story.md): acceptance criteria and task allocation.
+- [Sprint 2 — US05–US07](sprint-2/sprint2-user-story.md): user stories and detail templates.
+- [Sprint 3 — US08–US10](sprint-3/sprint3-user-story.md): user stories and detail templates.
+- [Sprint 4 — US10–US13](sprint-4/sprint4-user-story.md): user stories and detail templates; US10 continues from Sprint 3.
 
-Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative effort, complexity and uncertainty, not hours. Initial estimates were prepared by Phang Souh Xin for team review. Sprint allocation is a forecast and may change with progress and partner feedback.
+Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative effort, complexity and uncertainty, not hours. Sprint allocation is a forecast and may change with progress and partner feedback.
 
 | Order / ID | Feature | Priority | Points | Planned sprint | Evidence |
 | --- | --- | --- | --- | --- | --- |
@@ -53,8 +49,6 @@ Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative 
 
 ### User stories
 
-The English story text below retains the PDF requirements with spacing and minor grammar normalized.
-
 - **US01:** As a newlywed couple or new user, I want to register a secure account and log in, so that my personal details and booking history are saved and tracked.
 - **US02:** As a ThenFrame studio admin, I want to log in securely with administrator credentials, so that I can access the backend dashboard without unauthorized users breaking in.
 - **US03:** As a ThenFrame studio admin, I want to upload and manage wedding photos in the gallery, so that I can organize and display my photography collections online.
@@ -69,7 +63,7 @@ The English story text below retains the PDF requirements with spacing and minor
 - **US12:** As a newlywed couple, I want to submit ratings and feedback after our photo session, so that I can share my experience and help improve future services.
 - **US13:** As a visitor or customer from any cultural background, I want to browse and learn about traditional Malay wedding attire and heritage stories on the website, so that I can appreciate local Malay customs and choose to experience a cross-cultural traditional Malay photoshoot.
 
-### Epics and dependencies (pp. 5–6)
+### Epics and dependencies
 
 | Epic | Stories | Outcome |
 | --- | --- | --- |
@@ -81,7 +75,7 @@ The English story text below retains the PDF requirements with spacing and minor
 
 US02 enables US03; US03 supplies US04. US05 supplies enquiries for US06 and US08; US07 supports consultation and confirmation. US09 supplies private albums for US10. Private photo delivery follows core login, gallery and booking work. Risks include authentication, upload performance, private access, storage, booking conflicts, package customization and AI integration.
 
-## Sprint 1 acceptance criteria (pp. 7–10)
+## Sprint 1 acceptance criteria
 
 These are requirement lists, not completed checklists. Record results and evidence separately.
 
@@ -116,7 +110,7 @@ Dependencies/risks: authentication, user database, roles and access permissions.
 6. Uploaded photos and collection details remain saved after refreshing the page.
 7. Regular customers and visitors cannot access photo upload or gallery management functions.
 
-Dependencies/risks: US02, photo storage, gallery database, wedding photographs and permission to display them. Large images affect storage/loading; editing and deletion must avoid accidental loss. The PDF does not specify exact allowed formats or size limits.
+Dependencies/risks: US02, photo storage, gallery database, wedding photographs and permission to display them. Large images affect storage/loading; editing and deletion must avoid accidental loss. Exact allowed formats and size limits need to be agreed.
 
 ### US04 — Public portfolio browsing
 
@@ -130,9 +124,9 @@ Dependencies/risks: US02, photo storage, gallery database, wedding photographs a
 
 Dependencies/risks: US03, uploaded collections/photos and studio permission for public display. Large images affect loading; incorrect permissions may expose private photos.
 
-### Original Sprint 1 task allocation (pp. 7–10)
+### Sprint 1 task allocation
 
-| Story | Task | Original members | Expected evidence |
+| Story | Task | Members | Expected evidence |
 | --- | --- | --- | --- |
 | US01 | Design registration/login pages | Phang, Munif | UI screenshots |
 | US01 | Create user database structure | Naqyuddin, Ezz, Munif | Database schema |
@@ -152,7 +146,7 @@ Dependencies/risks: US03, uploaded collections/photos and studio permission for 
 | US04 | Implement public access/visibility rules | Phang, Munif, Naqyuddin | Access-control test results |
 | US04 | Test gallery across device screens | Naqyuddin, Awwab | Responsive test results |
 
-## MVP scope and validation (pp. 11–14)
+## MVP scope and validation
 
 **Included MVP:** US01–US07. Customers browse collections, register/log in, select/customize a package, submit an enquiry and receive confirmation after consultation. Admins log in, manage galleries/packages, review enquiries, check availability, schedule consultations and confirm bookings.
 
@@ -172,9 +166,9 @@ Partner validation plan: calendar schedules user review/feedback on 17 November,
 
 Feasibility requirements: desktop/mobile browser access, development/test environment before public deployment, customer/admin roles, secure authentication, restricted management access, protection of customer information/private photos, advance coordination of partner sessions and core booking before AI/advanced photo management.
 
-## Four-sprint schedule — updated 14 November 2026
+## Four-sprint schedule
 
-Schedule authority: user-provided November 2026 Sprint 1 calendar. Sprint 1 runs 5–18 November, and Sprint 2 starts 19 November. Sprint 2 runs 19 November–9 December, extended by one week for a holiday as clarified by the user. Sprints 3–4 then continue in consecutive two-week periods, replacing the PDF forecast. The specific holiday dates have not been supplied. Story allocation is unchanged.
+Sprint 2 includes a one-week holiday extension. Sprints 3 and 4 each run for two weeks.
 
 | Sprint | Current dates | Stories | Usable increment / review |
 | --- | --- | --- | --- |
@@ -201,14 +195,12 @@ The calendar's “finalize MVP” wording does not change the product MVP bounda
 
 Calendar routine: daily stand-up of 10–15 minutes; working dates listed are 5–6, 10, 12–13 and 16–18 November. Backlog refinement is scheduled on 11 November. Maintain Kanban and burndown/up regularly.
 
-Historical PDF planning assumptions: five members, approximately two focus hours per member per day, nine working days and a 20% buffer produced a 72-hour estimate. This capacity was based on the superseded dates and needs re-estimation; it is not the capacity of the updated calendar. The original Day 5 contingency allows moving US03 edit/delete only with Product Owner agreement; no such approval is implied.
-
 Burndown starts at 16 points; only fully Done stories burn points. Scrum Master updates after each Daily Scrum. New requirements/partner suggestions enter the product backlog; in-sprint scope changes require Product Owner agreement and a dated change log with change/reason. A separate retrospective follows review; its exact date is not specified in the supplied calendar.
 
-### Definition of Done — source wording (p. 17)
+### Definition of Done
 
 1. Acceptance criteria met, including error and access cases.
-2. **Pest feature tests pass.** (Original PDF wording; see discrepancy below.)
+2. Agreed automated feature tests pass; test-framework alignment is listed below.
 3. Pull request reviewed and merged to main.
 4. Works at phone and desktop width.
 5. Deployed to staging.
@@ -217,13 +209,11 @@ Burndown starts at 16 points; only fully Done stories burn points. Scrum Master 
 
 Review scenario: owner logs in as admin, creates a collection and uploads sample photos; opens the public portfolio on a phone without login; checks that a customer account cannot open the admin page. Feedback receives a `feedback` tag and Product Owner ordering at Sprint 2 Planning. A separate Start/Stop/Continue retrospective agrees one improvement action, for example PR review within 24 hours.
 
-## Source discrepancies and refinement needs
+## Items to refine
 
-- **Schedule change (14 November 2026):** user-provided calendar supersedes PDF dates. Current sprints: 5–18 November; 19 November–9 December; 10–23 December; 24 December 2026–6 January 2027. Historical PDF forecast: 9–22 November, 23 November–13 December, 14–27 December, 28 December–10 January; its detailed Sprint 1 plan instead used 10–21 November. Original course-week labels are omitted because they belonged to that old forecast.
-- **Test framework:** PDF Done definition says Pest (p. 17); current repository uses Vitest plus manual testing. Confirm/document the agreed replacement rather than silently changing the source requirement.
-- **US04 evidence:** ordered evidence mapping lists ASM01 (p. 6), while detailed story says INT01 + assumption (p. 9). Both qualifications are preserved here.
-- **US05–US13:** detailed acceptance criteria are absent from this PDF; refine them before implementation/acceptance.
-- **US03 limits:** exact file formats/size are not specified in the PDF; implementation limits and their agreement must be recorded separately.
-- **Done versus code complete:** passing local tests alone does not establish merge, staging deployment, real access checks or Product Owner acceptance.
+- **US05–US13:** agree detailed acceptance criteria before implementation and acceptance.
+- **US03 upload limits:** confirm the allowed file formats and maximum size.
+- **Test framework:** the original plan specified Pest; the repository uses Vitest plus manual testing. Record the team's agreed testing approach.
+- **Partner validation:** confirm observation and review sessions, and use findings to refine the backlog.
 
-Keep future approved requirement changes dated and distinguish them from this version 1.0 source baseline.
+Record approved scope changes and their reasons in the relevant sprint refinement document.
