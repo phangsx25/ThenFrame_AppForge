@@ -4,7 +4,7 @@ The interactive [GitHub Projects Kanban](https://github.com/users/phangsx25/proj
 
 ## Behavior
 
-`.github/workflows/sync-burndown.yml` reads the Project hourly at minute 17 (UTC) and updates only `docs/sprint1-burndown.json`, `docs/sprint1-burndown.md` and `docs/sprint1-burndown.svg`. GitHub may delay runs. You can also use **Actions → Sync Sprint 1 Burndown → Run workflow**.
+`.github/workflows/sync-burndown.yml` reads the Project hourly at minute 17 (UTC) and updates only `docs/sprint-1/sprint1-burndown.json`, `docs/sprint-1/sprint1-burndown.md` and `docs/sprint-1/sprint1-burndown.svg`. GitHub may delay runs. You can also use **Actions → Sync Sprint 1 Burndown → Run workflow**.
 
 Only Done burns points. A new day or changed Sprint 1 status creates an observation; unchanged same-day runs create no duplicate. Missing historical dates stay blank. Outside 5–18 November 2026 (Kuala Lumpur), the chart/history remain frozen and the workflow makes no new observations. No future sprint charts are generated. The script never changes Project cards.
 

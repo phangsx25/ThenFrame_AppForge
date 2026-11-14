@@ -28,7 +28,7 @@ Planned activities, assumptions and synthetic examples must remain labeled. Do n
 
 Detailed stories and refinement templates by sprint:
 
-- [Sprint 1 — US01–US04](sprint1-user-story.md): source acceptance criteria and original task allocation.
+- [Sprint 1 — US01–US04](sprint-1/sprint1-user-story.md): source acceptance criteria and original task allocation.
 - [Sprint 2 — US05–US07](sprint2-user-story.md): source stories with detail templates.
 - [Sprint 3 — US08–US10](sprint3-user-story.md): source stories with detail templates.
 - [Sprint 4 — US10–US13](sprint4-user-story.md): source stories with detail templates; US10 continues from Sprint 3.

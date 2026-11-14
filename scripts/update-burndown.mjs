@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 // Read-only GitHub access. No project fields or issue statuses are modified.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const docDir = resolve(root, 'docs');
+const docDir = resolve(root, 'docs/sprint-1');
 const dataPath = resolve(docDir, 'sprint1-burndown.json');
 const inputIndex = process.argv.indexOf('--input');
 if (inputIndex !== -1 && !process.argv[inputIndex + 1]) {
@@ -43,7 +43,7 @@ const done = stories.filter(story => story.status === 'Done').reduce((sum, story
 const history = existsSync(dataPath)
   ? JSON.parse(readFileSync(dataPath, 'utf8'))
   : { sprint: 1, start, end, timezone: 'Asia/Kuala_Lumpur', totalPoints: total,
-    estimateSource: 'PRODUCT_BACKLOG.md: US01=3, US02=3, US03=5, US04=5', snapshots: [] };
+    estimateSource: '../PRODUCT_BACKLOG.md: US01=3, US02=3, US03=5, US04=5', snapshots: [] };
 if (history.start !== start || history.end !== end || history.totalPoints !== total) {
   throw new Error('Sprint baseline changed; reconcile history before saving');
 }
@@ -111,7 +111,7 @@ const summary = `# Sprint 1 — Burndown Chart
 
 ![Sprint 1 burndown](sprint1-burndown.svg)
 
-Sprint: **5–18 November 2026**. Baseline: **16 story points** from US01–US04 in [PRODUCT_BACKLOG.md](PRODUCT_BACKLOG.md). Status source: [GitHub Kanban](https://github.com/users/phangsx25/projects/1).
+Sprint: **5–18 November 2026**. Baseline: **16 story points** from US01–US04 in [PRODUCT_BACKLOG.md](../PRODUCT_BACKLOG.md). Status source: [GitHub Kanban](https://github.com/users/phangsx25/projects/1).
 
 ## Latest observed status — ${current.date}
 
@@ -141,4 +141,4 @@ node scripts/update-burndown.mjs
 Requires Node.js and GitHub CLI signed in with project read access. If gh is absent from the terminal PATH, set THENFRAME_GH_PATH to its executable path. A new day or changed story status appends an observation to [sprint1-burndown.json](sprint1-burndown.json); unchanged same-day runs do not add duplicates. The displayed daily value uses the last observation that day. Outside Sprint 1, history is preserved without adding observations. The script does not modify GitHub cards. [Automatic sync setup](BURNDOWN_SYNC.md) explains the hourly workflow, required secret and activation steps.
 `;
 writeFileSync(resolve(docDir, 'sprint1-burndown.md'), summary);
-console.log(`Sprint 1: ${done}/${total} Done, ${total - done} remaining (${localDate}). Chart: docs/sprint1-burndown.svg`);
+console.log(`Sprint 1: ${done}/${total} Done, ${total - done} remaining (${localDate}). Chart: docs/sprint-1/sprint1-burndown.svg`);

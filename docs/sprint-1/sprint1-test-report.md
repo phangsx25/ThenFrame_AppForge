@@ -2,7 +2,7 @@
 
 **Scope:** US01–US04, 5–18 November 2026.  
 **Status:** Template — acceptance results not yet recorded here.  
-**Requirements:** [Sprint 1 stories](sprint1-user-story.md). Existing historical checks and their limits remain in [VERIFICATION.md](VERIFICATION.md); this template does not reset or replace those records.
+**Requirements:** [Sprint 1 stories](sprint1-user-story.md). Existing historical checks and their limits remain in [VERIFICATION.md](../VERIFICATION.md); this template does not reset or replace those records.
 
 ## Test session
 

@@ -7,10 +7,10 @@ test reports, user review and progress tracking.
 
 Product requirements, user stories and Sprint 1 acceptance criteria are in
 [PRODUCT_BACKLOG.md](docs/PRODUCT_BACKLOG.md), transcribed from the original backlog PDF.
-Sprint progress is shown in [Sprint 1 Burndown](docs/sprint1-burndown.md).
+Sprint progress is shown in [Sprint 1 Burndown](docs/sprint-1/sprint1-burndown.md).
 Manage task statuses on the [GitHub Projects Kanban](https://github.com/users/phangsx25/projects/1).
 Hourly burndown synchronization is configured in GitHub Actions; see
-[activation and credential setup](docs/BURNDOWN_SYNC.md).
+[activation and credential setup](docs/sprint-1/BURNDOWN_SYNC.md).
 
 ## Stack
 

@@ -2,7 +2,7 @@
 
 ![Sprint 1 burndown](sprint1-burndown.svg)
 
-Sprint: **5–18 November 2026**. Baseline: **16 story points** from US01–US04 in [PRODUCT_BACKLOG.md](PRODUCT_BACKLOG.md). Status source: [GitHub Kanban](https://github.com/users/phangsx25/projects/1).
+Sprint: **5–18 November 2026**. Baseline: **16 story points** from US01–US04 in [PRODUCT_BACKLOG.md](../PRODUCT_BACKLOG.md). Status source: [GitHub Kanban](https://github.com/users/phangsx25/projects/1).
 
 ## Latest observed status — 2026-11-14
 

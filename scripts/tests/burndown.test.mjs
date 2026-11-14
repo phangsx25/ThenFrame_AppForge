@@ -11,7 +11,7 @@ function fixture(t) {
   const root = mkdtempSync(join(tmpdir(), 'thenframe-sync-test-'));
   t.after(() => rmSync(root, { recursive: true, force: true }));
   mkdirSync(join(root, 'scripts'));
-  mkdirSync(join(root, 'docs'));
+  mkdirSync(join(root, 'docs/sprint-1'), { recursive: true });
   for (const name of ['update-burndown.mjs']) {
     copyFileSync(join(repo, 'scripts', name), join(root, 'scripts', name));
   }
@@ -28,7 +28,7 @@ function fixture(t) {
       encoding: 'utf8', env: { ...process.env, NODE_OPTIONS: `--import=${pathToFileURL(clock).href}` },
     });
   };
-  const read = name => readFileSync(join(root, 'docs', name), 'utf8');
+  const read = name => readFileSync(join(root, 'docs/sprint-1', name), 'utf8');
   return { board, run, read };
 }
 

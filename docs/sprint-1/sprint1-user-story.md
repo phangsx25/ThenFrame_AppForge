@@ -5,8 +5,8 @@ Authentication, Gallery and Public Portfolio
 - Stories: US01–US04
 - Planned dates: 5 November 2026 – 18 November 2026 (two weeks).
 - Source: `S04-02-G03-AppForge.pdf`, version 1.0, 4 November 2026.
-- Reference: [Product backlog](PRODUCT_BACKLOG.md).
-- Requirements and templates do not establish implementation or acceptance. Track evidence in [VERIFICATION.md](VERIFICATION.md).
+- Reference: [Product backlog](../PRODUCT_BACKLOG.md).
+- Requirements and templates do not establish implementation or acceptance. Track evidence in [VERIFICATION.md](../VERIFICATION.md).
 
 Schedule basis: user-provided Sprint 1 calendar, adopted 14 November 2026. Sprint 1 runs 5–18 November; Sprint 2 runs 19 November–9 December, extended by one week for a holiday per user clarification (specific holiday dates not supplied). Sprints 3–4 continue from 10 December in consecutive 14-day blocks, replacing the PDF date forecast. Later-sprint dates are extrapolated, not additional dates shown in the calendar.
 
@@ -107,7 +107,7 @@ Dependencies/risks: US03, uploaded collections/photos and studio permission for 
 
 ## Completion rules
 
-Use the [source Definition of Done](PRODUCT_BACKLOG.md#definition-of-done--source-wording-p-17). It includes acceptance/error/access cases, tests, reviewed PR merged to main, phone/desktop operation, staging deployment, no private client data in Git and Product Owner acceptance. The PDF says Pest; this repository uses Vitest plus manual testing. That discrepancy remains explicitly recorded in the backlog.
+Use the [source Definition of Done](../PRODUCT_BACKLOG.md#definition-of-done--source-wording-p-17). It includes acceptance/error/access cases, tests, reviewed PR merged to main, phone/desktop operation, staging deployment, no private client data in Git and Product Owner acceptance. The PDF says Pest; this repository uses Vitest plus manual testing. That discrepancy remains explicitly recorded in the backlog.
 
 ## Sprint 1 calendar activities
 
