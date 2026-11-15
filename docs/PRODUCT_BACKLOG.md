@@ -387,4 +387,4 @@ The contributor supplied a refined backlog dated 11 November 2026. Local documen
 | US08 | US10 | AI summaries in Sprint 4; 5 points, Must. |
 | US11–US12 | US11–US12 | Retain FAQ and feedback in Sprint 4. |
 
-Sprint 1 remains US01–US04. Retain subsequent agreed details: username-only login, 8 MB image limit, event-type portfolio filtering and Latest Work. Historical evidence may use previous IDs; interpret it using this mapping. GitHub Projects has not been updated by this local documentation change.
+Sprint 1 remains US01–US04. Retain subsequent agreed details: username-only login, 8 MB image limit, event-type portfolio filtering and Latest Work. Historical evidence may use previous IDs; interpret it using this mapping. GitHub Projects was aligned on 16 November 2026: 12 active stories and 64 points, matching story details, priorities, estimates, planned sprint dates and order. US01–US04 remain In review, US05 is In progress, and US06–US12 remain Backlog. The superseded standalone consultation issue is closed as not planned and removed from the board; its scope is included in US06. Issue numbers remain unchanged to preserve history.
