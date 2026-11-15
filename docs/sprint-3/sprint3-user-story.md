@@ -32,7 +32,7 @@ Private Client Albums, Photo Selection and Delivery
 
 ### Tasks — template
 
-| Task | Owner | Completion evidence |
+| Task | Responsible member(s) | Completion evidence |
 | --- | --- | --- |
 | TBD | TBD on Kanban | TBD |
 
@@ -71,7 +71,7 @@ Private Client Albums, Photo Selection and Delivery
 
 ### Tasks — template
 
-| Task | Owner | Completion evidence |
+| Task | Responsible member(s) | Completion evidence |
 | --- | --- | --- |
 | TBD | TBD on Kanban | TBD |
 

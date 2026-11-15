@@ -42,7 +42,7 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 
 ### Tasks
 
-| Task | Owner | Completion evidence |
+| Task | Responsible member(s) | Completion evidence |
 | --- | --- | --- |
 | Review the existing ThenFrame enquiry form | TBD on Kanban | Confirmed form requirements |
 | Design service and booking enquiry pages | TBD on Kanban | UI screenshots |
@@ -83,7 +83,7 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 
 ### Tasks
 
-| Task | Owner | Completion evidence |
+| Task | Responsible member(s) | Completion evidence |
 | --- | --- | --- |
 | Design booking and consultation management pages | TBD on Kanban | UI screenshots |
 | Create booking and consultation database structures | TBD on Kanban | Database schema |
@@ -121,7 +121,7 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 
 ### Tasks
 
-| Task | Owner | Completion evidence |
+| Task | Responsible member(s) | Completion evidence |
 | --- | --- | --- |
 | Research traditional Malay wedding attire and customs | TBD on Kanban | Research notes and sources |
 | Design the heritage guide page | TBD on Kanban | UI screenshots |

@@ -94,6 +94,15 @@ These are requirement lists, not completed checklists. Record results and eviden
 - Authentication errors may prevent users from accessing their accounts.
 - Booking history depends on the booking function planned for Sprint 2 (US05).
 
+**Tasks:**
+
+| Task | Responsible member(s) | Completion evidence |
+| --- | --- | --- |
+| Design registration/login pages | Phang, Munif | UI screenshots |
+| Create user database structure | Naqyuddin, Ezz, Munif | Database schema |
+| Develop registration/login/logout | Awwab, Ezz | Working authentication |
+| Test valid/invalid login access | Munif, Phang | Test results |
+
 ### US02 — Administrator login
 
 1. Authorized admins log in with their username and password.
@@ -108,6 +117,15 @@ These are requirement lists, not completed checklists. Record results and eviden
 - Requires the authentication system and user database.
 - Requires admin roles and access permissions.
 - Incorrect access control may expose private studio information.
+
+**Tasks:**
+
+| Task | Responsible member(s) | Completion evidence |
+| --- | --- | --- |
+| Design admin login/dashboard | Ezz, Phang | UI screenshots |
+| Set up authorized accounts/roles | Awwab, Ezz | Database records and role configuration |
+| Develop admin login/dashboard access | Phang, Munif, Naqyuddin | Working admin dashboard |
+| Test invalid login/unauthorized access | Munif, Naqyuddin | Test results |
 
 ### US03 — Gallery management
 
@@ -128,6 +146,15 @@ These are requirement lists, not completed checklists. Record results and eviden
 - Photo editing and deletion must be handled carefully to avoid accidental data loss.
 - The per-file upload limit is 8 MB (8,388,608 bytes), with JPG/JPEG, PNG and WebP supported.
 
+**Tasks:**
+
+| Task | Responsible member(s) | Completion evidence |
+| --- | --- | --- |
+| Design upload/gallery management pages | Phang, Munif | UI screenshots |
+| Create photo/collection database structures | Awwab, Ezz | Database schema |
+| Implement upload/file validation | Naqyuddin, Ezz | Working upload function |
+| Implement collection creation/editing/deletion | Munif, Phang | Working gallery management |
+
 ### US04 — Public portfolio browsing
 
 1. Visitors can browse public wedding photography collections without logging in.
@@ -147,27 +174,15 @@ These are requirement lists, not completed checklists. Record results and eviden
 - Large images may affect page loading speed.
 - Incorrect access permissions may expose private photographs.
 
-### Sprint 1 task allocation
+**Tasks:**
 
-| Story | Task | Members | Expected evidence |
-| --- | --- | --- | --- |
-| US01 | Design registration/login pages | Phang, Munif | UI screenshots |
-| US01 | Create user database structure | Naqyuddin, Ezz, Munif | Database schema |
-| US01 | Develop registration/login/logout | Awwab, Ezz | Working authentication |
-| US01 | Test valid/invalid login access | Munif, Phang | Test results |
-| US02 | Design admin login/dashboard | Ezz, Phang | UI screenshots |
-| US02 | Set up authorized accounts/roles | Awwab, Ezz | Database records and role configuration |
-| US02 | Develop admin login/dashboard access | Phang, Munif, Naqyuddin | Working admin dashboard |
-| US02 | Test invalid login/unauthorized access | Munif, Naqyuddin | Test results |
-| US03 | Design upload/gallery management pages | Phang, Munif | UI screenshots |
-| US03 | Create photo/collection database structures | Awwab, Ezz | Database schema |
-| US03 | Implement upload/file validation | Naqyuddin, Ezz | Working upload function |
-| US03 | Implement collection creation/editing/deletion | Munif, Phang | Working gallery management |
-| US04 | Design portfolio/collection pages | Phang, Awwab | UI screenshots |
-| US04 | Develop browsing/photo viewing | Naqyuddin, Munif | Working portfolio pages |
-| US04 | Connect portfolio to gallery database | Ezz, Awwab | Displayed gallery data |
-| US04 | Implement public access/visibility rules | Phang, Munif, Naqyuddin | Access-control test results |
-| US04 | Test gallery across device screens | Naqyuddin, Awwab | Responsive test results |
+| Task | Responsible member(s) | Completion evidence |
+| --- | --- | --- |
+| Design portfolio/collection pages | Phang, Awwab | UI screenshots |
+| Develop browsing/photo viewing | Naqyuddin, Munif | Working portfolio pages |
+| Connect portfolio to gallery database | Ezz, Awwab | Displayed gallery data |
+| Implement public access/visibility rules | Phang, Munif, Naqyuddin | Access-control test results |
+| Test gallery across device screens | Naqyuddin, Awwab | Responsive test results |
 
 ## MVP scope and validation
 

@@ -32,7 +32,7 @@ AI Enquiry Summaries, FAQ and Customer Feedback
 
 ### Tasks — template
 
-| Task | Owner | Completion evidence |
+| Task | Responsible member(s) | Completion evidence |
 | --- | --- | --- |
 | TBD | TBD on Kanban | TBD |
 
@@ -71,7 +71,7 @@ AI Enquiry Summaries, FAQ and Customer Feedback
 
 ### Tasks — template
 
-| Task | Owner | Completion evidence |
+| Task | Responsible member(s) | Completion evidence |
 | --- | --- | --- |
 | TBD | TBD on Kanban | TBD |
 
@@ -110,7 +110,7 @@ AI Enquiry Summaries, FAQ and Customer Feedback
 
 ### Tasks — template
 
-| Task | Owner | Completion evidence |
+| Task | Responsible member(s) | Completion evidence |
 | --- | --- | --- |
 | TBD | TBD on Kanban | TBD |
 
