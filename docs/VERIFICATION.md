@@ -10,6 +10,18 @@ The first browser attempt filled the old settings form before asynchronous logou
 
 Username-related security-advisor rationale is recorded in [SECURITY.md](SECURITY.md#username-sign-in). Private attempt-table client denial and uid-scoped SECURITY DEFINER update are intentional. Existing project advisories were not broadened or automatically changed.
 
+Final validation: 55 Vitest cases, lint and production/PWA build passed, and
+[GitHub Verify](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43707900774)
+passed for `9f7da33`. Vercel reported the corresponding production deployment
+READY. A production-browser run was not authorized and was not performed; the
+live browser evidence above is from the local frontend connected to the real
+backend. The build emitted a JavaScript chunk-size advisory above 500 kB.
+
+The temporary Auth account/profile and its known attempt-limit entries were
+deleted after testing. Readback confirmed the fixture was absent, the original
+two accounts and profiles remained, and both had usernames. No real user password
+or role was changed.
+
 
 ## Password recovery routing fix
 

@@ -76,6 +76,13 @@ Username/password is now the default for customer and admin login. Email remains
 
 A dedicated temporary confirmed customer account was used for integration checks, with no email sent and no changes to existing users' passwords. Cleanup status is recorded in the verification log. New signup email delivery and the existing owner's chosen username still require their own manual acceptance. Earlier password-recovery evidence above remains separately scoped.
 
+For the username change, all **55 tests**, lint and production/PWA build passed.
+[CI verification](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43707900774)
+passed for `9f7da33`; Vercel reported production READY. A production-browser run
+was not authorized, so the browser evidence in this section is local frontend →
+real backend only. The temporary test account/profile and its known login-attempt
+records were removed; readback confirmed the original two accounts/profiles remain.
+
 ## Automated checks
 
 | Command / check | Actual date and commit | Result | Evidence |
