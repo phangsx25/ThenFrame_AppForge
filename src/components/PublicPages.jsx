@@ -523,12 +523,11 @@ export function PortfolioPage({ client, auth, selectedId }) {
               <div>
                 <h3>Tell us about your celebration.</h3>
                 <p>
-                  Booking enquiries and package customization are planned for a
-                  later sprint. For now, explore the portfolio and create your
-                  customer account.
+                  Tell the studio about your event, service preferences and
+                  requirements. Log in to submit your enquiry.
                 </p>
-                <a className="button-outline" href="#/register">
-                  Create an account
+                <a className="button-outline" href="#/booking">
+                  Make an enquiry
                 </a>
               </div>
             </div>

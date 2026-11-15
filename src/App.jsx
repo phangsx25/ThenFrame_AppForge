@@ -8,6 +8,7 @@ import AccountSettings from "./components/AccountSettings";
 import AdminSetup from "./components/AdminSetup";
 import AdminDashboard from "./components/AdminDashboard";
 import CustomerDashboard from "./components/CustomerDashboard";
+import BookingPage from "./components/BookingPage";
 import { Home, PortfolioPage } from "./components/PublicPages";
 import { Header, Workspace } from "./components/Layout";
 import { LaterCard, Notice } from "./components/UI";
@@ -116,7 +117,9 @@ export default function App({ client = supabase }) {
       );
     else
       page =
-        ["/heritage", "/booking"].includes(route) ? (
+        route === "/booking" ? (
+          <BookingPage key={auth.session.user.id} client={client} auth={auth} />
+        ) : route === "/heritage" ? (
           <Workspace
             auth={auth}
             admin={auth.isAdmin}
