@@ -32,7 +32,7 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 | US05-AC07 | Successfully submitted enquiries are saved, and a confirmation message is displayed. |
 | US05-AC08 | Failed submissions display an error message without creating duplicate enquiries. |
 
-### Dependencies and risks
+**Dependencies and risks:**
 
 - Requires the studio's existing enquiry requirements and confirmed service information.
 - Requires a booking enquiry database.
@@ -72,7 +72,7 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 | US06-AC07 | Booking and consultation updates are saved in the database. |
 | US06-AC08 | Unauthorized users cannot access booking management functions. |
 
-### Dependencies and risks
+**Dependencies and risks:**
 
 - Requires submitted customer enquiries from US05.
 - Requires secure admin authentication.
@@ -112,7 +112,7 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 | US07-AC06 | The system displays an appropriate message if no heritage content is available. |
 | US07-AC07 | Heritage information is checked for accuracy before publication. |
 
-### Dependencies and risks
+**Dependencies and risks:**
 
 - Requires reliable information about traditional Malay wedding attire and customs.
 - Requires suitable images and permission to use them.

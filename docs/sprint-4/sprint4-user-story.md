@@ -13,12 +13,16 @@ AI Enquiry Summaries, FAQ and Customer Feedback
 
 **Priority:** Must · **Estimate:** 5 points · **Planned sprint:** 4 · **Evidence:** ASM01
 
-### Scope and dependencies — template
+### Scope — template
 
 - In scope: TBD.
 - Out of scope: TBD.
-- Dependencies and handoff: TBD.
 - Permissions, data rules and failure handling: TBD.
+
+**Dependencies and risks:**
+
+- Dependencies: TBD.
+- Risks: TBD.
 
 ### Acceptance criteria — template
 
@@ -48,12 +52,16 @@ AI Enquiry Summaries, FAQ and Customer Feedback
 
 **Priority:** Could · **Estimate:** 5 points · **Planned sprint:** 4 · **Evidence:** ASM01
 
-### Scope and dependencies — template
+### Scope — template
 
 - In scope: TBD.
 - Out of scope: TBD.
-- Dependencies and handoff: TBD.
 - Permissions, data rules and failure handling: TBD.
+
+**Dependencies and risks:**
+
+- Dependencies: TBD.
+- Risks: TBD.
 
 ### Acceptance criteria — template
 
@@ -83,12 +91,16 @@ AI Enquiry Summaries, FAQ and Customer Feedback
 
 **Priority:** Could · **Estimate:** 3 points · **Planned sprint:** 4 · **Evidence:** ASM01
 
-### Scope and dependencies — template
+### Scope — template
 
 - In scope: TBD.
 - Out of scope: TBD.
-- Dependencies and handoff: TBD.
 - Permissions, data rules and failure handling: TBD.
+
+**Dependencies and risks:**
+
+- Dependencies: TBD.
+- Risks: TBD.
 
 ### Acceptance criteria — template
 

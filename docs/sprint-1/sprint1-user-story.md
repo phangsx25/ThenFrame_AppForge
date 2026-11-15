@@ -19,7 +19,7 @@ The source provides detailed stories and acceptance criteria on pp. 7–10. Orig
 
 **Priority:** Must · **Estimate:** 3 points · **Evidence:** ASM01
 
-### Acceptance criteria and dependencies
+### Acceptance criteria
 
 1. New users can register with a name, unique username, email address and valid password.
 2. Registered users log in with their username and password.
@@ -27,7 +27,12 @@ The source provides detailed stories and acceptance criteria on pp. 7–10. Orig
 4. The system prevents duplicate email registration and enforces unique, case-insensitive usernames.
 5. Users can log out and cannot access protected account pages after logging out.
 
-Dependencies/risks: user database and authentication; secure password storage; authentication failures can prevent access. Booking history depends on US05 in Sprint 2.
+**Dependencies and risks:**
+
+- Requires a user database and authentication system.
+- Passwords must be stored securely.
+- Authentication errors may prevent users from accessing their accounts.
+- Booking history depends on the booking function planned for Sprint 2 (US05).
 
 ## US02 — Administrator login
 
@@ -35,7 +40,7 @@ Dependencies/risks: user database and authentication; secure password storage; a
 
 **Priority:** Must · **Estimate:** 3 points · **Evidence:** Security assumption
 
-### Acceptance criteria and dependencies
+### Acceptance criteria
 
 1. Authorized admins log in with their username and password.
 2. Successful admin login redirects to the admin dashboard.
@@ -44,7 +49,11 @@ Dependencies/risks: user database and authentication; secure password storage; a
 5. Admins can log out, and protected dashboard pages cannot be accessed after logout.
 6. Public users cannot register themselves as administrators.
 
-Dependencies/risks: authentication, user database, roles and access permissions. Incorrect controls may expose private studio information.
+**Dependencies and risks:**
+
+- Requires the authentication system and user database.
+- Requires admin roles and access permissions.
+- Incorrect access control may expose private studio information.
 
 ## US03 — Gallery management
 
@@ -52,7 +61,7 @@ Dependencies/risks: authentication, user database, roles and access permissions.
 
 **Priority:** Must · **Estimate:** 5 points · **Evidence:** INT01
 
-### Acceptance criteria and dependencies
+### Acceptance criteria
 
 1. Logged-in admins can upload wedding photos to the system.
 2. Admins can create a gallery collection with a title, description and event type.
@@ -62,7 +71,14 @@ Dependencies/risks: authentication, user database, roles and access permissions.
 6. Uploaded photos and collection details remain saved after refreshing the page.
 7. Regular customers and visitors cannot access photo upload or gallery management functions.
 
-Dependencies/risks: US02, photo storage, gallery database, wedding photographs and permission to display them. Large images affect storage/loading; editing and deletion must avoid accidental loss. The agreed per-file upload limit is 8 MB (8,388,608 bytes), with JPG/JPEG, PNG and WebP supported.
+**Dependencies and risks:**
+
+- Requires secure admin login (US02).
+- Requires photo storage and a gallery database.
+- Requires wedding photographs and permission from ThenFrame to display them.
+- Large images may increase storage usage and loading time.
+- Photo editing and deletion must be handled carefully to avoid accidental data loss.
+- The per-file upload limit is 8 MB (8,388,608 bytes), with JPG/JPEG, PNG and WebP supported.
 
 ## US04 — Public portfolio browsing
 
@@ -70,7 +86,7 @@ Dependencies/risks: US02, photo storage, gallery database, wedding photographs a
 
 **Priority:** Must · **Estimate:** 5 points · **Evidence:** ASM01
 
-### Acceptance criteria and dependencies
+### Acceptance criteria
 
 1. Visitors can browse public wedding photography collections without logging in.
 2. Visitors can open a collection to view its wedding photos and details.
@@ -81,7 +97,13 @@ Dependencies/risks: US02, photo storage, gallery database, wedding photographs a
 7. Visitors cannot upload, edit or delete gallery photos or collections.
 8. The homepage displays the three most recently published public collections in Latest Work, with links to each collection and View All; private collections are excluded and ordinary edits do not change publication order.
 
-Dependencies/risks: US03, uploaded collections/photos and studio permission for public display. Large images affect loading; incorrect permissions may expose private photos.
+**Dependencies and risks:**
+
+- Requires gallery management (US03).
+- Requires collections and photos uploaded by the admin.
+- Requires permission from ThenFrame to display selected photographs publicly.
+- Large images may affect page loading speed.
+- Incorrect access permissions may expose private photographs.
 
 
 ## Original task allocation

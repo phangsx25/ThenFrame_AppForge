@@ -13,12 +13,16 @@ Private Client Albums, Photo Selection and Delivery
 
 **Priority:** Should · **Estimate:** 8 points · **Planned sprint:** 3 · **Evidence:** INT01
 
-### Scope and dependencies — template
+### Scope — template
 
 - In scope: TBD.
 - Out of scope: TBD.
-- Dependencies and handoff: TBD.
 - Permissions, data rules and failure handling: TBD.
+
+**Dependencies and risks:**
+
+- Dependencies: TBD.
+- Risks: TBD.
 
 ### Acceptance criteria — template
 
@@ -48,12 +52,16 @@ Private Client Albums, Photo Selection and Delivery
 
 **Priority:** Must · **Estimate:** 8 points · **Planned sprint:** 3 · **Evidence:** INT01
 
-### Scope and dependencies — template
+### Scope — template
 
 - In scope: TBD.
 - Out of scope: TBD.
-- Dependencies and handoff: TBD.
 - Permissions, data rules and failure handling: TBD.
+
+**Dependencies and risks:**
+
+- Dependencies: TBD.
+- Risks: TBD.
 
 ### Acceptance criteria — template
 
