@@ -17,20 +17,18 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 
 **Priority:** Must · **Estimate:** 8 points · **Evidence:** INT01 · **Owner:** TBD on Kanban
 
-**Evidence / assumption:** INT01 – The studio reported problems with manual booking management and client communication. The studio's existing enquiry form collects service type, event type, photography style, and referral source. Additional booking and package details require confirmation.
+**Evidence or assumption:** INT01 – The studio reported problems with manual booking management and client communication. The studio's existing enquiry form collects service type, event type, photography style, and referral source. Additional booking and package details require confirmation.
 
-### Acceptance criteria
+**Acceptance criteria:**
 
-| ID | Criterion |
-| --- | --- |
-| US05-AC01 | Customers can select Photography, Videography, or Combo Photo & Video services. |
-| US05-AC02 | Customers can select their event type. |
-| US05-AC03 | Customers can provide their preferred event date and contact information. |
-| US05-AC04 | Customers can select their preferred photography colour or style. |
-| US05-AC05 | Customers can enter additional requirements and select available package options if provided by the studio. |
-| US05-AC06 | The system displays an error when required information is missing or invalid. |
-| US05-AC07 | Successfully submitted enquiries are saved, and a confirmation message is displayed. |
-| US05-AC08 | Failed submissions display an error message without creating duplicate enquiries. |
+- **US05-AC01:** Customers can select Photography, Videography, or Combo Photo & Video services.
+- **US05-AC02:** Customers can select their event type.
+- **US05-AC03:** Customers can provide their preferred event date and contact information.
+- **US05-AC04:** Customers can select their preferred photography colour or style.
+- **US05-AC05:** Customers can enter additional requirements and select available package options if provided by the studio.
+- **US05-AC06:** The system displays an error when required information is missing or invalid.
+- **US05-AC07:** Successfully submitted enquiries are saved, and a confirmation message is displayed.
+- **US05-AC08:** Failed submissions display an error message without creating duplicate enquiries.
 
 **Dependencies and risks:**
 
@@ -40,7 +38,7 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 - Booking availability checking depends on US06.
 - Customer information must be stored securely.
 
-### Tasks
+**Tasks:**
 
 | Task | Responsible member(s) | Completion evidence |
 | --- | --- | --- |
@@ -57,20 +55,18 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 
 **Priority:** Must · **Estimate:** 8 points · **Evidence:** INT01 · **Owner:** TBD on Kanban
 
-**Evidence / assumption:** INT01 – The studio reported problems with manual booking management and client communication. The existing enquiry form collects service type, event type, preferred style, and referral source. Online booking management and consultation scheduling are proposed features. The detailed booking confirmation process requires further confirmation from ThenFrame.
+**Evidence or assumption:** INT01 – The studio reported problems with manual booking management and client communication. The existing enquiry form collects service type, event type, preferred style, and referral source. Online booking management and consultation scheduling are proposed features. The detailed booking confirmation process requires further confirmation from ThenFrame.
 
-### Acceptance criteria
+**Acceptance criteria:**
 
-| ID | Criterion |
-| --- | --- |
-| US06-AC01 | Admin can view incoming customer booking enquiries and their details. |
-| US06-AC02 | Admin can view the selected service, event type, preferred style, event date, and additional requirements. |
-| US06-AC03 | Admin can check booking availability and identify potential scheduling conflicts. |
-| US06-AC04 | Admin can update booking enquiry statuses, such as Pending, Under Review, Confirmed, or Rejected. |
-| US06-AC05 | Admin can schedule online or offline consultations with customers. |
-| US06-AC06 | Admin can update consultation details and confirm booking information. |
-| US06-AC07 | Booking and consultation updates are saved in the database. |
-| US06-AC08 | Unauthorized users cannot access booking management functions. |
+- **US06-AC01:** Admin can view incoming customer booking enquiries and their details.
+- **US06-AC02:** Admin can view the selected service, event type, preferred style, event date, and additional requirements.
+- **US06-AC03:** Admin can check booking availability and identify potential scheduling conflicts.
+- **US06-AC04:** Admin can update booking enquiry statuses, such as Pending, Under Review, Confirmed, or Rejected.
+- **US06-AC05:** Admin can schedule online or offline consultations with customers.
+- **US06-AC06:** Admin can update consultation details and confirm booking information.
+- **US06-AC07:** Booking and consultation updates are saved in the database.
+- **US06-AC08:** Unauthorized users cannot access booking management functions.
 
 **Dependencies and risks:**
 
@@ -81,7 +77,7 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 - Incorrect booking status or scheduling information may cause conflicts.
 - Customer contact details must be protected from unauthorized access.
 
-### Tasks
+**Tasks:**
 
 | Task | Responsible member(s) | Completion evidence |
 | --- | --- | --- |
@@ -98,19 +94,17 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 
 **Priority:** Should · **Estimate:** 3 points · **Evidence:** SULAM01 · **Owner:** TBD on Kanban
 
-**Evidence / assumption:** SULAM01 – The project aims to provide educational content about traditional Malay wedding knowledge to the community. The heritage guide is a proposed feature, and its content requires reliable sources and review.
+**Evidence or assumption:** SULAM01 – The project aims to provide educational content about traditional Malay wedding knowledge to the community. The heritage guide is a proposed feature, and its content requires reliable sources and review.
 
-### Acceptance criteria
+**Acceptance criteria:**
 
-| ID | Criterion |
-| --- | --- |
-| US07-AC01 | Visitors can access the heritage guide without logging in. |
-| US07-AC02 | Visitors can browse information about traditional Malay wedding attire and customs. |
-| US07-AC03 | Visitors can read descriptions explaining the meaning of different wedding traditions. |
-| US07-AC04 | The content is organized into clear sections for easy browsing. |
-| US07-AC05 | Text and images display correctly on mobile and desktop devices. |
-| US07-AC06 | The system displays an appropriate message if no heritage content is available. |
-| US07-AC07 | Heritage information is checked for accuracy before publication. |
+- **US07-AC01:** Visitors can access the heritage guide without logging in.
+- **US07-AC02:** Visitors can browse information about traditional Malay wedding attire and customs.
+- **US07-AC03:** Visitors can read descriptions explaining the meaning of different wedding traditions.
+- **US07-AC04:** The content is organized into clear sections for easy browsing.
+- **US07-AC05:** Text and images display correctly on mobile and desktop devices.
+- **US07-AC06:** The system displays an appropriate message if no heritage content is available.
+- **US07-AC07:** Heritage information is checked for accuracy before publication.
 
 **Dependencies and risks:**
 
@@ -119,7 +113,7 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 - Cultural information must be reviewed to avoid inaccurate explanations.
 - Content preparation may require feedback from ThenFrame or knowledgeable sources.
 
-### Tasks
+**Tasks:**
 
 | Task | Responsible member(s) | Completion evidence |
 | --- | --- | --- |

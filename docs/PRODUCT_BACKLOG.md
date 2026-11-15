@@ -184,6 +184,122 @@ These are requirement lists, not completed checklists. Record results and eviden
 | Implement public access/visibility rules | Phang, Munif, Naqyuddin | Access-control test results |
 | Test gallery across device screens | Naqyuddin, Awwab | Responsive test results |
 
+## Sprint 2 user story details
+
+US05–US07 follow the supplied refinement. Approval and task allocation remain pending; these are requirements and expected evidence, not completed work. See the [Sprint 2 document](sprint-2/sprint2-user-story.md#clarifications-before-implementation) for open implementation decisions.
+
+### US05 — Service and booking enquiries
+
+**User story:** As a customer, I want to submit a photography service enquiry with my event details, preferred style, and package requirements so that ThenFrame can understand my needs and recommend suitable services.
+
+**Priority:** Must · **Estimate:** 8 points · **Evidence:** INT01 · **Owner:** TBD on Kanban
+
+**Evidence or assumption:** INT01 – The studio reported problems with manual booking management and client communication. The studio's existing enquiry form collects service type, event type, photography style, and referral source. Additional booking and package details require confirmation.
+
+**Acceptance criteria:**
+
+- **US05-AC01:** Customers can select Photography, Videography, or Combo Photo & Video services.
+- **US05-AC02:** Customers can select their event type.
+- **US05-AC03:** Customers can provide their preferred event date and contact information.
+- **US05-AC04:** Customers can select their preferred photography colour or style.
+- **US05-AC05:** Customers can enter additional requirements and select available package options if provided by the studio.
+- **US05-AC06:** The system displays an error when required information is missing or invalid.
+- **US05-AC07:** Successfully submitted enquiries are saved, and a confirmation message is displayed.
+- **US05-AC08:** Failed submissions display an error message without creating duplicate enquiries.
+
+**Dependencies and risks:**
+
+- Requires the studio's existing enquiry requirements and confirmed service information.
+- Requires a booking enquiry database.
+- Package options and customization details need confirmation from ThenFrame.
+- Booking availability checking depends on US06.
+- Customer information must be stored securely.
+
+**Tasks:**
+
+| Task | Responsible member(s) | Completion evidence |
+| --- | --- | --- |
+| Review the existing ThenFrame enquiry form | TBD on Kanban | Confirmed form requirements |
+| Design service and booking enquiry pages | TBD on Kanban | UI screenshots |
+| Create booking enquiry database structure | TBD on Kanban | Database schema |
+| Develop service, event type and style selection | TBD on Kanban | Working enquiry form |
+| Implement enquiry submission and data storage | TBD on Kanban | Saved enquiry records |
+| Test form validation and submission | TBD on Kanban | Test results |
+
+### US06 — Booking and consultation management
+
+**User story:** As a ThenFrame studio admin, I want to review customer enquiries, check booking availability, and schedule consultations so that I can manage bookings efficiently and confirm details with customers.
+
+**Priority:** Must · **Estimate:** 8 points · **Evidence:** INT01 · **Owner:** TBD on Kanban
+
+**Evidence or assumption:** INT01 – The studio reported problems with manual booking management and client communication. The existing enquiry form collects service type, event type, preferred style, and referral source. Online booking management and consultation scheduling are proposed features. The detailed booking confirmation process requires further confirmation from ThenFrame.
+
+**Acceptance criteria:**
+
+- **US06-AC01:** Admin can view incoming customer booking enquiries and their details.
+- **US06-AC02:** Admin can view the selected service, event type, preferred style, event date, and additional requirements.
+- **US06-AC03:** Admin can check booking availability and identify potential scheduling conflicts.
+- **US06-AC04:** Admin can update booking enquiry statuses, such as Pending, Under Review, Confirmed, or Rejected.
+- **US06-AC05:** Admin can schedule online or offline consultations with customers.
+- **US06-AC06:** Admin can update consultation details and confirm booking information.
+- **US06-AC07:** Booking and consultation updates are saved in the database.
+- **US06-AC08:** Unauthorized users cannot access booking management functions.
+
+**Dependencies and risks:**
+
+- Requires submitted customer enquiries from US05.
+- Requires secure admin authentication.
+- Requires booking and consultation database structures.
+- Booking availability rules and consultation arrangements need confirmation from ThenFrame.
+- Incorrect booking status or scheduling information may cause conflicts.
+- Customer contact details must be protected from unauthorized access.
+
+**Tasks:**
+
+| Task | Responsible member(s) | Completion evidence |
+| --- | --- | --- |
+| Design booking and consultation management pages | TBD on Kanban | UI screenshots |
+| Create booking and consultation database structures | TBD on Kanban | Database schema |
+| Develop enquiry list and details | TBD on Kanban | Working booking dashboard |
+| Implement availability checking and status updates | TBD on Kanban | Working availability and status functions |
+| Develop consultation scheduling and confirmation | TBD on Kanban | Working consultation form |
+| Test booking management and access control | TBD on Kanban | Test results |
+
+### US07 — Traditional Malay wedding heritage guide
+
+**User story:** As a visitor or customer from any cultural background, I want to browse and learn about traditional Malay wedding attire and heritage stories on the website so that I can appreciate local Malay customs and explore traditional Malay wedding photography styles.
+
+**Priority:** Should · **Estimate:** 3 points · **Evidence:** SULAM01 · **Owner:** TBD on Kanban
+
+**Evidence or assumption:** SULAM01 – The project aims to provide educational content about traditional Malay wedding knowledge to the community. The heritage guide is a proposed feature, and its content requires reliable sources and review.
+
+**Acceptance criteria:**
+
+- **US07-AC01:** Visitors can access the heritage guide without logging in.
+- **US07-AC02:** Visitors can browse information about traditional Malay wedding attire and customs.
+- **US07-AC03:** Visitors can read descriptions explaining the meaning of different wedding traditions.
+- **US07-AC04:** The content is organized into clear sections for easy browsing.
+- **US07-AC05:** Text and images display correctly on mobile and desktop devices.
+- **US07-AC06:** The system displays an appropriate message if no heritage content is available.
+- **US07-AC07:** Heritage information is checked for accuracy before publication.
+
+**Dependencies and risks:**
+
+- Requires reliable information about traditional Malay wedding attire and customs.
+- Requires suitable images and permission to use them.
+- Cultural information must be reviewed to avoid inaccurate explanations.
+- Content preparation may require feedback from ThenFrame or knowledgeable sources.
+
+**Tasks:**
+
+| Task | Responsible member(s) | Completion evidence |
+| --- | --- | --- |
+| Research traditional Malay wedding attire and customs | TBD on Kanban | Research notes and sources |
+| Design the heritage guide page | TBD on Kanban | UI screenshots |
+| Develop the heritage guide | TBD on Kanban | Working heritage guide |
+| Add educational content and approved images | TBD on Kanban | Displayed heritage content |
+| Review accuracy and test responsiveness | TBD on Kanban | Review and test results |
+
 ## MVP scope and validation
 
 **Included MVP:** US01–US07. Customers browse collections, register/log in, specify services, event details and preferences, select available package options if supplied, submit an enquiry and receive confirmation after consultation. Admins log in, manage galleries, review enquiries, check availability, schedule consultations and confirm bookings. Package options are included only when provided by the studio; an admin package-catalogue editor is not an agreed requirement. Visitors can access the Malay wedding heritage guide without logging in.
