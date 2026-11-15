@@ -13,7 +13,7 @@ Only Done burns points. A new day or changed Sprint 1 status creates an observat
 ## Activation
 
 1. The workflow must exist on the default branch (`main`), where the Sprint 1 workflow has already been merged. Scheduled workflows do not run from feature branches.
-2. Create a dedicated GitHub token with read access to the personal Project. A classic PAT can use `read:project`; private linked issues additionally require repository access. Do not reuse the local CLI credential.
+2. Create a dedicated GitHub token with read access to the personal Project. Use a classic PAT with `read:project`. The reader uses verified Project item IDs and statuses without requesting linked issue contents, so private-repository `repo` scope is not needed for this chart. If a Sprint 1 card is deleted and recreated, verify and update its mapping in `scripts/sprint1-stories.mjs` rather than guessing its identity. Do not reuse the local CLI credential.
 3. Open **ThenFrame_AppForge → Settings → Secrets and variables → Actions → New repository secret**. Add **PROJECTS_READ_TOKEN**, pasting the token only into GitHub Secret, not chat/source. Set an expiry and rotate when needed.
 4. The secret reads Projects; the built-in `GITHUB_TOKEN` with `contents: write` commits only the three generated files. Branch rules must permit publishing these commits. If they require PRs, use a PR-based publishing design instead of disabling rules.
 5. Run manually once and inspect the successful Actions run and output. The workflow checks token authentication and access to Project 1 without printing the token. The reader uses a direct, paginated personal-Project API query to avoid the GitHub CLI owner-discovery failure. A non-empty Secret alone does not prove valid access.

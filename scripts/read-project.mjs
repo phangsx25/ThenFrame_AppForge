@@ -13,11 +13,6 @@ const query = `query($login: String!, $cursor: String) {
           fieldValueByName(name: "Status") {
             ... on ProjectV2ItemFieldSingleSelectValue { name }
           }
-          content {
-            ... on Issue { title url }
-            ... on PullRequest { title url }
-            ... on DraftIssue { title }
-          }
         }
       }
     }
@@ -40,9 +35,7 @@ export function readProject(gh = 'gh', execute = execFileSync) {
     totalCount = page.totalCount;
     items.push(...page.nodes.map(item => ({
       id: item.id,
-      title: item.content?.title || '',
       status: item.fieldValueByName?.name,
-      content: { url: item.content?.url },
     })));
     cursor = page.pageInfo?.hasNextPage ? page.pageInfo.endCursor : undefined;
     if (page.pageInfo?.hasNextPage && (!cursor || cursors.has(cursor)))

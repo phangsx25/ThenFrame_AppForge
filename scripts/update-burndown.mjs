@@ -1,4 +1,5 @@
 import { readProject } from './read-project.mjs';
+import { points, sprint1Stories } from './sprint1-stories.mjs';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -19,14 +20,7 @@ const board = JSON.parse(raw.replace(/^\uFEFF/, ''));
 if (!Array.isArray(board.items) || board.items.length < board.totalCount) {
   throw new Error('Incomplete project response; no snapshot saved');
 }
-const points = { US01: 3, US02: 3, US03: 5, US04: 5 };
-const stories = Object.entries(points).map(([id, estimate]) => {
-  const matches = board.items.filter(item => new RegExp(`^${id}\\b`).test(item.title));
-  if (matches.length !== 1 || !matches[0].status) {
-    throw new Error(`Expected one project item with status for ${id}`);
-  }
-  return { id, points: estimate, status: matches[0].status, url: matches[0].content.url };
-});
+const stories = sprint1Stories(board);
 const now = new Date();
 const localDate = new Intl.DateTimeFormat('en-CA', {
   timeZone: 'Asia/Kuala_Lumpur', year: 'numeric', month: '2-digit', day: '2-digit',
