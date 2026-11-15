@@ -107,3 +107,10 @@ Username-only follow-up: 56 tests, lint and production/PWA build passed after re
 - Remaining risks and limitations: real new-password login and old-password rejection are not yet confirmed. Mocked API success does not establish a real server-side password update.
 - Test-data cleanup result: automated browser checks created no live accounts, sent no emails and made no real password changes. No shared recovery link was redeemed by the agent.
 - Acceptance decision and reviewer: TBD; passing tests alone does not establish the full Definition of Done.
+
+
+### Latest Work verification — 15 November 2026
+
+- Homepage preview uses the three latest public collections and offers View All. The public collection request sorts by publication time descending; private collections are excluded.
+- Live database assertions passed for private creation, publishing, editing without changing publication time, and republishing. Temporary records were rolled back. All existing public collections have a publication timestamp; historical values fall back to creation time.
+- Automated verification: 56 tests passed; lint, production build and whitespace checks passed. Browser verification of this homepage change remains pending.

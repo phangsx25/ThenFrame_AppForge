@@ -108,6 +108,9 @@ describe("gallery request behavior (mocked Supabase transport)", () => {
       "visibility",
       "public",
     ]);
+    expect(a.calls).toContainEqual([
+      "gallery_collections", "order", "published_at", { ascending: false, nullsFirst: false },
+    ]);
     const b = clientFor();
     await listCollections(b.client, true);
     expect(b.calls.some((c) => c[1] === "eq")).toBe(false);

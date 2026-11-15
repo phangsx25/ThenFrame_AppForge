@@ -228,14 +228,14 @@ export function PortfolioSection({
     <section className="portfolio-section page-width" id="portfolio">
       <div className="section-heading">
         <div>
-          <span className="eyebrow">A FEW FRAMES / OUR PORTFOLIO</span>
+          <span className="eyebrow">{preview ? "FRESH FROM THE STUDIO" : "A FEW FRAMES / OUR PORTFOLIO"}</span>
           <h2>
-            {selectedId ? "A story, in frames." : "Stories worth holding onto."}
+            {preview ? "Latest Work" : selectedId ? "A story, in frames." : "Stories worth holding onto."}
           </h2>
         </div>
         {preview ? (
           <a className="text-link" href="#/portfolio">
-            Explore the portfolio <Icon name="arrow" size={16} />
+            View All <Icon name="arrow" size={16} />
           </a>
         ) : (
           <button

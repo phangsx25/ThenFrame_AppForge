@@ -49,7 +49,8 @@ export async function listCollections(client, admin = false) {
   let query = client
     .from("gallery_collections")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order(admin ? "created_at" : "published_at", { ascending: false, nullsFirst: false })
+    .order("id", { ascending: false });
   if (!admin) query = query.eq("visibility", "public");
   return required(await query);
 }

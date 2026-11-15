@@ -209,6 +209,10 @@ Burndown starts at 16 points; only fully Done stories burn points. Scrum Master 
 
 Review scenario: owner logs in as admin, creates a collection and uploads sample photos; opens the public portfolio on a phone without login; checks that a customer account cannot open the admin page. Feedback receives a `feedback` tag and Product Owner ordering at Sprint 2 Planning. A separate Start/Stop/Continue retrospective agrees one improvement action, for example PR review within 24 hours.
 
+## Latest Work
+
+The homepage automatically displays the three most recently published public collections, with links to each collection and View All for the complete portfolio. Collections are sorted by `published_at` descending. Changing Private to Public records a new publication time; editing an already public collection does not promote it. Private collections remain excluded. For public collections predating this feature, creation time is used as a historical fallback because their original publication time was not recorded.
+
 ## Portfolio event types
 
 Portfolio collections are classified by event type, not photography style or ethnicity: Akad / Nikah, Reception, Akad & Reception, Engagement, Pre/Post Wedding, Others. This supports the studio's range of wedding activities. Services such as Photography, Videography and Combo belong to booking enquiries, not the portfolio category list. The portfolio currently supports photographs only. Existing custom categories are retained until the owner assigns an appropriate event type.
