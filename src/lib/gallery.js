@@ -159,16 +159,33 @@ export async function deletePhoto(client, photo) {
     );
 }
 export async function deleteCollection(client, id) {
-  // Never rely on an unknown ON DELETE CASCADE setting for populated collections.
-  const photos = required(
+  // Fetch every page before deleting so pagination cannot skip shifted rows.
+  const photos = [];
+  for (let offset = 0; ; offset += 1000) {
+    const page = required(
+      await client.from("gallery_photos").select("id,storage_path")
+        .eq("collection_id", id).order("id").range(offset, offset + 999),
+    );
+    photos.push(...page);
+    if (page.length < 1000) break;
+  }
+  for (const photo of photos) {
+    try {
+      await deletePhoto(client, photo);
+    } catch (error) {
+      throw new Error(`Collection deletion stopped; some photos may already have been removed. The collection was kept. ${error.message}`, { cause: error });
+    }
+  }
+  // Stop if another upload appeared while deleting. Do not silently cascade it.
+  const remaining = required(
     await client
       .from("gallery_photos")
       .select("id")
       .eq("collection_id", id)
       .limit(1),
   );
-  if (photos.length)
-    throw new Error("Remove this collection’s photos before deleting it.");
+  if (remaining.length)
+    throw new Error("New photos were added during deletion. The collection was kept; review it before trying again.");
   required(
     await client
       .from("gallery_collections")

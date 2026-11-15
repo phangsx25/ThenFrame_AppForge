@@ -29,6 +29,7 @@ function clientFor(results = []) {
         "order",
         "single",
         "limit",
+        "range",
       ])
         chain[method] = vi.fn((...args) => {
           calls.push([table, method, ...args]);
@@ -249,16 +250,65 @@ describe("gallery request behavior (mocked Supabase transport)", () => {
     expect(calls).toContainEqual(["gallery_photos", "eq", "id", "p1"]);
     expect(storage.remove).toHaveBeenCalledWith(["c1/a.jpg"]);
   });
-  it("refuses to delete a nonempty collection before a cascade could remove data", async () => {
-    const { client } = clientFor([{ data: [{ id: "p1" }] }]);
-    await expect(deleteCollection(client, "c1")).rejects.toThrow(
-      /Remove.*photos/,
-    );
-    expect(client.from).toHaveBeenCalledTimes(1);
+  it("deletes contained photos and objects before deleting their collection", async () => {
+    const { client, calls, storage } = clientFor([
+      { data: [{ id: "p1", storage_path: "c1/a.jpg" }] },
+      { data: { id: "p1" } },
+      { data: [] },
+      { data: { id: "c1" } },
+    ]);
+    await deleteCollection(client, "c1");
+    expect(storage.remove).toHaveBeenCalledWith(["c1/a.jpg"]);
+    expect(calls).toContainEqual(["gallery_photos", "eq", "id", "p1"]);
+    expect(calls).toContainEqual(["gallery_collections", "eq", "id", "c1"]);
+  });
+  it("keeps the collection and reports partial failure when object cleanup fails", async () => {
+    const { client, storage } = clientFor([
+      { data: [{ id: "p1", storage_path: "c1/a.jpg" }] },
+      { data: { id: "p1" } },
+    ]);
+    storage.remove.mockResolvedValue({ error: new Error("Cleanup denied") });
+    await expect(deleteCollection(client, "c1")).rejects.toThrow(/collection was kept/i);
+    expect(client.from).not.toHaveBeenCalledWith("gallery_collections");
+  });
+  it("keeps the collection if a new photo appears during deletion", async () => {
+    const { client } = clientFor([{ data: [] }, { data: [{ id: "new" }] }]);
+    await expect(deleteCollection(client, "c1")).rejects.toThrow(/New photos/);
+    expect(client.from).not.toHaveBeenCalledWith("gallery_collections");
   });
   it("deletes an empty collection by its exact ID", async () => {
-    const { client, calls } = clientFor([{ data: [] }, { data: { id: "c1" } }]);
+    const { client, calls } = clientFor([{ data: [] }, { data: [] }, { data: { id: "c1" } }]);
     await deleteCollection(client, "c1");
     expect(calls).toContainEqual(["gallery_collections", "eq", "id", "c1"]);
+  });
+  it("fetches every page before deleting any photos", async () => {
+    const first = Array.from({ length: 1000 }, (_, i) => ({ id: `p${i}`, storage_path: `c1/${i}.jpg` }));
+    const last = { id: "last", storage_path: "c1/last.jpg" };
+    const { client, calls, storage } = clientFor([
+      { data: first }, { data: [last] },
+      ...[...first, last].map((photo) => ({ data: photo })),
+      { data: [] }, { data: { id: "c1" } },
+    ]);
+    await deleteCollection(client, "c1");
+    expect(calls.filter((call) => call[1] === "range")).toEqual([
+      ["gallery_photos", "range", 0, 999], ["gallery_photos", "range", 1000, 1999],
+    ]);
+    expect(storage.remove).toHaveBeenCalledTimes(1001);
+    expect(storage.remove).toHaveBeenLastCalledWith(["c1/last.jpg"]);
+  });
+  it("does not delete anything when a later page cannot be read", async () => {
+    const first = Array.from({ length: 1000 }, (_, i) => ({ id: `p${i}`, storage_path: `c1/${i}.jpg` }));
+    const { client, calls, storage } = clientFor([{ data: first }, { error: new Error("Page denied") }]);
+    await expect(deleteCollection(client, "c1")).rejects.toThrow("Page denied");
+    expect(calls.some((call) => call[1] === "delete")).toBe(false);
+    expect(storage.remove).not.toHaveBeenCalled();
+  });
+  it("keeps the collection and skips Storage if a contained photo cannot be deleted", async () => {
+    const { client, storage } = clientFor([
+      { data: [{ id: "p1", storage_path: "c1/a.jpg" }] }, { error: new Error("Delete denied") },
+    ]);
+    await expect(deleteCollection(client, "c1")).rejects.toThrow(/collection was kept/i);
+    expect(storage.remove).not.toHaveBeenCalled();
+    expect(client.from).not.toHaveBeenCalledWith("gallery_collections");
   });
 });

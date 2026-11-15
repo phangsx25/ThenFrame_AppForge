@@ -55,10 +55,18 @@ export default function AuthPage({ client, auth, mode = "login" }) {
           },
         });
         if (result.error) {
+          if (["user_already_exists", "email_exists"].includes(result.error.code) ||
+              /already (registered|exists)/i.test(result.error.message)) {
+            throw new Error("This email is already registered. Please log in or reset your password.");
+          }
           if (/database error saving new user/i.test(result.error.message)) {
             throw new Error("We couldn't create this account. The username may be unavailable; try another username.");
           }
           throw result.error;
+        }
+        if (!result.data.session && Array.isArray(result.data.user?.identities) &&
+            result.data.user.identities.length === 0) {
+          throw new Error("This email may already be registered. Please log in or reset your password.");
         }
         setMessage(
           result.data.session
