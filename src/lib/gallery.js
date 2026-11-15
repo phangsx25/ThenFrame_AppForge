@@ -23,7 +23,7 @@ export function collectionValues(input) {
   if (!title || title.length > 150)
     throw new Error("Enter a collection title of 1–150 characters.");
   if (!VISIBILITIES.includes(input.visibility))
-    throw new Error("Choose public or hidden visibility.");
+    throw new Error("Choose public or private visibility.");
   const description = String(input.description || "").trim();
   // Existing collections store event type in the legacy "style" column.
   const style = String(input.style || "").trim();
@@ -91,7 +91,7 @@ export async function uploadPhoto(
   const ext = validateImage(file);
   if (!collectionId) throw new Error("Select a collection first.");
   if (!VISIBILITIES.includes(visibility))
-    throw new Error("Choose public or hidden visibility.");
+    throw new Error("Choose public or private visibility.");
   const storage_path = `${collectionId}/${crypto.randomUUID()}.${ext}`;
   required(
     await client.storage
@@ -123,7 +123,7 @@ export async function uploadPhoto(
 }
 export async function updatePhoto(client, photo, input) {
   if (!VISIBILITIES.includes(input.visibility))
-    throw new Error("Choose public or hidden visibility.");
+    throw new Error("Choose public or private visibility.");
   return required(
     await client
       .from("gallery_photos")

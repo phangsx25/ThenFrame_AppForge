@@ -140,7 +140,7 @@ export default function AdminDashboard({ auth, client }) {
           <small>Portfolio visibility</small>
         </article>
         <article>
-          <span>Hidden collections</span>
+          <span>Private collections</span>
           <strong>
             {loading
               ? "—"
@@ -206,7 +206,7 @@ export default function AdminDashboard({ auth, client }) {
                         </td>
                         <td>{c.style || "—"}</td>
                         <td>
-                          <span className="pill">● {c.visibility}</span>
+                          <span className="pill">● {c.visibility === "hidden" ? "Private" : "Public"}</span>
                         </td>
                         <td>
                           <button
@@ -290,7 +290,7 @@ export default function AdminDashboard({ auth, client }) {
                       name="visibility"
                       defaultValue="hidden"
                     >
-                      <option value="hidden">Hidden</option>
+                      <option value="hidden">Private</option>
                       <option value="public">Public</option>
                     </select>
                   </label>
@@ -338,7 +338,7 @@ export default function AdminDashboard({ auth, client }) {
                         </div>
                       )}
                       <figcaption>
-                        <span className="pill">● {photo.visibility}</span>
+                        <span className="pill">● {photo.visibility === "hidden" ? "Private" : "Public"}</span>
                         <p>{photo.caption || "No caption yet"}</p>
                         <div className="button-row">
                           <button
@@ -392,7 +392,7 @@ export default function AdminDashboard({ auth, client }) {
               </li>
             </ol>
             <p className="small-text muted">
-              New content starts hidden. Signed image links expire after one
+              New content starts private. Signed image links expire after one
               minute; refresh previews when needed.
             </p>
           </section>
@@ -460,7 +460,7 @@ export default function AdminDashboard({ auth, client }) {
                 name="visibility"
                 defaultValue={editor.visibility || "hidden"}
               >
-                <option value="hidden">Hidden</option>
+                <option value="hidden">Private</option>
                 <option value="public">Public</option>
               </select>
             </label>
@@ -506,7 +506,7 @@ export default function AdminDashboard({ auth, client }) {
                 name="visibility"
                 defaultValue={photoEditor.visibility}
               >
-                <option value="hidden">Hidden</option>
+                <option value="hidden">Private</option>
                 <option value="public">Public</option>
               </select>
             </label>
