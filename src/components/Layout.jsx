@@ -102,11 +102,7 @@ export function Workspace({
         <div className="sidebar-bottom">
           <p className="sidebar-note">
             {admin ? "Your studio, in focus." : "Just for you."}
-            <span>
-              {admin
-                ? "A thoughtful space for every story."
-                : "Your photography journey with ThenFrame."}
-            </span>
+            <span>Defining Timeless Moments</span>
           </p>
           <a href="#/portfolio">
             <Icon name="arrow" size={17} />
@@ -142,8 +138,7 @@ export function Workspace({
         </header>
         <main id="main-content">{children}</main>
         <footer className="workspace-footer">
-          ThenFrame ·{" "}
-          {admin ? "Studio workspace" : "Your story, beautifully kept."}
+          ThenFrame · Defining Timeless Moments
         </footer>
       </div>
     </div>
