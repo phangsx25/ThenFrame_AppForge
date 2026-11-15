@@ -219,7 +219,7 @@ export default function AuthPage({ client, auth, mode = "login" }) {
                 Username
                 <input name="username" aria-label="Username" autoComplete="username" required
                   minLength={3} maxLength={40} pattern="[A-Za-z][A-Za-z0-9_]{2,39}"
-                  placeholder="e.g. phang_photo" />
+                  placeholder="e.g. username" />
                 {register && <small>3–40 characters. Start with a letter; use letters, numbers or underscores. Usernames are not case-sensitive.</small>}
               </label>
             )}
