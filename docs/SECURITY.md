@@ -80,7 +80,7 @@ The fixture script does not test role escalation by attempting to promote an acc
 - Request a reset email, open it on the trusted origin, update the password and verify the old password no longer works. Check expired/invalid links.
 - Use the existing admin to create/edit a disposable collection, upload/caption/publish/hide a PNG, then verify the visitor portfolio in a separate signed-out browser. Verify both public/hidden levels and guessed object paths.
 - Customer direct requests must not mutate gallery data or read hidden photo objects. Verify final data with admin readback; zero rows can be an RLS denial even without an error.
-- Confirm empty-collection deletion is scoped and that populated collections cannot be deleted from the app. Delete only test fixtures. Check metadata/Storage partial-failure handling.
+- Verify confirmed deletion of empty and populated disposable collections. Check exact photo/object scope, pagination, partial-failure messages and the retained collection after a cleanup failure. Coordinate testing so other admins do not upload into a collection being deleted; the multi-step operation is not atomic. Delete only test fixtures.
 - Issue a public signed URL, hide its photo/collection, then verify a fresh link is denied. The old bearer link may remain valid until its 60-second expiry. Document this limitation.
 - Verify desktop/mobile, keyboard navigation, dialogs, loading/empty/error states, PWA install, offline shell and app updates.
 

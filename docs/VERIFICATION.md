@@ -82,7 +82,7 @@ Booking functionality has not been implemented; Booking and Heritage are notices
   and Wedding Reception/Majlis Resepsi. Planned AI is enquiry/booking summaries
   (US08) and FAQ chatbot (US11), not photo categorization.
 
-### Work kept separate
+### Work kept separate — historical status
 
 The unmerged fix/sprint1-completion workspace adds duplicate-signup guidance,
 consistent public Wedding category labels and irreversible confirmation for
@@ -123,3 +123,12 @@ and production dependency audit passed (zero production vulnerabilities). The lo
 was regenerated from an empty dependency directory after optional-dependency gaps
 caused npm ci failures. The local Node 24.13 runtime emitted engine warnings for
 jsdom/w3c-xmlserializer; use Node 24.15 or newer within the 24 LTS line.
+
+
+## Selected Sprint 1 fixes integrated — 15 November 2026
+
+Selected the duplicate-email signup guidance and populated-collection deletion logic from `e397df8` rather than merging the old branch wholesale. Retained username registration/login, current Event Type choices, Public/Private labels and Latest Work. The earlier separate-work note above describes the historical state and is superseded for these two fixes.
+
+Duplicate-email error codes/messages and the masked empty-identities response now guide the user to login or password recovery. The existing unavailable-username guidance remains intact. Collection deletion first fetches all photo pages, deletes each photo metadata record and stored file, checks for remaining photos, then deletes the collection. Any per-photo failure stops the operation with a partial-failure message and leaves the collection in place. The admin view reloads photos after failure. This is a sequence of operations, not a transaction: photos already removed are not restored; uploads by another admin must not run concurrently with deletion.
+
+Development checks: 65 automated tests, lint, production/PWA build and whitespace checks passed on main. Regression cases cover duplicate signup responses, empty/populated deletion, 1,001-photo pagination, page-read failure, denied photo deletion, Storage failure and a photo appearing before the final recheck. These use mocked transport and do not establish formal browser acceptance or actual Storage deletion. No live user photos were deleted for verification. Formal Sprint 1 test report remains unchanged; record actual acceptance later.

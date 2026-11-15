@@ -246,9 +246,16 @@ export default function AdminDashboard({ auth, client }) {
                     onClick={() =>
                       setConfirmation({
                         title: "Delete collection?",
-                        text: "Only an empty collection can be deleted. This cannot be undone.",
+                        text: `Delete “${selected.title}” and all photos inside it? This permanently deletes the collection and its photos. This cannot be undone.`,
                         action: async () => {
-                          await deleteCollection(client, selected.id);
+                          try {
+                            await deleteCollection(client, selected.id);
+                          } catch (error) {
+                            // A failed operation may already have removed some photos.
+                            // Refresh the view while preserving the original cleanup error.
+                            await loadPhotos(selected.id).catch(() => {});
+                            throw error;
+                          }
                           photoGeneration.current++;
                           setSelected(null);
                           setPhotos([]);
@@ -257,7 +264,7 @@ export default function AdminDashboard({ auth, client }) {
                       })
                     }
                   >
-                    Delete empty collection
+                    Delete collection
                   </button>
                 </div>
               </div>

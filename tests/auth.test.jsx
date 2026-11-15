@@ -60,6 +60,24 @@ async function loginFields(user) {
   );
 }
 describe("auth flows with a mocked Supabase boundary", () => {
+  it.each([
+    { data: null, error: { code: "user_already_exists", message: "User already registered" } },
+    { data: null, error: { code: "email_exists", message: "Email exists" } },
+    { data: null, error: { message: "Email already exists" } },
+    { data: { session: null, user: { identities: [] } }, error: null },
+  ])("guides duplicate registration responses to login or password reset", async (response) => {
+    const user = userEvent.setup(), client = fakeClient();
+    client.auth.signUp.mockResolvedValue(response);
+    render(<AuthPage client={client} auth={anonymous} mode="register" />);
+    await user.type(screen.getByLabelText("Full name"), "A customer");
+    await loginFields(user);
+    await user.type(screen.getByLabelText("Confirm password", { exact: true }), "password123");
+    await user.click(screen.getByRole("checkbox"));
+    await user.click(screen.getByRole("button", { name: "Register" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent(/already be registered|already registered/);
+    expect(screen.getByRole("alert")).toHaveTextContent(/log in or reset/);
+    expect(client.from).not.toHaveBeenCalled();
+  });
   it("shows mismatched passwords and does not call signUp", async () => {
     const user = userEvent.setup(),
       client = fakeClient();

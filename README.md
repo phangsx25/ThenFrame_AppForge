@@ -50,9 +50,9 @@ Use the agreed existing Supabase project; do not recreate or clear its tables.
 
 - US01: registration, username/password login, sessions, logout and email-based password recovery. Customers and admins use username/password only; usernames can be changed in Account settings.
 - US02: admin login and profile-role checks; protected pages fail closed.
-- US03: collection/photo CRUD, captions, public/hidden visibility and JPG/JPEG,
-  PNG or WebP uploads up to 8 MB. This branch currently deletes empty collections
-  only; confirmed deletion of populated collections remains in Sprint 1 follow-up.
+- US03: collection/photo CRUD, captions, Public/Private visibility and JPG/JPEG,
+  PNG or WebP uploads up to 8 MB. Admins can confirm deletion of a collection
+  together with its photos and stored files; partial failures are reported.
 - US04: public collections, search/event-type filtering, details and photo viewer.
 - Users open their own profile/security settings through the avatar. Customers
   register themselves; admin customer-account management is outside scope.
