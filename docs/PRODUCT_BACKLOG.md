@@ -106,11 +106,11 @@ Dependencies/risks: authentication, user database, roles and access permissions.
 2. Admins can create a gallery collection with a title and description.
 3. Admins can add uploaded photos to a selected collection.
 4. Admins can view, edit and delete their uploaded photos and collections.
-5. The system rejects unsupported file types and files that exceed the allowed size.
+5. The system accepts JPG/JPEG, PNG and WebP images up to 8 MB (8,388,608 bytes) per file, and rejects unsupported file types or larger files.
 6. Uploaded photos and collection details remain saved after refreshing the page.
 7. Regular customers and visitors cannot access photo upload or gallery management functions.
 
-Dependencies/risks: US02, photo storage, gallery database, wedding photographs and permission to display them. Large images affect storage/loading; editing and deletion must avoid accidental loss. Exact allowed formats and size limits need to be agreed.
+Dependencies/risks: US02, photo storage, gallery database, wedding photographs and permission to display them. Large images affect storage/loading; editing and deletion must avoid accidental loss. The agreed per-file upload limit is 8 MB (8,388,608 bytes), with JPG/JPEG, PNG and WebP supported.
 
 ### US04 — Public portfolio browsing
 
@@ -212,7 +212,7 @@ Review scenario: owner logs in as admin, creates a collection and uploads sample
 ## Items to refine
 
 - **US05–US13:** agree detailed acceptance criteria before implementation and acceptance.
-- **US03 upload limits:** confirm the allowed file formats and maximum size.
+- **US03 upload acceptance:** verify JPG/JPEG, PNG and WebP uploads at or below 8 MB, and rejection of unsupported formats and files above 8 MB.
 - **Test framework:** the original plan specified Pest; the repository uses Vitest plus manual testing. Record the team's agreed testing approach.
 - **Partner validation:** confirm observation and review sessions, and use findings to refine the backlog.
 

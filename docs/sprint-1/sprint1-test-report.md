@@ -38,7 +38,7 @@ For each criterion, fill concrete steps and test data, expected/actual results a
 | US03-AC02 | Admins can create a gallery collection with a title and description. | TBD | TBD | Not run | TBD |
 | US03-AC03 | Admins can add uploaded photos to a selected collection. | TBD | TBD | Not run | TBD |
 | US03-AC04 | Admins can view, edit and delete their uploaded photos and collections. | TBD | TBD | Not run | TBD |
-| US03-AC05 | The system rejects unsupported file types and files that exceed the allowed size. | TBD | TBD | Not run | TBD |
+| US03-AC05 | The system accepts JPG/JPEG, PNG and WebP images up to 8 MB (8,388,608 bytes) per file, and rejects unsupported file types or larger files. | TBD | TBD | Not run | TBD |
 | US03-AC06 | Uploaded photos and collection details remain saved after refreshing the page. | TBD | TBD | Not run | TBD |
 | US03-AC07 | Regular customers and visitors cannot access photo upload or gallery management functions. | TBD | TBD | Not run | TBD |
 | US04-AC01 | Visitors can browse public wedding photography collections without logging in. | TBD | TBD | Not run | TBD |
