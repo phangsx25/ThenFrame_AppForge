@@ -32,11 +32,12 @@
 <text x="22" y="258" font-size="13" transform="rotate(-90 22 258)">Remaining story points</text>
 <line x1="85" y1="110" x2="11005" y2="370" stroke="#9a9fa8" stroke-width="2.5" stroke-dasharray="8 6"/>
 <circle cx="7645" cy="110" r="6" fill="#852d4d"><title>2026-11-14: 16 points remaining</title></circle>
-<text x="7645" y="95" font-size="14" text-anchor="middle" fill="#852d4d">16 remaining</text>
+<circle cx="9325" cy="110" r="6" fill="#852d4d"><title>2026-11-16: 16 points remaining</title></circle>
+<text x="9325" y="95" font-size="14" text-anchor="middle" fill="#852d4d">16 remaining</text>
 <line x1="85" y1="432" x2="125" y2="432" stroke="#9a9fa8" stroke-width="2.5" stroke-dasharray="8 6"/>
 <text x="135" y="437" font-size="13">Ideal (calendar days; includes weekends/holiday)</text>
 <circle cx="525" cy="432" r="5" fill="#852d4d"/>
 <text x="540" y="437" font-size="13">Actual observations</text>
 <text x="85" y="470" font-size="13">Missing earlier snapshots are left blank. In review / In progress do not count as Done.</text>
-<text x="85" y="490" font-size="12" fill="#756770">Latest observation: 2026-11-14T14:13:14.554Z (UTC)</text>
+<text x="85" y="490" font-size="12" fill="#756770">Latest observation: 2026-11-15T16:34:45.555Z (UTC)</text>
 </g></svg>
