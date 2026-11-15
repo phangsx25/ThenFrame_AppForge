@@ -15,6 +15,9 @@ function fakeClient(role = "customer") {
   };
   const client = {
     from: vi.fn(() => query),
+    functions: {
+      invoke: vi.fn().mockResolvedValue({ data: { session: { access_token: "fixture-token", refresh_token: "fixture-refresh" } }, error: null }),
+    },
     auth: {
       signUp: vi
         .fn()
@@ -22,6 +25,7 @@ function fakeClient(role = "customer") {
       signInWithPassword: vi
         .fn()
         .mockResolvedValue({ data: { user: { id: "u1" } }, error: null }),
+      setSession: vi.fn().mockResolvedValue({ data: { user: { id: "u1" }, session: { user: { id: "u1" } } }, error: null }),
       signOut: vi.fn().mockResolvedValue({ error: null }),
       resetPasswordForEmail: vi.fn().mockResolvedValue({ error: null }),
       updateUser: vi.fn().mockResolvedValue({ data: { user: { id: "u1" } }, error: null }),
@@ -45,10 +49,11 @@ const anonymous = {
   isAdmin: false,
 };
 async function loginFields(user) {
-  await user.type(
-    screen.getByLabelText(/Email address/i),
-    "person@example.test",
-  );
+  const email = screen.queryByLabelText(/Email address/i);
+  if (email) await user.type(email, "person@example.test");
+  if (screen.queryByLabelText("Username", { exact: true })) {
+    await user.type(screen.getByLabelText("Username", { exact: true }), "test_customer");
+  }
   await user.type(
     screen.getByLabelText("Password", { exact: true }),
     "password123",
@@ -88,28 +93,28 @@ describe("auth flows with a mocked Supabase boundary", () => {
     expect(client.auth.signUp.mock.calls[0][0]).toMatchObject({
       email: "person@example.test",
       password: "password123",
-      options: { data: { display_name: "A customer" } },
+      options: { data: { display_name: "A customer", username: "test_customer" } },
     });
     expect(client.auth.signUp.mock.calls[0][0].options.data).not.toHaveProperty(
       "role",
     );
   });
-  it("passes credentials to signInWithPassword and displays authentication errors", async () => {
+  it("passes username credentials to the backend and displays generic authentication errors", async () => {
     const client = fakeClient(),
       user = userEvent.setup();
-    client.auth.signInWithPassword.mockResolvedValue({
-      error: { message: "Invalid login credentials" },
+    client.functions.invoke.mockResolvedValue({
+      error: { context: { status: 401 } },
     });
     render(<AuthPage client={client} auth={anonymous} />);
     await loginFields(user);
     await user.click(screen.getByRole("button", { name: "Login" }));
     expect(await screen.findByRole("alert")).toHaveTextContent(
-      "Invalid login credentials",
+      "Invalid username or password",
     );
-    expect(client.auth.signInWithPassword).toHaveBeenCalledWith({
-      email: "person@example.test",
-      password: "password123",
+    expect(client.functions.invoke).toHaveBeenCalledWith("username-login", {
+      body: { username: "test_customer", password: "password123" },
     });
+    expect(client.auth.setSession).not.toHaveBeenCalled();
   });
   it("rejects customer credentials on the admin form and signs out the rejected session", async () => {
     const client = fakeClient(),
@@ -124,6 +129,18 @@ describe("auth flows with a mocked Supabase boundary", () => {
     );
     expect(client.auth.signOut).toHaveBeenCalledOnce();
     expect(client.from).toHaveBeenCalledWith("profiles");
+  });
+  it("keeps explicit email fallback for existing users without a chosen username", async () => {
+    const client = fakeClient(), user = userEvent.setup();
+    render(<AuthPage client={client} auth={anonymous} />);
+    expect(screen.getByLabelText("Username", { exact: true })).toBeVisible();
+    await user.click(screen.getByRole("button", { name: "Use email instead" }));
+    await loginFields(user);
+    await user.click(screen.getByRole("button", { name: "Login", exact: true }));
+    await waitFor(() => expect(client.auth.signInWithPassword).toHaveBeenCalledWith({
+      email: "person@example.test", password: "password123",
+    }));
+    expect(client.functions.invoke).not.toHaveBeenCalled();
   });
   it("requests a real password-reset email through the client", async () => {
     const client = fakeClient(),

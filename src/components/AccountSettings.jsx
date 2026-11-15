@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Workspace } from "./Layout";
 import { Notice, Icon } from "./UI";
+import { updateUsername } from "../lib/username";
 import {
   accountName,
   updateAccountName,
@@ -14,6 +15,8 @@ export default function AccountSettings({ auth, client }) {
     [message, setMessage] = useState(""),
     [showPasswords, setShowPasswords] = useState(false),
     [nonceRequired, setNonceRequired] = useState(false);
+  const [username, setUsername] = useState(auth.profile.username || "");
+  const [usernameInput, setUsernameInput] = useState(auth.profile.username || "");
   const user = auth.session.user,
     name = accountName(user, auth.profile),
     admin = auth.profile.role === "admin";
@@ -51,6 +54,16 @@ export default function AccountSettings({ auth, client }) {
       setMessage(
         "Email change requested. Check the confirmation links sent by Supabase. Your current email stays active until the change is confirmed.",
       );
+    });
+  }
+  async function saveUsername(event) {
+    event.preventDefault();
+    await run("username", async () => {
+      const saved = await updateUsername(client, usernameInput);
+      auth.updateProfileUsername(saved);
+      setUsername(saved);
+      setUsernameInput(saved);
+      setMessage("Your username has been saved. Use it the next time you log in.");
     });
   }
   async function savePassword(event) {
@@ -104,6 +117,7 @@ export default function AccountSettings({ auth, client }) {
         <div>
           <h2>{name}</h2>
           <p>{user.email}</p>
+          {username && <p>@{username}</p>}
           <span className="pill">{admin ? "Studio admin" : "Customer"}</span>
         </div>
         <div className="identity-confirmation">
@@ -116,6 +130,23 @@ export default function AccountSettings({ auth, client }) {
         </div>
       </section>
       <div className="account-settings-grid">
+        <section className="dashboard-card">
+          <span className="eyebrow">SIGN-IN DETAILS</span>
+          <h2>Your username</h2>
+          <p>Choose a unique username for customer or admin login. Your email is still used for account confirmation and password recovery.</p>
+          <form onSubmit={saveUsername}>
+            <label>
+              Username
+              <input name="username" autoComplete="username" value={usernameInput}
+                onChange={event => setUsernameInput(event.target.value)} required
+                minLength={3} maxLength={40} pattern="[A-Za-z][A-Za-z0-9_]{2,39}" />
+            </label>
+            <small>3–40 characters. Start with a letter; use letters, numbers or underscores. Usernames are not case-sensitive.</small>
+            <button disabled={Boolean(busy)} className="primary full">
+              {busy === "username" ? "Saving…" : "Save username"}
+            </button>
+          </form>
+        </section>
         <section className="dashboard-card">
           <span className="eyebrow">01 / PERSONAL DETAILS</span>
           <h2>Your profile</h2>
@@ -147,7 +178,7 @@ export default function AccountSettings({ auth, client }) {
           <span className="eyebrow">02 / EMAIL ADDRESS</span>
           <h2>Change your email</h2>
           <p>
-            Current sign-in email: <strong>{user.email}</strong>
+            Current email: <strong>{user.email}</strong>
           </p>
           {user.new_email && (
             <Notice>

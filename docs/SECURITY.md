@@ -33,6 +33,34 @@ site. Previously issued emails keep their original destination. Do not share or
 commit reset links. Verify the new password works and the old one fails with a
 disposable customer account; automated/mock checks do not establish real delivery.
 
+## Username sign-in
+
+The `username-login` Edge Function is a pre-login credential exchange. Its gateway
+JWT verification is disabled so signed-out users can log in; the handler verifies
+the password through Supabase Auth before returning a normal user session. It does
+not expose a username-to-email lookup API or return its elevated server key.
+
+- `profiles.username` is unique, lowercase and restricted to 3–40 characters,
+  beginning with a letter, followed by letters, digits or underscores.
+- Existing accounts retain their email, password and role. Generated usernames
+  can be replaced through Account settings after email login.
+- `set_my_username` is authenticated-only and updates only `auth.uid()`'s username.
+  It is intentionally SECURITY DEFINER because profiles remain SELECT-only to users;
+  it cannot update roles. [Advisor rationale](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable).
+- `resolve_username_login` is executable only by service_role, not anon or
+  authenticated. The private attempt table has RLS with no client policies or
+  grants: denial to clients is intentional. [RLS advisor guidance](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy).
+- All existing and unknown usernames consume the durable 10-attempt / 15-minute
+  per-username limit. This is not a complete IP-based abuse-prevention system;
+  targeted username lockout is possible within that window.
+- User-editable Auth metadata cannot rename an existing profile or change its role.
+- Email confirmation and password recovery remain email-based. No changes were
+  made to confirmation requirements, passwords or existing role assignments.
+
+Security advisors were reviewed after migration. Existing `is_admin()` execution
+and disabled leaked-password-protection notices were not changed by this feature.
+No claim is made that all project advisories are resolved.
+
 ## Reproducible live checks
 
 1. Run read-only catalog SQL and review the configuration above.

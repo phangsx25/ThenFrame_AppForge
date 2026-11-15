@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Icon, Notice, Placeholder, Wordmark } from "./UI";
+import { signInWithUsername, validateUsername } from "../lib/username";
 
 export default function AuthPage({ client, auth, mode = "login" }) {
   const register = mode === "register",
@@ -10,6 +11,7 @@ export default function AuthPage({ client, auth, mode = "login" }) {
     [message, setMessage] = useState("");
   const [show, setShow] = useState(false),
     [showConfirm, setShowConfirm] = useState(false);
+  const [emailLogin, setEmailLogin] = useState(false);
   useEffect(() => {
     if (reset || auth.loading || !auth.profile) return;
     if (admin && !auth.isAdmin) return;
@@ -46,21 +48,28 @@ export default function AuthPage({ client, auth, mode = "login" }) {
           email,
           password: data.get("password"),
           options: {
-            data: { display_name: String(data.get("name")).trim() },
+            data: {
+              display_name: String(data.get("name")).trim(),
+              username: validateUsername(data.get("username")),
+            },
             emailRedirectTo: window.location.origin + "/?auth=confirmed",
           },
         });
-        if (result.error) throw result.error;
+        if (result.error) {
+          if (/database error saving new user/i.test(result.error.message)) {
+            throw new Error("We couldn't create this account. The username may be unavailable; try another username.");
+          }
+          throw result.error;
+        }
         setMessage(
           result.data.session
             ? "Account created. Opening your customer space…"
             : "Check your email to confirm your account, then log in.",
         );
       } else {
-        const result = await client.auth.signInWithPassword({
-          email,
-          password: data.get("password"),
-        });
+        const result = emailLogin
+          ? await client.auth.signInWithPassword({ email, password: data.get("password") })
+          : await signInWithUsername(client, data.get("username"), data.get("password"));
         if (result.error) throw result.error;
         if (admin) {
           const profile = await client
@@ -208,16 +217,23 @@ export default function AuthPage({ client, auth, mode = "login" }) {
                 />
               </label>
             )}
-            <label>
-              {admin ? "Staff email address" : "Email address"}
-              <input
-                name="email"
-                type="email"
-                autoComplete="email"
-                placeholder={admin ? "name@studio.example" : "you@example.com"}
-                required
-              />
-            </label>
+            {(register || (!reset && !emailLogin)) && (
+              <label>
+                Username
+                <input name="username" aria-label="Username" autoComplete="username" required
+                  minLength={3} maxLength={40} pattern="[A-Za-z][A-Za-z0-9_]{2,39}"
+                  placeholder="e.g. phang_photo" />
+                {register && <small>3–40 characters. Start with a letter; use letters, numbers or underscores. Usernames are not case-sensitive.</small>}
+              </label>
+            )}
+            {(register || reset || emailLogin) && (
+              <label>
+                {admin ? "Staff email address" : "Email address"}
+                <input name="email" type="email" autoComplete="email"
+                  placeholder={admin ? "name@studio.example" : "you@example.com"} required />
+                {register && <small>Used to confirm your account and reset your password.</small>}
+              </label>
+            )}
             {!reset && (
               <>
                 <div className="field">
@@ -304,6 +320,15 @@ export default function AuthPage({ client, auth, mode = "login" }) {
                       : "Login"}
             </button>
           </form>
+          {!register && !reset && (
+            <p className="small-text">
+              <button type="button" className="text-button" disabled={busy}
+                onClick={() => { setEmailLogin(!emailLogin); setError(""); setMessage(""); }}>
+                {emailLogin ? "Use username instead" : "Use email instead"}
+              </button>
+              {!emailLogin && <span> Existing account? Sign in with email and choose a username in Account settings.</span>}
+            </p>
+          )}
           <p className="auth-switch">
             {admin ? (
               <>

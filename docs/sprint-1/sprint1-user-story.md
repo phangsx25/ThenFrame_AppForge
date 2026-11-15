@@ -21,10 +21,10 @@ The source provides detailed stories and acceptance criteria on pp. 7–10. Orig
 
 ### Acceptance criteria and dependencies
 
-1. New users can register with valid required information.
-2. Registered users can log in with correct credentials.
+1. New users can register with a name, unique username, email address and valid password.
+2. Registered users can log in with their username and password; email login remains available for existing accounts.
 3. Incorrect login details display an error message.
-4. The system prevents registration using an existing email address.
+4. The system prevents duplicate email registration and enforces unique, case-insensitive usernames.
 5. Users can log out and cannot access protected account pages after logging out.
 
 Dependencies/risks: user database and authentication; secure password storage; authentication failures can prevent access. Booking history depends on US05 in Sprint 2.
@@ -37,7 +37,7 @@ Dependencies/risks: user database and authentication; secure password storage; a
 
 ### Acceptance criteria and dependencies
 
-1. Authorized admins can log in using valid credentials.
+1. Authorized admins can log in with their username and password; existing admins can use email login during the transition.
 2. Successful admin login redirects to the admin dashboard.
 3. Incorrect login details display an error message.
 4. Regular customers cannot access admin-only pages.

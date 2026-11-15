@@ -48,7 +48,7 @@ Use the agreed existing Supabase project; do not recreate or clear its tables.
 
 ## Implemented scope
 
-- US01: registration, login, sessions, logout and password recovery.
+- US01: registration, username/password login, sessions, logout and email-based password recovery. Existing accounts can use email login and choose a username in Account settings.
 - US02: admin login and profile-role checks; protected pages fail closed.
 - US03: collection/photo CRUD, captions, public/hidden visibility and JPG/JPEG,
   PNG or WebP uploads up to 8 MB. This branch currently deletes empty collections
@@ -62,6 +62,14 @@ UI uses the wine editorial theme and intentional placeholders. Public photograph
 come from Supabase. Booking (US05–US07), AI summaries (US08), private albums and
 selection/delivery (US09–US10), FAQ chatbot (US11), feedback (US12) and Heritage
 (US13) remain planned. No AI photo categorization is planned or implemented.
+
+## Username login
+
+New registrations require a unique username (3–40 characters, starting with a letter; letters, numbers and underscores). Names are case-insensitive. Email is still required for confirmation and password recovery.
+
+The `username-login` Supabase Edge Function privately resolves usernames and verifies passwords through Auth. A service-only RPC limits attempts to 10 per username per 15 minutes; generic failures do not disclose emails. Its platform JWT check is disabled because it is a pre-login credential exchange, while password validation is performed inside the handler. Existing users can choose **Use email instead**, then save a username in Account settings.
+
+The additive migration in `supabase/migrations/20261115104633_username_login.sql` preserves existing roles, emails and passwords. Apply it and deploy the function before deploying the frontend to a separate environment. Keep backend elevated keys in Edge Function environment variables only.
 
 ## Development checks
 

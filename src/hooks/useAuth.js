@@ -25,7 +25,7 @@ export function useAuth(client, onPasswordRecovery) {
         if (session) {
           const result = await client
             .from("profiles")
-            .select("id,display_name,role")
+            .select("id,display_name,username,role")
             .eq("id", session.user.id)
             .single();
           if (result.error) throw result.error;
@@ -104,9 +104,15 @@ export function useAuth(client, onPasswordRecovery) {
         : previous,
     );
   }, []);
+  const updateProfileUsername = useCallback((username) => {
+    setState(previous => previous.profile
+      ? { ...previous, profile: { ...previous.profile, username } }
+      : previous);
+  }, []);
   return {
     ...state,
     updateUserDetails,
+    updateProfileUsername,
     logout,
     isAdmin: state.profile?.role === "admin" && !state.loading,
   };

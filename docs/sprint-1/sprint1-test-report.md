@@ -1,7 +1,7 @@
 # Sprint 1 — Test Report
 
 **Scope:** US01–US04, 5–18 November 2026.
-**Status:** Password recovery regression recorded; remaining acceptance cases await execution.
+**Status:** Password recovery and username-login verification recorded; remaining acceptance cases await execution.
 **Requirements:** [Sprint 1 stories](sprint1-user-story.md). Existing historical checks and their limits remain in [VERIFICATION.md](../VERIFICATION.md); this template does not reset or replace those records.
 
 Work progress and responsibility are recorded in the [shared daily log](../daily-log.md). This report records test steps, actual outcomes, defects and retest evidence.
@@ -23,12 +23,12 @@ For each criterion, fill concrete steps and test data, expected/actual results a
 
 | Test ID | Expected behavior / acceptance criterion | Steps / test data | Actual result | Status | Evidence / defect |
 | --- | --- | --- | --- | --- | --- |
-| US01-AC01 | New users can register with valid required information. | TBD | TBD | Not run | TBD |
-| US01-AC02 | Registered users can log in with correct credentials. | TBD | TBD | Not run | TBD |
+| US01-AC01 | New users can register with a name, unique username, email address and valid password. | TBD | TBD | Not run | TBD |
+| US01-AC02 | Registered users can log in with their username and password; existing accounts retain email fallback. | TBD | TBD | Not run | TBD |
 | US01-AC03 | Incorrect login details display an error message. | TBD | TBD | Not run | TBD |
-| US01-AC04 | The system prevents registration using an existing email address. | TBD | TBD | Not run | TBD |
+| US01-AC04 | Duplicate email registration is prevented; usernames are unique and case-insensitive. | TBD | TBD | Not run | TBD |
 | US01-AC05 | Users can log out and cannot access protected account pages after logging out. | TBD | TBD | Not run | TBD |
-| US02-AC01 | Authorized admins can log in using valid credentials. | TBD | TBD | Not run | TBD |
+| US02-AC01 | Authorized admins can log in with username and password; existing admins retain email fallback. | TBD | TBD | Not run | TBD |
 | US02-AC02 | Successful admin login redirects to the admin dashboard. | TBD | TBD | Not run | TBD |
 | US02-AC03 | Incorrect login details display an error message. | TBD | TBD | Not run | TBD |
 | US02-AC04 | Regular customers cannot access admin-only pages. | TBD | TBD | Not run | TBD |
@@ -60,6 +60,21 @@ These checks supplement the original US01 criteria; they do not mark unrelated r
 | US01-RESET03 | A recovery callback without a query marker must open the password form after SDK token consumption; submitting matching passwords calls updateUser. | Installed Supabase SDK routed to the form, submitted the expected password to the intercepted endpoint and showed success; tokens were absent from the resulting URL. | Pass — mocked API browser check | Local and production frontend browser regression; Vitest coverage. |
 | US01-RESET04 | Open an expired link in the same tab; an existing session must not hide the link error. A new valid recovery event must clear the old error. | Expiry message displayed; invalid-link form blocked; valid recovery event restored the password form. | Pass — automated | Production expiry smoke check and Vitest regression. |
 | US01-RESET05 | After a real password save, log in with the new password and verify the old password is rejected. | Not separately confirmed by the user or exercised against a real account by automation. | Not run | Requires explicit live login results. |
+
+## Username login validation — 15 November 2026
+
+Username/password is now the default for customer and admin login. Email remains required for confirmation/recovery and available as a fallback for existing accounts. These are feature verification results, not Product Owner acceptance or proof of real customer adoption.
+
+| Test ID | Check | Actual result | Status / evidence |
+| --- | --- | --- | --- |
+| US01-USER01 | Normalize and validate usernames; prevent duplicate registration. | Case normalized, invalid format and duplicate names rejected by database constraints/trigger. | Pass — unit tests and rolled-back database fixtures. |
+| US01-USER02 | Verify correct, wrong and unknown username/password combinations. | Correct credentials established a normal customer session; wrong and unknown combinations returned the same generic failure. | Pass — live disposable-account API checks and unit UI coverage. |
+| US01-USER03 | Change own username and log in again. | Own update succeeded; previous username failed; new username succeeded. Browser covered settings, logout and changed-username login. | Pass — live API and local Edge browser with real backend. |
+| US01-USER04 | Prevent public email lookup or role/username tampering through metadata. | Anonymous/customer RPC lookup denied; profiles isolated; direct role update denied; editable Auth metadata did not overwrite profile username/role. | Pass — live fixture and rolled-back role checks. |
+| US01-USER05 | Preserve admin boundaries and existing email fallback. | A customer was rejected by the admin login and signed out; explicit email fallback rendered and unit-tested. Existing account count/roles preserved. | Pass — live browser and unit tests; existing owner's actual username login not claimed. |
+| US01-USER06 | Enforce persistent login-attempt limits. | Attempts above 10 per username per 15-minute window were rejected before private lookup. | Pass — rolled-back database test and handler regression test. |
+
+A dedicated temporary confirmed customer account was used for integration checks, with no email sent and no changes to existing users' passwords. Cleanup status is recorded in the verification log. New signup email delivery and the existing owner's chosen username still require their own manual acceptance. Earlier password-recovery evidence above remains separately scoped.
 
 ## Automated checks
 

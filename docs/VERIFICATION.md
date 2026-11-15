@@ -1,5 +1,16 @@
 # Development status and record
 
+## Username login implementation
+
+Implemented the requested username/password login while keeping email for account confirmation, recovery and existing-account fallback. The additive `username_login` migration is applied; local migration version matches the hosted record (`20261115104633`). The `username-login` Edge Function is active. Existing profile roles, emails and passwords are preserved.
+
+Database verification used rolled-back fixtures to test normalization, duplicate rejection, forced customer role on signup, own-profile isolation, authenticated own-username update, denied anonymous/customer email lookup, denied direct role mutation and the persistent attempt limit. Real API verification used a dedicated temporary confirmed customer to test correct/wrong/unknown credentials, renamed username login and metadata tamper resistance. Local Edge browser checks exercised login → settings rename → logout → new-username login and customer denial on the admin form against the real backend.
+
+The first browser attempt filled the old settings form before asynchronous logout completed; the test was corrected to wait for the login page and the full flow passed. No existing user account was altered during fixture tests. Signup confirmation email delivery and the owner's chosen username are not claimed as accepted.
+
+Username-related security-advisor rationale is recorded in [SECURITY.md](SECURITY.md#username-sign-in). Private attempt-table client denial and uid-scoped SECURITY DEFINER update are intentional. Existing project advisories were not broadened or automatically changed.
+
+
 ## Password recovery routing fix
 
 The reported recovery email targeted the old Sites hostname rather than the current

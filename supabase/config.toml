@@ -1,0 +1,4 @@
+[functions.username-login]
+# Login precedes a user JWT. The handler verifies credentials through Auth and
+# enforces a persistent, service-only per-username attempt limit before lookup.
+verify_jwt = false
