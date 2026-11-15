@@ -5,8 +5,7 @@ export const EVENT_TYPES = [
   "Akad & Reception",
   "Engagement",
   "Pre/Post Wedding",
-  "Chinese Wedding / Bride Pickup",
-  "Other",
+  "Others",
 ];
 export const MAX_FILE_SIZE = 8 * 1024 * 1024;
 const imageTypes = {

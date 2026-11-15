@@ -211,7 +211,7 @@ Review scenario: owner logs in as admin, creates a collection and uploads sample
 
 ## Portfolio event types
 
-Portfolio collections are classified by event type, not photography style or ethnicity: Akad / Nikah, Reception, Akad & Reception, Engagement, Pre/Post Wedding, Chinese Wedding / Bride Pickup, and Other. This supports the studio's range of wedding activities. Services such as Photography, Videography and Combo belong to booking enquiries, not the portfolio category list. The portfolio currently supports photographs only. Existing custom categories are retained until the owner assigns an appropriate event type.
+Portfolio collections are classified by event type, not photography style or ethnicity: Akad / Nikah, Reception, Akad & Reception, Engagement, Pre/Post Wedding, Others. This supports the studio's range of wedding activities. Services such as Photography, Videography and Combo belong to booking enquiries, not the portfolio category list. The portfolio currently supports photographs only. Existing custom categories are retained until the owner assigns an appropriate event type.
 
 ## Username login
 

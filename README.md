@@ -65,7 +65,7 @@ selection/delivery (US09–US10), FAQ chatbot (US11), feedback (US12) and Herita
 
 ## Portfolio classification
 
-Collections use event types: Akad / Nikah, Reception, Akad & Reception, Engagement, Pre/Post Wedding, Chinese Wedding / Bride Pickup and Other. Admin and visitor screens use the same Event type terminology. The existing database `style` column stores this value for compatibility; no columns or existing collection values are removed. Legacy custom values remain editable until the owner reclassifies them. Portfolio uploads remain photographs only, with the existing 8 MB limit.
+Collections use event types: Akad / Nikah, Reception, Akad & Reception, Engagement, Pre/Post Wedding, Others. Admin and visitor screens use the same Event type terminology. The existing database `style` column stores this value for compatibility; no columns or existing collection values are removed. Legacy custom values remain editable until the owner reclassifies them. Portfolio uploads remain photographs only, with the existing 8 MB limit.
 
 ## Username login
 
