@@ -82,7 +82,7 @@ These are requirement lists, not completed checklists. Record results and eviden
 ### US01 — Customer registration and login
 
 1. New users can register with a name, unique username, email address and valid password.
-2. Registered users can log in with their username and password; email login remains available for existing accounts.
+2. Registered users log in with their username and password.
 3. Incorrect login details display an error message.
 4. The system prevents duplicate email registration and enforces unique, case-insensitive usernames.
 5. Users can log out and cannot access protected account pages after logging out.
@@ -91,7 +91,7 @@ Dependencies/risks: user database and authentication; secure password storage; a
 
 ### US02 — Administrator login
 
-1. Authorized admins can log in with their username and password; existing admins can use email login during the transition.
+1. Authorized admins log in with their username and password.
 2. Successful admin login redirects to the admin dashboard.
 3. Incorrect login details display an error message.
 4. Regular customers cannot access admin-only pages.
@@ -211,7 +211,7 @@ Review scenario: owner logs in as admin, creates a collection and uploads sample
 
 ## Username login
 
-Customers and admins use a unique username and password. Usernames have 3–40 characters, start with a letter and contain only letters, numbers or underscores; comparison is case-insensitive. Email remains required for confirmation and password recovery. Existing accounts retain their email login and can choose a username in Account settings. Username changes affect only the current account and never its role.
+Customers and admins use a unique username and password. Usernames have 3–40 characters, start with a letter and contain only letters, numbers or underscores; comparison is case-insensitive. Email remains required for confirmation and password recovery. Existing accounts have usernames assigned and can change them in Account settings. Email is not offered as a website login method. Username changes affect only the current account and never its role.
 
 ## Items to refine
 

@@ -24,11 +24,11 @@ For each criterion, fill concrete steps and test data, expected/actual results a
 | Test ID | Expected behavior / acceptance criterion | Steps / test data | Actual result | Status | Evidence / defect |
 | --- | --- | --- | --- | --- | --- |
 | US01-AC01 | New users can register with a name, unique username, email address and valid password. | TBD | TBD | Not run | TBD |
-| US01-AC02 | Registered users can log in with their username and password; existing accounts retain email fallback. | TBD | TBD | Not run | TBD |
+| US01-AC02 | Registered users log in with their username and password. | TBD | TBD | Not run | TBD |
 | US01-AC03 | Incorrect login details display an error message. | TBD | TBD | Not run | TBD |
 | US01-AC04 | Duplicate email registration is prevented; usernames are unique and case-insensitive. | TBD | TBD | Not run | TBD |
 | US01-AC05 | Users can log out and cannot access protected account pages after logging out. | TBD | TBD | Not run | TBD |
-| US02-AC01 | Authorized admins can log in with username and password; existing admins retain email fallback. | TBD | TBD | Not run | TBD |
+| US02-AC01 | Authorized admins log in with their username and password. | TBD | TBD | Not run | TBD |
 | US02-AC02 | Successful admin login redirects to the admin dashboard. | TBD | TBD | Not run | TBD |
 | US02-AC03 | Incorrect login details display an error message. | TBD | TBD | Not run | TBD |
 | US02-AC04 | Regular customers cannot access admin-only pages. | TBD | TBD | Not run | TBD |
@@ -63,7 +63,7 @@ These checks supplement the original US01 criteria; they do not mark unrelated r
 
 ## Username login validation — 15 November 2026
 
-Username/password is now the default for customer and admin login. Email remains required for confirmation/recovery and available as a fallback for existing accounts. These are feature verification results, not Product Owner acceptance or proof of real customer adoption.
+Username/password is the only website login method for both customers and admins. Email is used for registration confirmation and password recovery only. These are feature verification results, not Product Owner acceptance or proof of real customer adoption.
 
 | Test ID | Check | Actual result | Status / evidence |
 | --- | --- | --- | --- |
@@ -71,7 +71,7 @@ Username/password is now the default for customer and admin login. Email remains
 | US01-USER02 | Verify correct, wrong and unknown username/password combinations. | Correct credentials established a normal customer session; wrong and unknown combinations returned the same generic failure. | Pass — live disposable-account API checks and unit UI coverage. |
 | US01-USER03 | Change own username and log in again. | Own update succeeded; previous username failed; new username succeeded. Browser covered settings, logout and changed-username login. | Pass — live API and local Edge browser with real backend. |
 | US01-USER04 | Prevent public email lookup or role/username tampering through metadata. | Anonymous/customer RPC lookup denied; profiles isolated; direct role update denied; editable Auth metadata did not overwrite profile username/role. | Pass — live fixture and rolled-back role checks. |
-| US01-USER05 | Preserve admin boundaries and existing email fallback. | A customer was rejected by the admin login and signed out; explicit email fallback rendered and unit-tested. Existing account count/roles preserved. | Pass — live browser and unit tests; existing owner's actual username login not claimed. |
+| US01-USER05 | Preserve admin boundaries and username-only website login. | A customer was rejected by the admin login and signed out. Current login forms require username/password and have no email login switch. Existing account count/roles preserved. | Pass — live browser admin denial and current UI tests; existing owners' password entry not independently verified. |
 | US01-USER06 | Enforce persistent login-attempt limits. | Attempts above 10 per username per 15-minute window were rejected before private lookup. | Pass — rolled-back database test and handler regression test. |
 
 A dedicated temporary confirmed customer account was used for integration checks, with no email sent and no changes to existing users' passwords. Cleanup status is recorded in the verification log. New signup email delivery and the existing owner's chosen username still require their own manual acceptance. Earlier password-recovery evidence above remains separately scoped.
@@ -82,6 +82,8 @@ passed for `9f7da33`; Vercel reported production READY. A production-browser run
 was not authorized, so the browser evidence in this section is local frontend →
 real backend only. The temporary test account/profile and its known login-attempt
 records were removed; readback confirmed the original two accounts/profiles remain.
+
+Username-only follow-up: 56 tests, lint and production/PWA build passed after removal of the email login switch. Both existing profiles were updated directly in Supabase with usable usernames. Passwords and roles were preserved; existing users' successful password entry is not claimed without their confirmation.
 
 ## Automated checks
 

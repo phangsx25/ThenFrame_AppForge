@@ -11,7 +11,6 @@ export default function AuthPage({ client, auth, mode = "login" }) {
     [message, setMessage] = useState("");
   const [show, setShow] = useState(false),
     [showConfirm, setShowConfirm] = useState(false);
-  const [emailLogin, setEmailLogin] = useState(false);
   useEffect(() => {
     if (reset || auth.loading || !auth.profile) return;
     if (admin && !auth.isAdmin) return;
@@ -67,9 +66,7 @@ export default function AuthPage({ client, auth, mode = "login" }) {
             : "Check your email to confirm your account, then log in.",
         );
       } else {
-        const result = emailLogin
-          ? await client.auth.signInWithPassword({ email, password: data.get("password") })
-          : await signInWithUsername(client, data.get("username"), data.get("password"));
+        const result = await signInWithUsername(client, data.get("username"), data.get("password"));
         if (result.error) throw result.error;
         if (admin) {
           const profile = await client
@@ -217,7 +214,7 @@ export default function AuthPage({ client, auth, mode = "login" }) {
                 />
               </label>
             )}
-            {(register || (!reset && !emailLogin)) && (
+            {!reset && (
               <label>
                 Username
                 <input name="username" aria-label="Username" autoComplete="username" required
@@ -226,7 +223,7 @@ export default function AuthPage({ client, auth, mode = "login" }) {
                 {register && <small>3–40 characters. Start with a letter; use letters, numbers or underscores. Usernames are not case-sensitive.</small>}
               </label>
             )}
-            {(register || reset || emailLogin) && (
+            {(register || reset) && (
               <label>
                 {admin ? "Staff email address" : "Email address"}
                 <input name="email" type="email" autoComplete="email"
@@ -320,15 +317,6 @@ export default function AuthPage({ client, auth, mode = "login" }) {
                       : "Login"}
             </button>
           </form>
-          {!register && !reset && (
-            <p className="small-text">
-              <button type="button" className="text-button" disabled={busy}
-                onClick={() => { setEmailLogin(!emailLogin); setError(""); setMessage(""); }}>
-                {emailLogin ? "Use username instead" : "Use email instead"}
-              </button>
-              {!emailLogin && <span> Existing account? Sign in with email and choose a username in Account settings.</span>}
-            </p>
-          )}
           <p className="auth-switch">
             {admin ? (
               <>

@@ -42,8 +42,11 @@ not expose a username-to-email lookup API or return its elevated server key.
 
 - `profiles.username` is unique, lowercase and restricted to 3–40 characters,
   beginning with a letter, followed by letters, digits or underscores.
-- Existing accounts retain their email, password and role. Generated usernames
-  can be replaced through Account settings after email login.
+- Existing accounts retain their email, password and role. Assign usable usernames
+  before enabling username-only login. Users can rename themselves in Account settings.
+- The website offers no email login switch. Supabase Auth still verifies passwords
+  internally through the private username credential exchange; email is not exposed
+  by an anonymous lookup endpoint.
 - `set_my_username` is authenticated-only and updates only `auth.uid()`'s username.
   It is intentionally SECURITY DEFINER because profiles remain SELECT-only to users;
   it cannot update roles. [Advisor rationale](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable).

@@ -12,7 +12,7 @@ export async function signInWithUsername(client, value, password) {
     body: { username, password },
   });
   if (error) {
-    let message = "Sign-in is unavailable. Please try again or use email login.";
+    let message = "Sign-in is unavailable. Please try again shortly.";
     if (error.context?.status === 401) message = "Invalid username or password.";
     if (error.context?.status === 429) message = "Too many sign-in attempts. Try again in 15 minutes.";
     throw new Error(message);

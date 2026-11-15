@@ -2,7 +2,7 @@
 
 ## Username login implementation
 
-Implemented the requested username/password login while keeping email for account confirmation, recovery and existing-account fallback. The additive `username_login` migration is applied; local migration version matches the hosted record (`20261115104633`). The `username-login` Edge Function is active. Existing profile roles, emails and passwords are preserved.
+Implemented the requested username/password login while keeping email for account confirmation and recovery only. Both customer/admin website login forms are username-only. Existing accounts were assigned usable usernames without changing passwords or roles. The additive `username_login` migration is applied; local migration version matches the hosted record (`20261115104633`). The `username-login` Edge Function is active. Existing profile roles, emails and passwords are preserved.
 
 Database verification used rolled-back fixtures to test normalization, duplicate rejection, forced customer role on signup, own-profile isolation, authenticated own-username update, denied anonymous/customer email lookup, denied direct role mutation and the persistent attempt limit. Real API verification used a dedicated temporary confirmed customer to test correct/wrong/unknown credentials, renamed username login and metadata tamper resistance. Local Edge browser checks exercised login → settings rename → logout → new-username login and customer denial on the admin form against the real backend.
 
@@ -22,6 +22,8 @@ deleted after testing. Readback confirmed the fixture was absent, the original
 two accounts and profiles remained, and both had usernames. No real user password
 or role was changed.
 
+
+Username-only follow-up: removed the email login switch from customer and admin forms and assigned usable usernames directly to both existing profiles. Their passwords and roles remain unchanged. All 56 unit cases, lint and production/PWA build passed. Existing-user credential entry is left to the owners; no owner password was requested or guessed.
 
 ## Password recovery routing fix
 

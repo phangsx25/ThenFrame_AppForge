@@ -130,17 +130,12 @@ describe("auth flows with a mocked Supabase boundary", () => {
     expect(client.auth.signOut).toHaveBeenCalledOnce();
     expect(client.from).toHaveBeenCalledWith("profiles");
   });
-  it("keeps explicit email fallback for existing users without a chosen username", async () => {
-    const client = fakeClient(), user = userEvent.setup();
-    render(<AuthPage client={client} auth={anonymous} />);
+  it.each(["login", "admin"])("uses username only on the %s login form", mode => {
+    const client = fakeClient();
+    render(<AuthPage client={client} auth={anonymous} mode={mode} />);
     expect(screen.getByLabelText("Username", { exact: true })).toBeVisible();
-    await user.click(screen.getByRole("button", { name: "Use email instead" }));
-    await loginFields(user);
-    await user.click(screen.getByRole("button", { name: "Login", exact: true }));
-    await waitFor(() => expect(client.auth.signInWithPassword).toHaveBeenCalledWith({
-      email: "person@example.test", password: "password123",
-    }));
-    expect(client.functions.invoke).not.toHaveBeenCalled();
+    expect(screen.queryByLabelText(/email address/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Use email instead/ })).not.toBeInTheDocument();
   });
   it("requests a real password-reset email through the client", async () => {
     const client = fakeClient(),
