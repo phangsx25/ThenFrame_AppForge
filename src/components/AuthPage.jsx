@@ -187,7 +187,7 @@ export default function AuthPage({ client, auth, mode = "login" }) {
           </h1>
           <p className="lead">
             {admin
-              ? "Sign in with your studio credentials to access the Admin Dashboard."
+              ? "Access your studio workspace."
               : register
                 ? "A personal space to explore our photography and keep your wedding memories close."
                 : reset
@@ -308,9 +308,7 @@ export default function AuthPage({ client, auth, mode = "login" }) {
             <button className="primary full" disabled={busy || auth.loading}>
               {busy
                 ? "Please wait…"
-                : admin
-                  ? "Login to Admin Dashboard"
-                  : register
+                : register
                     ? "Register"
                     : reset
                       ? "Send reset link"

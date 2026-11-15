@@ -122,7 +122,7 @@ describe("auth flows with a mocked Supabase boundary", () => {
     render(<AuthPage client={client} auth={anonymous} mode="admin" />);
     await loginFields(user);
     await user.click(
-      screen.getByRole("button", { name: "Login to Admin Dashboard" }),
+      screen.getByRole("button", { name: "Login", exact: true }),
     );
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "does not have studio admin access",
