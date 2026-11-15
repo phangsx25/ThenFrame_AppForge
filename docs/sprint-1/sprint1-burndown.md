@@ -4,7 +4,7 @@
 
 Sprint: **5–18 November 2026**. Baseline: **16 story points** from US01–US04 in [PRODUCT_BACKLOG.md](../PRODUCT_BACKLOG.md). Status source: [GitHub Kanban](https://github.com/users/phangsx25/projects/1).
 
-## Latest observed status — 2026-11-14
+## Latest observed status — 2026-11-16
 
 | Story | Points | Status | Completed points |
 | --- | --- | --- | --- |
@@ -21,6 +21,7 @@ Sprint: **5–18 November 2026**. Baseline: **16 story points** from US01–US04
 | Date (Kuala Lumpur) | Completed | Remaining |
 | --- | --- | --- |
 | 2026-11-14 | 0 | 16 |
+| 2026-11-16 | 0 | 16 |
 
 Earlier daily values are unknown, so no historical actual values are invented. The dashed ideal line declines linearly from 16 to 0 over calendar days, including weekends and the holiday; it is a reference, not reported work. Missing observations are not interpolated. Future actual progress is not plotted.
 
