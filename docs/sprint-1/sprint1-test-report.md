@@ -35,7 +35,7 @@ For each criterion, fill concrete steps and test data, expected/actual results a
 | US02-AC05 | Admins can log out, and protected dashboard pages cannot be accessed after logout. | TBD | TBD | Not run | TBD |
 | US02-AC06 | Public users cannot register themselves as administrators. | TBD | TBD | Not run | TBD |
 | US03-AC01 | Logged-in admins can upload wedding photos to the system. | TBD | TBD | Not run | TBD |
-| US03-AC02 | Admins can create a gallery collection with a title and description. | TBD | TBD | Not run | TBD |
+| US03-AC02 | Admins can create a gallery collection with a title, description and event type. | TBD | TBD | Not run | TBD |
 | US03-AC03 | Admins can add uploaded photos to a selected collection. | TBD | TBD | Not run | TBD |
 | US03-AC04 | Admins can view, edit and delete their uploaded photos and collections. | TBD | TBD | Not run | TBD |
 | US03-AC05 | The system accepts JPG/JPEG, PNG and WebP images up to 8 MB (8,388,608 bytes) per file, and rejects unsupported file types or larger files. | TBD | TBD | Not run | TBD |
@@ -43,7 +43,7 @@ For each criterion, fill concrete steps and test data, expected/actual results a
 | US03-AC07 | Regular customers and visitors cannot access photo upload or gallery management functions. | TBD | TBD | Not run | TBD |
 | US04-AC01 | Visitors can browse public wedding photography collections without logging in. | TBD | TBD | Not run | TBD |
 | US04-AC02 | Visitors can open a collection to view its wedding photos and details. | TBD | TBD | Not run | TBD |
-| US04-AC03 | Visitors can view different wedding photography styles and collections. | TBD | TBD | Not run | TBD |
+| US04-AC03 | Visitors can browse and filter collections by event type. | TBD | TBD | Not run | TBD |
 | US04-AC04 | Only photos and collections marked as public are displayed to visitors. | TBD | TBD | Not run | TBD |
 | US04-AC05 | The gallery works properly on both mobile and desktop screens. | TBD | TBD | Not run | TBD |
 | US04-AC06 | The system displays a message when a collection has no photos. | TBD | TBD | Not run | TBD |

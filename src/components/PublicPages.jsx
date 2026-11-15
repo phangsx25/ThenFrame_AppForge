@@ -66,7 +66,7 @@ export function Home({ client, auth }) {
               <h2>Your day. Your way.</h2>
               <p>
                 From the first conversation to the final frame, we’re here to
-                help you find a photography style that feels right.
+                help you find photography coverage that fits your event.
               </p>
               <a className="button-outline" href="#/portfolio#packages">
                 Explore our approach
@@ -109,7 +109,7 @@ export function Home({ client, auth }) {
               [
                 "01",
                 "Find your story",
-                "Explore the portfolio and discover the moments and styles that speak to you.",
+                "Explore wedding events and collections to find inspiration for your day.",
               ],
               [
                 "02",
@@ -195,7 +195,7 @@ export function PortfolioSection({
     [loading, setLoading] = useState(true),
     [error, setError] = useState("");
   const [query, setQuery] = useState(""),
-    [style, setStyle] = useState(""),
+    [eventType, setEventType] = useState(""),
     [refresh, setRefresh] = useState(0);
   useEffect(() => {
     let active = true;
@@ -219,7 +219,7 @@ export function PortfolioSection({
   const shown = collections.filter(
     (c) =>
       (!selectedId || c.id === selectedId) &&
-      (!style || c.style === style) &&
+      (!eventType || c.style === eventType) &&
       `${c.title} ${c.description || ""}`
         .toLowerCase()
         .includes(query.toLowerCase()),
@@ -262,13 +262,13 @@ export function PortfolioSection({
             />
           </label>
           <label>
-            Photography style
+            Event type
             <select
-              aria-label="Photography style"
-              value={style}
-              onChange={(e) => setStyle(e.target.value)}
+              aria-label="Event type"
+              value={eventType}
+              onChange={(e) => setEventType(e.target.value)}
             >
-              <option value="">All styles</option>
+              <option value="">All event types</option>
               {[
                 ...new Set(collections.map((c) => c.style).filter(Boolean)),
               ].map((s) => (
@@ -304,13 +304,13 @@ export function PortfolioSection({
         <div className="empty-state">
           <Icon name="photo" size={30} />
           <h3>
-            {query || style
+            {query || eventType
               ? "No stories match your search."
               : "Every story begins with a frame."}
           </h3>
           <p>
-            {query || style
-              ? "Try another title or photography style."
+            {query || eventType
+              ? "Try another title or event type."
               : "The studio has not published any collections yet. Come back soon."}
           </p>
         </div>

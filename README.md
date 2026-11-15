@@ -2,7 +2,7 @@
 
 [Backlog](docs/PRODUCT_BACKLOG.md) | [Daily Log](docs/daily-log.md) | [Sprint 1](docs/sprint-1/README.md) | [Sprint 2](docs/sprint-2/README.md) | [Sprint 3](docs/sprint-3/README.md) | [Sprint 4](docs/sprint-4/README.md)
 
-Malay wedding photography portfolio and gallery management PWA.
+Wedding photography portfolio and gallery management PWA.
 
 Browse the [documentation index](docs/README.md) for sprint plans, daily logs,
 test reports, user review and progress tracking.
@@ -53,7 +53,7 @@ Use the agreed existing Supabase project; do not recreate or clear its tables.
 - US03: collection/photo CRUD, captions, public/hidden visibility and JPG/JPEG,
   PNG or WebP uploads up to 8 MB. This branch currently deletes empty collections
   only; confirmed deletion of populated collections remains in Sprint 1 follow-up.
-- US04: public collections, search/category filtering, details and photo viewer.
+- US04: public collections, search/event-type filtering, details and photo viewer.
 - Users open their own profile/security settings through the avatar. Customers
   register themselves; admin customer-account management is outside scope.
 - Booking and Heritage navigation currently show later-sprint notices.
@@ -62,6 +62,10 @@ UI uses the wine editorial theme and intentional placeholders. Public photograph
 come from Supabase. Booking (US05–US07), AI summaries (US08), private albums and
 selection/delivery (US09–US10), FAQ chatbot (US11), feedback (US12) and Heritage
 (US13) remain planned. No AI photo categorization is planned or implemented.
+
+## Portfolio classification
+
+Collections use event types: Akad / Nikah, Reception, Akad & Reception, Engagement, Pre/Post Wedding, Chinese Wedding / Bride Pickup and Other. Admin and visitor screens use the same Event type terminology. The existing database `style` column stores this value for compatibility; no columns or existing collection values are removed. Legacy custom values remain editable until the owner reclassifies them. Portfolio uploads remain photographs only, with the existing 8 MB limit.
 
 ## Username login
 

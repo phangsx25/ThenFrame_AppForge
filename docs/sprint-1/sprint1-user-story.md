@@ -55,7 +55,7 @@ Dependencies/risks: authentication, user database, roles and access permissions.
 ### Acceptance criteria and dependencies
 
 1. Logged-in admins can upload wedding photos to the system.
-2. Admins can create a gallery collection with a title and description.
+2. Admins can create a gallery collection with a title, description and event type.
 3. Admins can add uploaded photos to a selected collection.
 4. Admins can view, edit and delete their uploaded photos and collections.
 5. The system accepts JPG/JPEG, PNG and WebP images up to 8 MB (8,388,608 bytes) per file, and rejects unsupported file types or larger files.
@@ -66,7 +66,7 @@ Dependencies/risks: US02, photo storage, gallery database, wedding photographs a
 
 ## US04 — Public portfolio browsing
 
-**User story:** As a visitor or newlywed couple, I want to browse wedding styles and collections, so that I can find ideas for my wedding before deciding to book.
+**User story:** As a visitor or newlywed couple, I want to browse wedding events and collections, so that I can find ideas for my wedding before deciding to book.
 
 **Priority:** Must · **Estimate:** 5 points · **Evidence:** ASM01
 
@@ -74,7 +74,7 @@ Dependencies/risks: US02, photo storage, gallery database, wedding photographs a
 
 1. Visitors can browse public wedding photography collections without logging in.
 2. Visitors can open a collection to view its wedding photos and details.
-3. Visitors can view different wedding photography styles and collections.
+3. Visitors can browse and filter collections by event type.
 4. Only photos and collections marked as public are displayed to visitors.
 5. The gallery works properly on both mobile and desktop screens.
 6. The system displays a message when a collection has no photos.

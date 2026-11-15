@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  EVENT_TYPES,
   deleteCollection,
   deletePhoto,
   listCollections,
@@ -10,13 +11,6 @@ import {
 } from "../lib/gallery";
 import { Workspace } from "./Layout";
 import { Icon, LaterCard, Modal, Notice } from "./UI";
-
-const photographyStyles = [
-  "Traditional Malay",
-  "Modern Malay",
-  "Engagement / Pertunangan",
-  "Wedding Reception / Majlis Resepsi",
-];
 
 export default function AdminDashboard({ auth, client }) {
   const [section, setSection] = useState("Overview"),
@@ -198,7 +192,7 @@ export default function AdminDashboard({ auth, client }) {
                   <thead>
                     <tr>
                       <th>Collection</th>
-                      <th>Style</th>
+                      <th>Event type</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -444,15 +438,15 @@ export default function AdminDashboard({ auth, client }) {
               />
             </label>
             <label>
-              Wedding category
+              Event type
               <select
                 name="style"
                 required
                 defaultValue={editor.style || ""}
               >
-                <option value="" disabled>Choose a wedding category</option>
+                <option value="" disabled>Choose an event type</option>
                 {[...new Set([
-                  ...photographyStyles,
+                  ...EVENT_TYPES,
                   ...(editor.style ? [editor.style] : []),
                 ])].map((style) => (
                   <option key={style} value={style}>{style}</option>

@@ -75,7 +75,7 @@ describe("gallery request behavior (mocked Supabase transport)", () => {
       visibility: "hidden",
     });
   });
-  it("rejects blank or overlong description/style before sending a write", async () => {
+  it("rejects blank or overlong description/event type before sending a write", async () => {
     const valid = { title: "Story", description: "Day", style: "Malay", visibility: "hidden" };
     for (const input of [
       { ...valid, description: "   " },
@@ -84,7 +84,7 @@ describe("gallery request behavior (mocked Supabase transport)", () => {
       { ...valid, style: "a".repeat(81) },
     ]) {
       const { client } = clientFor();
-      await expect(saveCollection(client, input)).rejects.toThrow(/description|style/);
+      await expect(saveCollection(client, input)).rejects.toThrow(/description|event type/);
       expect(client.from).not.toHaveBeenCalled();
     }
     const boundary = { ...valid, description: "a".repeat(3000), style: "a".repeat(80) };

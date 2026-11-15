@@ -1,4 +1,13 @@
 export const VISIBILITIES = ["hidden", "public"];
+export const EVENT_TYPES = [
+  "Akad / Nikah",
+  "Reception",
+  "Akad & Reception",
+  "Engagement",
+  "Pre/Post Wedding",
+  "Chinese Wedding / Bride Pickup",
+  "Other",
+];
 export const MAX_FILE_SIZE = 8 * 1024 * 1024;
 const imageTypes = {
   "image/jpeg": "jpg",
@@ -17,11 +26,12 @@ export function collectionValues(input) {
   if (!VISIBILITIES.includes(input.visibility))
     throw new Error("Choose public or hidden visibility.");
   const description = String(input.description || "").trim();
+  // Existing collections store event type in the legacy "style" column.
   const style = String(input.style || "").trim();
   if (!description || description.length > 3000)
     throw new Error("Enter a collection description of 1–3000 characters.");
   if (!style || style.length > 80)
-    throw new Error("Enter a photography style of 1–80 characters.");
+    throw new Error("Enter an event type of 1–80 characters.");
   return {
     title,
     description,

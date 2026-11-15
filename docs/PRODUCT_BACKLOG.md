@@ -52,7 +52,7 @@ Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative 
 - **US01:** As a newlywed couple or new user, I want to register a secure account and log in, so that my personal details and booking history are saved and tracked.
 - **US02:** As a ThenFrame studio admin, I want to log in securely with administrator credentials, so that I can access the backend dashboard without unauthorized users breaking in.
 - **US03:** As a ThenFrame studio admin, I want to upload and manage wedding photos in the gallery, so that I can organize and display my photography collections online.
-- **US04:** As a visitor or newlywed couple, I want to browse wedding styles and collections, so that I can find ideas for my wedding before deciding to book.
+- **US04:** As a visitor or newlywed couple, I want to browse wedding events and collections, so that I can find ideas for my wedding before deciding to book.
 - **US05:** As a customer, I want to submit booking enquiries online and customize photography packages, so that I can choose services that suit my needs and budget.
 - **US06:** As a ThenFrame studio admin, I want to review incoming booking requests and check studio calendar availability, so that I can avoid booking conflicts and manage customer enquiries efficiently.
 - **US07:** As a ThenFrame studio admin, I want to schedule online or offline consultations and confirm booking details with clients, so that I can finalize bookings and keep customers informed.
@@ -103,7 +103,7 @@ Dependencies/risks: authentication, user database, roles and access permissions.
 ### US03 — Gallery management
 
 1. Logged-in admins can upload wedding photos to the system.
-2. Admins can create a gallery collection with a title and description.
+2. Admins can create a gallery collection with a title, description and event type.
 3. Admins can add uploaded photos to a selected collection.
 4. Admins can view, edit and delete their uploaded photos and collections.
 5. The system accepts JPG/JPEG, PNG and WebP images up to 8 MB (8,388,608 bytes) per file, and rejects unsupported file types or larger files.
@@ -116,7 +116,7 @@ Dependencies/risks: US02, photo storage, gallery database, wedding photographs a
 
 1. Visitors can browse public wedding photography collections without logging in.
 2. Visitors can open a collection to view its wedding photos and details.
-3. Visitors can view different wedding photography styles and collections.
+3. Visitors can browse and filter collections by event type.
 4. Only photos and collections marked as public are displayed to visitors.
 5. The gallery works properly on both mobile and desktop screens.
 6. The system displays a message when a collection has no photos.
@@ -208,6 +208,10 @@ Burndown starts at 16 points; only fully Done stories burn points. Scrum Master 
 7. Accepted by the Product Owner.
 
 Review scenario: owner logs in as admin, creates a collection and uploads sample photos; opens the public portfolio on a phone without login; checks that a customer account cannot open the admin page. Feedback receives a `feedback` tag and Product Owner ordering at Sprint 2 Planning. A separate Start/Stop/Continue retrospective agrees one improvement action, for example PR review within 24 hours.
+
+## Portfolio event types
+
+Portfolio collections are classified by event type, not photography style or ethnicity: Akad / Nikah, Reception, Akad & Reception, Engagement, Pre/Post Wedding, Chinese Wedding / Bride Pickup, and Other. This supports the studio's range of wedding activities. Services such as Photography, Videography and Combo belong to booking enquiries, not the portfolio category list. The portfolio currently supports photographs only. Existing custom categories are retained until the owner assigns an appropriate event type.
 
 ## Username login
 
