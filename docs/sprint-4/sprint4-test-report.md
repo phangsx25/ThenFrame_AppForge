@@ -1,8 +1,8 @@
 # Sprint 4 — Test Report
 
-**Sprint:** 24 December 2026–6 January 2027 · US10–US13.
+**Sprint:** 24 December 2026–6 January 2027 · US10–US12.
 **Status:** Template — detailed acceptance criteria and test results pending.
-**Requirements:** [Sprint stories](sprint4-user-story.md). Refine and agree acceptance criteria before filling test cases; the original PDF defines detailed criteria only for US01–US04.
+**Requirements:** [Sprint stories](sprint4-user-story.md). Refine and agree acceptance criteria before filling test cases; the supplied refinement defines detailed criteria for US01–US07.
 
 | Session field | Value |
 | --- | --- |

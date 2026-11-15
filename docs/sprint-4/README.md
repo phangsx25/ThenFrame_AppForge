@@ -1,6 +1,6 @@
 # Sprint 4 Documentation
 
-**Period:** 24 December 2026–6 January 2027 · **Stories:** US10–US13.
+**Period:** 24 December 2026–6 January 2027 · **Stories:** US10–US12.
 
 - [User stories and plan](sprint4-user-story.md)
 - [Test report](sprint4-test-report.md)

@@ -1,6 +1,6 @@
 # Sprint 4 — Review and Retrospective
 
-**Sprint:** 24 December 2026–6 January 2027 · US10–US13.
+**Sprint:** 24 December 2026–6 January 2027 · US10–US12.
 **Status:** Template — no meeting, acceptance or decisions recorded.
 
 ## Sprint Review

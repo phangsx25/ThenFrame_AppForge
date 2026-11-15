@@ -1,6 +1,6 @@
 # Sprint 3 — User Review and Feedback
 
-**Sprint:** 10–23 December 2026 · US08–US10.
+**Sprint:** 10–23 December 2026 · US08–US09.
 **Status:** Template — actual review date and feedback pending.
 
 | Session field | Value |

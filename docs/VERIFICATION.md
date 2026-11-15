@@ -1,5 +1,7 @@
 # Development status and record
 
+Current planning follows the [refined story mapping](PRODUCT_BACKLOG.md#backlog-refinement-and-story-mapping): consultations are in US06, heritage is US07, private albums/download are US08–US09 and AI summaries are US10. Historical entries below retain the IDs used when recorded; they do not supersede the current backlog.
+
 ## Username login implementation
 
 Implemented the requested username/password login while keeping email for account confirmation and recovery only. Both customer/admin website login forms are username-only. Existing accounts were assigned usable usernames without changing passwords or roles. The additive `username_login` migration is applied; local migration version matches the hosted record (`20261115104633`). The `username-login` Edge Function is active. Existing profile roles, emails and passwords are preserved.

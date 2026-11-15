@@ -16,8 +16,8 @@
 | --- | --- | --- |
 | [Sprint 1](sprint-1/README.md) | 5–18 November 2026 | US01–US04 |
 | [Sprint 2](sprint-2/README.md) | 19 November–9 December 2026 | US05–US07 |
-| [Sprint 3](sprint-3/README.md) | 10–23 December 2026 | US08–US10 |
-| [Sprint 4](sprint-4/README.md) | 24 December 2026–6 January 2027 | US10–US13 |
+| [Sprint 3](sprint-3/README.md) | 10–23 December 2026 | US08–US09 |
+| [Sprint 4](sprint-4/README.md) | 24 December 2026–6 January 2027 | US10–US12 |
 
 Each folder contains user stories/plan, test report, user feedback, burndown, refinement and review/retrospective records or templates. Sprint 1 also preserves the [older daily-log entry](sprint-1/archive/daily-log-original.md) as a historical archive; ongoing daily entries belong in the shared log.
 

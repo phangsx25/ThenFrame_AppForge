@@ -48,6 +48,7 @@ For each criterion, fill concrete steps and test data, expected/actual results a
 | US04-AC05 | The gallery works properly on both mobile and desktop screens. | TBD | TBD | Not run | TBD |
 | US04-AC06 | The system displays a message when a collection has no photos. | TBD | TBD | Not run | TBD |
 | US04-AC07 | Visitors cannot upload, edit or delete gallery photos or collections. | TBD | TBD | Not run | TBD |
+| US04-AC08 | The homepage displays the three most recently published public collections in Latest Work, with links to each collection and View All; private collections are excluded and ordinary edits do not change publication order. | TBD | TBD | Not run | See Latest Work verification below; browser acceptance pending. |
 
 ## Password recovery regression — US01 account security
 

@@ -1,6 +1,6 @@
 # Sprint 3 — Burndown Planning Template
 
-**Sprint:** 10–23 December 2026 · US08–US10.
+**Sprint:** 10–23 December 2026 · US08–US09.
 **Status:** Template — no actual observations or chart generated.
 
 | Planning field | Value |
@@ -13,6 +13,6 @@
 | Actual observation date | Committed scope | Done points | Remaining points | Evidence |
 | --- | --- | --- | --- | --- |
 
-No historical values are assumed. US10 spans Sprints 3–4; agree its split or carryover and avoid counting the same 8 points twice as completed work. Preserve each sprint's baseline and record approved scope changes explicitly.
+No historical values are assumed. The refined forecast is Sprint 2: 19 points, Sprint 3: 16 points, Sprint 4: 13 points. These are forecasts, not committed baselines or actual observations. Preserve the baseline agreed at Sprint Planning and record approved scope changes explicitly.
 
 The [automation guide](../BURNDOWN_SYNC.md) currently supports Sprint 1 only. This file is a template, not an automatically generated chart.

@@ -2,7 +2,7 @@
 
 ## Overview
 
-ThenFrame's product backlog covers US01–US13, their priorities, estimates, dependencies and four-sprint delivery plan. The MVP includes US01–US07.
+ThenFrame's product backlog covers US01–US12, their priorities, estimates, dependencies and four-sprint delivery plan. The MVP includes US01–US07.
 
 Use the sprint documents for detailed requirements and tasks, [GitHub Projects](https://github.com/users/phangsx25/projects/1) for current ownership and status, and [VERIFICATION.md](VERIFICATION.md) for implementation and test evidence.
 
@@ -14,20 +14,20 @@ Partner: ThenFrame Photography Studio; contact: Encik Izzudin, studio owner, via
 
 | Evidence ID | Source | Planning implication / qualification |
 | --- | --- | --- |
-| INT01 | Written owner interview in the “ThenFrame AD Stakeholder” WhatsApp group, 28 October 2026 | Manual booking, communication, photo organization and final delivery take too much time. Supports US03, US05–US07 and US09–US10. |
-| OBS01 | Planned studio observation; session date to be confirmed | Pending. Record response/delivery baselines and verify actual tools; findings may change US05–US07 ordering. |
+| INT01 | Written owner interview in the “ThenFrame AD Stakeholder” WhatsApp group, 28 October 2026 | Manual booking, communication, photo organization and final delivery take too much time. Supports US03, US05–US06 and US08–US09. Consultation scheduling and confirmation are included in US06. |
+| OBS01 | Planned studio observation on 19 November 2026 in the supplied refinement; partner availability remains to be confirmed | Pending. Record response/delivery baselines and verify actual tools; findings may change US05–US06 ordering. |
 | ASM01 | Team assumption, not confirmed in INT01 | Customer accounts, public browsing, AI summaries, AI FAQ and customer feedback need owner validation at Sprint 1 Review. |
 | ASM02 | S02 assumption, not confirmed in INT01 | WhatsApp, calls, Google Drive and hard disks are assumed current tools; verify through OBS01. |
-| SULAM01 | Course community objective | Supports US13; course goal rather than partner evidence. |
+| SULAM01 | Course community objective | Supports US07; course goal rather than partner evidence. |
 
 ## Ordered backlog
 
 Detailed stories and refinement templates by sprint:
 
 - [Sprint 1 — US01–US04](sprint-1/sprint1-user-story.md): acceptance criteria and task allocation.
-- [Sprint 2 — US05–US07](sprint-2/sprint2-user-story.md): user stories and detail templates.
-- [Sprint 3 — US08–US10](sprint-3/sprint3-user-story.md): user stories and detail templates.
-- [Sprint 4 — US10–US13](sprint-4/sprint4-user-story.md): user stories and detail templates; US10 continues from Sprint 3.
+- [Sprint 2 — US05–US07](sprint-2/sprint2-user-story.md): refined stories, acceptance criteria and tasks.
+- [Sprint 3 — US08–US09](sprint-3/sprint3-user-story.md): private client albums, selection and download templates.
+- [Sprint 4 — US10–US12](sprint-4/sprint4-user-story.md): AI summaries, FAQ and feedback templates.
 
 Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative effort, complexity and uncertainty, not hours. Sprint allocation is a forecast and may change with progress and partner feedback.
 
@@ -37,15 +37,16 @@ Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative 
 | 2 / US02 | Secure administrator login | Must | 3 | 1 | Security assumption |
 | 3 / US03 | Gallery upload and management | Must | 5 | 1 | INT01 |
 | 4 / US04 | Public portfolio browsing | Must | 5 | 1 | ASM01 |
-| 5 / US05 | Customized booking enquiries | Must | 8 | 2 | INT01 |
-| 6 / US06 | Booking review and calendar availability | Must | 5 | 2 | INT01 |
-| 7 / US07 | Consultation scheduling and booking confirmation | Must | 5 | 2 | INT01 |
-| 8 / US08 | AI booking enquiry summaries | Should | 5 | 3 | ASM01 |
-| 9 / US09 | Private client albums and final photo delivery management | Must | 8 | 3 | INT01 |
-| 10 / US10 | Customer private album viewing, selection and download | Must | 8 | 3–4 | INT01 |
+| 5 / US05 | Service and booking enquiries | Must | 8 | 2 | INT01 |
+| 6 / US06 | Booking and consultation management | Must | 8 | 2 | INT01 |
+| 7 / US07 | Traditional Malay wedding heritage guide | Should | 3 | 2 | SULAM01 |
+| 8 / US08 | Private client albums and final photo delivery management | Should | 8 | 3 | INT01 |
+| 9 / US09 | Customer private album viewing, selection and download | Must | 8 | 3 | INT01 |
+| 10 / US10 | AI booking enquiry summaries | Must | 5 | 4 | ASM01 |
 | 11 / US11 | AI FAQ assistant | Could | 5 | 4 | ASM01 |
 | 12 / US12 | Customer ratings and feedback | Could | 3 | 4 | ASM01 |
-| 13 / US13 | Traditional Malay wedding heritage content | Should | 3 | 4 | SULAM01 |
+
+**Refined forecast:** 12 stories, 64 points: Sprint 1 = 16, Sprint 2 = 19, Sprint 3 = 16, Sprint 4 = 13. These are planned estimates, not completed or committed work. US05 is allocated to Sprint 2; its earlier 1–2 label is superseded.
 
 ### User stories
 
@@ -53,27 +54,26 @@ Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative 
 - **US02:** As a ThenFrame studio admin, I want to log in securely with administrator credentials, so that I can access the backend dashboard without unauthorized users breaking in.
 - **US03:** As a ThenFrame studio admin, I want to upload and manage wedding photos in the gallery, so that I can organize and display my photography collections online.
 - **US04:** As a visitor or newlywed couple, I want to browse wedding events and collections, so that I can find ideas for my wedding before deciding to book.
-- **US05:** As a customer, I want to submit booking enquiries online and customize photography packages, so that I can choose services that suit my needs and budget.
-- **US06:** As a ThenFrame studio admin, I want to review incoming booking requests and check studio calendar availability, so that I can avoid booking conflicts and manage customer enquiries efficiently.
-- **US07:** As a ThenFrame studio admin, I want to schedule online or offline consultations and confirm booking details with clients, so that I can finalize bookings and keep customers informed.
-- **US08:** As a ThenFrame studio admin, I want the system to use AI to summarize customer booking enquiries, so that I can quickly understand customer needs and respond more efficiently.
-- **US09:** As a ThenFrame studio admin, I want to upload and organize client wedding photos into private albums and provide final edited photos for delivery, so that I can manage photo selection and delivery in one system.
-- **US10:** As a customer, I want to view my private wedding album, select my preferred photos and download the final edited photos, so that I can receive my wedding photos conveniently.
+- **US05:** As a customer, I want to submit a photography service enquiry with my event details, preferred style, and package requirements so that ThenFrame can understand my needs and recommend suitable services.
+- **US06:** As a ThenFrame studio admin, I want to review customer enquiries, check booking availability, and schedule consultations so that I can manage bookings efficiently and confirm details with customers.
+- **US07:** As a visitor or customer from any cultural background, I want to browse and learn about traditional Malay wedding attire and heritage stories on the website so that I can appreciate local Malay customs and explore traditional Malay wedding photography styles.
+- **US08:** As a ThenFrame studio admin, I want to upload and organize client wedding photos into private albums and provide final edited photos for delivery, so that I can manage photo selection and delivery in one system.
+- **US09:** As a customer, I want to view my private wedding album, select my preferred photos and download the final edited photos, so that I can receive my wedding photos conveniently.
+- **US10:** As a ThenFrame studio admin, I want the system to use AI to summarize customer booking enquiries, so that I can quickly understand customer needs and respond more efficiently.
 - **US11:** As a newlywed couple or visitor, I want to interact with an AI assistant to get instant answers to common questions (FAQ) about packages and studio information, so that I can get quick information anytime without waiting for manual replies.
 - **US12:** As a newlywed couple, I want to submit ratings and feedback after our photo session, so that I can share my experience and help improve future services.
-- **US13:** As a visitor or customer from any cultural background, I want to browse and learn about traditional Malay wedding attire and heritage stories on the website, so that I can appreciate local Malay customs and choose to experience a cross-cultural traditional Malay photoshoot.
 
 ### Epics and dependencies
 
 | Epic | Stories | Outcome |
 | --- | --- | --- |
 | 1. Customer Experience & Booking | US01, US04, US05 | Browse, register and submit customized enquiries. |
-| 2. Studio Operations & Management | US02, US03, US06, US07 | Secure management, galleries, requests, availability and consultations. |
-| 3. Client Photo Management and Delivery | US09, US10 | Private albums, selection and final photo download. |
-| 4. AI-Powered Automation & Support | US08, US11 | Booking enquiry summaries and service FAQ answers. |
-| 5. Customer Feedback and Cultural Heritage | US12, US13 | Feedback and traditional Malay wedding knowledge. |
+| 2. Studio Operations & Management | US02, US03, US06 | Secure management, galleries, requests, availability and consultations. |
+| 3. Client Photo Management and Delivery | US08, US09 | Private albums, selection and final photo download. |
+| 4. AI-Powered Automation & Support | US10, US11 | Booking enquiry summaries and service FAQ answers. |
+| 5. Customer Feedback and Cultural Heritage | US07, US12 | Feedback and traditional Malay wedding knowledge. |
 
-US02 enables US03; US03 supplies US04. US05 supplies enquiries for US06 and US08; US07 supports consultation and confirmation. US09 supplies private albums for US10. Private photo delivery follows core login, gallery and booking work. Risks include authentication, upload performance, private access, storage, booking conflicts, package customization and AI integration.
+US02 enables US03; US03 supplies US04. US05 supplies enquiries for US06 and US10. US06 includes review, availability, consultations and booking confirmation. US08 supplies private albums for US09 in Sprint 3. US07 provides the public heritage guide in Sprint 2; US10–US12 follow in Sprint 4. Risks include authentication, uploads, private access, storage, booking conflicts, package requirements, cultural content accuracy and AI integration.
 
 ## Sprint 1 acceptance criteria
 
@@ -121,6 +121,7 @@ Dependencies/risks: US02, photo storage, gallery database, wedding photographs a
 5. The gallery works properly on both mobile and desktop screens.
 6. The system displays a message when a collection has no photos.
 7. Visitors cannot upload, edit or delete gallery photos or collections.
+8. The homepage displays the three most recently published public collections in Latest Work, with links to each collection and View All; private collections are excluded and ordinary edits do not change publication order.
 
 Dependencies/risks: US03, uploaded collections/photos and studio permission for public display. Large images affect loading; incorrect permissions may expose private photos.
 
@@ -148,9 +149,9 @@ Dependencies/risks: US03, uploaded collections/photos and studio permission for 
 
 ## MVP scope and validation
 
-**Included MVP:** US01–US07. Customers browse collections, register/log in, select/customize a package, submit an enquiry and receive confirmation after consultation. Admins log in, manage galleries/packages, review enquiries, check availability, schedule consultations and confirm bookings.
+**Included MVP:** US01–US07. Customers browse collections, register/log in, specify services, event details and preferences, select available package options if supplied, submit an enquiry and receive confirmation after consultation. Admins log in, manage galleries, review enquiries, check availability, schedule consultations and confirm bookings. Package options are included only when provided by the studio; an admin package-catalogue editor is not an agreed requirement. Visitors can access the Malay wedding heritage guide without logging in.
 
-**Deferred beyond MVP:** US08 (AI/data dependency), US09–US10 (login/gallery/booking prerequisites; Sprints 3–4), US11 (additional AI), US12 (after core booking), US13 (additional heritage content). Deferred does not mean removed from the product backlog.
+**Deferred beyond MVP:** US08–US09 (private albums, selection and download in Sprint 3), US10 (AI enquiry summaries), US11 (FAQ assistant) and US12 (ratings/feedback) in Sprint 4. Deferred does not mean removed from the backlog.
 
 | Success measure | Proposed target | Method |
 | --- | --- | --- |
@@ -158,11 +159,12 @@ Dependencies/risks: US03, uploaded collections/photos and studio permission for 
 | Admin booking management | Review a booking without critical errors | Partner demonstration |
 | Portfolio accessibility | Functional on mobile and desktop | Responsive testing |
 | User satisfaction | Average 4/5 | Post-testing feedback form |
+| Heritage guide usefulness | Average 4/5 | Community user feedback during Sprint 2 |
 | Reliability | No critical errors in core workflows | Functional testing |
 
 Enquiry response time and photo delivery time targets must be agreed after OBS01 baseline collection.
 
-Partner validation plan: calendar schedules user review/feedback on 17 November, internal Sprint Review on 18 November and class demos on 19–20 November 2026; partner participation and OBS01 timing remain to be confirmed; MVP demonstration after Sprint 2; studio testing of gallery/booking management; simulated enquiries and consultations; interviews/usability feedback; improvements ordered by partner feedback. These are proposed activities subject to partner availability/agreement, not recorded completed events.
+Partner validation plan: calendar schedules user review/feedback on 17 November, internal Sprint Review on 18 November and class demos on 19–20 November 2026; partner participation and OBS01 timing remain to be confirmed; MVP demonstration after Sprint 2; studio testing of gallery/booking management; simulated enquiries and consultations; interviews/usability feedback; improvements ordered by partner feedback. Collect community feedback on the heritage guide during Sprint 2. These are proposed activities subject to partner availability/agreement, not recorded completed events.
 
 Feasibility requirements: desktop/mobile browser access, development/test environment before public deployment, customer/admin roles, secure authentication, restricted management access, protection of customer information/private photos, advance coordination of partner sessions and core booking before AI/advanced photo management.
 
@@ -173,9 +175,9 @@ Sprint 2 includes a one-week holiday extension. Sprints 3 and 4 each run for two
 | Sprint | Current dates | Stories | Usable increment / review |
 | --- | --- | --- | --- |
 | 1 | 5–18 November 2026 | US01–US04 | Registration/login, admin upload/collections and public portfolio. |
-| 2 | 19 November–9 December 2026 | US05–US07 | Customized enquiries, request review, availability and consultations. |
-| 3 | 10–23 December 2026 | US08–US10 | AI enquiry summaries and private client album management. |
-| 4 | 24 December 2026–6 January 2027 | US10–US13 | Complete photo selection/download, FAQ, feedback and heritage. |
+| 2 | 19 November–9 December 2026 | US05–US07 | Enquiries, booking/consultation management and heritage education. |
+| 3 | 10–23 December 2026 | US08–US09 | Private client albums, customer photo selection and final download. |
+| 4 | 24 December 2026–6 January 2027 | US10–US12 | AI enquiry summaries, AI FAQ and customer ratings/feedback. |
 
 ## Sprint 1 calendar and completion rules
 
@@ -223,9 +225,25 @@ Customers and admins use a unique username and password. Usernames have 3–40 c
 
 ## Items to refine
 
-- **US05–US13:** agree detailed acceptance criteria before implementation and acceptance.
+- **US05–US07:** refined criteria are documented; confirm remaining package, availability, consultation and heritage-content decisions before implementation.
+- **US08–US12:** detail templates remain pending refinement.
 - **US03 upload acceptance:** verify JPG/JPEG, PNG and WebP uploads at or below 8 MB, and rejection of unsupported formats and files above 8 MB.
-- **Test framework:** the original plan specified Pest; the repository uses Vitest plus manual testing. Record the team's agreed testing approach.
+- **Test framework:** use Vitest and actual manual/integration checks for this React/Vite project; the earlier Pest reference is superseded.
 - **Partner validation:** confirm observation and review sessions, and use findings to refine the backlog.
 
 Record approved scope changes and their reasons in the relevant sprint refinement document.
+
+## Backlog refinement and story mapping
+
+The contributor supplied a refined backlog dated 11 November 2026. Local documentation was aligned on 15 November; this is not evidence of a meeting or team/Product Owner approval. Approval remains pending team and Product Owner confirmation. Calendar dates follow the previously confirmed project schedule above.
+
+| Previous story | Refined story | Change |
+| --- | --- | --- |
+| US06 + US07 | US06 | Merge booking review, availability, consultations and confirmation; 8 points. |
+| US13 | US07 | Move heritage education into Sprint 2; 3 points, Should. |
+| US09 | US08 | Private client albums in Sprint 3; 8 points, Should. |
+| US10 | US09 | Customer selection/download in Sprint 3; 8 points, Must. |
+| US08 | US10 | AI summaries in Sprint 4; 5 points, Must. |
+| US11–US12 | US11–US12 | Retain FAQ and feedback in Sprint 4. |
+
+Sprint 1 remains US01–US04. Retain subsequent agreed details: username-only login, 8 MB image limit, event-type portfolio filtering and Latest Work. Historical evidence may use previous IDs; interpret it using this mapping. GitHub Projects has not been updated by this local documentation change.

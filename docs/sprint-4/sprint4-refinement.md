@@ -1,6 +1,6 @@
 # Sprint 4 — Backlog Refinement Record
 
-**Sprint:** 24 December 2026–6 January 2027 · US10–US13.
+**Sprint:** 24 December 2026–6 January 2027 · US10–US12.
 **Status:** Template — no completed session or decisions recorded.
 **Source:** [Sprint stories](sprint4-user-story.md), [product backlog](../PRODUCT_BACKLOG.md).
 

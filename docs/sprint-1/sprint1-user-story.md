@@ -79,6 +79,7 @@ Dependencies/risks: US02, photo storage, gallery database, wedding photographs a
 5. The gallery works properly on both mobile and desktop screens.
 6. The system displays a message when a collection has no photos.
 7. Visitors cannot upload, edit or delete gallery photos or collections.
+8. The homepage displays the three most recently published public collections in Latest Work, with links to each collection and View All; private collections are excluded and ordinary edits do not change publication order.
 
 Dependencies/risks: US03, uploaded collections/photos and studio permission for public display. Large images affect loading; incorrect permissions may expose private photos.
 
@@ -107,7 +108,7 @@ Dependencies/risks: US03, uploaded collections/photos and studio permission for 
 
 ## Completion rules
 
-Use the [source Definition of Done](../PRODUCT_BACKLOG.md#definition-of-done--source-wording-p-17). It includes acceptance/error/access cases, tests, reviewed PR merged to main, phone/desktop operation, staging deployment, no private client data in Git and Product Owner acceptance. The PDF says Pest; this repository uses Vitest plus manual testing. That discrepancy remains explicitly recorded in the backlog.
+Use the [Definition of Done](../PRODUCT_BACKLOG.md#definition-of-done). It includes acceptance/error/access cases, tests, reviewed PR merged to main, phone/desktop operation, staging deployment, no private client data in Git and Product Owner acceptance. Use Vitest plus appropriate actual manual/integration checks for this project.
 
 ## Sprint 1 calendar activities
 

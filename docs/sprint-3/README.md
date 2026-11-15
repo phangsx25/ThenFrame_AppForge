@@ -1,6 +1,6 @@
 # Sprint 3 Documentation
 
-**Period:** 10–23 December 2026 · **Stories:** US08–US10.
+**Period:** 10–23 December 2026 · **Stories:** US08–US09.
 
 - [User stories and plan](sprint3-user-story.md)
 - [Test report](sprint3-test-report.md)

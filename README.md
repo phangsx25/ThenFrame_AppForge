@@ -21,7 +21,7 @@ Hourly burndown synchronization is configured in GitHub Actions; see
 - Backend, database, Auth and Storage: Supabase
 - Hosting: Vercel
 - Testing: Vitest and manual testing
-- Planned AI: Gemini API for enquiry/booking summaries (US08) and FAQ chatbot (US11)
+- Planned AI: Gemini API for enquiry/booking summaries (US10) and FAQ chatbot (US11)
 - Runtime: Node.js 24 LTS (24.15 or newer) and npm
 - Repository, collaboration and Kanban: GitHub
 
@@ -59,9 +59,8 @@ Use the agreed existing Supabase project; do not recreate or clear its tables.
 - Booking and Heritage navigation currently show later-sprint notices.
 
 UI uses the wine editorial theme and intentional placeholders. Public photographs
-come from Supabase. Booking (US05–US07), AI summaries (US08), private albums and
-selection/delivery (US09–US10), FAQ chatbot (US11), feedback (US12) and Heritage
-(US13) remain planned. No AI photo categorization is planned or implemented.
+come from Supabase. Enquiries and booking/consultation management (US05–US06), Heritage (US07), private albums and
+selection/delivery (US08–US09), AI summaries (US10), FAQ chatbot (US11) and feedback (US12) remain planned. No AI photo categorization is planned or implemented.
 
 ## Portfolio classification
 

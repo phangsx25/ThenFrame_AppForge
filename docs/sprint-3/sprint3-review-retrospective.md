@@ -1,6 +1,6 @@
 # Sprint 3 — Review and Retrospective
 
-**Sprint:** 10–23 December 2026 · US08–US10.
+**Sprint:** 10–23 December 2026 · US08–US09.
 **Status:** Template — no meeting, acceptance or decisions recorded.
 
 ## Sprint Review

@@ -1,6 +1,6 @@
 # Sprint 3 — Backlog Refinement Record
 
-**Sprint:** 10–23 December 2026 · US08–US10.
+**Sprint:** 10–23 December 2026 · US08–US09.
 **Status:** Template — no completed session or decisions recorded.
 **Source:** [Sprint stories](sprint3-user-story.md), [product backlog](../PRODUCT_BACKLOG.md).
 

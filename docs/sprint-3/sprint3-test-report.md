@@ -1,8 +1,8 @@
 # Sprint 3 — Test Report
 
-**Sprint:** 10–23 December 2026 · US08–US10.
+**Sprint:** 10–23 December 2026 · US08–US09.
 **Status:** Template — detailed acceptance criteria and test results pending.
-**Requirements:** [Sprint stories](sprint3-user-story.md). Refine and agree acceptance criteria before filling test cases; the original PDF defines detailed criteria only for US01–US04.
+**Requirements:** [Sprint stories](sprint3-user-story.md). Refine and agree acceptance criteria before filling test cases; the supplied refinement defines detailed criteria for US01–US07.
 
 | Session field | Value |
 | --- | --- |
