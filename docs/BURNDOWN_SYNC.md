@@ -16,7 +16,7 @@ Only Done burns points. A new day or changed Sprint 1 status creates an observat
 2. Create a dedicated GitHub token with read access to the personal Project. A classic PAT can use `read:project`; private linked issues additionally require repository access. Do not reuse the local CLI credential.
 3. Open **ThenFrame_AppForge → Settings → Secrets and variables → Actions → New repository secret**. Add **PROJECTS_READ_TOKEN**, pasting the token only into GitHub Secret, not chat/source. Set an expiry and rotate when needed.
 4. The secret reads Projects; the built-in `GITHUB_TOKEN` with `contents: write` commits only the three generated files. Branch rules must permit publishing these commits. If they require PRs, use a PR-based publishing design instead of disabling rules.
-5. Run manually once and inspect the successful Actions run and output. The workflow has not been activated or verified on GitHub until these steps are complete.
+5. Run manually once and inspect the successful Actions run and output. The workflow checks token authentication and access to Project 1 without printing the token. The reader uses a direct, paginated personal-Project API query to avoid the GitHub CLI owner-discovery failure. A non-empty Secret alone does not prove valid access.
 
 ## Local update
 

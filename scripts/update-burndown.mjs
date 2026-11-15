@@ -1,4 +1,4 @@
-import { execFileSync } from 'node:child_process';
+import { readProject } from './read-project.mjs';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,8 +14,7 @@ if (inputIndex !== -1 && !process.argv[inputIndex + 1]) {
 const gh = process.env.THENFRAME_GH_PATH || 'gh';
 const raw = inputIndex !== -1
   ? readFileSync(process.argv[inputIndex + 1], 'utf8')
-  : execFileSync(gh, ['project', 'item-list', '1', '--owner', 'phangsx25',
-    '--format', 'json', '--limit', '1000'], { encoding: 'utf8' });
+  : JSON.stringify(readProject(gh));
 const board = JSON.parse(raw.replace(/^\uFEFF/, ''));
 if (!Array.isArray(board.items) || board.items.length < board.totalCount) {
   throw new Error('Incomplete project response; no snapshot saved');
