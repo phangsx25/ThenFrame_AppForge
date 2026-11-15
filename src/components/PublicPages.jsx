@@ -12,11 +12,11 @@ export function Home({ client, auth }) {
           <div className="hero-copy">
             <span className="eyebrow">WEDDING PHOTOGRAPHY / THENFRAME</span>
             <h1>
-              Your Love Story,
+              Defining
               <br />
-              Beautifully
+              Timeless
               <br />
-              <em>Captured</em>
+              <em>Moments</em>
             </h1>
             <p>
               Wedding photographs that feel like you — thoughtful,
