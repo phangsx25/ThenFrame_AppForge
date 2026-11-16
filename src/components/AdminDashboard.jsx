@@ -403,10 +403,11 @@ export default function AdminDashboard({ auth, client }) {
               minute; refresh previews when needed.
             </p>
           </section>
-          <LaterCard title="Bookings & consultations">
-            Booking management is planned for a later sprint. This dashboard
-            shows real gallery data only.
-          </LaterCard>
+          <section className="dashboard-card">
+            <h2>Bookings & consultations</h2>
+            <p>Review enquiries, check confirmed event times and arrange meetings.</p>
+            <a className="text-link" href="#/booking">Manage bookings</a>
+          </section>
           <LaterCard title="Private client albums">
             Client assignment, proof selection and final delivery are planned
             for a later sprint.

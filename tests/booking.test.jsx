@@ -53,4 +53,24 @@ describe("customer enquiry form (mocked transport)", () => {
     expect(phone.checkValidity()).toBe(true);
     expect(phone).not.toHaveAttribute("aria-invalid");
   });
+  it("shows the customer's confirmed time and current online consultation", async () => {
+    listMyEnquiries.mockResolvedValue([{ id: "e1", reference: "TF-ENQ-000001", status: "confirmed",
+      contact_name: "Test customer", contact_phone: "0181234567", service: "Photography",
+      event_type: "Reception", event_date: "2100-01-01", colour_style: "Moody / Dark",
+      booking_reservations: { starts_at: "2100-01-01T02:00:00Z", ends_at: "2100-01-01T04:00:00Z" },
+      booking_consultations: [{ starts_at: "2099-12-31T02:00:00Z", ends_at: "2099-12-31T03:00:00Z", mode: "online", status: "scheduled", meeting_link: "https://example.com/meeting" }],
+    }]);
+    render(<CustomerEnquiries client={{}} auth={auth} />);
+    await screen.findByText("Confirmed event");
+    expect(screen.getByText(/2100-01-01 10:00 → 2100-01-01 12:00/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Open meeting link" })).toHaveAttribute("href", "https://example.com/meeting");
+  });
+  it("does not offer a meeting link for a cancelled consultation", async () => {
+    listMyEnquiries.mockResolvedValue([{ id: "e1", reference: "TF-ENQ-000001", status: "pending", contact_phone: "0181234567",
+      booking_consultations: { starts_at: "2100-01-01T02:00:00Z", ends_at: "2100-01-01T03:00:00Z", mode: "online", status: "cancelled", meeting_link: "https://example.com/cancelled" },
+    }]);
+    render(<CustomerEnquiries client={{}} auth={auth} />);
+    await screen.findByText("Consultation · cancelled");
+    expect(screen.queryByRole("link", { name: "Open meeting link" })).not.toBeInTheDocument();
+  });
 });

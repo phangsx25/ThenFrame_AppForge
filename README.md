@@ -30,7 +30,6 @@ Hourly burndown synchronization is configured in GitHub Actions; see
 ```sh
 git clone https://github.com/phangsx25/ThenFrame_AppForge.git
 cd ThenFrame_AppForge
-git switch sprint-2
 npm ci
 ```
 
@@ -56,10 +55,11 @@ Use the agreed existing Supabase project; do not recreate or clear its tables.
 - US04: public collections, search/event-type filtering, details and photo viewer.
 - Users open their own profile/security settings through the avatar. Customers
   register themselves; admin customer-account management is outside scope.
-- US05 initial increment on `sprint-2-us05-enquiry`: Booking offers a customer enquiry form and own-enquiry history. Heritage and admin booking management remain planned.
+- US05: customer enquiry submission, readable references and own-enquiry history.
+- US06 increment on `sprint-2-us06-booking-management`: Admin enquiry review, timed availability/confirmation and consultation scheduling; customers can view their own updates. Formal acceptance remains pending. Heritage is still planned.
 
 UI uses the wine editorial theme and intentional placeholders. Public photographs
-come from Supabase. US05 enquiry submission is partially implemented on this branch; package options and full browser acceptance remain pending. Booking/consultation management (US06), Heritage (US07), private albums and
+come from Supabase. US05 enquiry submission is partially implemented on this branch; package options and full browser acceptance remain pending. US06 management is implemented on this branch pending acceptance. Heritage (US07), private albums and
 selection/delivery (US08–US09), AI summaries (US10), FAQ chatbot (US11) and feedback (US12) remain planned. No AI photo categorization is planned or implemented.
 
 ## Portfolio classification
@@ -103,6 +103,8 @@ gallery operations require internet. Install/offline/update behavior needs manua
 checks on HTTPS.
 
 Use focused branches and PRs, keep main stable, and have another member review.
-The Sprint 2 integration branch is `sprint-2`. The unmerged `fix/sprint1-completion`
-work must be integrated separately. Git branches do not isolate the shared database;
+Sprint 2 stories are developed on `sprint-2-us05-enquiry` and
+`sprint-2-us06-booking-management`. Git branches do not isolate the shared database;
 coordinate schema changes and keep migrations version controlled.
+
+US06 is developed separately from the US05 branch. To run this increment, use `git switch sprint-2-us06-booking-management`, then `npm install` and `npm run dev`. An admin account opens Booking management; a customer account sees its own enquiries and meeting details. This branch has not been merged into main.

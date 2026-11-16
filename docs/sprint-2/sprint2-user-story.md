@@ -131,12 +131,21 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 - Display a server-assigned reference such as `TF-ENQ-000001`. The database sequence produces unique, increasing references; gaps can occur after failed or retried transactions. Customers cannot select or overwrite a reference.
 - Existing enquiries receive references without changing their UUIDs or rewriting existing contact information. Retrying the same saved enquiry retains its reference. UUIDs remain internal retry keys and are not shown as the customer reference.
 
+## Booking availability and management rules
+
+- Confirmed by the contributor on 16 November 2026: check event time intervals, not whole-day capacity. Overlapping confirmed events are rejected; adjacent bookings may share an end/start boundary. Times are entered and displayed in Asia/Kuala_Lumpur.
+- Pending enquiries and consultations do not reserve event capacity. An admin supplies a future start and later end when confirming. Each enquiry currently has one continuous reserved window, including its full reserved span for a multi-day event.
+- The database enforces non-overlap and saves the reservation and Confirmed status together. Version checks reject stale admin edits. A failed confirmation or reschedule leaves the previously saved record intact.
+- Admins can review Pending, Under review and Rejected enquiries; confirmed records remain Confirmed while their event times can be rescheduled without conflicts. Cancellation/reopening of confirmed bookings is not implemented in this increment.
+- One consultation record per enquiry supports Online/Offline and Scheduled/Completed/Cancelled. Online requires a manually supplied HTTPS meeting link; Offline requires a location. Changes are saved and visible only to admins and the enquiry's customer.
+- Initial implementation allows manual booking confirmation without enforcing consultation completion. The studio's final consultation prerequisite, travel buffers, split multi-day slots and booking-cancellation rules still require agreement. No automatic WhatsApp/email notification or meeting-link generation is included.
+
 ## Clarifications before implementation
 
 - **US05:** confirm required fields, event-date handling, budget/currency, referral sources and colour/style options with the studio. Service options are Photography, Videography and Combo Photo & Video. Videography selection does not require video uploads. Photography style is an enquiry preference, separate from portfolio event types.
 - **Packages:** show options only if supplied by the studio. The refinement does not establish a full package-catalogue editor, automatic pricing, payments or deposits.
 - **WhatsApp:** the supplied form was described as a WhatsApp enquiry flow. Confirm whether the website also offers a manual prefilled-message handoff, which number it uses and which details it shares. Automatic sending/delivery is not assumed.
-- **US06:** confirm booking capacity, whole-day versus timed availability, multi-day events, timezone and conflict rules. Pending, Under Review, Confirmed and Rejected are examples in the supplied criteria; final transition rules require agreement.
+- **US06:** timed non-overlap and Malaysia-time display are confirmed; agree travel buffers, split multi-day events and cancellation rules. Pending, Under Review, Confirmed and Rejected are examples in the supplied criteria; final transition rules require agreement.
 - **Consultations and confirmation:** agree required online/offline details, rescheduling/cancellation rules and whether a completed consultation is mandatory. Confirm how customers see status and receive confirmation, as described in the MVP workflow.
 - **US07:** identify reliable cultural sources, a content reviewer and permitted images. Public educational content must be checked before publication. A CMS/admin heritage editor is not specified by this refinement.
 

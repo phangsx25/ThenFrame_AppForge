@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { accountName } from "../lib/account";
 import { displayContactPhone, normalizeContactPhone } from "../lib/phone";
+import { ENQUIRY_STATUSES, malaysiaTime } from "../lib/bookings";
+import AdminBookingPage from "./AdminBookingPage";
 import { COLOUR_STYLES, ENQUIRY_EVENTS, SERVICES, listMyEnquiries, submitEnquiry, todayInMalaysia } from "../lib/enquiries";
 import { Workspace } from "./Layout";
 import { Notice } from "./UI";
 
 export default function BookingPage({ client, auth }) {
+  if (auth.isAdmin) return <AdminBookingPage client={client} auth={auth} />;
   return (
     <Workspace auth={auth} admin={auth.isAdmin} active="Booking"
       onSection={(section) => { window.location.hash = auth.isAdmin ? "/admin" : section === "My albums" ? "/album" : "/dashboard"; }}>
@@ -13,8 +16,7 @@ export default function BookingPage({ client, auth }) {
         <div><span className="eyebrow">YOUR CELEBRATION / THENFRAME</span><h1>Tell us your plans.</h1>
           <p>Share your event and photography preferences with the studio.</p></div>
       </div>
-      {auth.isAdmin ? <Notice>Enquiry submission is for customer accounts. Studio enquiry management will follow in US06.</Notice>
-        : <CustomerEnquiries key={auth.session.user.id} client={client} auth={auth} />}
+      <CustomerEnquiries key={auth.session.user.id} client={client} auth={auth} />
     </Workspace>
   );
 }
@@ -94,15 +96,31 @@ export function CustomerEnquiries({ client, auth }) {
         {loading ? <p role="status">Loading your enquiries…</p> : loadError ? <Notice error>{loadError}</Notice>
           : rows.length === 0 ? <p>No enquiries yet. Start by telling us about your celebration.</p>
           : rows.map((row) => <article className="enquiry-record" key={row.id}>
-            <span className="pill">{row.status === "pending" ? "Pending" : row.status}</span>
+            <span className="pill">{ENQUIRY_STATUSES[row.status] || row.status}</span>
             <h3>{row.service}</h3><p>{row.event_type} · {row.event_date}</p>
             <dl><dt>Colour/style</dt><dd>{row.colour_style}</dd><dt>Contact</dt><dd>{row.contact_name} · {displayContactPhone(row.contact_phone)}</dd>
               <dt>Additional requirements</dt><dd className="enquiry-notes">{row.additional_requirements || "None provided."}</dd>
               <dt>Reference</dt><dd className="small-text">{row.reference}</dd></dl>
+            <CustomerSchedule row={row} />
           </article>)}
       </section>
     </div>
   );
+}
+
+function CustomerSchedule({ row }) {
+  const one = (value) => Array.isArray(value) ? value[0] : value;
+  const reservation = one(row.booking_reservations), consultation = one(row.booking_consultations);
+  return <>
+    {reservation && <div className="customer-schedule"><h4>Confirmed event</h4>
+      <p>{malaysiaTime(reservation.starts_at)} → {malaysiaTime(reservation.ends_at)} (Malaysia time)</p></div>}
+    {consultation && <div className="customer-schedule"><h4>Consultation · {consultation.status}</h4>
+      <p>{malaysiaTime(consultation.starts_at)} → {malaysiaTime(consultation.ends_at)} (Malaysia time)</p>
+      {consultation.status !== "cancelled" && (consultation.mode === "online"
+        ? <a className="text-link" href={consultation.meeting_link} target="_blank" rel="noopener noreferrer">Open meeting link</a>
+        : <p>Location: {consultation.location}</p>)}
+    </div>}
+  </>;
 }
 
 function Choice({ label, name, options }) {

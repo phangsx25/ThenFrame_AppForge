@@ -61,7 +61,8 @@ function savedEnquiry(row) {
 
 export async function listMyEnquiries(client) {
   const { data, error } = await client.from("booking_enquiries")
-    .select("*").order("created_at", { ascending: false });
+    .select("*,booking_reservations(starts_at,ends_at),booking_consultations(starts_at,ends_at,mode,meeting_link,location,status)")
+    .order("created_at", { ascending: false });
   if (error) throw new Error("Your enquiries could not be loaded. Please try again.");
   return data;
 }
