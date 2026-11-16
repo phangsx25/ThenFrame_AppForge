@@ -17,7 +17,7 @@ Hourly burndown synchronization is configured in GitHub Actions; see
 ## Stack
 
 - Frontend: React, Vite, Tailwind CSS
-- PWA: vite-plugin-pwa
+- PWA: vite-plugin-pwa; shared ThenFrame wordmark icons for desktop, Android and Apple devices
 - Backend, database, Auth and Storage: Supabase
 - Hosting: Vercel
 - Testing: Vitest and manual testing
