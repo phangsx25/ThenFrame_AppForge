@@ -2029,3 +2029,66 @@ dialog.photo-dialog {
     overflow-wrap: anywhere;
   }
 }
+
+/* ------------------------------------------------------------------
+   Admin workspace polish (US02/US03). Scoped to .admin-workspace so
+   public pages and the customer workspace are unchanged.
+   ------------------------------------------------------------------ */
+.admin-workspace {
+  /* Item 4, step 1: readable grey. 5.8:1 on white, 5.6:1 on cream
+     (was 4.2:1 / 4.0:1, below the WCAG AA 4.5:1 minimum). */
+  --muted: #766060;
+  --danger: #9c283e;
+  --danger-dark: #7a1f31;
+}
+
+/* Item 4, step 2: lift only the smallest (10px) text by 1px. */
+.admin-workspace .stat-grid small,
+.admin-workspace label small {
+  font-size: 11px;
+}
+
+/* 44px minimum touch targets. */
+.admin-workspace .small {
+  min-height: 44px;
+}
+.admin-workspace .text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+}
+
+/* Public / Private badges: icon + text + tone, not colour alone. */
+.admin-workspace .visibility-pill,
+.admin-workspace .admin-photo-grid .visibility-pill {
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--wine);
+}
+.admin-workspace .visibility-pill.is-public {
+  background: var(--wine);
+  color: var(--white);
+}
+.admin-workspace .visibility-pill.is-private {
+  background: var(--white);
+  color: var(--wine);
+}
+
+/* Destructive actions look destructive. */
+.admin-workspace .button-outline.danger {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+.admin-workspace .button-outline.danger:hover {
+  background: #f8e3e6;
+}
+.admin-workspace .primary.danger-fill {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+.admin-workspace .primary.danger-fill:hover {
+  background: var(--danger-dark);
+}

@@ -67,7 +67,7 @@ export function Workspace({
         ["My albums", "lock"],
       ];
   return (
-    <div className="workspace">
+    <div className={`workspace${admin ? " admin-workspace" : ""}`}>
       <aside className="sidebar">
         <Wordmark light />
         <p className="eyebrow">

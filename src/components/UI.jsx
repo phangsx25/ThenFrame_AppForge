@@ -37,6 +37,20 @@ export function Icon({ name = "camera", size = 20 }) {
       </>
     ),
     shield: <path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6zm-4 9 3 3 5-6" />,
+    plus: <path d="M12 5v14M5 12h14" />,
+    refresh: (
+      <>
+        <path d="M20 11a8 8 0 0 0-14.9-3.5M4 4v4h4" />
+        <path d="M4 13a8 8 0 0 0 14.9 3.5M20 20v-4h-4" />
+      </>
+    ),
+    eye: (
+      <>
+        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
+        <circle cx="12" cy="12" r="3" />
+      </>
+    ),
+    trash: <path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v6m4-6v6" />,
   };
   return (
     <svg

@@ -12,6 +12,16 @@ import {
 import { Workspace } from "./Layout";
 import { Icon, LaterCard, Modal, Notice } from "./UI";
 
+function VisibilityPill({ visibility }) {
+  const isPrivate = visibility === "hidden";
+  return (
+    <span className={`pill visibility-pill ${isPrivate ? "is-private" : "is-public"}`}>
+      <Icon name={isPrivate ? "lock" : "eye"} size={12} />
+      {isPrivate ? "Private" : "Public"}
+    </span>
+  );
+}
+
 export default function AdminDashboard({ auth, client }) {
   const [section, setSection] = useState("Overview"),
     [collections, setCollections] = useState([]),
@@ -119,7 +129,8 @@ export default function AdminDashboard({ auth, client }) {
           <p>Manage wedding collections and prepare stories to be shared.</p>
         </div>
         <button className="primary" onClick={() => setEditor({})}>
-          ＋ New collection
+          <Icon name="plus" size={16} />
+          New collection
         </button>
       </div>
       <Notice error>{error}</Notice>
@@ -173,6 +184,7 @@ export default function AdminDashboard({ auth, client }) {
                 disabled={busy}
                 onClick={() => run(refreshCollections)}
               >
+                <Icon name="refresh" size={14} />
                 Refresh
               </button>
             </div>
@@ -206,7 +218,7 @@ export default function AdminDashboard({ auth, client }) {
                         </td>
                         <td>{c.style || "—"}</td>
                         <td>
-                          <span className="pill">● {c.visibility === "hidden" ? "Private" : "Public"}</span>
+                          <VisibilityPill visibility={c.visibility} />
                         </td>
                         <td>
                           <button
@@ -264,6 +276,7 @@ export default function AdminDashboard({ auth, client }) {
                       })
                     }
                   >
+                    <Icon name="trash" size={14} />
                     Delete collection
                   </button>
                 </div>
@@ -317,7 +330,8 @@ export default function AdminDashboard({ auth, client }) {
                   disabled={busy || photoLoading}
                   onClick={() => run(() => loadPhotos(selected.id))}
                 >
-                  Refresh photo links ↻
+                  <Icon name="refresh" size={14} />
+                  Refresh photo links
                 </button>
               </div>
               {photoLoading ? (
@@ -345,7 +359,7 @@ export default function AdminDashboard({ auth, client }) {
                         </div>
                       )}
                       <figcaption>
-                        <span className="pill">● {photo.visibility === "hidden" ? "Private" : "Public"}</span>
+                        <VisibilityPill visibility={photo.visibility} />
                         <p>{photo.caption || "No caption yet"}</p>
                         <div className="button-row">
                           <button
@@ -357,7 +371,7 @@ export default function AdminDashboard({ auth, client }) {
                           </button>
                           <button
                             disabled={busy}
-                            className="text-button danger"
+                            className="button-outline small danger"
                             onClick={() =>
                               setConfirmation({
                                 title: "Delete photograph?",
@@ -372,6 +386,7 @@ export default function AdminDashboard({ auth, client }) {
                               })
                             }
                           >
+                            <Icon name="trash" size={14} />
                             Delete
                           </button>
                         </div>
@@ -543,7 +558,7 @@ export default function AdminDashboard({ auth, client }) {
             </button>
             <button
               disabled={busy}
-              className="primary"
+              className="primary danger-fill"
               onClick={async () => {
                 if (await run(confirmation.action, "Deleted."))
                   setConfirmation(null);
