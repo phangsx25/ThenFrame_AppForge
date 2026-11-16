@@ -117,16 +117,19 @@ export default function AdminDashboard({ auth, client }) {
     }, "Photo uploaded.");
   }
   const published = collections.filter((c) => c.visibility === "public").length;
+  const overview = section === "Overview";
+  const shownCollections = overview ? collections.slice(0, 3) : collections;
+  const latest = collections[0];
   return (
     <Workspace auth={auth} admin active={section} onSection={setSection}>
       <div className="dashboard-heading">
         <div>
-          <h1>
-            {section === "Overview"
-              ? "Welcome to ThenFrame Studio"
-              : "Gallery management"}
-          </h1>
-          <p>Manage wedding collections and prepare stories to be shared.</p>
+          <h1>{overview ? "Welcome to ThenFrame Studio" : "Gallery management"}</h1>
+          <p>
+            {overview
+              ? "A quick look at your studio and its newest collections."
+              : "Create collections, upload photographs and choose what is shared."}
+          </p>
         </div>
         <button className="primary" onClick={() => setEditor({})}>
           <Icon name="plus" size={16} />
@@ -135,6 +138,7 @@ export default function AdminDashboard({ auth, client }) {
       </div>
       <Notice error>{error}</Notice>
       <Notice>{message}</Notice>
+      {overview && (
       <div className="stat-grid">
         <article>
           <span>Gallery collections</span>
@@ -160,24 +164,31 @@ export default function AdminDashboard({ auth, client }) {
           <small>Not shared publicly</small>
         </article>
         <article>
-          <span>Photos in selected collection</span>
-          <strong>
-            {photoLoading
-              ? "—"
-              : selected
-                ? photos.length.toString().padStart(2, "0")
-                : "—"}
+          <span>Latest collection</span>
+          <strong className="stat-text" title={latest?.title}>
+            {loading || !latest ? "—" : latest.title}
           </strong>
-          <small>{selected?.title || "Select a collection"}</small>
+          <small>
+            {loading
+              ? "Loading…"
+              : latest
+                ? latest.style || "No event type"
+                : "No collections yet"}
+          </small>
         </article>
       </div>
-      <div className="admin-columns">
+      )}
+      <div className={overview ? "admin-columns" : undefined}>
         <div>
           <section className="dashboard-card">
             <div className="section-heading">
               <div>
-                <h2>Portfolio collections</h2>
-                <p>Review your collections and manage their visibility.</p>
+                <h2>{overview ? "Recent collections" : "Portfolio collections"}</h2>
+                <p>
+                  {overview
+                    ? "Your newest collections. Open one to manage its photographs."
+                    : "Review your collections and manage their visibility."}
+                </p>
               </div>
               <button
                 className="button-outline small"
@@ -210,7 +221,7 @@ export default function AdminDashboard({ auth, client }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {collections.map((c) => (
+                    {shownCollections.map((c) => (
                       <tr key={c.id}>
                         <td>
                           <strong>{c.title}</strong>
@@ -235,12 +246,28 @@ export default function AdminDashboard({ auth, client }) {
                 </table>
               </div>
             )}
+            {overview && !loading && collections.length > 0 && (
+              <button
+                className="text-button"
+                onClick={() => setSection("Gallery management")}
+              >
+                View all {collections.length} collections
+                <Icon name="arrow" size={14} />
+              </button>
+            )}
           </section>
-          {selected && (
+          {!overview && selected && (
             <section className="dashboard-card selected-gallery">
               <div className="section-heading">
                 <div>
-                  <span className="eyebrow">CURRENT COLLECTION</span>
+                  <span className="eyebrow">
+                    CURRENT COLLECTION{" "}
+                    <span className="count-box">
+                      {photoLoading
+                        ? "LOADING…"
+                        : `${photos.length} ${photos.length === 1 ? "PHOTOGRAPH" : "PHOTOGRAPHS"}`}
+                    </span>
+                  </span>
                   <h2>{selected.title}</h2>
                   <p>{selected.description}</p>
                 </div>
@@ -398,6 +425,7 @@ export default function AdminDashboard({ auth, client }) {
             </section>
           )}
         </div>
+        {overview && (
         <aside>
           <section className="dashboard-card">
             <h2>Portfolio uploads</h2>
@@ -432,6 +460,7 @@ export default function AdminDashboard({ auth, client }) {
             sprints. These features are not available yet.
           </LaterCard>
         </aside>
+        )}
       </div>
       {editor && (
         <Modal

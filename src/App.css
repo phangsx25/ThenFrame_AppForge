@@ -2042,6 +2042,26 @@ dialog.photo-dialog {
   --danger-dark: #7a1f31;
 }
 
+/* "Latest collection" stat: a title, so smaller than the numbers
+   and cut off with … instead of wrapping. */
+.admin-workspace .stat-grid strong.stat-text {
+  font-size: 22px;
+  line-height: 1.6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Photo count in the CURRENT COLLECTION label: same text, thin outline. */
+.admin-workspace .count-box {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border: 1px solid var(--wine);
+  border-radius: 4px;
+  color: var(--wine);
+}
+
 /* Item 4, step 2: lift only the smallest (10px) text by 1px. */
 .admin-workspace .stat-grid small,
 .admin-workspace label small {
