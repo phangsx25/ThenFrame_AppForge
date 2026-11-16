@@ -34,8 +34,8 @@ describe('read-only Project API pagination', () => {
 });
 
 describe('Sprint 1 fixed Project items', () => {
-  const ids = ['PVTI_lAHOC4Vg684BqIppzhF7vBI', 'PVTI_lAHOC4Vg684BqIppzhF7wlA',
-    'PVTI_lAHOC4Vg684BqIppzhF7xY4', 'PVTI_lAHOC4Vg684BqIppzhF7x0U'];
+  const ids = ['PVTI_lAHOC4Vg684BqIppzhJFVVM', 'PVTI_lAHOC4Vg684BqIppzhJFVnE',
+    'PVTI_lAHOC4Vg684BqIppzhJFV4I', 'PVTI_lAHOC4Vg684BqIppzhJFWIY'];
   const board = () => ({ items: ids.map(id => ({ id, status: 'In review' })) });
   it('maps private issues without needing their content or titles', () => {
     const stories = sprint1Stories(board());

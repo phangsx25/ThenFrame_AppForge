@@ -1,10 +1,10 @@
 // Project item IDs are not credentials. These four IDs were checked against
 // their story titles with the owner's existing login. Issue content stays private.
 const items = {
-  US01: 'PVTI_lAHOC4Vg684BqIppzhF7vBI',
-  US02: 'PVTI_lAHOC4Vg684BqIppzhF7wlA',
-  US03: 'PVTI_lAHOC4Vg684BqIppzhF7xY4',
-  US04: 'PVTI_lAHOC4Vg684BqIppzhF7x0U',
+  US01: 'PVTI_lAHOC4Vg684BqIppzhJFVVM',
+  US02: 'PVTI_lAHOC4Vg684BqIppzhJFVnE',
+  US03: 'PVTI_lAHOC4Vg684BqIppzhJFV4I',
+  US04: 'PVTI_lAHOC4Vg684BqIppzhJFWIY',
 };
 export const points = { US01: 3, US02: 3, US03: 5, US04: 5 };
 export function sprint1Stories(board) {
