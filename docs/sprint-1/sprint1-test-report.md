@@ -6,6 +6,19 @@
 
 Work progress and responsibility are recorded in the [shared daily log](../daily-log.md). This report records test steps, actual outcomes, defects and retest evidence.
 
+## Two kinds of testing
+
+This project uses Vitest and manual testing. They answer different questions, and this report keeps them apart.
+
+| | Automated tests | Acceptance tests |
+| --- | --- | --- |
+| Who runs them | The computer: Vitest, with `npm test`, locally and in the GitHub **verify** check on every pull request | A person, in a real browser or on a phone |
+| What they check | Application logic, such as validation, access guards and upload rules, using simulated backend responses | Each user story’s acceptance criteria, end to end, on the deployed app |
+| Where results are recorded | [Automated checks](#automated-checks) | The acceptance tables under each user story |
+| Current result | 74 Vitest tests and 3 burndown script tests pass | 11 Pass, 12 Partial, 3 Not run |
+
+Passing automated tests does not pass an acceptance criterion by itself. In the acceptance tables, **Tested during development** means the result comes from checks made while building the feature; the Status and Evidence columns say whether that was a live check, a browser check or a unit test. Rows marked Partial or Not run still need a person to complete them.
+
 ## Test session
 
 | Field | Value |
@@ -129,10 +142,13 @@ Requirements: [US04 acceptance criteria](sprint1-user-story.md#us04--public-port
 
 | Command / check | Actual date and commit | Result | Evidence |
 | --- | --- | --- | --- |
-| npm run lint | 14 November 2026 / `05a5154` | Pass | Local execution; [Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43609938325) |
-| npm test | 14 November 2026 / `05a5154` | Pass — 46 tests across 4 files | Local execution; [Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43609938325) |
-| npm run build | 14 November 2026 / `05a5154` | Pass — production/PWA build | Local execution; [Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43609938325) |
-| npm audit --omit=dev | TBD | Not recorded in this session | TBD |
+| npm run lint | 17 November 2026 / `774e2eb` | Pass | Local execution; [Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43882838433) |
+| npm test (Vitest) | 17 November 2026 / `774e2eb` | Pass — 74 tests across 6 files | Local execution; [Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43882838433) |
+| npm test (burndown script, node --test) | 17 November 2026 / `774e2eb` | Pass — 3 tests | Local execution; [Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43882838433) |
+| npm run build | 17 November 2026 / `774e2eb` | Pass — production/PWA build | Local execution; [Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43882838433) |
+| npm audit --omit=dev | 17 November 2026 / `774e2eb` | Pass — 0 vulnerabilities | Local execution |
+
+Earlier record: on 14 November 2026 (`05a5154`) lint, 46 tests across 4 files and the build passed ([Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43609938325)).
 
 ## Defects and retesting
 
