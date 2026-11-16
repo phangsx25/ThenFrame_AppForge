@@ -17,40 +17,23 @@ Work progress and responsibility are recorded in the [shared daily log](../daily
 | Environment and test account roles | Production user recovery flow (manual); synthetic customer and intercepted Auth/profile responses (browser regression) |
 | Test data and cleanup plan | Automated checks used synthetic credentials and did not send real emails or change real account passwords. Manual test used a fresh reset email; no reset links or credentials retained here. |
 
-## Acceptance results
+Tests are grouped by user story and reference the numbered acceptance criteria in the story document. Record actual execution dates and testers for each case; leave unexecuted cases as **Not run**. Existing supporting checks retain their original scope and do not automatically pass an acceptance criterion.
 
-For each criterion, fill concrete steps and test data, expected/actual results and evidence. Use Pass, Fail, Blocked or Not run. Test real permission boundaries with anonymous, customer and admin accounts as relevant; distinguish mocked tests from live backend checks.
+## US01 — Customer registration and login
 
-| Test ID | Expected behavior / acceptance criterion | Steps / test data | Actual result | Status | Evidence / defect |
-| --- | --- | --- | --- | --- | --- |
-| US01-AC01 | New users can register with a name, unique username, email address and valid password. | TBD | TBD | Not run | TBD |
-| US01-AC02 | Registered users log in with their username and password. | TBD | TBD | Not run | TBD |
-| US01-AC03 | Incorrect login details display an error message. | TBD | TBD | Not run | TBD |
-| US01-AC04 | Duplicate email registration is prevented; usernames are unique and case-insensitive. | TBD | TBD | Not run | TBD |
-| US01-AC05 | Users can log out and cannot access protected account pages after logging out. | TBD | TBD | Not run | TBD |
-| US02-AC01 | Authorized admins log in with their username and password. | TBD | TBD | Not run | TBD |
-| US02-AC02 | Successful admin login redirects to the admin dashboard. | TBD | TBD | Not run | TBD |
-| US02-AC03 | Incorrect login details display an error message. | TBD | TBD | Not run | TBD |
-| US02-AC04 | Regular customers cannot access admin-only pages. | TBD | TBD | Not run | TBD |
-| US02-AC05 | Admins can log out, and protected dashboard pages cannot be accessed after logout. | TBD | TBD | Not run | TBD |
-| US02-AC06 | Public users cannot register themselves as administrators. | TBD | TBD | Not run | TBD |
-| US03-AC01 | Logged-in admins can upload wedding photos to the system. | TBD | TBD | Not run | TBD |
-| US03-AC02 | Admins can create a gallery collection with a title, description and event type. | TBD | TBD | Not run | TBD |
-| US03-AC03 | Admins can add uploaded photos to a selected collection. | TBD | TBD | Not run | TBD |
-| US03-AC04 | Admins can view, edit and delete their uploaded photos and collections. | TBD | TBD | Not run | TBD |
-| US03-AC05 | The system accepts JPG/JPEG, PNG and WebP images up to 8 MB (8,388,608 bytes) per file, and rejects unsupported file types or larger files. | TBD | TBD | Not run | TBD |
-| US03-AC06 | Uploaded photos and collection details remain saved after refreshing the page. | TBD | TBD | Not run | TBD |
-| US03-AC07 | Regular customers and visitors cannot access photo upload or gallery management functions. | TBD | TBD | Not run | TBD |
-| US04-AC01 | Visitors can browse public wedding photography collections without logging in. | TBD | TBD | Not run | TBD |
-| US04-AC02 | Visitors can open a collection to view its wedding photos and details. | TBD | TBD | Not run | TBD |
-| US04-AC03 | Visitors can browse and filter collections by event type. | TBD | TBD | Not run | TBD |
-| US04-AC04 | Only photos and collections marked as public are displayed to visitors. | TBD | TBD | Not run | TBD |
-| US04-AC05 | The gallery works properly on both mobile and desktop screens. | TBD | TBD | Not run | TBD |
-| US04-AC06 | The system displays a message when a collection has no photos. | TBD | TBD | Not run | TBD |
-| US04-AC07 | Visitors cannot upload, edit or delete gallery photos or collections. | TBD | TBD | Not run | TBD |
-| US04-AC08 | The homepage displays the three most recently published public collections in Latest Work, with links to each collection and View All; private collections are excluded and ordinary edits do not change publication order. | TBD | TBD | Not run | See Latest Work verification below; browser acceptance pending. |
+Requirements: [US01 acceptance criteria](sprint1-user-story.md#us01--customer-registration-and-login).
 
-## Password recovery regression — US01 account security
+### Acceptance test results
+
+| Test ID | AC no. | Steps / test data | Expected result | Actual result | Status | Tester | Execution date | Evidence / defect |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| US01-AC01 | 1 | TBD | New users can register with a name, unique username, email address and valid password. | TBD | Not run | TBD | TBD | TBD |
+| US01-AC02 | 2 | TBD | Registered users log in with their username and password. | TBD | Not run | TBD | TBD | TBD |
+| US01-AC03 | 3 | TBD | Incorrect login details display an error message. | TBD | Not run | TBD | TBD | TBD |
+| US01-AC04 | 4 | TBD | Duplicate email registration is prevented; usernames are unique and case-insensitive. | TBD | Not run | TBD | TBD | TBD |
+| US01-AC05 | 5 | TBD | Users can log out and cannot access protected account pages after logging out. | TBD | Not run | TBD | TBD | TBD |
+
+### Password recovery regression — US01 account security
 
 These checks supplement the original US01 criteria; they do not mark unrelated registration, login or logout cases as passed.
 
@@ -62,7 +45,7 @@ These checks supplement the original US01 criteria; they do not mark unrelated r
 | US01-RESET04 | Open an expired link in the same tab; an existing session must not hide the link error. A new valid recovery event must clear the old error. | Expiry message displayed; invalid-link form blocked; valid recovery event restored the password form. | Pass — automated | Production expiry smoke check and Vitest regression. |
 | US01-RESET05 | After a real password save, log in with the new password and verify the old password is rejected. | Not separately confirmed by the user or exercised against a real account by automation. | Not run | Requires explicit live login results. |
 
-## Username login validation — 15 November 2026
+### Username login validation — 15 November 2026
 
 Username/password is the only website login method for both customers and admins. Email is used for registration confirmation and password recovery only. These are feature verification results, not Product Owner acceptance or proof of real customer adoption.
 
@@ -86,6 +69,62 @@ records were removed; readback confirmed the original two accounts/profiles rema
 
 Username-only follow-up: 56 tests, lint and production/PWA build passed after removal of the email login switch. Both existing profiles were updated directly in Supabase with usable usernames. Passwords and roles were preserved; existing users' successful password entry is not claimed without their confirmation.
 
+The username verification also supports US02 admin restrictions; it does not replace the US02 acceptance tests.
+
+## US02 — Administrator login
+
+Requirements: [US02 acceptance criteria](sprint1-user-story.md#us02--administrator-login).
+
+### Acceptance test results
+
+| Test ID | AC no. | Steps / test data | Expected result | Actual result | Status | Tester | Execution date | Evidence / defect |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| US02-AC01 | 1 | TBD | Authorized admins log in with their username and password. | TBD | Not run | TBD | TBD | TBD |
+| US02-AC02 | 2 | TBD | Successful admin login redirects to the admin dashboard. | TBD | Not run | TBD | TBD | TBD |
+| US02-AC03 | 3 | TBD | Incorrect login details display an error message. | TBD | Not run | TBD | TBD | TBD |
+| US02-AC04 | 4 | TBD | Regular customers cannot access admin-only pages. | TBD | Not run | TBD | TBD | TBD |
+| US02-AC05 | 5 | TBD | Admins can log out, and protected dashboard pages cannot be accessed after logout. | TBD | Not run | TBD | TBD | TBD |
+| US02-AC06 | 6 | TBD | Public users cannot register themselves as administrators. | TBD | Not run | TBD | TBD | TBD |
+
+## US03 — Gallery management
+
+Requirements: [US03 acceptance criteria](sprint1-user-story.md#us03--gallery-management).
+
+### Acceptance test results
+
+| Test ID | AC no. | Steps / test data | Expected result | Actual result | Status | Tester | Execution date | Evidence / defect |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| US03-AC01 | 1 | TBD | Logged-in admins can upload wedding photos to the system. | TBD | Not run | TBD | TBD | TBD |
+| US03-AC02 | 2 | TBD | Admins can create a gallery collection with a title, description and event type. | TBD | Not run | TBD | TBD | TBD |
+| US03-AC03 | 3 | TBD | Admins can add uploaded photos to a selected collection. | TBD | Not run | TBD | TBD | TBD |
+| US03-AC04 | 4 | TBD | Admins can view, edit and delete their uploaded photos and collections. | TBD | Not run | TBD | TBD | TBD |
+| US03-AC05 | 5 | TBD | The system accepts JPG/JPEG, PNG and WebP images up to 8 MB (8,388,608 bytes) per file, and rejects unsupported file types or larger files. | TBD | Not run | TBD | TBD | TBD |
+| US03-AC06 | 6 | TBD | Uploaded photos and collection details remain saved after refreshing the page. | TBD | Not run | TBD | TBD | TBD |
+| US03-AC07 | 7 | TBD | Regular customers and visitors cannot access photo upload or gallery management functions. | TBD | Not run | TBD | TBD | TBD |
+
+## US04 — Public portfolio browsing
+
+Requirements: [US04 acceptance criteria](sprint1-user-story.md#us04--public-portfolio-browsing).
+
+### Acceptance test results
+
+| Test ID | AC no. | Steps / test data | Expected result | Actual result | Status | Tester | Execution date | Evidence / defect |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| US04-AC01 | 1 | TBD | Visitors can browse public wedding photography collections without logging in. | TBD | Not run | TBD | TBD | TBD |
+| US04-AC02 | 2 | TBD | Visitors can open a collection to view its wedding photos and details. | TBD | Not run | TBD | TBD | TBD |
+| US04-AC03 | 3 | TBD | Visitors can browse and filter collections by event type. | TBD | Not run | TBD | TBD | TBD |
+| US04-AC04 | 4 | TBD | Only photos and collections marked as public are displayed to visitors. | TBD | Not run | TBD | TBD | TBD |
+| US04-AC05 | 5 | TBD | The gallery works properly on both mobile and desktop screens. | TBD | Not run | TBD | TBD | TBD |
+| US04-AC06 | 6 | TBD | The system displays a message when a collection has no photos. | TBD | Not run | TBD | TBD | TBD |
+| US04-AC07 | 7 | TBD | Visitors cannot upload, edit or delete gallery photos or collections. | TBD | Not run | TBD | TBD | TBD |
+| US04-AC08 | 8 | TBD | The homepage displays the three most recently published public collections in Latest Work, with links to each collection and View All; private collections are excluded and ordinary edits do not change publication order. | TBD | Not run | TBD | TBD | See [Latest Work verification](#latest-work-verification--15-november-2026); browser acceptance pending. |
+
+### Latest Work verification — 15 November 2026
+
+- Homepage preview uses the three latest public collections and offers View All. The public collection request sorts by publication time descending; private collections are excluded.
+- Live database assertions passed for private creation, publishing, editing without changing publication time, and republishing. Temporary records were rolled back. All existing public collections have a publication timestamp; historical values fall back to creation time.
+- Automated verification: 56 tests passed; lint, production build and whitespace checks passed. Browser verification of this homepage change remains pending.
+
 ## Automated checks
 
 | Command / check | Actual date and commit | Result | Evidence |
@@ -104,14 +143,7 @@ Username-only follow-up: 56 tests, lint and production/PWA build passed after re
 
 ## Session outcome
 
-- Recovery checks: 4 passed with evidence types shown above; 1 live login check not run. The 25 original acceptance cases remain unexecuted in this report; existing historical evidence is linked separately.
+- Recovery checks: 4 passed with evidence types shown under US01; 1 live login check not run. The 26 acceptance cases remain unexecuted in this report; existing historical evidence is linked separately.
 - Remaining risks and limitations: real new-password login and old-password rejection are not yet confirmed. Mocked API success does not establish a real server-side password update.
 - Test-data cleanup result: automated browser checks created no live accounts, sent no emails and made no real password changes. No shared recovery link was redeemed by the agent.
 - Acceptance decision and reviewer: TBD; passing tests alone does not establish the full Definition of Done.
-
-
-### Latest Work verification — 15 November 2026
-
-- Homepage preview uses the three latest public collections and offers View All. The public collection request sorts by publication time descending; private collections are excluded.
-- Live database assertions passed for private creation, publishing, editing without changing publication time, and republishing. Temporary records were rolled back. All existing public collections have a publication timestamp; historical values fall back to creation time.
-- Automated verification: 56 tests passed; lint, production build and whitespace checks passed. Browser verification of this homepage change remains pending.

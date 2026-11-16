@@ -15,6 +15,8 @@ The source provides detailed stories and acceptance criteria on pp. 7–10. Orig
 
 ## US01 — Customer registration and login
 
+**Test results:** [US01 test report](sprint1-test-report.md#us01--customer-registration-and-login). Expected evidence remains in the task table; record actual outcomes in the linked report.
+
 **User story:** As a newlywed couple or new user, I want to register a secure account and log in, so that my personal details and booking history are saved and tracked.
 
 **Priority:** Must · **Estimate:** 3 points · **Evidence:** ASM01
@@ -45,6 +47,8 @@ The source provides detailed stories and acceptance criteria on pp. 7–10. Orig
 
 ## US02 — Administrator login
 
+**Test results:** [US02 test report](sprint1-test-report.md#us02--administrator-login). Expected evidence remains in the task table; record actual outcomes in the linked report.
+
 **User story:** As a ThenFrame studio admin, I want to log in securely with administrator credentials, so that I can access the backend dashboard without unauthorized users breaking in.
 
 **Priority:** Must · **Estimate:** 3 points · **Evidence:** Security assumption
@@ -74,6 +78,8 @@ The source provides detailed stories and acceptance criteria on pp. 7–10. Orig
 | Test invalid login/unauthorized access | Munif, Naqyuddin | Test results |
 
 ## US03 — Gallery management
+
+**Test results:** [US03 test report](sprint1-test-report.md#us03--gallery-management). Expected evidence remains in the task table; record actual outcomes in the linked report.
 
 **User story:** As a ThenFrame studio admin, I want to upload and manage wedding photos in the gallery, so that I can organize and display my photography collections online.
 
@@ -108,6 +114,8 @@ The source provides detailed stories and acceptance criteria on pp. 7–10. Orig
 | Implement collection creation/editing/deletion | Munif, Phang | Working gallery management |
 
 ## US04 — Public portfolio browsing
+
+**Test results:** [US04 test report](sprint1-test-report.md#us04--public-portfolio-browsing). Expected evidence remains in the task table; record actual outcomes in the linked report.
 
 **User story:** As a visitor or newlywed couple, I want to browse wedding events and collections, so that I can find ideas for my wedding before deciding to book.
 

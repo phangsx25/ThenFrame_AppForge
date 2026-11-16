@@ -14,6 +14,8 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 
 ## US05 — Service and booking enquiries
 
+**Test results:** [US05 test report](sprint2-test-report.md#us05--service-and-booking-enquiries). Expected evidence remains in the task table; record actual outcomes in the linked report.
+
 **User story:** As a customer, I want to submit a photography service enquiry with my event details, preferred style, and package requirements so that ThenFrame can understand my needs and recommend suitable services.
 
 **Priority:** Must · **Estimate:** 8 points · **Evidence:** INT01
@@ -49,6 +51,8 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 | Test form validation and submission | TBD on Kanban | Test results |
 
 ## US06 — Booking and consultation management
+
+**Test results:** [US06 test report](sprint2-test-report.md#us06--booking-and-consultation-management). Expected evidence remains in the task table; record actual outcomes in the linked report.
 
 **User story:** As a ThenFrame studio admin, I want to review customer enquiries, check booking availability, and schedule consultations so that I can manage bookings efficiently and confirm details with customers.
 
@@ -86,6 +90,8 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 | Test booking management and access control | TBD on Kanban | Test results |
 
 ## US07 — Traditional Malay wedding heritage guide
+
+**Test results:** [US07 test report](sprint2-test-report.md#us07--traditional-malay-wedding-heritage-guide). Expected evidence remains in the task table; record actual outcomes in the linked report.
 
 **User story:** As a visitor or customer from any cultural background, I want to browse and learn about traditional Malay wedding attire and heritage stories on the website so that I can appreciate local Malay customs and explore traditional Malay wedding photography styles.
 
