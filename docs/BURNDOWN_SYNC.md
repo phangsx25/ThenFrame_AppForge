@@ -1,5 +1,7 @@
 # Burndown Automation Guide
 
+**Status:** Active since 15 November 2026. `PROJECTS_READ_TOKEN` is configured and the workflow runs hourly. The steps below are only needed to set it up again (for example, after the token expires).
+
 The interactive [GitHub Projects Kanban](https://github.com/users/phangsx25/projects/1) is the only Kanban. No Markdown board copy is generated.
 
 This shared guide describes the current Sprint 1 updater. Later sprint folders contain planning templates only; adding folders does not enable automatic charts for those sprints.
