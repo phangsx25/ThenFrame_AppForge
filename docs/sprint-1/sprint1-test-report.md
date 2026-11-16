@@ -79,12 +79,12 @@ Requirements: [US02 acceptance criteria](sprint1-user-story.md#us02--administrat
 
 | Test ID | AC no. | Steps / test data | Expected result | Actual result | Status | Tester | Execution date | Evidence / defect |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| US02-AC01 | 1 | TBD | Authorized admins log in with their username and password. | TBD | Not run | TBD | TBD | TBD |
-| US02-AC02 | 2 | TBD | Successful admin login redirects to the admin dashboard. | TBD | Not run | TBD | TBD | TBD |
-| US02-AC03 | 3 | TBD | Incorrect login details display an error message. | TBD | Not run | TBD | TBD | TBD |
-| US02-AC04 | 4 | TBD | Regular customers cannot access admin-only pages. | TBD | Not run | TBD | TBD | TBD |
-| US02-AC05 | 5 | TBD | Admins can log out, and protected dashboard pages cannot be accessed after logout. | TBD | Not run | TBD | TBD | TBD |
-| US02-AC06 | 6 | TBD | Public users cannot register themselves as administrators. | TBD | Not run | TBD | TBD | TBD |
+| US02-AC01 | 1 | Log in on the admin form with the admin username and password. | Authorized admins log in with their username and password. | Admin login and the database admin role were verified on 14 November. Admin login with the new username has not been confirmed by the account owner. | Partial | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
+| US02-AC02 | 2 | Log in as admin and observe the landing page. | Successful admin login redirects to the admin dashboard. | Redirect to the admin dashboard was not separately recorded. | Not run | — | — | — |
+| US02-AC03 | 3 | Enter a wrong password on the admin form. | Incorrect login details display an error message. | Login uses the same generic failure handling verified in [USER02](#username-login-validation--15-november-2026); the admin form itself was not tested with wrong details. | Partial | Tested during development | 15 November 2026 | [USER02](#username-login-validation--15-november-2026) |
+| US02-AC04 | 4 | Sign in as a customer, then use the admin form and open an admin URL directly. | Regular customers cannot access admin-only pages. | The customer was rejected by the admin login and signed out; a direct admin URL was blocked before any gallery request. | Pass — live browser and unit test | Tested during development | 15 November 2026 | [USER05](#username-login-validation--15-november-2026); tests/auth.test.jsx |
+| US02-AC05 | 5 | Log out as admin, then open the dashboard. | Admins can log out, and protected dashboard pages cannot be accessed after logout. | Admin tools are not restored after sign-out in a unit test; not checked in a browser. | Partial | Tested during development | 15 November 2026 | tests/auth.test.jsx |
+| US02-AC06 | 6 | Sign up publicly and try to set an admin role through metadata or a direct update. | Public users cannot register themselves as administrators. | New accounts are forced to the customer role; role tampering and direct role updates were denied. | Pass — rolled-back database fixtures | Tested during development | 15 November 2026 | [USER04](#username-login-validation--15-november-2026) |
 
 ## US03 — Gallery management
 
@@ -94,13 +94,13 @@ Requirements: [US03 acceptance criteria](sprint1-user-story.md#us03--gallery-man
 
 | Test ID | AC no. | Steps / test data | Expected result | Actual result | Status | Tester | Execution date | Evidence / defect |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| US03-AC01 | 1 | TBD | Logged-in admins can upload wedding photos to the system. | TBD | Not run | TBD | TBD | TBD |
-| US03-AC02 | 2 | TBD | Admins can create a gallery collection with a title, description and event type. | TBD | Not run | TBD | TBD | TBD |
-| US03-AC03 | 3 | TBD | Admins can add uploaded photos to a selected collection. | TBD | Not run | TBD | TBD | TBD |
-| US03-AC04 | 4 | TBD | Admins can view, edit and delete their uploaded photos and collections. | TBD | Not run | TBD | TBD | TBD |
-| US03-AC05 | 5 | TBD | The system accepts JPG/JPEG, PNG and WebP images up to 8 MB (8,388,608 bytes) per file, and rejects unsupported file types or larger files. | TBD | Not run | TBD | TBD | TBD |
-| US03-AC06 | 6 | TBD | Uploaded photos and collection details remain saved after refreshing the page. | TBD | Not run | TBD | TBD | TBD |
-| US03-AC07 | 7 | TBD | Regular customers and visitors cannot access photo upload or gallery management functions. | TBD | Not run | TBD | TBD | TBD |
+| US03-AC01 | 1 | As admin, upload a PNG photo. | Logged-in admins can upload wedding photos to the system. | A temporary PNG upload succeeded; the fixture was cleaned up. | Pass — live admin check | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
+| US03-AC02 | 2 | As admin, create and edit a collection with title, description and event type. | Admins can create a gallery collection with a title, description and event type. | Collection metadata was created and edited successfully. | Pass — live admin check | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
+| US03-AC03 | 3 | Upload a photo into a selected collection; try a path for a different collection. | Admins can add uploaded photos to a selected collection. | The upload was stored under the selected collection; a wrong-collection path was rejected by the database constraint. | Pass — live admin check | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
+| US03-AC04 | 4 | Edit, then delete a photo and a collection. | Admins can view, edit and delete their uploaded photos and collections. | Editing was checked live. Photo and collection deletion are covered by unit tests only. | Partial | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work); tests/gallery.test.js |
+| US03-AC05 | 5 | Upload JPG, PNG and WebP files; try an SVG and a file over 8 MB. | The system accepts JPG/JPEG, PNG and WebP images up to 8 MB (8,388,608 bytes) per file, and rejects unsupported file types or larger files. | Bucket limits (8,388,608 bytes; JPEG/PNG/WebP) and the path constraint were verified; SVG and oversized files are rejected. Live JPEG and WebP uploads were not performed. | Partial | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work); tests/gallery.test.js |
+| US03-AC06 | 6 | Create a collection with photos, then refresh the page. | Uploaded photos and collection details remain saved after refreshing the page. | Records were saved in the live database; a page refresh check was not recorded. | Partial | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
+| US03-AC07 | 7 | As a visitor and as a customer, try to open gallery management or update a collection. | Regular customers and visitors cannot access photo upload or gallery management functions. | An anonymous collection update was denied live; a customer opening an admin URL was blocked. | Pass — live check and unit test | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work); tests/auth.test.jsx |
 
 ## US04 — Public portfolio browsing
 
@@ -110,14 +110,14 @@ Requirements: [US04 acceptance criteria](sprint1-user-story.md#us04--public-port
 
 | Test ID | AC no. | Steps / test data | Expected result | Actual result | Status | Tester | Execution date | Evidence / defect |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| US04-AC01 | 1 | TBD | Visitors can browse public wedding photography collections without logging in. | TBD | Not run | TBD | TBD | TBD |
-| US04-AC02 | 2 | TBD | Visitors can open a collection to view its wedding photos and details. | TBD | Not run | TBD | TBD | TBD |
-| US04-AC03 | 3 | TBD | Visitors can browse and filter collections by event type. | TBD | Not run | TBD | TBD | TBD |
-| US04-AC04 | 4 | TBD | Only photos and collections marked as public are displayed to visitors. | TBD | Not run | TBD | TBD | TBD |
-| US04-AC05 | 5 | TBD | The gallery works properly on both mobile and desktop screens. | TBD | Not run | TBD | TBD | TBD |
-| US04-AC06 | 6 | TBD | The system displays a message when a collection has no photos. | TBD | Not run | TBD | TBD | TBD |
-| US04-AC07 | 7 | TBD | Visitors cannot upload, edit or delete gallery photos or collections. | TBD | Not run | TBD | TBD | TBD |
-| US04-AC08 | 8 | TBD | The homepage displays the three most recently published public collections in Latest Work, with links to each collection and View All; private collections are excluded and ordinary edits do not change publication order. | TBD | Not run | TBD | TBD | See [Latest Work verification](#latest-work-verification--15-november-2026); browser acceptance pending. |
+| US04-AC01 | 1 | Without logging in, open the portfolio. | Visitors can browse public wedding photography collections without logging in. | Anonymous reads of public collections and photos succeeded. | Pass — live anonymous check | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
+| US04-AC02 | 2 | Open a public collection. | Visitors can open a collection to view its wedding photos and details. | Visitor photo requests are scoped to the collection with expiring links (unit test); a browser check was not recorded. | Partial | Tested during development | 14 November 2026 | tests/gallery.test.js |
+| US04-AC03 | 3 | Filter collections by event type. | Visitors can browse and filter collections by event type. | Not recorded. | Not run | — | — | — |
+| US04-AC04 | 4 | As a visitor, view all four public/hidden collection and photo combinations. | Only photos and collections marked as public are displayed to visitors. | Only public collections with public photos were returned. | Pass — live anonymous check | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
+| US04-AC05 | 5 | Open the portfolio on a phone and a desktop screen. | The gallery works properly on both mobile and desktop screens. | Only an earlier automated mobile-layout check exists (since removed); no current device check was recorded. | Partial | Tested during development | 14 November 2026 | — |
+| US04-AC06 | 6 | Open a public collection with no photos. | The system displays a message when a collection has no photos. | The message exists in the code but was not tested. | Not run | — | — | — |
+| US04-AC07 | 7 | As a visitor, try to update a collection. | Visitors cannot upload, edit or delete gallery photos or collections. | The unauthorized update was denied. | Pass — live anonymous check | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
+| US04-AC08 | 8 | Publish, edit and republish collections, then view the homepage. | The homepage displays the three most recently published public collections in Latest Work, with links to each collection and View All; private collections are excluded and ordinary edits do not change publication order. | Database assertions passed for publication order and private exclusion; the homepage was not checked in a browser. | Partial | Tested during development | 15 November 2026 | [Latest Work verification](#latest-work-verification--15-november-2026) |
 
 ### Latest Work verification — 15 November 2026
 
