@@ -1,3 +1,5 @@
+import { normalizeContactPhone } from "./phone";
+
 export const SERVICES = ["Photography", "Videography", "Combo Photo & Video"];
 export const ENQUIRY_EVENTS = [
   "Akad & Reception (1 Day)", "Akad", "Reception",
@@ -26,9 +28,7 @@ export function enquiryValues(input, today = todayInMalaysia()) {
     throw new Error("Choose a valid event date today or later (Malaysia time).");
   if (!SERVICES.includes(service) || !ENQUIRY_EVENTS.includes(event_type) || !COLOUR_STYLES.includes(colour_style))
     throw new Error("Choose a valid service, event type and colour/style.");
-  const contact_phone = text("contact_phone", 30);
-  if (!/^[+()\d\s.-]{7,30}$/.test(contact_phone) || contact_phone.replace(/\D/g, "").length < 7)
-    throw new Error("Enter a contact phone number with at least 7 digits.");
+  const contact_phone = normalizeContactPhone(text("contact_phone", 30));
   return {
     service, event_type, event_date, colour_style,
     contact_name: text("contact_name", 120), contact_phone,
@@ -40,16 +40,23 @@ export async function submitEnquiry(client, input, requestId, customerId) {
   const values = enquiryValues(input);
   const result = await client.from("booking_enquiries")
     .insert({ ...values, id: requestId, customer_id: customerId }).select().single();
-  if (!result.error) return result.data;
+  if (!result.error) return savedEnquiry(result.data);
   // A retry can follow a successful save whose response was lost. RLS still
   // scopes this lookup to the current customer; other errors are never success.
   if (result.error.code === "23505") {
     const existing = await client.from("booking_enquiries").select("*")
       .eq("id", requestId).eq("customer_id", customerId).single();
-    if (!existing.error && Object.entries(values).every(([key, value]) => existing.data[key] === value))
-      return existing.data;
+    if (!existing.error && Object.entries(values).every(([key, value]) =>
+      key === "contact_phone" ? normalizeContactPhone(existing.data[key]) === value : existing.data[key] === value))
+      return savedEnquiry(existing.data);
   }
   throw new Error("We could not confirm your enquiry. Your entries are kept; retry without changing them to avoid a duplicate.");
+}
+
+function savedEnquiry(row) {
+  if (!/^TF-ENQ-\d{6,}$/.test(row?.reference || ""))
+    throw new Error("Your enquiry reference could not be confirmed. Please retry without changing your entries.");
+  return row;
 }
 
 export async function listMyEnquiries(client) {

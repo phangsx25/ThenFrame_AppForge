@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { initialAuthCallback, supabase } from "./lib/supabase";
 import { readAuthCallback } from "./lib/authCallback";
 import { useAuth } from "./hooks/useAuth";
@@ -8,11 +8,12 @@ import AccountSettings from "./components/AccountSettings";
 import AdminSetup from "./components/AdminSetup";
 import AdminDashboard from "./components/AdminDashboard";
 import CustomerDashboard from "./components/CustomerDashboard";
-import BookingPage from "./components/BookingPage";
 import { Home, PortfolioPage } from "./components/PublicPages";
 import { Header, Workspace } from "./components/Layout";
 import { LaterCard, Notice } from "./components/UI";
 import "./App.css";
+
+const BookingPage = lazy(() => import("./components/BookingPage"));
 
 function routeFromHash() {
   const hash = window.location.hash;
@@ -118,7 +119,9 @@ export default function App({ client = supabase }) {
     else
       page =
         route === "/booking" ? (
-          <BookingPage key={auth.session.user.id} client={client} auth={auth} />
+          <Suspense fallback={<main className="page-width route-message" role="status">Loading your enquiry form…</main>}>
+            <BookingPage key={auth.session.user.id} client={client} auth={auth} />
+          </Suspense>
         ) : route === "/heritage" ? (
           <Workspace
             auth={auth}

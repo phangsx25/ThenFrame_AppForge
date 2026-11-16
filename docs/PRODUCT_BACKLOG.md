@@ -352,6 +352,13 @@ Burndown starts at 16 points; only fully Done stories burn points. Scrum Master 
 
 Review scenario: owner logs in as admin, creates a collection and uploads sample photos; opens the public portfolio on a phone without login; checks that a customer account cannot open the admin page. Feedback receives a `feedback` tag and Product Owner ordering at Sprint 2 Planning. A separate Start/Stop/Continue retrospective agrees one improvement action, for example PR review within 24 hours.
 
+## Enquiry phone and reference rules
+
+- Customers may enter Malaysian mobile numbers without spaces, including a missing leading zero. For example, `0181234567` and `181234567` identify the same number; the form displays `0181234567` after validation. Existing `+60` and formatted inputs remain supported. Valid international numbers require an explicit country code.
+- Save normalized phone numbers with their country code, and display Malaysian numbers locally without spaces. Phone validation checks numbering format; it is not an OTP or ownership check.
+- Display a server-assigned reference such as `TF-ENQ-000001`. The database sequence produces unique, increasing references; gaps can occur after failed or retried transactions. Customers cannot select or overwrite a reference.
+- Existing enquiries receive references without changing their UUIDs or rewriting existing contact information. Retrying the same saved enquiry retains its reference. UUIDs remain internal retry keys and are not shown as the customer reference.
+
 ## Latest Work
 
 The homepage automatically displays the three most recently published public collections, with links to each collection and View All for the complete portfolio. Collections are sorted by `published_at` descending. Changing Private to Public records a new publication time; editing an already public collection does not promote it. Private collections remain excluded. For public collections predating this feature, creation time is used as a historical fallback because their original publication time was not recorded.

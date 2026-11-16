@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { accountName } from "../lib/account";
+import { displayContactPhone, normalizeContactPhone } from "../lib/phone";
 import { COLOUR_STYLES, ENQUIRY_EVENTS, SERVICES, listMyEnquiries, submitEnquiry, todayInMalaysia } from "../lib/enquiries";
 import { Workspace } from "./Layout";
 import { Notice } from "./UI";
@@ -22,6 +23,7 @@ export function CustomerEnquiries({ client, auth }) {
   const [rows, setRows] = useState([]), [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(""), [refresh, setRefresh] = useState(0);
   const [busy, setBusy] = useState(false), [error, setError] = useState(""), [saved, setSaved] = useState(null);
+  const [phoneError, setPhoneError] = useState("");
   const requestId = useRef(null), submitting = useRef(false);
   useEffect(() => {
     let active = true;
@@ -54,14 +56,26 @@ export function CustomerEnquiries({ client, auth }) {
       <section className="enquiry-panel" aria-labelledby="enquiry-form-title">
         <h2 id="enquiry-form-title">Service enquiry</h2>
         <p>Submitting an enquiry does not reserve your date or confirm a booking.</p>
-        {saved && <div role="status"><Notice>Enquiry saved. Reference: {saved.id}. Status: Pending. Your request has been recorded.</Notice></div>}
+        {saved && <div role="status"><Notice>Enquiry saved. Reference: {saved.reference}. Status: Pending. Your request has been recorded.</Notice></div>}
         {error && <Notice error>{error}</Notice>}
         <form onSubmit={submit} onChange={() => { requestId.current = null; setSaved(null); }}>
           <fieldset disabled={busy || loading} className="enquiry-fields">
             <div className="enquiry-form-grid">
               <label>Contact name<input name="contact_name" autoComplete="name" required maxLength={120}
                 defaultValue={accountName(auth.session.user, auth.profile)} /></label>
-              <label>Contact phone<input name="contact_phone" type="tel" autoComplete="tel" required minLength={7} maxLength={30} placeholder="e.g. +60 12 345 6789" /></label>
+              <label>Contact phone<input name="contact_phone" aria-label="Contact phone" type="tel" inputMode="tel" autoComplete="tel" required maxLength={30}
+                placeholder="e.g. 0181234567" aria-invalid={phoneError ? true : undefined}
+                aria-describedby={phoneError ? "contact-phone-help contact-phone-error" : "contact-phone-help"}
+                onChange={(event) => { event.currentTarget.setCustomValidity(""); setPhoneError(""); }}
+                onBlur={(event) => {
+                  const input = event.currentTarget;
+                  if (!input.value.trim()) return;
+                  try { input.value = displayContactPhone(normalizeContactPhone(input.value)); input.setCustomValidity(""); setPhoneError(""); }
+                  catch (e) { input.setCustomValidity(e.message); setPhoneError(e.message); }
+                }} />
+                <small id="contact-phone-help">No spaces needed. A missing leading 0 in a Malaysian mobile number is added automatically.</small>
+                {phoneError && <small id="contact-phone-error" role="alert">{phoneError}</small>}
+              </label>
               <Choice label="Service" name="service" options={SERVICES} />
               <Choice label="Event type" name="event_type" options={ENQUIRY_EVENTS} />
               <label>Preferred event date<input name="event_date" type="date" required min={todayInMalaysia()} /><small>Malaysia time. For a two-day event, enter the first date and include the second date below.</small></label>
@@ -82,9 +96,9 @@ export function CustomerEnquiries({ client, auth }) {
           : rows.map((row) => <article className="enquiry-record" key={row.id}>
             <span className="pill">{row.status === "pending" ? "Pending" : row.status}</span>
             <h3>{row.service}</h3><p>{row.event_type} · {row.event_date}</p>
-            <dl><dt>Colour/style</dt><dd>{row.colour_style}</dd><dt>Contact</dt><dd>{row.contact_name} · {row.contact_phone}</dd>
+            <dl><dt>Colour/style</dt><dd>{row.colour_style}</dd><dt>Contact</dt><dd>{row.contact_name} · {displayContactPhone(row.contact_phone)}</dd>
               <dt>Additional requirements</dt><dd className="enquiry-notes">{row.additional_requirements || "None provided."}</dd>
-              <dt>Reference</dt><dd className="small-text">{row.id}</dd></dl>
+              <dt>Reference</dt><dd className="small-text">{row.reference}</dd></dl>
           </article>)}
       </section>
     </div>
