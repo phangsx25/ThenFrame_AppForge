@@ -352,6 +352,15 @@ Burndown starts at 16 points; only fully Done stories burn points. Scrum Master 
 
 Review scenario: owner logs in as admin, creates a collection and uploads sample photos; opens the public portfolio on a phone without login; checks that a customer account cannot open the admin page. Feedback receives a `feedback` tag and Product Owner ordering at Sprint 2 Planning. A separate Start/Stop/Continue retrospective agrees one improvement action, for example PR review within 24 hours.
 
+## Booking availability and management rules
+
+- Confirmed by the contributor on 16 November 2026: check event time intervals, not whole-day capacity. Overlapping confirmed events are rejected; adjacent bookings may share an end/start boundary. Times are entered and displayed in Asia/Kuala_Lumpur.
+- Pending enquiries and consultations do not reserve event capacity. An admin supplies a future start and later end when confirming. Each enquiry currently has one continuous reserved window, including its full reserved span for a multi-day event.
+- The database enforces non-overlap and saves the reservation and Confirmed status together. Version checks reject stale admin edits. A failed confirmation or reschedule leaves the previously saved record intact.
+- Admins can review Pending, Under review and Rejected enquiries; confirmed records remain Confirmed while their event times can be rescheduled without conflicts. Cancellation/reopening of confirmed bookings is not implemented in this increment.
+- One consultation record per enquiry supports Online/Offline and Scheduled/Completed/Cancelled. Online requires a manually supplied HTTPS meeting link; Offline requires a location. Changes are saved and visible only to admins and the enquiry's customer.
+- Initial implementation allows manual booking confirmation without enforcing consultation completion. The studio's final consultation prerequisite, travel buffers, split multi-day slots and booking-cancellation rules still require agreement. No automatic WhatsApp/email notification or meeting-link generation is included.
+
 ## Enquiry phone and reference rules
 
 - Customers may enter Malaysian mobile numbers without spaces, including a missing leading zero. For example, `0181234567` and `181234567` identify the same number; the form displays `0181234567` after validation. Existing `+60` and formatted inputs remain supported. Valid international numbers require an explicit country code.
@@ -394,4 +403,4 @@ The contributor supplied a refined backlog dated 11 November 2026. Local documen
 | US08 | US10 | AI summaries in Sprint 4; 5 points, Must. |
 | US11–US12 | US11–US12 | Retain FAQ and feedback in Sprint 4. |
 
-Sprint 1 remains US01–US04. Retain subsequent agreed details: username-only login, 8 MB image limit, event-type portfolio filtering and Latest Work. Historical evidence may use previous IDs; interpret it using this mapping. GitHub Projects was aligned on 16 November 2026: 12 active stories and 64 points, matching story details, priorities, estimates, planned sprint dates and order. US01–US04 remain In review, US05 is In progress, and US06–US12 remain Backlog. The superseded standalone consultation issue is closed as not planned and removed from the board; its scope is included in US06. Issue numbers remain unchanged to preserve history.
+Sprint 1 remains US01–US04. Retain subsequent agreed details: username-only login, 8 MB image limit, event-type portfolio filtering and Latest Work. Historical evidence may use previous IDs; interpret it using this mapping. GitHub Projects was aligned on 16 November 2026: 12 active stories and 64 points, matching story details, priorities, estimates, planned sprint dates and order. US01–US04 remain In review, US05 and US06 are In progress, and US07–US12 remain Backlog. US06 development is on sprint-2-us06-booking-management, created from the US05 branch; it is not merged into main. The superseded standalone consultation issue is closed as not planned and removed from the board; its scope is included in US06. Issue numbers remain unchanged to preserve history.
