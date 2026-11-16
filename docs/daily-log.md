@@ -5,7 +5,7 @@
 | Project | ThenFrame — AppForge, Group 3, Section 02 |
 | Coverage | Sprints 1–4; entries grouped by sprint |
 | Contributors | Frontend — Munif, Ezz; Backend — Naqyuddin, Phang; QA — Awwab |
-| Prepared on | 16 November 2026 (retrospective update) |
+| Prepared on | 13 November 2026 |
 | Record basis | Retrospective activity dates provided by the contributor; Git commit dates listed separately as supporting references. |
 
 This is a development activity log. It does not record stand-up attendance or meeting duration. Development activity began with Figma design on 10 November. The 10–12 and 13–14 November ranges reflect the contributor's approximate recollection, rather than separate daily attendance records.
