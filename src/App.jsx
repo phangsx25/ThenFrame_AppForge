@@ -9,8 +9,8 @@ import AdminSetup from "./components/AdminSetup";
 import AdminDashboard from "./components/AdminDashboard";
 import CustomerDashboard from "./components/CustomerDashboard";
 import { Home, PortfolioPage } from "./components/PublicPages";
-import { Header, Workspace } from "./components/Layout";
-import { LaterCard, Notice } from "./components/UI";
+import { Header } from "./components/Layout";
+import { Notice } from "./components/UI";
 import "./App.css";
 
 const BookingPage = lazy(() => import("./components/BookingPage"));
@@ -56,9 +56,7 @@ export default function App({ client = supabase }) {
   }, [route]);
   let page;
   if (
-    ["/admin", "/dashboard", "/album", "/account", "/heritage", "/booking"].includes(
-      route,
-    )
+    ["/admin", "/dashboard", "/album", "/account", "/booking"].includes(route)
   ) {
     if (!client)
       page = (
@@ -122,24 +120,6 @@ export default function App({ client = supabase }) {
           <Suspense fallback={<main className="page-width route-message" role="status">Loading your enquiry form…</main>}>
             <BookingPage key={auth.session.user.id} client={client} auth={auth} />
           </Suspense>
-        ) : route === "/heritage" ? (
-          <Workspace
-            auth={auth}
-            admin={auth.isAdmin}
-            active={route === "/heritage" ? "Heritage" : "Booking"}
-            onSection={(section) => {
-              window.location.hash = auth.isAdmin ? "/admin" : section === "My albums" ? "/album" : "/dashboard";
-            }}
-          >
-            <div className="dashboard-heading">
-              <h1>{route === "/heritage" ? "Heritage" : "Booking"}</h1>
-            </div>
-            <LaterCard title={route === "/heritage" ? "Malay wedding heritage" : "Wedding bookings"}>
-              {route === "/heritage"
-                ? "Explore Malay wedding traditions and stories. This feature is planned for a later sprint."
-                : "Booking enquiries, schedules and status tracking are planned for a later sprint."}
-            </LaterCard>
-          </Workspace>
         ) : route === "/account" ? (
           <AccountSettings client={client} auth={auth} />
         ) : route === "/admin" ? (
@@ -172,6 +152,23 @@ export default function App({ client = supabase }) {
         auth={auth}
         selectedId={route.split("/")[2] || null}
       />
+    );
+  else if (route === "/heritage")
+    // US07: the heritage guide is public; no login is required to open it.
+    page = (
+      <>
+        <Header auth={auth} />
+        <main id="main-content" className="page-width route-message">
+          <h1>Malay wedding heritage</h1>
+          <p>
+            Heritage content is not available yet. The guide to traditional
+            Malay wedding attire and customs is being prepared.
+          </p>
+          <a className="primary" href="#/">
+            Return home
+          </a>
+        </main>
+      </>
     );
   else if (route === "/") page = <Home client={client} auth={auth} />;
   else
