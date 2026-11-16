@@ -51,7 +51,7 @@ fragment retaining the earlier page's error state. Callback errors are now read
 on route changes, and a fresh valid recovery event clears previous errors. A
 regression test covers this sequence.
 
-## Current status — 14 November 2026
+## Status as of 14 November 2026 (historical)
 
 Sprint 1 core Auth, gallery management and public portfolio are implemented.
 Implementation and mocked tests are separate from full live acceptance. Sprint 2
@@ -63,7 +63,7 @@ Booking functionality has not been implemented; Booking and Heritage are notices
   in the repository. Customers register themselves.
 - Gallery bucket was inspected: private, 8,388,608-byte limit, JPEG/PNG/WebP allowed.
   Frontend limits match. Description is required (1–3000 trimmed characters), as
-  is category/style (1–80). JPG aliases upload as canonical image/jpeg.
+  is category/style (1–80; later renamed event type). JPG aliases upload as canonical image/jpeg.
 - RLS is enabled on profiles and gallery tables. Inspected policies restrict gallery
   writes to admin and public photo/object reads to public collection + public photo.
 - Live admin/anonymous checks passed for temporary PNG upload, metadata create/edit,
@@ -79,8 +79,10 @@ Booking functionality has not been implemented; Booking and Heritage are notices
 - Out-of-scope admin customer-account management was removed, including its
   undeployed service. Profile/security settings remain behind the avatar.
 - Wedding categories are Traditional Malay, Modern Malay, Engagement/Pertunangan
-  and Wedding Reception/Majlis Resepsi. Planned AI is enquiry/booking summaries
-  (US08) and FAQ chatbot (US11), not photo categorization.
+  and Wedding Reception/Majlis Resepsi (later replaced by event types: Akad / Nikah,
+  Reception, Akad & Reception, Engagement, Pre/Post Wedding, Others). Planned AI is
+  enquiry/booking summaries (US08 at the time; now US10) and FAQ chatbot (US11), not
+  photo categorization.
 
 ### Work kept separate — historical status
 

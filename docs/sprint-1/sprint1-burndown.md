@@ -14,7 +14,7 @@ Sprint: **5–18 November 2026**. Baseline: **16 story points** from US01–US04
 | [US04](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/4) | 5 | Review / Test | 0 |
 | **Total** | **16** | | **0** |
 
-**Remaining: 16 points.** In progress and In review do not burn points. A flat actual result does not mean no development occurred: whole-story completion is counted only when the card reaches Done. The chart reads board status; it does not independently certify acceptance criteria.
+**Remaining: 16 points.** In Progress and Review / Test do not burn points. A flat actual result does not mean no development occurred: whole-story completion is counted only when the card reaches Done. The chart reads board status; it does not independently certify acceptance criteria.
 
 ## Daily observations
 

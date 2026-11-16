@@ -113,7 +113,7 @@ Sprint: **5–18 November 2026**. Baseline: **16 story points** from US01–US04
 ${current.stories.map(story => `| [${story.id}](${story.url}) | ${story.points} | ${story.status} | ${story.status === 'Done' ? story.points : 0} |`).join('\n')}
 | **Total** | **${total}** | | **${current.completedPoints}** |
 
-**Remaining: ${current.remainingPoints} points.** In progress and In review do not burn points. A flat actual result does not mean no development occurred: whole-story completion is counted only when the card reaches Done. The chart reads board status; it does not independently certify acceptance criteria.
+**Remaining: ${current.remainingPoints} points.** In Progress and Review / Test do not burn points. A flat actual result does not mean no development occurred: whole-story completion is counted only when the card reaches Done. The chart reads board status; it does not independently certify acceptance criteria.
 
 ## Daily observations
 

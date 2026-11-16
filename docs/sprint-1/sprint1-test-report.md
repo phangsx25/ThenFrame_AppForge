@@ -1,7 +1,7 @@
 # Sprint 1 — Test Report
 
 **Scope:** US01–US04, 5–18 November 2026.
-**Status:** Password recovery and username-login verification recorded; remaining acceptance cases await execution.
+**Status:** Acceptance tables filled from checks run during development: 11 Pass, 12 Partial, 3 Not run. QA (Awwab) completes the Partial and Not run cases: US01 [#58](https://github.com/phangsx25/ThenFrame_AppForge/issues/58), US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61).
 **Requirements:** [Sprint 1 stories](sprint1-user-story.md). Existing historical checks and their limits remain in [VERIFICATION.md](../VERIFICATION.md); this template does not reset or replace those records.
 
 Work progress and responsibility are recorded in the [shared daily log](../daily-log.md). This report records test steps, actual outcomes, defects and retest evidence.
@@ -143,7 +143,7 @@ Requirements: [US04 acceptance criteria](sprint1-user-story.md#us04--public-port
 
 ## Session outcome
 
-- Recovery checks: 4 passed with evidence types shown under US01; 1 live login check not run. The 26 acceptance cases remain unexecuted in this report; existing historical evidence is linked separately.
+- Recovery checks: 4 passed with evidence types shown under US01; 1 live login check not run. Of the 26 acceptance cases, 11 pass, 12 are partial and 3 are not run, based on checks run during development; each partial or not-run row states what still needs testing.
 - Remaining risks and limitations: real new-password login and old-password rejection are not yet confirmed. Mocked API success does not establish a real server-side password update.
 - Test-data cleanup result: automated browser checks created no live accounts, sent no emails and made no real password changes. No shared recovery link was redeemed by the agent.
 - Acceptance decision and reviewer: TBD; passing tests alone does not establish the full Definition of Done.
