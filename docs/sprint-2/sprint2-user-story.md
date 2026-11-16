@@ -124,6 +124,13 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 - **US06:** INT01 – The studio reported problems with manual booking management and client communication. The existing enquiry form collects service type, event type, preferred style, and referral source. Online booking management and consultation scheduling are proposed features. The detailed booking confirmation process requires further confirmation from ThenFrame.
 - **US07:** SULAM01 – The project aims to provide educational content about traditional Malay wedding knowledge to the community. The heritage guide is a proposed feature, and its content requires reliable sources and review.
 
+## Enquiry phone and reference rules
+
+- Customers may enter Malaysian mobile numbers without spaces, including a missing leading zero. For example, `0181234567` and `181234567` identify the same number; the form displays `0181234567` after validation. Existing `+60` and formatted inputs remain supported. Valid international numbers require an explicit country code.
+- Save normalized phone numbers with their country code, and display Malaysian numbers locally without spaces. Phone validation checks numbering format; it is not an OTP or ownership check.
+- Display a server-assigned reference such as `TF-ENQ-000001`. The database sequence produces unique, increasing references; gaps can occur after failed or retried transactions. Customers cannot select or overwrite a reference.
+- Existing enquiries receive references without changing their UUIDs or rewriting existing contact information. Retrying the same saved enquiry retains its reference. UUIDs remain internal retry keys and are not shown as the customer reference.
+
 ## Clarifications before implementation
 
 - **US05:** confirm required fields, event-date handling, budget/currency, referral sources and colour/style options with the studio. Service options are Photography, Videography and Combo Photo & Video. Videography selection does not require video uploads. Photography style is an enquiry preference, separate from portfolio event types.

@@ -52,11 +52,12 @@ Git timestamps below identify when code was committed, not the start date of eve
 
 ## Sprint 2 — 19 November–9 December 2026
 
-The entries dated 15 November are early development for Sprint 2 scope, before the planned sprint start. They do not establish Sprint 2 Planning, commitment or acceptance.
+Entries before 19 November are early development for Sprint 2 scope, before the planned sprint start. They do not establish Sprint 2 Planning, commitment or acceptance.
 
 | Date (2026) | Focus | Work summary | Responsible person | Next action | Blockers / outstanding checks |
 | --- | --- | --- | --- | --- | --- |
 | 15 November | US05 Initial Enquiry Development | Develop the customer enquiry form on sprint-2-us05-enquiry: service, event type, preferred date, contact name/phone, colour/style and additional requirements. Save enquiries with a reference and Pending status; let customers view their own enquiry history. Add input validation, ownership restrictions and retry handling to avoid duplicate submissions. Push the implementation to GitHub as c0e9a44. | Phang | Review the form in a real browser and confirm remaining enquiry fields and package options with the studio. | 69 development tests, lint/build and transactional database checks passed. The additive enquiry table is applied to shared Supabase. Package options, WhatsApp and US06 management are not implemented; US05 is not merged into main or production. |
+| 16 November | US05 Phone Input and References | Accept compact Malaysian phone input with or without its leading zero; validate and normalize it automatically. Replace the displayed UUID with a database-assigned TF-ENQ reference and retain UUID-based retry protection. Add references to existing enquiries without replacing customer data. | Phang | Complete real-browser acceptance on the US05 branch. | Development checks and transactional database assertions are recorded in VERIFICATION.md; formal acceptance remains pending. Reference sequences may have gaps after unsuccessful transactions. |
 
 ## Sprint 3 — 10–23 December 2026
 
