@@ -2,20 +2,27 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { resolve, join, dirname } from 'node:path';
+import { resolve, join, dirname, basename } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 function fixture(t) {
   const root = mkdtempSync(join(tmpdir(), 'thenframe-sync-test-'));
-  t.after(() => rmSync(root, { recursive: true, force: true }));
+  t.after(() => {
+    assert.equal(dirname(root), resolve(tmpdir()));
+    assert.ok(basename(root).startsWith('thenframe-sync-test-'));
+    rmSync(root, { recursive: true, force: true });
+  });
   mkdirSync(join(root, 'scripts'));
   mkdirSync(join(root, 'docs/sprint-1'), { recursive: true });
-  for (const name of ['update-burndown.mjs']) {
+  for (const name of ['update-burndown.mjs', 'read-project.mjs', 'sprint1-stories.mjs']) {
     copyFileSync(join(repo, 'scripts', name), join(root, 'scripts', name));
   }
-  const board = { totalCount: 13, items: Array.from({ length: 13 }, (_, i) => ({
+  const sprint1Ids = ['PVTI_lAHOC4Vg684BqIppzhF7vBI', 'PVTI_lAHOC4Vg684BqIppzhF7wlA',
+    'PVTI_lAHOC4Vg684BqIppzhF7xY4', 'PVTI_lAHOC4Vg684BqIppzhF7x0U'];
+  const board = { totalCount: 12, items: Array.from({ length: 12 }, (_, i) => ({
+    id: sprint1Ids[i] || `fixture-item-${i}`,
     title: `US${String(i + 1).padStart(2, '0')} — Story`, status: i < 4 ? 'In review' : 'Backlog',
     content: { url: `https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/${i + 1}` },
   })) };
