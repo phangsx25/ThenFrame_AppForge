@@ -11,7 +11,7 @@ Work progress and responsibility are recorded in the [shared daily log](../daily
 | Field | Value |
 | --- | --- |
 | Actual execution date / time | 14 November 2026 (Asia/Kuala_Lumpur); exact manual test time not recorded |
-| Tester(s) | Phang (live recovery confirmation); automated checks performed during the fix |
+| Tester(s) | Phang (live recovery confirmation); automated checks performed during the fix. Remaining acceptance cases: Awwab (QA) — US01 #58, US02 #60, US03 #52, US04 #61 |
 | Branch / commit / deployment URL | main / `05a51549ef40c8b97a0364f24e20f267eb720059` / https://then-frame-app-forge.vercel.app |
 | Browser / device / viewport | Automated browser checks: headless Microsoft Edge; manual browser/device not recorded |
 | Environment and test account roles | Production user recovery flow (manual); synthetic customer and intercepted Auth/profile responses (browser regression) |
