@@ -9,6 +9,8 @@ AI Enquiry Summaries, FAQ and Customer Feedback
 
 ## US10 — AI booking enquiry summaries
 
+**Test results:** [US10 test report](sprint4-test-report.md#us10--ai-booking-enquiry-summaries). Expected evidence remains in the task table; record actual outcomes in the linked report.
+
 **User story:** As a ThenFrame studio admin, I want the system to use AI to summarize customer booking enquiries, so that I can quickly understand customer needs and respond more efficiently.
 
 **Priority:** Must · **Estimate:** 5 points · **Planned sprint:** 4 · **Evidence:** ASM01
@@ -48,6 +50,8 @@ AI Enquiry Summaries, FAQ and Customer Feedback
 
 ## US11 — AI FAQ assistant
 
+**Test results:** [US11 test report](sprint4-test-report.md#us11--ai-faq-assistant). Expected evidence remains in the task table; record actual outcomes in the linked report.
+
 **User story:** As a newlywed couple or visitor, I want to interact with an AI assistant to get instant answers to common questions (FAQ) about packages and studio information, so that I can get quick information anytime without waiting for manual replies.
 
 **Priority:** Could · **Estimate:** 5 points · **Planned sprint:** 4 · **Evidence:** ASM01
@@ -86,6 +90,8 @@ AI Enquiry Summaries, FAQ and Customer Feedback
 - Open questions / risks: TBD.
 
 ## US12 — Customer ratings and feedback
+
+**Test results:** [US12 test report](sprint4-test-report.md#us12--customer-ratings-and-feedback). Expected evidence remains in the task table; record actual outcomes in the linked report.
 
 **User story:** As a newlywed couple, I want to submit ratings and feedback after our photo session, so that I can share my experience and help improve future services.
 
