@@ -96,14 +96,12 @@ These are requirement lists, not completed checklists. Record results and eviden
 
 **Tasks:**
 
-| Task | Role | Owner | Issue |
-| --- | --- | --- | --- |
-| Login and register forms | Frontend | Munif | [#36](https://github.com/phangsx25/ThenFrame_AppForge/issues/36) |
-| Validation UI | Frontend | Ezz | [#37](https://github.com/phangsx25/ThenFrame_AppForge/issues/37) |
-| Supabase Auth | Backend | Phang | [#38](https://github.com/phangsx25/ThenFrame_AppForge/issues/38) |
-| Profile trigger | Backend | Naqyuddin | [#39](https://github.com/phangsx25/ThenFrame_AppForge/issues/39) |
-| Sessions | Backend | Phang | [#40](https://github.com/phangsx25/ThenFrame_AppForge/issues/40) |
-| Registration and login tests | QA | Awwab | [#58](https://github.com/phangsx25/ThenFrame_AppForge/issues/58) |
+| Task | Responsible member(s) | Completion evidence |
+| --- | --- | --- |
+| Design registration/login pages | Munif, Ezz | UI screenshots |
+| Create user database structure | Naqyuddin, Phang | Database schema |
+| Develop registration/login/logout | Munif, Ezz, Naqyuddin, Phang | Working authentication |
+| Test valid/invalid login access | Awwab | Test results |
 
 ### US02 — Administrator login
 
@@ -122,14 +120,12 @@ These are requirement lists, not completed checklists. Record results and eviden
 
 **Tasks:**
 
-| Task | Role | Owner | Issue |
-| --- | --- | --- | --- |
-| Admin login | Frontend | Munif | [#41](https://github.com/phangsx25/ThenFrame_AppForge/issues/41) |
-| Dashboard UI | Frontend | Ezz | [#42](https://github.com/phangsx25/ThenFrame_AppForge/issues/42) |
-| Admin role check | Backend | Naqyuddin | [#43](https://github.com/phangsx25/ThenFrame_AppForge/issues/43) |
-| Protected access | Backend | Phang | [#44](https://github.com/phangsx25/ThenFrame_AppForge/issues/44) |
-| RLS policies | Backend | Naqyuddin | [#45](https://github.com/phangsx25/ThenFrame_AppForge/issues/45) |
-| Unauthorized access tests | QA | Awwab | [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60) |
+| Task | Responsible member(s) | Completion evidence |
+| --- | --- | --- |
+| Design admin login/dashboard | Munif, Ezz | UI screenshots |
+| Set up authorized accounts/roles | Naqyuddin, Phang | Database records and role configuration |
+| Develop admin login/dashboard access | Munif, Ezz, Naqyuddin, Phang | Working admin dashboard |
+| Test invalid login/unauthorized access | Awwab | Test results |
 
 ### US03 — Gallery management
 
@@ -152,15 +148,12 @@ These are requirement lists, not completed checklists. Record results and eviden
 
 **Tasks:**
 
-| Task | Role | Owner | Issue |
-| --- | --- | --- | --- |
-| Gallery forms | Frontend | Munif | [#46](https://github.com/phangsx25/ThenFrame_AppForge/issues/46) |
-| Photo preview | Frontend | Ezz | [#47](https://github.com/phangsx25/ThenFrame_AppForge/issues/47) |
-| Upload UI | Frontend | Munif | [#48](https://github.com/phangsx25/ThenFrame_AppForge/issues/48) |
-| Gallery CRUD | Backend | Phang | [#49](https://github.com/phangsx25/ThenFrame_AppForge/issues/49) |
-| Storage upload and delete | Backend | Naqyuddin | [#50](https://github.com/phangsx25/ThenFrame_AppForge/issues/50) |
-| Permissions | Backend | Phang | [#51](https://github.com/phangsx25/ThenFrame_AppForge/issues/51) |
-| Gallery CRUD and upload tests | QA | Awwab | [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52) |
+| Task | Responsible member(s) | Completion evidence |
+| --- | --- | --- |
+| Design upload/gallery management pages | Munif, Ezz | UI screenshots |
+| Create photo/collection database structures | Naqyuddin, Phang | Database schema |
+| Implement upload/file validation | Munif, Ezz, Naqyuddin, Phang | Working upload function |
+| Implement collection creation/editing/deletion | Munif, Ezz, Naqyuddin, Phang | Working gallery management |
 
 ### US04 — Public portfolio browsing
 
@@ -183,15 +176,13 @@ These are requirement lists, not completed checklists. Record results and eviden
 
 **Tasks:**
 
-| Task | Role | Owner | Issue |
-| --- | --- | --- | --- |
-| Gallery cards | Frontend | Ezz | [#53](https://github.com/phangsx25/ThenFrame_AppForge/issues/53) |
-| Gallery details | Frontend | Munif | [#54](https://github.com/phangsx25/ThenFrame_AppForge/issues/54) |
-| Style filters | Frontend | Ezz | [#59](https://github.com/phangsx25/ThenFrame_AppForge/issues/59) |
-| Responsive UI | Frontend | Munif | [#55](https://github.com/phangsx25/ThenFrame_AppForge/issues/55) |
-| Public gallery queries | Backend | Naqyuddin | [#56](https://github.com/phangsx25/ThenFrame_AppForge/issues/56) |
-| Visibility rules | Backend | Phang | [#57](https://github.com/phangsx25/ThenFrame_AppForge/issues/57) |
-| Public and hidden content tests | QA | Awwab | [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61) |
+| Task | Responsible member(s) | Completion evidence |
+| --- | --- | --- |
+| Design portfolio/collection pages | Munif, Ezz | UI screenshots |
+| Develop browsing/photo viewing | Munif, Ezz | Working portfolio pages |
+| Connect portfolio to gallery database | Naqyuddin, Phang | Displayed gallery data |
+| Implement public access/visibility rules | Naqyuddin, Phang | Access-control test results |
+| Test gallery across device screens | Awwab | Responsive test results |
 
 ## Sprint 2 user story details
 
