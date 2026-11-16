@@ -9,6 +9,8 @@ Private Client Albums, Photo Selection and Delivery
 
 ## US08 — Private client albums and final photo delivery management
 
+**Test results:** [US08 test report](sprint3-test-report.md#us08--private-client-albums-and-final-photo-delivery-management). Expected evidence remains in the task table; record actual outcomes in the linked report.
+
 **User story:** As a ThenFrame studio admin, I want to upload and organize client wedding photos into private albums and provide final edited photos for delivery, so that I can manage photo selection and delivery in one system.
 
 **Priority:** Should · **Estimate:** 8 points · **Planned sprint:** 3 · **Evidence:** INT01
@@ -47,6 +49,8 @@ Private Client Albums, Photo Selection and Delivery
 - Open questions / risks: TBD.
 
 ## US09 — Customer private album viewing, selection and download
+
+**Test results:** [US09 test report](sprint3-test-report.md#us09--customer-private-album-viewing-selection-and-download). Expected evidence remains in the task table; record actual outcomes in the linked report.
 
 **User story:** As a customer, I want to view my private wedding album, select my preferred photos and download the final edited photos, so that I can receive my wedding photos conveniently.
 
