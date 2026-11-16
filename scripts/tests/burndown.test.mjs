@@ -19,8 +19,8 @@ function fixture(t) {
   for (const name of ['update-burndown.mjs', 'read-project.mjs', 'sprint1-stories.mjs']) {
     copyFileSync(join(repo, 'scripts', name), join(root, 'scripts', name));
   }
-  const sprint1Ids = ['PVTI_lAHOC4Vg684BqIppzhF7vBI', 'PVTI_lAHOC4Vg684BqIppzhF7wlA',
-    'PVTI_lAHOC4Vg684BqIppzhF7xY4', 'PVTI_lAHOC4Vg684BqIppzhF7x0U'];
+  const sprint1Ids = ['PVTI_lAHOC4Vg684BqIppzhJFVVM', 'PVTI_lAHOC4Vg684BqIppzhJFVnE',
+    'PVTI_lAHOC4Vg684BqIppzhJFV4I', 'PVTI_lAHOC4Vg684BqIppzhJFWIY'];
   const board = { totalCount: 12, items: Array.from({ length: 12 }, (_, i) => ({
     id: sprint1Ids[i] || `fixture-item-${i}`,
     title: `US${String(i + 1).padStart(2, '0')} — Story`, status: i < 4 ? 'In review' : 'Backlog',
