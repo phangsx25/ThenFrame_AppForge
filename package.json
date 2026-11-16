@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "vitest run && node --test scripts/tests/burndown.test.mjs",
     "test:watch": "vitest",
     "test:live": "node --env-file=.env.local scripts/verify-live.mjs"
   },
