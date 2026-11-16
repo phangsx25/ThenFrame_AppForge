@@ -27,11 +27,11 @@ Requirements: [US01 acceptance criteria](sprint1-user-story.md#us01--customer-re
 
 | Test ID | AC no. | Steps / test data | Expected result | Actual result | Status | Tester | Execution date | Evidence / defect |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| US01-AC01 | 1 | TBD | New users can register with a name, unique username, email address and valid password. | TBD | Not run | TBD | TBD | TBD |
-| US01-AC02 | 2 | TBD | Registered users log in with their username and password. | TBD | Not run | TBD | TBD | TBD |
-| US01-AC03 | 3 | TBD | Incorrect login details display an error message. | TBD | Not run | TBD | TBD | TBD |
-| US01-AC04 | 4 | TBD | Duplicate email registration is prevented; usernames are unique and case-insensitive. | TBD | Not run | TBD | TBD | TBD |
-| US01-AC05 | 5 | TBD | Users can log out and cannot access protected account pages after logging out. | TBD | Not run | TBD | TBD | TBD |
+| US01-AC01 | 1 | Register a disposable account with name, username, email and password. | New users can register with a name, unique username, email address and valid password. | Username format, case normalization and duplicate rejection are enforced by the database trigger; the disposable account was created. Full browser signup with email confirmation is not recorded. | Partial | Tested during development | 15 November 2026 | [USER01](#username-login-validation--15-november-2026); signup email delivery pending |
+| US01-AC02 | 2 | Log in with the correct username and password. | Registered users log in with their username and password. | A customer session was established; logging in again in the browser after a username change also succeeded. | Pass — live API and local browser | Tested during development | 15 November 2026 | [USER02, USER03](#username-login-validation--15-november-2026) |
+| US01-AC03 | 3 | Log in with a wrong password, then with an unknown username. | Incorrect login details display an error message. | Both cases returned the same generic error message. | Pass — live API and UI unit test | Tested during development | 15 November 2026 | [USER02](#username-login-validation--15-november-2026) |
+| US01-AC04 | 4 | Register with an existing email; register with an existing username in different letter case. | Duplicate email registration is prevented; usernames are unique and case-insensitive. | Duplicate and case-variant usernames were rejected. Duplicate-email guidance was checked only in a UI unit test with a mocked Auth response (tests/auth.test.jsx), not against live signup. | Partial | Tested during development | 15 November 2026 | [USER01](#username-login-validation--15-november-2026); `8efa56e` |
+| US01-AC05 | 5 | Log out, then open a protected account page. | Users can log out and cannot access protected account pages after logging out. | Logout completed in the browser. Opening a protected page after logout was not recorded. | Partial | Tested during development | 15 November 2026 | [USER03](#username-login-validation--15-november-2026) |
 
 ### Password recovery regression — US01 account security
 
