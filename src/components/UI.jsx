@@ -113,7 +113,7 @@ export function Footer() {
       <div>
         <span className="eyebrow">EXPLORE</span>
         <a href="#/portfolio">Portfolio</a>
-        <a href="#/login">Customer space</a>
+        <a href="#/enquire">Book your date</a>
       </div>
       <div>
         <span className="eyebrow">THE STUDIO</span>

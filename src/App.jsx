@@ -7,7 +7,6 @@ import PasswordPage from "./components/PasswordPage";
 import AccountSettings from "./components/AccountSettings";
 import AdminSetup from "./components/AdminSetup";
 import AdminDashboard from "./components/AdminDashboard";
-import CustomerDashboard from "./components/CustomerDashboard";
 import { Home, PortfolioPage } from "./components/PublicPages";
 import { Header, Workspace } from "./components/Layout";
 import { LaterCard, Notice } from "./components/UI";
@@ -54,9 +53,7 @@ export default function App({ client = supabase }) {
   }, [route]);
   let page;
   if (
-    ["/admin", "/dashboard", "/album", "/account", "/heritage", "/booking"].includes(
-      route,
-    )
+    ["/admin", "/account", "/heritage", "/booking"].includes(route)
   ) {
     if (!client)
       page = (
@@ -80,10 +77,7 @@ export default function App({ client = supabase }) {
         <main className="page-width route-message">
           <h1>Your space, securely kept.</h1>
           <p>Please log in to continue.</p>
-          <a
-            className="primary"
-            href={route.startsWith("/admin") ? "#/admin/login" : "#/login"}
-          >
+          <a className="primary" href="#/admin/login">
             Go to login
           </a>
         </main>
@@ -95,7 +89,7 @@ export default function App({ client = supabase }) {
           <Notice error>
             {auth.error || "Contact the studio owner for help."}
           </Notice>
-          <a href="#/login">Return to login</a>
+          <a href="#/admin/login">Return to login</a>
           <button
             className="button-outline"
             onClick={() => void auth.logout().catch(() => {})}
@@ -104,14 +98,27 @@ export default function App({ client = supabase }) {
           </button>
         </main>
       );
-    else if (route.startsWith("/admin") && !auth.isAdmin)
+    else if (!auth.isAdmin)
       page = (
         <main className="page-width route-message">
           <h1>Studio access only.</h1>
-          <p>Your account does not have admin permissions.</p>
-          <a className="primary" href="#/dashboard">
-            Go to your customer space
-          </a>
+          <p>
+            This website does not have customer accounts. Browse the portfolio
+            or send a booking enquiry without logging in.
+          </p>
+          <button
+            className="primary"
+            onClick={() =>
+              void auth
+                .logout()
+                .then(() => {
+                  window.location.hash = "/";
+                })
+                .catch(() => {})
+            }
+          >
+            Sign out
+          </button>
         </main>
       );
     else
@@ -119,10 +126,10 @@ export default function App({ client = supabase }) {
         ["/heritage", "/booking"].includes(route) ? (
           <Workspace
             auth={auth}
-            admin={auth.isAdmin}
+            admin
             active={route === "/heritage" ? "Heritage" : "Booking"}
-            onSection={(section) => {
-              window.location.hash = auth.isAdmin ? "/admin" : section === "My albums" ? "/album" : "/dashboard";
+            onSection={() => {
+              window.location.hash = "/admin";
             }}
           >
             <div className="dashboard-heading">
@@ -136,22 +143,20 @@ export default function App({ client = supabase }) {
           </Workspace>
         ) : route === "/account" ? (
           <AccountSettings client={client} auth={auth} />
-        ) : route === "/admin" ? (
+        ) : (
           <AdminDashboard
             key={auth.session.user.id}
             client={client}
             auth={auth}
           />
-        ) : (
-          <CustomerDashboard auth={auth} />
         );
-  } else if (["/login", "/register", "/admin/login", "/reset"].includes(route))
+  } else if (["/login", "/admin/login", "/reset"].includes(route))
     page = (
       <AuthPage
         key={route}
         client={client}
         auth={auth}
-        mode={route === "/admin/login" ? "admin" : route.slice(1)}
+        mode={route === "/reset" ? "reset" : "admin"}
       />
     );
   else if (route === "/admin/setup") page = <AdminSetup />;

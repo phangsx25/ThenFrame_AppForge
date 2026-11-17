@@ -37,7 +37,7 @@ export default function PasswordPage({ client, auth, linkError = "" }) {
         </Notice>
       ) : done ? (
         <Notice>
-          Password updated. <a href="#/dashboard">Go to your account →</a>
+          Password updated. <a href="#/admin">Go to the studio →</a>
         </Notice>
       ) : (
         <form onSubmit={submit}>
