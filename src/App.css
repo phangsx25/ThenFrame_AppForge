@@ -2062,6 +2062,58 @@ dialog.photo-dialog {
   color: var(--wine);
 }
 
+/* Upload: preview of the chosen file before uploading. Sits in the
+   form grid's full-width row under the file field. */
+.admin-workspace .upload-preview {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: -6px 0 12px;
+  padding: 10px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  min-width: 0;
+}
+.admin-workspace .upload-preview img,
+.admin-workspace .upload-preview-empty {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+.admin-workspace .upload-preview-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--rose);
+  color: var(--wine);
+}
+.admin-workspace .upload-preview > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.admin-workspace .upload-preview strong {
+  color: var(--text);
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-workspace .upload-preview small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.admin-workspace .upload-preview-problem {
+  margin: 4px 0 0;
+  color: var(--danger);
+  font-size: 12px;
+}
+
 /* Item 4, step 2: lift only the smallest (10px) text by 1px. */
 .admin-workspace .stat-grid small,
 .admin-workspace label small {

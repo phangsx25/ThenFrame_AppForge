@@ -8,9 +8,16 @@ import {
   saveCollection,
   updatePhoto,
   uploadPhoto,
+  validateImage,
 } from "../lib/gallery";
 import { Workspace } from "./Layout";
 import { Icon, LaterCard, Modal, Notice } from "./UI";
+
+function formatSize(bytes) {
+  return bytes < 1024 * 1024
+    ? `${Math.max(1, Math.round(bytes / 1024))} KB`
+    : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
 function VisibilityPill({ visibility }) {
   const isPrivate = visibility === "hidden";
@@ -35,6 +42,16 @@ export default function AdminDashboard({ auth, client }) {
   const [editor, setEditor] = useState(null),
     [photoEditor, setPhotoEditor] = useState(null),
     [confirmation, setConfirmation] = useState(null);
+  // Chosen file before upload: { url, name, size, problem } — url is a local
+  // object URL for the thumbnail and is revoked whenever it is replaced.
+  const [preview, setPreview] = useState(null),
+    [uploadNotice, setUploadNotice] = useState(null);
+  useEffect(
+    () => () => {
+      if (preview?.url) URL.revokeObjectURL(preview.url);
+    },
+    [preview],
+  );
   const photoGeneration = useRef(0);
   const refreshCollections = useCallback(async () => {
     const data = await listCollections(client, true);
@@ -68,22 +85,51 @@ export default function AdminDashboard({ auth, client }) {
       if (version === photoGeneration.current) setPhotoLoading(false);
     }
   }
-  async function run(action, success) {
+  // target "upload" shows the result next to the upload form instead of at
+  // the top of the page.
+  async function run(action, success, target = "page") {
     setBusy(true);
     setError("");
     setMessage("");
+    setUploadNotice(null);
     try {
       await action();
-      if (success) setMessage(success);
+      if (success) {
+        if (target === "upload") setUploadNotice({ text: success });
+        else setMessage(success);
+      }
       return true;
     } catch (e) {
-      setError(e.message);
+      if (target === "upload") setUploadNotice({ error: true, text: e.message });
+      else setError(e.message);
       return false;
     } finally {
       setBusy(false);
     }
   }
+  function pickPhoto(event) {
+    const file = event.currentTarget.files?.[0];
+    setUploadNotice(null);
+    if (!file) {
+      setPreview(null);
+      return;
+    }
+    let problem = "";
+    try {
+      validateImage(file);
+    } catch (e) {
+      problem = e.message;
+    }
+    setPreview({
+      url: file.type.startsWith("image/") ? URL.createObjectURL(file) : null,
+      name: file.name,
+      size: file.size,
+      problem,
+    });
+  }
   async function choose(collection) {
+    setPreview(null);
+    setUploadNotice(null);
     setSelected(collection);
     setSection("Gallery management");
     await run(() => loadPhotos(collection.id));
@@ -113,8 +159,9 @@ export default function AdminDashboard({ auth, client }) {
         data.get("visibility"),
       );
       form.reset();
+      setPreview(null);
       await loadPhotos(selected.id);
-    }, "Photo uploaded.");
+    }, "Photo uploaded.", "upload");
   }
   const published = collections.filter((c) => c.visibility === "public").length;
   const overview = section === "Overview";
@@ -308,7 +355,7 @@ export default function AdminDashboard({ auth, client }) {
                   </button>
                 </div>
               </div>
-              <form onSubmit={upload} className="upload-form">
+              <form key={selected.id} onSubmit={upload} className="upload-form">
                 <h3>Add a photograph</h3>
                 <div className="form-grid">
                   <label>
@@ -319,9 +366,30 @@ export default function AdminDashboard({ auth, client }) {
                       type="file"
                       accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
                       required
+                      onChange={pickPhoto}
                     />
                     <small>JPG / JPEG, PNG or WebP · up to 8 MB</small>
                   </label>
+                  {preview && (
+                    <div className="upload-preview">
+                      {preview.url ? (
+                        <img src={preview.url} alt="Preview of the chosen photograph" />
+                      ) : (
+                        <div className="upload-preview-empty">
+                          <Icon name="photo" size={22} />
+                        </div>
+                      )}
+                      <div>
+                        <strong>{preview.name}</strong>
+                        <small>{formatSize(preview.size)}</small>
+                        {preview.problem && (
+                          <p className="upload-preview-problem" role="alert">
+                            {preview.problem}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
                   <label>
                     Caption
                     <input
@@ -346,9 +414,13 @@ export default function AdminDashboard({ auth, client }) {
                   A photo is public only when both the photo and its collection
                   are public.
                 </p>
-                <button className="primary" disabled={busy || photoLoading}>
+                <button
+                  className="primary"
+                  disabled={busy || photoLoading || Boolean(preview?.problem)}
+                >
                   {busy ? "Working…" : "Upload photo"}
                 </button>
+                <Notice error={uploadNotice?.error}>{uploadNotice?.text}</Notice>
               </form>
               <div className="section-heading">
                 <h3>Photographs</h3>
