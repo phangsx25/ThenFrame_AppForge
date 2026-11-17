@@ -25,10 +25,19 @@ export function Header({ auth }) {
         <a href="#/#our-story">Our story</a>
         <a href="#/track">Track booking</a>
       </nav>
-      {auth.isAdmin && (
+      {auth.isAdmin ? (
         <a className="account-link" href="#/admin">
           <Icon name="user" size={16} />
           Studio
+        </a>
+      ) : (
+        <a
+          className="account-link studio-icon-link"
+          href="#/admin/login"
+          aria-label="Studio login"
+          title="Studio login"
+        >
+          <Icon name="user" size={18} />
         </a>
       )}
     </header>

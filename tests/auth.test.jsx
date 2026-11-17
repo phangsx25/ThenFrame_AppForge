@@ -248,6 +248,7 @@ describe("auth flows with a mocked Supabase boundary", () => {
     expect(await screen.findByRole("heading", { name: "Coming soon." })).toBeVisible();
     expect(screen.getByText(eyebrow)).toBeVisible();
     expect(screen.getByRole("link", { name: "Track booking" })).toHaveAttribute("href", "#/track");
+    expect(screen.getByRole("link", { name: "Studio login" })).toHaveAttribute("href", "#/admin/login");
     expect(screen.queryByRole("heading", { name: "Studio Login." })).not.toBeInTheDocument();
   });
   it.each(["/register", "/dashboard", "/album"])("no longer serves the customer page %s", async (path) => {

@@ -142,6 +142,11 @@ a svg {
   align-items: center;
   font-size: 12px;
 }
+.studio-icon-link {
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+}
 .mobile-menu {
   display: none !important;
 }
