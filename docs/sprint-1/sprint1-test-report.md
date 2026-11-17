@@ -1,7 +1,7 @@
 # Sprint 1 — Test Report
 
 **Scope:** US01–US04, 5–18 November 2026.
-**Status:** Acceptance tables filled from checks run during development: 11 Pass, 12 Partial, 3 Not run. QA (Awwab) completes the Partial and Not run cases: US01 [#58](https://github.com/phangsx25/ThenFrame_AppForge/issues/58), US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61).
+**Status:** Acceptance tables filled from checks run during development: 9 Pass, 9 Partial, 3 Not run, 5 No longer applicable (US01 retired after the Sprint 1 review). QA (Awwab) completes the Partial and Not run cases: US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61).
 **Requirements:** [Sprint 1 stories](sprint1-user-story.md). Existing historical checks and their limits remain in [VERIFICATION.md](../VERIFICATION.md); this template does not reset or replace those records.
 
 Work progress and responsibility are recorded in the [shared daily log](../daily-log.md). This report records test steps, actual outcomes, defects and retest evidence.
@@ -15,7 +15,7 @@ This project uses Vitest and manual testing. They answer different questions, an
 | Who runs them | The computer: Vitest, with `npm test`, locally and in the GitHub **verify** check on every pull request | A person, in a real browser or on a phone |
 | What they check | Application logic, such as validation, access guards and upload rules, using simulated backend responses | Each user story’s acceptance criteria, end to end, on the deployed app |
 | Where results are recorded | [Automated checks](#automated-checks) | The acceptance tables under each user story |
-| Current result | 74 Vitest tests and 3 burndown script tests pass | 11 Pass, 12 Partial, 3 Not run |
+| Current result | 74 Vitest tests and 3 burndown script tests pass | 9 Pass, 9 Partial, 3 Not run, 5 No longer applicable |
 
 Passing automated tests does not pass an acceptance criterion by itself. In the acceptance tables, **Tested during development** means the result comes from checks made while building the feature; the Status and Evidence columns say whether that was a live check, a browser check or a unit test. Rows marked Partial or Not run still need a person to complete them.
 
@@ -24,7 +24,7 @@ Passing automated tests does not pass an acceptance criterion by itself. In the 
 | Field | Value |
 | --- | --- |
 | Actual execution date / time | 14 November 2026 (Asia/Kuala_Lumpur); exact manual test time not recorded |
-| Tester(s) | Phang (live recovery confirmation); automated checks performed during the fix. Remaining acceptance cases: Awwab (QA) — US01 #58, US02 #60, US03 #52, US04 #61 |
+| Tester(s) | Phang (live recovery confirmation); automated checks performed during the fix. Remaining acceptance cases: Awwab (QA) — US02 #60, US03 #52, US04 #61 |
 | Branch / commit / deployment URL | main / `05a51549ef40c8b97a0364f24e20f267eb720059` / https://then-frame-app-forge.vercel.app |
 | Browser / device / viewport | Automated browser checks: headless Microsoft Edge; manual browser/device not recorded |
 | Environment and test account roles | Production user recovery flow (manual); synthetic customer and intercepted Auth/profile responses (browser regression) |
@@ -36,15 +36,17 @@ Tests are grouped by user story and reference the numbered acceptance criteria i
 
 Requirements: [US01 acceptance criteria](sprint1-user-story.md#us01--customer-registration-and-login).
 
+US01 was retired after the Sprint 1 review with the studio manager (17 November 2026); customer accounts were removed from the website on 18 November. The results below are kept as a record. See [Sprint 1 refinement](sprint1-refinement.md#refinement-2--18-november-2026-after-the-sprint-1-user-review).
+
 ### Acceptance test results
 
 | Test ID | AC no. | Steps / test data | Expected result | Actual result | Status | Tester | Execution date | Evidence / defect |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| US01-AC01 | 1 | Register a disposable account with name, username, email and password. | New users can register with a name, unique username, email address and valid password. | Username format, case normalization and duplicate rejection are enforced by the database trigger; the disposable account was created. Full browser signup with email confirmation is not recorded. | Partial | Tested during development | 15 November 2026 | [USER01](#username-login-validation--15-november-2026); signup email delivery pending |
-| US01-AC02 | 2 | Log in with the correct username and password. | Registered users log in with their username and password. | A customer session was established; logging in again in the browser after a username change also succeeded. | Pass — live API and local browser | Tested during development | 15 November 2026 | [USER02, USER03](#username-login-validation--15-november-2026) |
-| US01-AC03 | 3 | Log in with a wrong password, then with an unknown username. | Incorrect login details display an error message. | Both cases returned the same generic error message. | Pass — live API and UI unit test | Tested during development | 15 November 2026 | [USER02](#username-login-validation--15-november-2026) |
-| US01-AC04 | 4 | Register with an existing email; register with an existing username in different letter case. | Duplicate email registration is prevented; usernames are unique and case-insensitive. | Duplicate and case-variant usernames were rejected. Duplicate-email guidance was checked only in a UI unit test with a mocked Auth response (tests/auth.test.jsx), not against live signup. | Partial | Tested during development | 15 November 2026 | [USER01](#username-login-validation--15-november-2026); `8efa56e` |
-| US01-AC05 | 5 | Log out, then open a protected account page. | Users can log out and cannot access protected account pages after logging out. | Logout completed in the browser. Opening a protected page after logout was not recorded. | Partial | Tested during development | 15 November 2026 | [USER03](#username-login-validation--15-november-2026) |
+| US01-AC01 | 1 | Register a disposable account with name, username, email and password. | New users can register with a name, unique username, email address and valid password. | Username format, case normalization and duplicate rejection are enforced by the database trigger; the disposable account was created. Full browser signup with email confirmation is not recorded. | No longer applicable: US01 retired after the Sprint 1 review (18 Nov) | Tested during development | 15 November 2026 | [USER01](#username-login-validation--15-november-2026); signup email delivery pending |
+| US01-AC02 | 2 | Log in with the correct username and password. | Registered users log in with their username and password. | A customer session was established; logging in again in the browser after a username change also succeeded. | No longer applicable: US01 retired after the Sprint 1 review (18 Nov) | Tested during development | 15 November 2026 | [USER02, USER03](#username-login-validation--15-november-2026) |
+| US01-AC03 | 3 | Log in with a wrong password, then with an unknown username. | Incorrect login details display an error message. | Both cases returned the same generic error message. | No longer applicable: US01 retired after the Sprint 1 review (18 Nov) | Tested during development | 15 November 2026 | [USER02](#username-login-validation--15-november-2026) |
+| US01-AC04 | 4 | Register with an existing email; register with an existing username in different letter case. | Duplicate email registration is prevented; usernames are unique and case-insensitive. | Duplicate and case-variant usernames were rejected. Duplicate-email guidance was checked only in a UI unit test with a mocked Auth response (tests/auth.test.jsx), not against live signup. | No longer applicable: US01 retired after the Sprint 1 review (18 Nov) | Tested during development | 15 November 2026 | [USER01](#username-login-validation--15-november-2026); `8efa56e` |
+| US01-AC05 | 5 | Log out, then open a protected account page. | Users can log out and cannot access protected account pages after logging out. | Logout completed in the browser. Opening a protected page after logout was not recorded. | No longer applicable: US01 retired after the Sprint 1 review (18 Nov) | Tested during development | 15 November 2026 | [USER03](#username-login-validation--15-november-2026) |
 
 ### Password recovery regression — US01 account security
 
@@ -159,7 +161,7 @@ Earlier record: on 14 November 2026 (`05a5154`) lint, 46 tests across 4 files an
 
 ## Session outcome
 
-- Recovery checks: 4 passed with evidence types shown under US01; 1 live login check not run. Of the 26 acceptance cases, 11 pass, 12 are partial and 3 are not run, based on checks run during development; each partial or not-run row states what still needs testing.
+- Recovery checks: 4 passed with evidence types shown under US01; 1 live login check not run. Of the 26 acceptance cases, 9 pass, 9 are partial, 3 are not run and 5 no longer apply because US01 was retired, based on checks run during development; each partial or not-run row states what still needs testing.
 - Remaining risks and limitations: real new-password login and old-password rejection are not yet confirmed. Mocked API success does not establish a real server-side password update.
 - Test-data cleanup result: automated browser checks created no live accounts, sent no emails and made no real password changes. No shared recovery link was redeemed by the agent.
 - Acceptance decision and reviewer: TBD; passing tests alone does not establish the full Definition of Done.

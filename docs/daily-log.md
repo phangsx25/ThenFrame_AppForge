@@ -47,7 +47,7 @@ Git timestamps below identify when code was committed, not the start date of eve
 | --- | --- | --- |
 | Stand-up evidence | Add actual meeting attendance and duration if available. | Not recorded |
 | Kanban and burndown/burnup | Maintain [Projects](https://github.com/users/phangsx25/projects/1) and [burndown](sprint-1/sprint1-burndown.md); count only fully Done stories. | Hourly burndown sync active; 27 Sprint 1 subtasks (#35–#61) tracked on the Kanban |
-| Testing and acceptance | Awwab runs the remaining acceptance tests: US01 [#58](https://github.com/phangsx25/ThenFrame_AppForge/issues/58), US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61); record results in the [test report](sprint-1/sprint1-test-report.md). | In progress; password recovery routing confirmed |
+| Testing and acceptance | Awwab runs the remaining acceptance tests: US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61); record results in the [test report](sprint-1/sprint1-test-report.md). | In progress; password recovery routing confirmed |
 | 16–18 November | Record testing, user feedback, review and retrospective after they occur. | Planned |
 
 ## Sprint 2 — 19 November–9 December 2026
