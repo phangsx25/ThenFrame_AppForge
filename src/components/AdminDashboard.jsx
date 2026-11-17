@@ -114,7 +114,59 @@ export default function AdminDashboard({ auth, client }) {
     }
   }
   function pickPhotos(event) {
-    const files = Array.from(event.currentTarget.files || []);
+    setFiles(Array.from(event.currentTarget.files || []));
+  }
+  // Drag and drop onto the upload box. dragDepth counts enter/leave pairs
+  // so moving over child elements does not flicker the highlight.
+  const dragDepth = useRef(0),
+    [dragging, setDragging] = useState(false);
+  const hasFiles = (event) =>
+    Array.from(event.dataTransfer?.types || []).includes("Files");
+  const dropHandlers = {
+    onDragEnter(event) {
+      if (!hasFiles(event)) return;
+      event.preventDefault();
+      dragDepth.current += 1;
+      if (!busy) setDragging(true);
+    },
+    onDragOver(event) {
+      if (!hasFiles(event)) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = busy ? "none" : "copy";
+    },
+    onDragLeave(event) {
+      if (!hasFiles(event)) return;
+      dragDepth.current = Math.max(0, dragDepth.current - 1);
+      if (!dragDepth.current) setDragging(false);
+    },
+    onDrop(event) {
+      if (!hasFiles(event)) return;
+      event.preventDefault();
+      dragDepth.current = 0;
+      setDragging(false);
+      if (busy) return;
+      const input = event.currentTarget.elements.namedItem("photos");
+      if (input) input.value = "";
+      setFiles(Array.from(event.dataTransfer.files || []));
+    },
+  };
+  // While a collection is open, a file dropped just outside the box would
+  // make the browser open the image and leave the dashboard. Ignore those.
+  const uploadOpen = section === "Gallery management" && Boolean(selected);
+  useEffect(() => {
+    if (!uploadOpen) return;
+    const ignore = (event) => {
+      if (Array.from(event.dataTransfer?.types || []).includes("Files"))
+        event.preventDefault();
+    };
+    window.addEventListener("dragover", ignore);
+    window.addEventListener("drop", ignore);
+    return () => {
+      window.removeEventListener("dragover", ignore);
+      window.removeEventListener("drop", ignore);
+    };
+  }, [uploadOpen]);
+  function setFiles(files) {
     setUploadNotice(null);
     replaceChosen(
       files.map((file, index) => {
@@ -400,7 +452,12 @@ export default function AdminDashboard({ auth, client }) {
                   </button>
                 </div>
               </div>
-              <form key={selected.id} onSubmit={upload} className="upload-form">
+              <form
+                key={selected.id}
+                onSubmit={upload}
+                className={`upload-form${dragging ? " is-dragging" : ""}`}
+                {...dropHandlers}
+              >
                 <h3>Add photographs</h3>
                 <div className="form-grid">
                   <label>
@@ -414,7 +471,7 @@ export default function AdminDashboard({ auth, client }) {
                       onChange={pickPhotos}
                     />
                     <small>
-                      Choose one or several · JPG / JPEG, PNG or WebP · up to 8 MB each
+                      Choose one or several, or drag photos onto this box · JPG / JPEG, PNG or WebP · up to 8 MB each
                     </small>
                   </label>
                   {chosen.length > 0 && (
