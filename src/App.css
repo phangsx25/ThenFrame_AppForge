@@ -2029,3 +2029,22 @@ dialog.photo-dialog {
     overflow-wrap: anywhere;
   }
 }
+
+
+/* Customer service enquiry: preserve the existing workspace visual language. */
+.enquiry-layout { display: grid; gap: 28px; }
+.enquiry-panel { background: var(--cream); border: 1px solid var(--border); padding: clamp(18px, 3vw, 32px); border-radius: 8px; min-width: 0; }
+.enquiry-fields { border: 0; padding: 0; margin: 0; min-width: 0; }
+.enquiry-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
+.enquiry-fields label { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; }
+.enquiry-fields small { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.enquiry-record { border-top: 1px solid var(--border); padding: 22px 0; overflow-wrap: anywhere; }
+.enquiry-record dl { display: grid; grid-template-columns: minmax(90px, 140px) minmax(0, 1fr); gap: 10px 16px; }
+.enquiry-record dt { font-weight: 600; }
+.enquiry-record dd { margin: 0; }
+.enquiry-notes { white-space: pre-wrap; }
+@media (max-width: 640px) {
+  .enquiry-form-grid { grid-template-columns: 1fr; }
+  .enquiry-record dl { grid-template-columns: 1fr; gap: 6px; }
+  .enquiry-record dd { margin-bottom: 12px; }
+}

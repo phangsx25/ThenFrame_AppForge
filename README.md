@@ -56,10 +56,10 @@ Use the agreed existing Supabase project; do not recreate or clear its tables.
 - US04: public collections, search/event-type filtering, details and photo viewer.
 - Users open their own profile/security settings through the avatar. Customers
   register themselves; admin customer-account management is outside scope.
-- Booking and Heritage navigation currently show later-sprint notices.
+- US05 initial increment on `sprint-2-us05-enquiry`: Booking offers a customer enquiry form and own-enquiry history. Heritage and admin booking management remain planned.
 
 UI uses the wine editorial theme and intentional placeholders. Public photographs
-come from Supabase. Enquiries and booking/consultation management (US05–US06), Heritage (US07), private albums and
+come from Supabase. US05 enquiry submission is partially implemented on this branch; package options and full browser acceptance remain pending. Booking/consultation management (US06), Heritage (US07), private albums and
 selection/delivery (US08–US09), AI summaries (US10), FAQ chatbot (US11) and feedback (US12) remain planned. No AI photo categorization is planned or implemented.
 
 ## Portfolio classification

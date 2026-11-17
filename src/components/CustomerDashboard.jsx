@@ -40,11 +40,8 @@ export default function CustomerDashboard({ auth }) {
             </div>
           </section>
           <h2>Your bookings</h2>
-          <LaterCard title="A little closer to the big day">
-            Booking enquiries, schedules and status tracking are planned for a
-            later sprint. There are no booking records connected to this screen
-            yet.
-          </LaterCard>
+          <p>Share your event details and preferences with the studio.</p>
+          <a className="primary" href="#/booking">Make a service enquiry</a>
         </>
       )}
       <h2>
