@@ -2040,9 +2040,7 @@ dialog.photo-dialog {
    public pages and the customer workspace are unchanged.
    ------------------------------------------------------------------ */
 .admin-workspace {
-  /* Item 4, step 1: readable grey. 5.8:1 on white, 5.6:1 on cream
-     (was 4.2:1 / 4.0:1, below the WCAG AA 4.5:1 minimum). */
-  --muted: #766060;
+  /* Helper text uses the site-wide --muted (#5a4341, 8.7:1 on cream). */
   --danger: #9c283e;
   --danger-dark: #7a1f31;
 }
