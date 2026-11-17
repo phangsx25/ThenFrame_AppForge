@@ -40,9 +40,10 @@ Separate the user's actual words from the team's interpretation. Add feedback to
 
 ## Outcome
 
-- What the user could complete: Not recorded.
-- What needs improvement: colour contrast and readability (FB01); customer accounts replaced by a guest booking form with email and WhatsApp follow-up (FB02).
-- User / Product Owner acceptance decision: Not recorded (not assumed).
-- Evidence prepared for presentation: Not recorded; no recording or screenshots from the session are stored.
-- Next review / follow-up date: Not set. Follow-up questions for the owner: whether the colour changes solve FB01 and which screens he meant; the email address and WhatsApp number for booking enquiries; whether photo delivery and selection (US08–US09) and ratings (US12) are still wanted; the scope of the heritage guide (US07).
-- Backlog changes made from this review are recorded in [Sprint 1 refinement](sprint1-refinement.md#refinement-2--18-november-2026-after-the-sprint-1-user-review).
+The website was updated based on the owner’s requests:
+
+- Helper text is darker and easier to read, and unnecessary descriptions were removed (FB01).
+- Customer accounts were removed. Customers browse and book without an account; booking buttons lead to a Coming soon page until the booking form with email and WhatsApp follow-up is ready in Sprint 2 (FB02).
+- The portfolio remains the main experience, with a small studio login icon in the header (FB03).
+
+The resulting backlog changes are recorded in [Sprint 1 refinement](sprint1-refinement.md#refinement-2--18-november-2026-after-the-sprint-1-user-review).
