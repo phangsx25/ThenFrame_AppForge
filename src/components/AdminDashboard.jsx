@@ -7,6 +7,7 @@ import {
   listPhotos,
   saveCollection,
   updatePhoto,
+  refreshPhotoLink,
   uploadPhoto,
   validateImage,
 } from "../lib/gallery";
@@ -22,7 +23,7 @@ function formatSize(bytes) {
 // Full-screen photo viewer (like Google Photos / Drive): dark background,
 // the photo centred and scaled to fit the same space whatever its shape,
 // with previous/next arrows and keyboard support (← → Esc).
-function PhotoViewer({ photos, index, fallbackTitle, onIndex, onClose }) {
+function PhotoViewer({ photos, index, fallbackTitle, onIndex, onClose, onExpired }) {
   const ref = useRef(null);
   const photo = photos[index];
   const count = photos.length;
@@ -90,7 +91,8 @@ function PhotoViewer({ photos, index, fallbackTitle, onIndex, onClose }) {
           src={photo.url}
           alt={title}
           onError={(e) => {
-            e.currentTarget.alt = "Link expired. Close and refresh photo links.";
+            if (!onExpired(photo, e.timeStamp))
+              e.currentTarget.alt = "This photo could not be loaded. Close and refresh photo links.";
           }}
         />
         {count > 1 && (
@@ -188,6 +190,29 @@ export default function AdminDashboard({ auth, client }) {
     } finally {
       if (version === photoGeneration.current) setPhotoLoading(false);
     }
+  }
+  // Photo links last 60 seconds. When a photo on screen fails to load,
+  // fetch a fresh link for that photo only and swap it in, so the grid
+  // and viewer keep working without a manual refresh. Each photo is
+  // retried at most once every 15 seconds (measured with the error
+  // event's timestamp); returns false when no retry was started so the
+  // caller can show a fallback message.
+  const relinkAttempts = useRef(new Map());
+  function relink(photo, at) {
+    const last = relinkAttempts.current.get(photo.id);
+    if (!photo.storage_path || (last !== undefined && at - last < 15000))
+      return false;
+    relinkAttempts.current.set(photo.id, at);
+    const version = photoGeneration.current;
+    refreshPhotoLink(client, photo)
+      .then((url) => {
+        if (!url || version !== photoGeneration.current) return;
+        setPhotos((list) =>
+          list.map((item) => (item.id === photo.id ? { ...item, url } : item)),
+        );
+      })
+      .catch(() => {});
+    return true;
   }
   async function run(action, success) {
     setBusy(true);
@@ -690,8 +715,9 @@ export default function AdminDashboard({ auth, client }) {
                             alt={photo.caption || selected.title}
                             loading="lazy"
                             onError={(e) => {
-                              e.currentTarget.alt =
-                                "Link expired. Refresh photo links.";
+                              if (!relink(photo, e.timeStamp))
+                                e.currentTarget.alt =
+                                  "This photo could not be loaded. Refresh photo links.";
                             }}
                           />
                         </button>
@@ -758,8 +784,8 @@ export default function AdminDashboard({ auth, client }) {
               </li>
             </ol>
             <p className="small-text muted">
-              New content starts private. Signed image links expire after one
-              minute; refresh previews when needed.
+              New content starts private. Photo previews renew their links
+              automatically when they expire.
             </p>
           </section>
           <LaterCard title="Bookings & consultations">
@@ -845,6 +871,7 @@ export default function AdminDashboard({ auth, client }) {
           fallbackTitle={selected?.title || "Photograph"}
           onIndex={setViewing}
           onClose={() => setViewing(null)}
+          onExpired={relink}
         />
       )}
       {photoEditor && (

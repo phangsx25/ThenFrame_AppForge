@@ -4,6 +4,7 @@ import {
   validateImage,
   listCollections,
   listPhotos,
+  refreshPhotoLink,
   saveCollection,
   uploadPhoto,
   updatePhoto,
@@ -148,6 +149,21 @@ describe("gallery request behavior (mocked Supabase transport)", () => {
       url: null,
       linkError: "Denied",
     });
+  });
+  it("renews one photo's signed link with the same bucket and 60-second lifetime", async () => {
+    const { client, storage } = clientFor();
+    await expect(
+      refreshPhotoLink(client, { id: "p1", storage_path: "c1/a.jpg" }),
+    ).resolves.toBe("https://example.test/signed");
+    expect(client.storage.from).toHaveBeenCalledWith("gallery");
+    expect(storage.createSignedUrl).toHaveBeenCalledWith("c1/a.jpg", 60);
+    storage.createSignedUrl.mockResolvedValue({
+      data: null,
+      error: { message: "Denied" },
+    });
+    await expect(
+      refreshPhotoLink(client, { id: "p1", storage_path: "c1/a.jpg" }),
+    ).rejects.toMatchObject({ message: "Denied" });
   });
   it("rejects active content, empty files and oversized uploads before touching Storage", async () => {
     const { client, storage } = clientFor();

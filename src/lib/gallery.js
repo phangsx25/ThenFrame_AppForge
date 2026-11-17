@@ -75,6 +75,15 @@ export async function listPhotos(client, collectionId, admin = false) {
     }),
   );
 }
+// Fresh signed link for one photo, used when its 60-second link expires
+// on screen. Same bucket and lifetime as listPhotos.
+export async function refreshPhotoLink(client, photo) {
+  const { data, error } = await client.storage
+    .from("gallery")
+    .createSignedUrl(photo.storage_path, 60);
+  if (error) throw error;
+  return data?.signedUrl || null;
+}
 export async function saveCollection(client, input, id) {
   const values = collectionValues(input);
   const query = id
