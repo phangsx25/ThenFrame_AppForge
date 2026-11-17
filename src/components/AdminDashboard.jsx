@@ -42,15 +42,27 @@ export default function AdminDashboard({ auth, client }) {
   const [editor, setEditor] = useState(null),
     [photoEditor, setPhotoEditor] = useState(null),
     [confirmation, setConfirmation] = useState(null);
-  // Chosen file before upload: { url, name, size, problem } — url is a local
-  // object URL for the thumbnail and is revoked whenever it is replaced.
-  const [preview, setPreview] = useState(null),
-    [uploadNotice, setUploadNotice] = useState(null);
+  // Files chosen for upload: [{ id, file, url, problem, failed }].
+  // url is a local object URL for the thumbnail; problem means the file
+  // fails validation and will be skipped; failed holds the error from a
+  // previous attempt so the file can be retried.
+  const [chosen, setChosen] = useState([]),
+    [uploadNotice, setUploadNotice] = useState(null),
+    [progress, setProgress] = useState(null);
+  const chosenRef = useRef([]);
+  function replaceChosen(next) {
+    const keep = new Set(next.map((item) => item.url));
+    for (const item of chosenRef.current)
+      if (item.url && !keep.has(item.url)) URL.revokeObjectURL(item.url);
+    chosenRef.current = next;
+    setChosen(next);
+  }
   useEffect(
     () => () => {
-      if (preview?.url) URL.revokeObjectURL(preview.url);
+      for (const item of chosenRef.current)
+        if (item.url) URL.revokeObjectURL(item.url);
     },
-    [preview],
+    [],
   );
   const photoGeneration = useRef(0);
   const refreshCollections = useCallback(async () => {
@@ -85,50 +97,45 @@ export default function AdminDashboard({ auth, client }) {
       if (version === photoGeneration.current) setPhotoLoading(false);
     }
   }
-  // target "upload" shows the result next to the upload form instead of at
-  // the top of the page.
-  async function run(action, success, target = "page") {
+  async function run(action, success) {
     setBusy(true);
     setError("");
     setMessage("");
     setUploadNotice(null);
     try {
       await action();
-      if (success) {
-        if (target === "upload") setUploadNotice({ text: success });
-        else setMessage(success);
-      }
+      if (success) setMessage(success);
       return true;
     } catch (e) {
-      if (target === "upload") setUploadNotice({ error: true, text: e.message });
-      else setError(e.message);
+      setError(e.message);
       return false;
     } finally {
       setBusy(false);
     }
   }
-  function pickPhoto(event) {
-    const file = event.currentTarget.files?.[0];
+  function pickPhotos(event) {
+    const files = Array.from(event.currentTarget.files || []);
     setUploadNotice(null);
-    if (!file) {
-      setPreview(null);
-      return;
-    }
-    let problem = "";
-    try {
-      validateImage(file);
-    } catch (e) {
-      problem = e.message;
-    }
-    setPreview({
-      url: file.type.startsWith("image/") ? URL.createObjectURL(file) : null,
-      name: file.name,
-      size: file.size,
-      problem,
-    });
+    replaceChosen(
+      files.map((file, index) => {
+        let problem = "";
+        try {
+          validateImage(file);
+        } catch (e) {
+          problem = e.message;
+        }
+        return {
+          id: `${Date.now()}-${index}`,
+          file,
+          url: file.type.startsWith("image/") ? URL.createObjectURL(file) : null,
+          problem,
+          failed: "",
+        };
+      }),
+    );
   }
   async function choose(collection) {
-    setPreview(null);
+    replaceChosen([]);
     setUploadNotice(null);
     setSelected(collection);
     setSection("Gallery management");
@@ -146,27 +153,65 @@ export default function AdminDashboard({ auth, client }) {
       await loadPhotos(saved.id);
     }, "Collection saved.");
   }
+  // Uploads valid files one after another so progress can be shown and one
+  // failure does not stop the rest. Results are reported beside the form.
   async function upload(event) {
     event.preventDefault();
     const form = event.currentTarget,
       data = new FormData(form);
-    await run(async () => {
-      await uploadPhoto(
-        client,
-        selected.id,
-        data.get("photo"),
-        data.get("caption"),
-        data.get("visibility"),
-      );
-      form.reset();
-      setPreview(null);
-      await loadPhotos(selected.id);
-    }, "Photo uploaded.", "upload");
+    const valid = chosen.filter((item) => !item.problem),
+      skipped = chosen.length - valid.length;
+    if (!valid.length) return;
+    const caption = data.get("caption"),
+      visibility = data.get("visibility");
+    setBusy(true);
+    setError("");
+    setMessage("");
+    setUploadNotice(null);
+    setProgress({ done: 0, total: valid.length });
+    try {
+      const failed = [];
+      for (const [index, item] of valid.entries()) {
+        try {
+          await uploadPhoto(client, selected.id, item.file, caption, visibility);
+        } catch (e) {
+          failed.push({ ...item, failed: e.message });
+        }
+        setProgress({ done: index + 1, total: valid.length });
+      }
+      const uploaded = valid.length - failed.length;
+      const parts = [];
+      if (uploaded)
+        parts.push(`${uploaded} ${uploaded === 1 ? "photo" : "photos"} uploaded.`);
+      if (failed.length)
+        parts.push(
+          `${failed.length} could not be uploaded and ${failed.length === 1 ? "is" : "are"} still selected so you can try again.`,
+        );
+      if (skipped)
+        parts.push(
+          `${skipped} skipped: too large or not a JPG, PNG or WebP.`,
+        );
+      try {
+        await loadPhotos(selected.id);
+      } catch (e) {
+        parts.push(`The photo list could not be refreshed: ${e.message}`);
+      }
+      if (!failed.length) form.reset();
+      const fileInput = form.elements.namedItem("photos");
+      if (fileInput) fileInput.value = "";
+      replaceChosen(failed);
+      setUploadNotice({ error: failed.length > 0, text: parts.join(" ") });
+    } finally {
+      setProgress(null);
+      setBusy(false);
+    }
   }
   const published = collections.filter((c) => c.visibility === "public").length;
   const overview = section === "Overview";
   const shownCollections = overview ? collections.slice(0, 3) : collections;
   const latest = collections[0];
+  const invalidCount = chosen.filter((item) => item.problem).length,
+    validCount = chosen.length - invalidCount;
   return (
     <Workspace auth={auth} admin active={section} onSection={setSection}>
       <div className="dashboard-heading">
@@ -356,38 +401,61 @@ export default function AdminDashboard({ auth, client }) {
                 </div>
               </div>
               <form key={selected.id} onSubmit={upload} className="upload-form">
-                <h3>Add a photograph</h3>
+                <h3>Add photographs</h3>
                 <div className="form-grid">
                   <label>
-                    Photograph
+                    Photographs
                     <input
-                      aria-label="Photograph"
-                      name="photo"
+                      aria-label="Photographs"
+                      name="photos"
                       type="file"
+                      multiple
                       accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
-                      required
-                      onChange={pickPhoto}
+                      onChange={pickPhotos}
                     />
-                    <small>JPG / JPEG, PNG or WebP · up to 8 MB</small>
+                    <small>
+                      Choose one or several · JPG / JPEG, PNG or WebP · up to 8 MB each
+                    </small>
                   </label>
-                  {preview && (
-                    <div className="upload-preview">
-                      {preview.url ? (
-                        <img src={preview.url} alt="Preview of the chosen photograph" />
-                      ) : (
-                        <div className="upload-preview-empty">
-                          <Icon name="photo" size={22} />
-                        </div>
+                  {chosen.length > 0 && (
+                    <div className="upload-chosen">
+                      {chosen.length > 1 && (
+                        <p className="upload-summary">
+                          {chosen.length} photos chosen ·{" "}
+                          {formatSize(chosen.reduce((sum, item) => sum + item.file.size, 0))}
+                          {invalidCount > 0 &&
+                            ` · ${invalidCount} will be skipped`}
+                        </p>
                       )}
-                      <div>
-                        <strong>{preview.name}</strong>
-                        <small>{formatSize(preview.size)}</small>
-                        {preview.problem && (
-                          <p className="upload-preview-problem" role="alert">
-                            {preview.problem}
-                          </p>
-                        )}
-                      </div>
+                      <ul className="upload-preview-list">
+                        {chosen.map((item) => (
+                          <li key={item.id} className="upload-preview">
+                            {item.url ? (
+                              <img src={item.url} alt={`Preview of ${item.file.name}`} />
+                            ) : (
+                              <div className="upload-preview-empty">
+                                <Icon name="photo" size={22} />
+                              </div>
+                            )}
+                            <div>
+                              <strong title={item.file.name}>{item.file.name}</strong>
+                              <small>{formatSize(item.file.size)}</small>
+                              {(item.problem || item.failed) && (
+                                <p className="upload-preview-problem">
+                                  {item.problem || `Upload failed: ${item.failed}`}
+                                </p>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                      {invalidCount > 0 && (
+                        <p className="visually-hidden" role="alert">
+                          {invalidCount === 1
+                            ? `${chosen.find((item) => item.problem).problem}`
+                            : `${invalidCount} files will be skipped because they are too large or not a JPG, PNG or WebP.`}
+                        </p>
+                      )}
                     </div>
                   )}
                   <label>
@@ -397,6 +465,9 @@ export default function AdminDashboard({ auth, client }) {
                       maxLength={500}
                       placeholder="A few words about this moment"
                     />
+                    {validCount > 1 && (
+                      <small>Used for every photo in this upload. You can edit each one afterwards.</small>
+                    )}
                   </label>
                   <label>
                     Visibility
@@ -416,10 +487,24 @@ export default function AdminDashboard({ auth, client }) {
                 </p>
                 <button
                   className="primary"
-                  disabled={busy || photoLoading || Boolean(preview?.problem)}
+                  disabled={busy || photoLoading || validCount === 0}
                 >
-                  {busy ? "Working…" : "Upload photo"}
+                  {progress
+                    ? `Uploading ${Math.min(progress.done + 1, progress.total)} of ${progress.total}…`
+                    : busy
+                      ? "Working…"
+                      : validCount > 1
+                        ? `Upload ${validCount} photos`
+                        : "Upload photo"}
                 </button>
+                {progress && (
+                  <progress
+                    className="upload-progress"
+                    value={progress.done}
+                    max={progress.total}
+                    aria-label="Upload progress"
+                  />
+                )}
                 <Notice error={uploadNotice?.error}>{uploadNotice?.text}</Notice>
               </form>
               <div className="section-heading">

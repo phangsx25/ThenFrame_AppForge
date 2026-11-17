@@ -2064,12 +2064,30 @@ dialog.photo-dialog {
 
 /* Upload: preview of the chosen file before uploading. Sits in the
    form grid's full-width row under the file field. */
-.admin-workspace .upload-preview {
+.admin-workspace .upload-chosen {
   grid-column: 1 / -1;
+  margin: -6px 0 12px;
+  min-width: 0;
+}
+.admin-workspace .upload-summary {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.admin-workspace .upload-preview-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 340px;
+  overflow-y: auto;
+}
+.admin-workspace .upload-preview {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin: -6px 0 12px;
   padding: 10px;
   background: var(--white);
   border: 1px solid var(--border);
@@ -2112,6 +2130,49 @@ dialog.photo-dialog {
   margin: 4px 0 0;
   color: var(--danger);
   font-size: 12px;
+}
+
+/* Upload progress: thin wine bar under the Upload button. */
+.admin-workspace .upload-progress {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: 4px;
+  margin-top: 12px;
+  border: 0;
+  border-radius: 2px;
+  background: var(--rose);
+  accent-color: var(--wine);
+  appearance: none;
+}
+.admin-workspace .upload-progress::-webkit-progress-bar {
+  background: var(--rose);
+  border-radius: 2px;
+}
+.admin-workspace .upload-progress::-webkit-progress-value {
+  background: var(--wine);
+  border-radius: 2px;
+  transition: width 0.2s ease;
+}
+.admin-workspace .upload-progress::-moz-progress-bar {
+  background: var(--wine);
+  border-radius: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .admin-workspace .upload-progress::-webkit-progress-value {
+    transition: none;
+  }
+}
+.admin-workspace .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Item 4, step 2: lift only the smallest (10px) text by 1px. */
