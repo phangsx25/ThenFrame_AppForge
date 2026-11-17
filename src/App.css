@@ -6,7 +6,7 @@
   --blush: #e9d4cc;
   --border: #e5c9c2;
   --text: #4d3734;
-  --muted: #8d7675;
+  --muted: #5a4341;
   --white: #fff;
   --serif: Georgia, "Times New Roman", serif;
   --sans: Arial, Helvetica, sans-serif;
@@ -828,7 +828,12 @@ label small {
   border-radius: 120px 120px 0 0;
   width: 240px;
   height: 230px;
-  font: italic 100px/2.5 var(--serif);
+  font: italic 40px/1 var(--serif);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 30px;
+  box-sizing: border-box;
   align-self: center;
   text-align: center;
   color: var(--cream);
@@ -1640,8 +1645,8 @@ dialog::backdrop {
   .monogram {
     height: 150px;
     width: 160px;
-    line-height: 1.8;
-    font-size: 80px;
+    padding-top: 20px;
+    font-size: 26px;
     margin: 25px 0;
   }
   .workspace {

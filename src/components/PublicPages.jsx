@@ -453,10 +453,6 @@ function PublicCollection({ collection, client, detail }) {
                 </figure>
               ))}
             </div>
-            <p className="muted small-text">
-              Photo links expire after one minute. Refresh them if a photograph
-              stops loading.
-            </p>
           </>
         )
       ) : (

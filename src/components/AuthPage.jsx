@@ -108,7 +108,7 @@ export default function AuthPage({ client, auth, mode = "login" }) {
           {admin ? (
             <div className="staff-panel">
               <span className="eyebrow">◎ THENFRAME / STUDIO</span>
-              <div className="monogram">tf</div>
+              <div className="monogram">ThenFrame</div>
               <h2>
                 Behind every beautiful
                 <br />
@@ -193,15 +193,11 @@ export default function AuthPage({ client, auth, mode = "login" }) {
                   ? "A fresh start."
                   : "Welcome back."}
           </h1>
-          <p className="lead">
-            {admin
-              ? "Access your studio workspace."
-              : register
-                ? "A personal space to explore our photography and keep your wedding memories close."
-                : reset
-                  ? "We’ll email you a secure link to reset your password."
-                  : "Log in to your ThenFrame customer space."}
-          </p>
+          {reset && !admin && !register && (
+            <p className="lead">
+              We’ll email you a secure link to reset your password.
+            </p>
+          )}
           {admin && (
             <p className="small-text">
               <a href="#/admin/setup">
