@@ -14,8 +14,6 @@
 | Session method | Online meeting |
 | Tested deployment URL / commit | https://then-frame-app-forge.vercel.app (production, `main`) |
 | Recording consent obtained before recording | Yes, the manager agreed to the recording |
-| Consent evidence / permitted sharing audience | Recorded in the session; currently shared with the team only |
-| Recording link and access restrictions | Stored in the team’s group chat; where to upload it will be decided later. The video is not committed to this repository |
 
 ## Review scenarios
 
