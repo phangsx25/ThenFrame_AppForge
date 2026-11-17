@@ -25,15 +25,15 @@ The full mapping is in [Backlog refinement and story mapping](../PRODUCT_BACKLOG
 | Session field | Value |
 | --- | --- |
 | Actual date | 18 November 2026 |
-| Basis | The studio owner’s feedback from the Sprint 1 user review (online meeting, 17 November 2026) |
-| Sprint goal / progress reviewed | All four stories built and deployed; acceptance testing incomplete; owner feedback received |
+| Basis | The ThenFrame studio manager’s feedback from the Sprint 1 user review (online meeting, 17 November 2026) |
+| Sprint goal / progress reviewed | All four stories built and deployed; acceptance testing incomplete; studio manager feedback received |
 
 | Item / US | Previous requirement or priority | Proposed change | Reason / evidence | Product Owner decision | Owner / follow-up |
 | --- | --- | --- | --- | --- | --- |
-| US01 | Customers register and log in with an account | Retired: customer accounts, registration and the customer dashboard removed from the website | Owner: a wedding is usually booked once, so customers do not need an account. Team assumption ASM01 (customer accounts) was not confirmed | Requested by the owner | Branch `ui/readable-text`; US01 acceptance rows no longer apply |
-| US02 | Customer/Admin login picker; admins register, then receive the admin role | Studio-only login; admin accounts created by the project owner in Supabase; login entry is a small icon in the header | Follows from retiring customer accounts; no public sign-up | Owner to confirm | Branch `ui/readable-text` |
-| US03, US04 | Grey helper text (4.0:1 contrast) and descriptive subtitles | Darker helper text (8.7:1); unnecessary descriptions removed; “tf” replaced by “ThenFrame” | Owner: icons and text are hard to read | Owner to confirm the result | Frontend; ask the owner which screens he meant |
-| US04 | “Create your customer account” calls to action | Point to “Book your date” (Coming soon until US05 is ready); new Track booking tab (Coming soon) | Customers book without an account | Owner to confirm | US05 in Sprint 2 |
+| US01 | Customers register and log in with an account | Retired: customer accounts, registration and the customer dashboard removed from the website | Studio manager: a wedding is usually booked once, so customers do not need an account. Team assumption ASM01 (customer accounts) was not confirmed | Requested by the studio manager | Branch `ui/readable-text`; US01 acceptance rows no longer apply |
+| US02 | Customer/Admin login picker; admins register, then receive the admin role | Studio-only login; admin accounts created by the project owner in Supabase; login entry is a small icon in the header | Follows from retiring customer accounts; no public sign-up | Studio manager to confirm | Branch `ui/readable-text` |
+| US03, US04 | Grey helper text (4.0:1 contrast) and descriptive subtitles | Darker helper text (8.7:1); unnecessary descriptions removed; “tf” replaced by “ThenFrame” | Studio manager: icons and text are hard to read | Studio manager to confirm the result | Frontend; ask the studio manager which screens were meant |
+| US04 | “Create your customer account” calls to action | Point to “Book your date” (Coming soon until US05 is ready); new Track booking tab (Coming soon) | Customers book without an account | Studio manager to confirm | US05 in Sprint 2 |
 
 Changes to later stories (US05 guest booking form with email and WhatsApp follow-up, US06, US07, US08–US09, US12) are refined in Sprint 2.
 
