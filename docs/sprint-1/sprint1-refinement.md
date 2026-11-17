@@ -25,7 +25,7 @@ The full mapping is in [Backlog refinement and story mapping](../PRODUCT_BACKLOG
 | Session field | Value |
 | --- | --- |
 | Actual date | 18 November 2026 |
-| Basis | The studio owner’s feedback from the Sprint 1 user review |
+| Basis | The studio owner’s feedback from the Sprint 1 user review (online meeting, 17 November 2026) |
 | Sprint goal / progress reviewed | All four stories built and deployed; acceptance testing incomplete; owner feedback received |
 
 | Item / US | Previous requirement or priority | Proposed change | Reason / evidence | Product Owner decision | Owner / follow-up |
