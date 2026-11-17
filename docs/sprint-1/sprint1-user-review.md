@@ -1,7 +1,7 @@
 # Sprint 1 — User Review and Feedback
 
 **Planned date:** 17 November 2026. **Actual date:** 17 November 2026.  
-**Status:** Review held with the ThenFrame studio manager. Feedback is recorded below as paraphrased by the team; the manager’s exact words were not recorded.  
+**Status:** Review held with the ThenFrame studio manager. Feedback is summarised below by the team; the session recording holds the manager’s exact words.  
 **Goal:** Demonstrate the working Sprint 1 increment to the actual user and collect evidence for the class demo on 19–20 November.
 
 ## Session details and recording consent
@@ -13,9 +13,9 @@
 | Team attendees / facilitator | Facilitator: Naqyuddin |
 | Session method | Online meeting |
 | Tested deployment URL / commit | https://then-frame-app-forge.vercel.app (production, `main`) |
-| Recording consent obtained before recording | No recording made |
-| Consent evidence / permitted sharing audience | Not applicable |
-| Recording link and access restrictions | Not applicable |
+| Recording consent obtained before recording | Yes, the manager agreed to the recording |
+| Consent evidence / permitted sharing audience | Recorded in the session; currently shared with the team only |
+| Recording link and access restrictions | Stored in the team’s group chat; where to upload it will be decided later. The video is not committed to this repository |
 
 ## Review scenarios
 
