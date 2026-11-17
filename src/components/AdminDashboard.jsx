@@ -19,6 +19,95 @@ function formatSize(bytes) {
     : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
+// Full-screen photo viewer (like Google Photos / Drive): dark background,
+// the photo centred and scaled to fit the same space whatever its shape,
+// with previous/next arrows and keyboard support (← → Esc).
+function PhotoViewer({ photos, index, fallbackTitle, onIndex, onClose }) {
+  const ref = useRef(null);
+  const photo = photos[index];
+  const count = photos.length;
+  useEffect(() => {
+    const dialog = ref.current;
+    const trigger = document.activeElement;
+    dialog.showModal();
+    return () => {
+      dialog.close();
+      if (trigger instanceof HTMLElement && trigger.isConnected)
+        trigger.focus({ preventScroll: true });
+    };
+  }, []);
+  if (!photo) return null;
+  const title = photo.caption || fallbackTitle;
+  const go = (step) => onIndex((index + step + count) % count);
+  return (
+    <dialog
+      ref={ref}
+      className="photo-viewer"
+      aria-label={`Photo ${index + 1} of ${count}: ${title}`}
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
+      onKeyDown={(event) => {
+        if (count < 2) return;
+        if (event.key === "ArrowLeft") go(-1);
+        if (event.key === "ArrowRight") go(1);
+      }}
+    >
+      <div className="photo-viewer-bar">
+        <span className="photo-viewer-title">{title}</span>
+        <span className="photo-viewer-count">
+          {index + 1} / {count}
+        </span>
+        <VisibilityPill visibility={photo.visibility} />
+        <button
+          type="button"
+          className="photo-viewer-button"
+          onClick={onClose}
+          aria-label="Close viewer"
+        >
+          <Icon name="close" size={22} />
+        </button>
+      </div>
+      <div
+        className="photo-viewer-stage"
+        onClick={(event) => {
+          if (event.target === event.currentTarget) onClose();
+        }}
+      >
+        {count > 1 && (
+          <button
+            type="button"
+            className="photo-viewer-button photo-viewer-prev"
+            onClick={() => go(-1)}
+            aria-label="Previous photo"
+          >
+            <Icon name="chevron-left" size={28} />
+          </button>
+        )}
+        <img
+          key={photo.id}
+          src={photo.url}
+          alt={title}
+          onError={(e) => {
+            e.currentTarget.alt = "Link expired. Close and refresh photo links.";
+          }}
+        />
+        {count > 1 && (
+          <button
+            type="button"
+            className="photo-viewer-button photo-viewer-next"
+            onClick={() => go(1)}
+            aria-label="Next photo"
+          >
+            <Icon name="chevron-right" size={28} />
+          </button>
+        )}
+      </div>
+    </dialog>
+  );
+}
+
 function VisibilityPill({ visibility }) {
   const isPrivate = visibility === "hidden";
   return (
@@ -50,6 +139,9 @@ export default function AdminDashboard({ auth, client }) {
     [uploadNotice, setUploadNotice] = useState(null),
     [progress, setProgress] = useState(null);
   const chosenRef = useRef([]);
+  // Index (within photos that have a link) of the photo open in the
+  // full-screen viewer, or null.
+  const [viewing, setViewing] = useState(null);
   function replaceChosen(next) {
     const keep = new Set(next.map((item) => item.url));
     for (const item of chosenRef.current)
@@ -262,6 +354,7 @@ export default function AdminDashboard({ auth, client }) {
   const overview = section === "Overview";
   const shownCollections = overview ? collections.slice(0, 3) : collections;
   const latest = collections[0];
+  const viewable = photos.filter((photo) => photo.url);
   const invalidCount = chosen.filter((item) => item.problem).length,
     validCount = chosen.length - invalidCount;
   return (
@@ -584,15 +677,24 @@ export default function AdminDashboard({ auth, client }) {
                   {photos.map((photo) => (
                     <figure key={photo.id}>
                       {photo.url ? (
-                        <img
-                          src={photo.url}
-                          alt={photo.caption || selected.title}
-                          loading="lazy"
-                          onError={(e) => {
-                            e.currentTarget.alt =
-                              "Link expired. Refresh photo links.";
-                          }}
-                        />
+                        <button
+                          type="button"
+                          className="admin-photo-open"
+                          onClick={() =>
+                            setViewing(viewable.findIndex((p) => p.id === photo.id))
+                          }
+                          aria-label={`View larger: ${photo.caption || selected.title}`}
+                        >
+                          <img
+                            src={photo.url}
+                            alt={photo.caption || selected.title}
+                            loading="lazy"
+                            onError={(e) => {
+                              e.currentTarget.alt =
+                                "Link expired. Refresh photo links.";
+                            }}
+                          />
+                        </button>
                       ) : (
                         <div className="photo-unavailable">
                           Preview unavailable. Check Storage policies or
@@ -735,6 +837,15 @@ export default function AdminDashboard({ auth, client }) {
             </button>
           </form>
         </Modal>
+      )}
+      {viewing !== null && viewable[viewing] && (
+        <PhotoViewer
+          photos={viewable}
+          index={viewing}
+          fallbackTitle={selected?.title || "Photograph"}
+          onIndex={setViewing}
+          onClose={() => setViewing(null)}
+        />
       )}
       {photoEditor && (
         <Modal

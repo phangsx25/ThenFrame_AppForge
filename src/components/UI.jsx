@@ -51,6 +51,9 @@ export function Icon({ name = "camera", size = 20 }) {
       </>
     ),
     trash: <path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v6m4-6v6" />,
+    "chevron-left": <path d="m15 5-7 7 7 7" />,
+    "chevron-right": <path d="m9 5 7 7-7 7" />,
+    close: <path d="M6 6l12 12M18 6 6 18" />,
   };
   return (
     <svg
