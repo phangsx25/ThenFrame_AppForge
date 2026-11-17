@@ -31,7 +31,7 @@ export function Header({ auth }) {
         }
       >
         <Icon name="user" size={16} />
-        {auth.session ? "My space" : "Login / Register"}
+        {auth.session ? "My space" : "Login"}
       </a>
     </header>
   );

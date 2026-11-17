@@ -168,6 +168,23 @@ export default function App({ client = supabase }) {
       />
     );
   else if (route === "/") page = <Home client={client} auth={auth} />;
+  else if (route === "/enquire")
+    page = (
+      <>
+        <Header auth={auth} />
+        <main id="main-content" className="page-width route-message">
+          <span className="eyebrow">BOOK YOUR DATE</span>
+          <h1>Coming soon.</h1>
+          <p>
+            Online booking enquiries are still in development. Please check
+            back soon.
+          </p>
+          <a className="primary" href="#/portfolio">
+            Explore the portfolio
+          </a>
+        </main>
+      </>
+    );
   else
     page = (
       <>

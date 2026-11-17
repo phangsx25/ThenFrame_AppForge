@@ -332,11 +332,7 @@ export default function AuthPage({ client, auth, mode = "login" }) {
               </>
             ) : reset ? (
               <a href="#/login">Return to login</a>
-            ) : (
-              <>
-                New to ThenFrame? <a href="#/register">Register</a>
-              </>
-            )}
+            ) : null}
           </p>
           <div className="auth-divider">
             {admin ? (
