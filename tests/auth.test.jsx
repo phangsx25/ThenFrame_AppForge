@@ -237,6 +237,19 @@ describe("auth flows with a mocked Supabase boundary", () => {
     expect(screen.queryByRole("link", { name: /customer|register/i })).not.toBeInTheDocument();
     expect(client.auth.signUp).not.toHaveBeenCalled();
   });
+  it.each([
+    ["/enquire", "BOOK YOUR DATE"],
+    ["/track", "TRACK YOUR BOOKING"],
+  ])("shows a public coming-soon page at %s without logging in", async (path, eyebrow) => {
+    window.location.hash = path;
+    const client = fakeClient();
+    client.auth.getSession.mockResolvedValue({ data: { session: null }, error: null });
+    render(<App client={client} />);
+    expect(await screen.findByRole("heading", { name: "Coming soon." })).toBeVisible();
+    expect(screen.getByText(eyebrow)).toBeVisible();
+    expect(screen.getByRole("link", { name: "Track booking" })).toHaveAttribute("href", "#/track");
+    expect(screen.queryByRole("heading", { name: "Studio Login." })).not.toBeInTheDocument();
+  });
   it.each(["/register", "/dashboard", "/album"])("no longer serves the customer page %s", async (path) => {
     window.location.hash = path;
     const client = fakeClient();

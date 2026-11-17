@@ -12,6 +12,22 @@ import { Header, Workspace } from "./components/Layout";
 import { LaterCard, Notice } from "./components/UI";
 import "./App.css";
 
+// Public placeholder for features planned after the current sprint.
+function ComingSoon({ auth, eyebrow, action, children }) {
+  return (
+    <>
+      <Header auth={auth} />
+      <main id="main-content" className="page-width route-message">
+        <span className="eyebrow">{eyebrow}</span>
+        <h1>Coming soon.</h1>
+        <p>{children}</p>
+        <a className="primary" href={action[0]}>
+          {action[1]}
+        </a>
+      </main>
+    </>
+  );
+}
 function routeFromHash() {
   const hash = window.location.hash;
   const callback = readAuthCallback(window.location);
@@ -175,20 +191,19 @@ export default function App({ client = supabase }) {
   else if (route === "/") page = <Home client={client} auth={auth} />;
   else if (route === "/enquire")
     page = (
-      <>
-        <Header auth={auth} />
-        <main id="main-content" className="page-width route-message">
-          <span className="eyebrow">BOOK YOUR DATE</span>
-          <h1>Coming soon.</h1>
-          <p>
-            Online booking enquiries are still in development. Please check
-            back soon.
-          </p>
-          <a className="primary" href="#/portfolio">
-            Explore the portfolio
-          </a>
-        </main>
-      </>
+      <ComingSoon auth={auth} eyebrow="BOOK YOUR DATE"
+        action={["#/portfolio", "Explore the portfolio"]}>
+        Online booking enquiries are still in development. Please check back
+        soon.
+      </ComingSoon>
+    );
+  else if (route === "/track")
+    page = (
+      <ComingSoon auth={auth} eyebrow="TRACK YOUR BOOKING"
+        action={["#/enquire", "Book your date"]}>
+        Soon you’ll be able to check the progress of your booking with your
+        booking reference, without creating an account.
+      </ComingSoon>
     );
   else
     page = (

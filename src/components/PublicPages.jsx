@@ -146,7 +146,7 @@ export function Home({ client, auth }) {
                 planned for a later sprint.
               </p>
               <span className="pill light-pill">
-                Heritage content · Coming later
+                Heritage guide · Coming soon
               </span>
             </div>
           </div>

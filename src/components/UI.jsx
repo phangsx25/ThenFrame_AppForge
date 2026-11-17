@@ -172,7 +172,7 @@ export function Modal({ title, onClose, children, className = "" }) {
 export function LaterCard({ title, children }) {
   return (
     <section className="later-card">
-      <span className="pill">Planned · Later sprint</span>
+      <span className="pill">Coming soon</span>
       <h3>{title}</h3>
       <p>{children}</p>
     </section>

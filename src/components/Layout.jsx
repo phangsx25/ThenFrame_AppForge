@@ -23,6 +23,7 @@ export function Header({ auth }) {
         <a href="#/portfolio#packages">Packages</a>
         <a href="#/#heritage">Heritage</a>
         <a href="#/#our-story">Our story</a>
+        <a href="#/track">Track booking</a>
       </nav>
       {auth.isAdmin && (
         <a className="account-link" href="#/admin">
