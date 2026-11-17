@@ -91,7 +91,7 @@ consistent public Wedding category labels and irreversible confirmation for
 populated-collection deletion. Its 40 unit tests, lint and build passed locally.
 These changes are not part of this Sprint 2 cleanup branch yet.
 
-### Outstanding acceptance — assigned to QA (Awwab: #52, #58, #60, #61)
+### Outstanding acceptance — assigned to QA (Awwab: #52, #60, #61)
 
 Real customer registration/confirmation, session refresh/logout, password recovery,
 email delivery/redirects, authenticated customer denial paths, JPEG/WebP live uploads,
