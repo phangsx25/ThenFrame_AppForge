@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1020" height="510" viewBox="0 0 1020 510" role="img" aria-labelledby="title desc">
 <title id="title">ThenFrame Sprint 1 Burndown</title>
-<desc id="desc">16 story points across US01 to US04. Dashed ideal line is a calendar-day reference. Actual points come from observed GitHub Done statuses; unavailable historical dates are not plotted.</desc>
+<desc id="desc">16 story points across US01 to US04, burned as subtasks close. Dashed ideal line is a calendar-day reference.</desc>
 <rect width="1020" height="510" rx="16" fill="#fffaf8"/>
 <g font-family="Arial, sans-serif" fill="#35262c">
 <text x="45" y="42" font-size="25" font-weight="bold">ThenFrame / Sprint 1 Burndown</text>
-<text x="45" y="68" font-size="14">5–18 Nov 2026 · 16 points · Done only · Kuala Lumpur time</text>
+<text x="45" y="68" font-size="14">5–18 Nov 2026 · 16 points · 26 subtasks · Kuala Lumpur time</text>
 <line x1="85" y1="370" x2="925" y2="370" stroke="#e7dddf"/>
 <text x="69" y="375" font-size="13" text-anchor="end">0</text>
 <line x1="85" y1="305" x2="925" y2="305" stroke="#e7dddf"/>
@@ -31,17 +31,17 @@
 <text x="925" y="396" font-size="12" text-anchor="middle">18 Nov</text>
 <text x="22" y="258" font-size="13" transform="rotate(-90 22 258)">Remaining story points</text>
 <line x1="85" y1="110" x2="925" y2="370" stroke="#9a9fa8" stroke-width="2.5" stroke-dasharray="8 6"/>
-<line x1="795.7692307692307" y1="110" x2="860.3846153846155" y2="110" stroke="#852d4d" stroke-width="3"/>
-<line x1="860.3846153846155" y1="110" x2="925" y2="370" stroke="#852d4d" stroke-width="3"/>
-<circle cx="666.5384615384615" cy="110" r="6" fill="#852d4d"><title>2026-11-14: 16 points remaining</title></circle>
-<circle cx="795.7692307692307" cy="110" r="6" fill="#852d4d"><title>2026-11-16: 16 points remaining</title></circle>
-<circle cx="860.3846153846155" cy="110" r="6" fill="#852d4d"><title>2026-11-17: 16 points remaining</title></circle>
-<circle cx="925" cy="370" r="6" fill="#852d4d"><title>2026-11-18: 0 points remaining</title></circle>
-<text x="925" y="355" font-size="14" text-anchor="middle" fill="#852d4d">0 remaining</text>
+<polyline points="666.5384615384615,110 731.1538461538462,110 795.7692307692307,331 860.3846153846155,331 925,370" fill="none" stroke="#852d4d" stroke-width="3"/>
+<circle cx="666.5384615384615" cy="110" r="6" fill="#852d4d"><title>2026-11-14: 16 points remaining, 0/26 subtasks closed</title></circle>
+<circle cx="731.1538461538462" cy="110" r="6" fill="#852d4d"><title>2026-11-15: 16 points remaining, 0/26 subtasks closed</title></circle>
+<circle cx="795.7692307692307" cy="331" r="6" fill="#852d4d"><title>2026-11-16: 2.4 points remaining, 22/26 subtasks closed</title></circle>
+<circle cx="860.3846153846155" cy="331" r="6" fill="#852d4d"><title>2026-11-17: 2.4 points remaining, 22/26 subtasks closed</title></circle>
+<circle cx="925" cy="370" r="6" fill="#852d4d"><title>2026-11-18: 0 points remaining, 26/26 subtasks closed</title></circle>
+<text x="880" y="355" font-size="14" text-anchor="middle" fill="#852d4d">0 remaining</text>
 <line x1="85" y1="432" x2="125" y2="432" stroke="#9a9fa8" stroke-width="2.5" stroke-dasharray="8 6"/>
 <text x="135" y="437" font-size="13">Ideal (calendar days; includes weekends/holiday)</text>
 <circle cx="525" cy="432" r="5" fill="#852d4d"/>
-<text x="540" y="437" font-size="13">Actual observations</text>
-<text x="85" y="470" font-size="13">Missing earlier snapshots are left blank. In review / In progress do not count as Done.</text>
-<text x="85" y="490" font-size="12" fill="#756770">Latest observation: 2026-11-18T04:35:08.440Z (UTC)</text>
+<text x="540" y="437" font-size="13">Actual (subtask close dates)</text>
+<text x="85" y="470" font-size="13">Each story's points are split evenly across its subtasks. Days before the first board observation are not plotted.</text>
+<text x="85" y="490" font-size="12" fill="#756770">Latest observation: 2026-11-18T04:47:23.449Z (UTC)</text>
 </g></svg>

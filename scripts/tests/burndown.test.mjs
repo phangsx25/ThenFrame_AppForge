@@ -16,7 +16,7 @@ function fixture(t) {
   });
   mkdirSync(join(root, 'scripts'));
   mkdirSync(join(root, 'docs/sprint-1'), { recursive: true });
-  for (const name of ['update-burndown.mjs', 'read-project.mjs', 'sprint1-stories.mjs']) {
+  for (const name of ['update-burndown.mjs', 'read-project.mjs', 'read-subtasks.mjs', 'sprint1-stories.mjs']) {
     copyFileSync(join(repo, 'scripts', name), join(root, 'scripts', name));
   }
   const sprint1Ids = ['PVTI_lAHOC4Vg684BqIppzhJFVVM', 'PVTI_lAHOC4Vg684BqIppzhJFVnE',
@@ -26,17 +26,21 @@ function fixture(t) {
     title: `US${String(i + 1).padStart(2, '0')} — Story`, status: i < 4 ? 'In review' : 'Backlog',
     content: { url: `https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/${i + 1}` },
   })) };
+  // Two subtasks per story; none closed unless a test closes one.
+  const subtasks = ['US01', 'US01', 'US02', 'US02', 'US03', 'US03', 'US04', 'US04']
+    .map((story, i) => ({ story, number: 100 + i, closedAt: null }));
   const run = (date = '2026-11-14T12:00:00Z') => {
     writeFileSync(join(root, 'board.json'), JSON.stringify(board));
+    writeFileSync(join(root, 'subtasks.json'), JSON.stringify(subtasks));
     // Freeze the test process and inherited child-process clock.
     const clock = join(root, 'clock.mjs');
     writeFileSync(clock, `const OriginalDate = Date; globalThis.Date = class extends OriginalDate { constructor(...args) { super(...(args.length ? args : [${JSON.stringify(date)}])); } static now() { return new OriginalDate(${JSON.stringify(date)}).getTime(); } };`);
-    return spawnSync(process.execPath, [join(root, 'scripts/update-burndown.mjs'), '--input', join(root, 'board.json')], {
+    return spawnSync(process.execPath, [join(root, 'scripts/update-burndown.mjs'), '--input', join(root, 'board.json'), '--subtasks', join(root, 'subtasks.json')], {
       encoding: 'utf8', env: { ...process.env, NODE_OPTIONS: `--import=${pathToFileURL(clock).href}` },
     });
   };
   const read = name => readFileSync(join(root, 'docs/sprint-1', name), 'utf8');
-  return { board, run, read };
+  return { board, subtasks, run, read };
 }
 
 test('same-day unchanged sync is idempotent; Done and reopened cards update remaining points', t => {
@@ -78,5 +82,27 @@ test('after Sprint 1 ends burndown history is frozen', t => {
   f.board.items[0].status = 'Done';
   const result = f.run('2026-11-19T12:00:00Z');
   assert.equal(result.status, 0, result.stderr);
+  assert.equal(f.read('sprint1-burndown.json'), history);
+});
+
+test('closed subtasks burn their share of story points on their close date', t => {
+  const f = fixture(t);
+  f.subtasks[4].closedAt = '2026-11-15T02:00:00Z'; // US03 half: 2.5 points
+  f.subtasks[0].closedAt = '2026-11-15T17:30:00Z'; // US01 half, 16 Nov in Kuala Lumpur: 1.5 points
+  const result = f.run('2026-11-16T12:00:00Z');
+  assert.equal(result.status, 0, result.stderr);
+  const history = JSON.parse(f.read('sprint1-burndown.json'));
+  assert.deepEqual(history.subtaskBurndown.map(p => [p.date, p.remainingPoints]),
+    [['2026-11-16', 12]]);
+  assert.equal(history.subtaskBurndown.at(-1).closedSubtasks, 2);
+  assert.match(f.read('sprint1-burndown.svg'), /12 remaining/);
+});
+
+test('a story without subtasks fails without saving', t => {
+  const f = fixture(t);
+  assert.equal(f.run().status, 0);
+  const history = f.read('sprint1-burndown.json');
+  f.subtasks.splice(6, 2);
+  assert.notEqual(f.run('2026-11-14T15:00:00Z').status, 0);
   assert.equal(f.read('sprint1-burndown.json'), history);
 });

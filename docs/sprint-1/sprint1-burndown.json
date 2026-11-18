@@ -230,5 +230,170 @@
         }
       ]
     }
+  ],
+  "method": "Story points split evenly across each story's subtasks; a subtask burns its share on the day it is closed (Kuala Lumpur time).",
+  "subtasks": [
+    {
+      "story": "US01",
+      "number": 36,
+      "closedAt": "2026-11-16T08:45:26Z"
+    },
+    {
+      "story": "US01",
+      "number": 37,
+      "closedAt": "2026-11-16T08:45:46Z"
+    },
+    {
+      "story": "US01",
+      "number": 38,
+      "closedAt": "2026-11-16T08:46:09Z"
+    },
+    {
+      "story": "US01",
+      "number": 39,
+      "closedAt": "2026-11-16T08:46:32Z"
+    },
+    {
+      "story": "US01",
+      "number": 40,
+      "closedAt": "2026-11-16T08:46:55Z"
+    },
+    {
+      "story": "US02",
+      "number": 41,
+      "closedAt": "2026-11-16T08:47:17Z"
+    },
+    {
+      "story": "US02",
+      "number": 42,
+      "closedAt": "2026-11-16T08:47:42Z"
+    },
+    {
+      "story": "US02",
+      "number": 43,
+      "closedAt": "2026-11-16T08:48:04Z"
+    },
+    {
+      "story": "US02",
+      "number": 44,
+      "closedAt": "2026-11-16T08:48:31Z"
+    },
+    {
+      "story": "US02",
+      "number": 45,
+      "closedAt": "2026-11-16T08:48:57Z"
+    },
+    {
+      "story": "US03",
+      "number": 46,
+      "closedAt": "2026-11-16T08:49:20Z"
+    },
+    {
+      "story": "US03",
+      "number": 47,
+      "closedAt": "2026-11-16T08:49:44Z"
+    },
+    {
+      "story": "US03",
+      "number": 48,
+      "closedAt": "2026-11-16T08:50:09Z"
+    },
+    {
+      "story": "US03",
+      "number": 49,
+      "closedAt": "2026-11-16T08:50:35Z"
+    },
+    {
+      "story": "US03",
+      "number": 50,
+      "closedAt": "2026-11-16T08:51:02Z"
+    },
+    {
+      "story": "US03",
+      "number": 51,
+      "closedAt": "2026-11-16T08:51:24Z"
+    },
+    {
+      "story": "US03",
+      "number": 52,
+      "closedAt": "2026-11-18T04:34:31Z"
+    },
+    {
+      "story": "US04",
+      "number": 53,
+      "closedAt": "2026-11-16T08:52:04Z"
+    },
+    {
+      "story": "US04",
+      "number": 54,
+      "closedAt": "2026-11-16T08:52:30Z"
+    },
+    {
+      "story": "US04",
+      "number": 55,
+      "closedAt": "2026-11-16T08:52:53Z"
+    },
+    {
+      "story": "US04",
+      "number": 56,
+      "closedAt": "2026-11-16T08:53:12Z"
+    },
+    {
+      "story": "US04",
+      "number": 57,
+      "closedAt": "2026-11-16T08:53:34Z"
+    },
+    {
+      "story": "US01",
+      "number": 58,
+      "closedAt": "2026-11-18T04:34:36Z"
+    },
+    {
+      "story": "US04",
+      "number": 59,
+      "closedAt": "2026-11-16T08:54:05Z"
+    },
+    {
+      "story": "US02",
+      "number": 60,
+      "closedAt": "2026-11-18T04:34:40Z"
+    },
+    {
+      "story": "US04",
+      "number": 61,
+      "closedAt": "2026-11-18T04:34:43Z"
+    }
+  ],
+  "subtaskBurndown": [
+    {
+      "date": "2026-11-14",
+      "closedSubtasks": 0,
+      "completedPoints": 0,
+      "remainingPoints": 16
+    },
+    {
+      "date": "2026-11-15",
+      "closedSubtasks": 0,
+      "completedPoints": 0,
+      "remainingPoints": 16
+    },
+    {
+      "date": "2026-11-16",
+      "closedSubtasks": 22,
+      "completedPoints": 13.6,
+      "remainingPoints": 2.4
+    },
+    {
+      "date": "2026-11-17",
+      "closedSubtasks": 22,
+      "completedPoints": 13.6,
+      "remainingPoints": 2.4
+    },
+    {
+      "date": "2026-11-18",
+      "closedSubtasks": 26,
+      "completedPoints": 16,
+      "remainingPoints": 0
+    }
   ]
 }
