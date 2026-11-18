@@ -2,7 +2,7 @@
 
 ## Overview
 
-ThenFrame's product backlog covers US01–US12, their priorities, estimates, dependencies and four-sprint delivery plan. The MVP includes US01–US07.
+ThenFrame's product backlog covers US01–US12, their priorities, estimates, dependencies and four-sprint delivery plan. The MVP includes US02–US07. US01 was retired on 18 November 2026 after the Sprint 1 review (see [Sprint 1 refinement](sprint-1/sprint1-refinement.md#refinement-2--18-november-2026-after-the-sprint-1-user-review)).
 
 Use the sprint documents for detailed requirements and tasks (Sprint 1 tasks are role-based: Frontend — Munif, Ezz; Backend — Naqyuddin, Phang; QA — Awwab; setup [#35](https://github.com/phangsx25/ThenFrame_AppForge/issues/35)), [GitHub Projects](https://github.com/users/phangsx25/projects/1) for current ownership and status, and [VERIFICATION.md](VERIFICATION.md) for implementation and test evidence.
 
@@ -16,7 +16,7 @@ Partner: ThenFrame Photography Studio; contact: Encik Izzudin, studio owner, via
 | --- | --- | --- |
 | INT01 | Written owner interview in the “ThenFrame AD Stakeholder” WhatsApp group, 28 October 2026 | Manual booking, communication, photo organization and final delivery take too much time. Supports US03, US05–US06 and US08–US09. Consultation scheduling and confirmation are included in US06. |
 | OBS01 | Planned studio observation on 19 November 2026 in the supplied refinement; partner availability remains to be confirmed | Pending. Record response/delivery baselines and verify actual tools; findings may change US05–US06 ordering. |
-| ASM01 | Team assumption, not confirmed in INT01 | Customer accounts, public browsing, AI summaries, AI FAQ and customer feedback need owner validation at Sprint 1 Review. |
+| ASM01 | Team assumption, not confirmed in INT01 | Customer accounts were not confirmed: at the Sprint 1 user review (17 November 2026) the studio manager said a wedding is usually booked once, so customers do not need an account, and US01 was retired. Public browsing was demonstrated; AI summaries, AI FAQ and customer feedback still need owner validation. |
 | ASM02 | S02 assumption, not confirmed in INT01 | WhatsApp, calls, Google Drive and hard disks are assumed current tools; verify through OBS01. |
 | SULAM01 | Course community objective | Supports US07; course goal rather than partner evidence. |
 
@@ -33,7 +33,7 @@ Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative 
 
 | Order / ID | Feature | Priority | Points | Planned sprint | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| 1 / US01 | Customer registration and login | Must | 3 | 1 | ASM01 |
+| 1 / US01 | Customer registration and login (**retired 18 Nov 2026** after the Sprint 1 review) | Retired | 3 | 1 | ASM01 |
 | 2 / US02 | Secure administrator login | Must | 3 | 1 | Security assumption |
 | 3 / US03 | Gallery upload and management | Must | 5 | 1 | INT01 |
 | 4 / US04 | Public portfolio browsing | Must | 5 | 1 | ASM01 |
@@ -46,11 +46,11 @@ Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative 
 | 11 / US11 | AI FAQ assistant | Could | 5 | 4 | ASM01 |
 | 12 / US12 | Customer ratings and feedback | Could | 3 | 4 | ASM01 |
 
-**Refined forecast:** 12 stories, 64 points: Sprint 1 = 16, Sprint 2 = 19, Sprint 3 = 16, Sprint 4 = 13. These are planned estimates, not completed or committed work. US05 is allocated to Sprint 2; its earlier 1–2 label is superseded.
+**Refined forecast:** 12 stories, 64 points: Sprint 1 = 16, Sprint 2 = 19, Sprint 3 = 16, Sprint 4 = 13. These are planned estimates, not completed or committed work. US01's 3 points stay in the Sprint 1 total as historical work; it is retired and will not be developed further. US05 is allocated to Sprint 2; its earlier 1–2 label is superseded.
 
 ### User stories
 
-- **US01:** As a newlywed couple or new user, I want to register a secure account and log in, so that my personal details and booking history are saved and tracked.
+- **US01:** As a newlywed couple or new user, I want to register a secure account and log in, so that my personal details and booking history are saved and tracked. *(Retired 18 November 2026 after the Sprint 1 review: customers book without an account.)*
 - **US02:** As a ThenFrame studio admin, I want to log in securely with administrator credentials, so that I can access the backend dashboard without unauthorized users breaking in.
 - **US03:** As a ThenFrame studio admin, I want to upload and manage wedding photos in the gallery, so that I can organize and display my photography collections online.
 - **US04:** As a visitor or newlywed couple, I want to browse wedding events and collections, so that I can find ideas for my wedding before deciding to book.
@@ -290,7 +290,7 @@ US05–US07 follow the supplied refinement. Approval and task allocation remain 
 
 ## MVP scope and validation
 
-**Included MVP:** US01–US07. Customers browse collections, register/log in, specify services, event details and preferences, select available package options if supplied, submit an enquiry and receive confirmation after consultation. Admins log in, manage galleries, review enquiries, check availability, schedule consultations and confirm bookings. Package options are included only when provided by the studio; an admin package-catalogue editor is not an agreed requirement. Visitors can access the Malay wedding heritage guide without logging in.
+**Included MVP:** US02–US07 (US01 retired 18 November 2026). Customers browse collections without an account, specify services, event details and preferences, select available package options if supplied, submit an enquiry and receive confirmation after consultation. Admins log in, manage galleries, review enquiries, check availability, schedule consultations and confirm bookings. Package options are included only when provided by the studio; an admin package-catalogue editor is not an agreed requirement. Visitors can access the Malay wedding heritage guide without logging in.
 
 **Deferred beyond MVP:** US08–US09 (private albums, selection and download in Sprint 3), US10 (AI enquiry summaries), US11 (FAQ assistant) and US12 (ratings/feedback) in Sprint 4. Deferred does not mean removed from the backlog.
 
@@ -305,9 +305,9 @@ US05–US07 follow the supplied refinement. Approval and task allocation remain 
 
 Enquiry response time and photo delivery time targets must be agreed after OBS01 baseline collection.
 
-Partner validation plan: calendar schedules user review/feedback on 17 November, internal Sprint Review on 18 November and class demos on 19–20 November 2026; partner participation and OBS01 timing remain to be confirmed; MVP demonstration after Sprint 2; studio testing of gallery/booking management; simulated enquiries and consultations; interviews/usability feedback; improvements ordered by partner feedback. Collect community feedback on the heritage guide during Sprint 2. These are proposed activities subject to partner availability/agreement, not recorded completed events.
+Partner validation: the Sprint 1 user review with the studio manager took place online on 17 November 2026 (see [Sprint 1 user review](sprint-1/sprint1-user-review.md)); the class demo is on 20 November 2026; OBS01 timing remains to be confirmed. Planned next: MVP demonstration after Sprint 2; studio testing of gallery/booking management; simulated enquiries and consultations; interviews/usability feedback; improvements ordered by partner feedback. Collect community feedback on the heritage guide during Sprint 2. Apart from the 17 November review, these are proposed activities subject to partner availability/agreement.
 
-Feasibility requirements: desktop/mobile browser access, development/test environment before public deployment, customer/admin roles, secure authentication, restricted management access, protection of customer information/private photos, advance coordination of partner sessions and core booking before AI/advanced photo management.
+Feasibility requirements: desktop/mobile browser access, development/test environment before public deployment, an admin role (no customer accounts since US01 was retired), secure authentication, restricted management access, protection of customer information/private photos, advance coordination of partner sessions and core booking before AI/advanced photo management.
 
 ## Four-sprint schedule
 
@@ -315,7 +315,7 @@ Sprint 2 includes a one-week holiday extension. Sprints 3 and 4 each run for two
 
 | Sprint | Current dates | Stories | Usable increment / review |
 | --- | --- | --- | --- |
-| 1 | 5–18 November 2026 | US01–US04 | Registration/login, admin upload/collections and public portfolio. |
+| 1 | 5–18 November 2026 | US01–US04 | Admin login, upload/collections and public portfolio; customer registration built, then retired after the review. |
 | 2 | 19 November–9 December 2026 | US05–US07 | Enquiries, booking/consultation management and heritage education. |
 | 3 | 10–23 December 2026 | US08–US09 | Private client albums, customer photo selection and final download. |
 | 4 | 24 December 2026–6 January 2027 | US10–US12 | AI enquiry summaries, AI FAQ and customer ratings/feedback. |
@@ -332,13 +332,13 @@ Selected scope: US01–US04, 16 points. Setup/database work belongs within US01/
 | 16 November | Testing and refinement. |
 | 17 November | User review and feedback; video recording required. |
 | 18 November | Sprint end, internal Sprint Review and finalize MVP (calendar wording). |
-| 19 and 20 November, 08:00–10:00 | Sprint 1 class demo and presentation, after Sprint 1 ends; Sprint 2 begins 19 November. |
+| 20 November, 08:00–11:30 | Sprint 1 class demo and presentation on the live site, after Sprint 1 ends; Sprint 2 begins 19 November. |
 
-The calendar's “finalize MVP” wording does not change the product MVP boundary of US01–US07 across Sprints 1–2. User review, partner attendance and acceptance are planned activities, not completed evidence.
+The calendar's “finalize MVP” wording does not change the product MVP boundary of US01–US07 across Sprints 1–2. The user review took place on 17 November 2026; acceptance testing is still in progress (see [Sprint 1 test report](sprint-1/sprint1-test-report.md)).
 
 Calendar routine: daily stand-up of 10–15 minutes; working dates listed are 5–6, 10, 12–13 and 16–18 November. Backlog refinement is scheduled on 11 November. Maintain Kanban and burndown/up regularly.
 
-Burndown starts at 16 points; only fully Done stories burn points. Scrum Master updates after each Daily Scrum. New requirements/partner suggestions enter the product backlog; in-sprint scope changes require Product Owner agreement and a dated change log with change/reason. A separate retrospective follows review; its exact date is not specified in the supplied calendar.
+Burndown starts at 16 points. Since 18 November 2026, each story's points are split evenly across its subtasks and burn on the day each subtask is closed, so the chart shows progress within a story (see [Sprint 1 burndown](sprint-1/sprint1-burndown.md)). Scrum Master updates after each Daily Scrum. New requirements/partner suggestions enter the product backlog; in-sprint scope changes require Product Owner agreement and a dated change log with change/reason. A separate retrospective follows review; its exact date is not specified in the supplied calendar.
 
 ### Definition of Done
 
@@ -386,7 +386,8 @@ Customers and admins use a unique username and password. Usernames have 3–40 c
 - **US08–US12:** detail templates remain pending refinement.
 - **US03 upload acceptance:** verify JPG/JPEG, PNG and WebP uploads at or below 8 MB, and rejection of unsupported formats and files above 8 MB.
 - **Test framework:** use Vitest and actual manual/integration checks for this React/Vite project; the earlier Pest reference is superseded.
-- **Partner validation:** confirm observation and review sessions, and use findings to refine the backlog.
+- **Partner validation:** the 17 November review is done; confirm the OBS01 observation and use findings to refine the backlog.
+- **Customer features without accounts (US09, US12):** with US01 retired, decide at Sprint 2 planning how customers open private albums and leave feedback, for example with a booking reference or access code.
 
 Record approved scope changes and their reasons in the relevant sprint refinement document.
 
@@ -403,4 +404,6 @@ The contributor supplied a refined backlog dated 11 November 2026. Local documen
 | US08 | US10 | AI summaries in Sprint 4; 5 points, Must. |
 | US11–US12 | US11–US12 | Retain FAQ and feedback in Sprint 4. |
 
-Sprint 1 remains US01–US04. Retain subsequent agreed details: username-only login, 8 MB image limit, event-type portfolio filtering and Latest Work. Historical evidence may use previous IDs; interpret it using this mapping. GitHub Projects was aligned on 16 November 2026: 12 active stories and 64 points, matching story details, priorities, estimates, planned sprint dates and order. US01–US04 remain In review, US05 and US06 are In progress, and US07–US12 remain Backlog. US06 development is on sprint-2-us06-booking-management, created from the US05 branch; it is not merged into main. The superseded standalone consultation issue is closed as not planned and removed from the board; its scope is included in US06. Issue numbers remain unchanged to preserve history.
+Sprint 1 remains US01–US04. Retain subsequent agreed details: username-only login, 8 MB image limit, event-type portfolio filtering and Latest Work. Historical evidence may use previous IDs; interpret it using this mapping. GitHub Projects was aligned on 16 November 2026: 12 active stories and 64 points, matching story details, priorities, estimates, planned sprint dates and order. At that time US01–US04 were In review, US05 and US06 were In progress, and US07–US12 remain Backlog. US06 development is on sprint-2-us06-booking-management, created from the US05 branch; it is not merged into main. The superseded standalone consultation issue is closed as not planned and removed from the board; its scope is included in US06. Issue numbers remain unchanged to preserve history.
+
+**Update 18 November 2026 (after the Sprint 1 review):** US01–US04 are Done on the Kanban and all 26 Sprint 1 subtasks are closed. US01 is retired and customer accounts were removed from the website; the review changes are recorded in [Sprint 1 refinement](sprint-1/sprint1-refinement.md#refinement-2--18-november-2026-after-the-sprint-1-user-review) and [#75](https://github.com/phangsx25/ThenFrame_AppForge/issues/75).
