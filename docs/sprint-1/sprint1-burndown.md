@@ -8,13 +8,13 @@ Sprint: **5–18 November 2026**. Baseline: **16 story points** from US01–US04
 
 | Story | Points | Status | Completed points |
 | --- | --- | --- | --- |
-| [US01](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/1) | 3 | Review / Test | 0 |
-| [US02](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/2) | 3 | Review / Test | 0 |
-| [US03](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/3) | 5 | Review / Test | 0 |
-| [US04](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/4) | 5 | Review / Test | 0 |
-| **Total** | **16** | | **0** |
+| [US01](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/1) | 3 | Done | 3 |
+| [US02](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/2) | 3 | Done | 3 |
+| [US03](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/3) | 5 | Done | 5 |
+| [US04](https://github.com/phangsx25/AppDev_G03_AppForge_ThenFrame/issues/4) | 5 | Done | 5 |
+| **Total** | **16** | | **16** |
 
-**Remaining: 16 points.** In Progress and Review / Test do not burn points. A flat actual result does not mean no development occurred: whole-story completion is counted only when the card reaches Done. The chart reads board status; it does not independently certify acceptance criteria.
+**Remaining: 0 points.** In Progress and Review / Test do not burn points. A flat actual result does not mean no development occurred: whole-story completion is counted only when the card reaches Done. The chart reads board status; it does not independently certify acceptance criteria.
 
 ## Daily observations
 
@@ -23,7 +23,7 @@ Sprint: **5–18 November 2026**. Baseline: **16 story points** from US01–US04
 | 2026-11-14 | 0 | 16 |
 | 2026-11-16 | 0 | 16 |
 | 2026-11-17 | 0 | 16 |
-| 2026-11-18 | 0 | 16 |
+| 2026-11-18 | 16 | 0 |
 
 Earlier daily values are unknown, so no historical actual values are invented. The dashed ideal line declines linearly from 16 to 0 over calendar days, including weekends and the holiday; it is a reference, not reported work. Missing observations are not interpolated. Future actual progress is not plotted.
 
