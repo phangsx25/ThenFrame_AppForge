@@ -1,38 +1,39 @@
 # Sprint 1 — Test Report
 
 **Scope:** US01–US04, 5–18 November 2026.
-**Status:** 9 criteria passed by system tests. 12 criteria need a manual test on the live site; their result columns are blank until QA (Awwab) fills them in: US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61). 5 criteria (US01) no longer apply after the Sprint 1 review.
+**Status:** 9 criteria passed by automated checks. 12 criteria need a manual test on the live site; their result columns are blank until QA (Awwab) fills them in: US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61). 5 criteria (US01) no longer apply after the Sprint 1 review.
 **Requirements:** [Sprint 1 stories](sprint1-user-story.md). Existing historical checks and their limits remain in [VERIFICATION.md](../VERIFICATION.md); this template does not reset or replace those records.
 
 Work progress and responsibility are recorded in the [shared daily log](../daily-log.md). This report records test steps, actual outcomes, defects and retest evidence.
 
 ## Two kinds of testing
 
-This project uses Vitest and manual testing. They answer different questions, and this report keeps them apart.
-
-| | Automated tests | Acceptance tests |
+| | Automated tests | Manual tests |
 | --- | --- | --- |
-| Who runs them | The computer: Vitest, with `npm test`, locally and in the GitHub **verify** check on every pull request | A person, in a real browser or on a phone |
-| What they check | Application logic, such as validation, access guards and upload rules, using simulated backend responses | Each user story’s acceptance criteria, end to end, on the deployed app |
-| Where results are recorded | [Automated tests](#automated-tests) and [System tests](#system-tests) | The manual test tables under each user story |
-| Current result | 74 Vitest tests and 5 burndown script tests pass | 9 Pass (system tests), 12 waiting for manual testing, 5 no longer apply (US01) |
-
-Automated tests and system tests are recorded once, in their own sections. The tables under each user story list only the criteria that need a person to test them on the live site; fill in Actual result, Status (Pass or Fail), Tester and Date after testing.
+| Who runs them | The computer: Vitest, lint and build in the GitHub verify check, plus scripted checks against the live database | A person, in a real browser or on a phone |
+| What they check | Code logic, access rules and upload rules | What a user sees and does on the live site |
+| Where results are recorded | [Automated tests](#automated-tests) | The manual test tables under each user story |
+| Current result | All checks pass; 9 acceptance criteria passed | 12 criteria waiting to be tested; 5 (US01) no longer apply |
 
 ## Test session
 
-| Field | Value |
-| --- | --- |
-| Actual execution date / time | 14 November 2026 (Asia/Kuala_Lumpur); exact manual test time not recorded |
-| Tester(s) | Phang (live recovery confirmation); automated checks performed during the fix. Remaining acceptance cases: Awwab (QA) — US02 #60, US03 #52, US04 #61 |
-| Branch / commit / deployment URL | main / `05a51549ef40c8b97a0364f24e20f267eb720059` / https://then-frame-app-forge.vercel.app |
-| Browser / device / viewport | Automated browser checks: headless Microsoft Edge; manual browser/device not recorded |
-| Environment and test account roles | Production user recovery flow (manual); synthetic customer and intercepted Auth/profile responses (browser regression) |
-| Test data and cleanup plan | Automated checks used synthetic credentials and did not send real emails or change real account passwords. Manual test used a fresh reset email; no reset links or credentials retained here. |
+| | Automated tests | Manual tests |
+| --- | --- | --- |
+| Date | 14–18 November 2026 | To be filled in by the tester |
+| Tester | Phang | Awwab (QA): US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61) |
+| Where | Local machine and GitHub verify check; scripted checks against the live database | Live site: https://then-frame-app-forge.vercel.app |
+| Browser / device | Headless Microsoft Edge for browser checks | To be filled in (one phone and one laptop) |
+| Test data | Temporary records, removed after each check; no real emails sent | Create test collections as needed, then delete them so the demo shows no test data |
 
-Tests are grouped by user story and reference the numbered acceptance criteria in the story document. Record actual execution dates and testers for each case; leave a manual row blank until it has been tested.
+Each manual row stays blank until it has been tested. Record Pass or Fail, the tester and the date.
 
 ## Automated tests
+
+Run by the computer, no person clicking through the site.
+
+### Code checks
+
+Run on every change, locally and in the GitHub verify check.
 
 | Command / check | Actual date and commit | Result | Evidence |
 | --- | --- | --- | --- |
@@ -48,9 +49,9 @@ Previous record: on 17 November 2026 (`774e2eb`) lint, 74 Vitest tests, 3 burndo
 
 Earlier record: on 14 November 2026 (`05a5154`) lint, 46 tests across 4 files and the build passed ([Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43609938325)).
 
-## System tests
+### Acceptance criteria passed by automated checks
 
-These acceptance criteria were checked with scripted tests against the live database and website, or with unit tests, during development. They need no manual test.
+These criteria were checked during development with scripts against the live database and website, or with unit tests. They need no manual test.
 
 | Test ID | What was checked | Result | Status | Date |
 | --- | --- | --- | --- | --- |
@@ -124,7 +125,7 @@ Requirements: [US02 acceptance criteria](sprint1-user-story.md#us02--administrat
 
 ### Manual tests
 
-Already passed by system tests: US02-AC04, US02-AC06 (see [System tests](#system-tests)).
+Already passed by automated checks: US02-AC04, US02-AC06 (see [Automated tests](#automated-tests)).
 
 | Test ID | Steps | Expected result | Actual result | Status | Tester | Date |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -139,7 +140,7 @@ Requirements: [US03 acceptance criteria](sprint1-user-story.md#us03--gallery-man
 
 ### Manual tests
 
-Already passed by system tests: US03-AC01, US03-AC02, US03-AC03, US03-AC07 (see [System tests](#system-tests)).
+Already passed by automated checks: US03-AC01, US03-AC02, US03-AC03, US03-AC07 (see [Automated tests](#automated-tests)).
 
 | Test ID | Steps | Expected result | Actual result | Status | Tester | Date |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -153,7 +154,7 @@ Requirements: [US04 acceptance criteria](sprint1-user-story.md#us04--public-port
 
 ### Manual tests
 
-Already passed by system tests: US04-AC01, US04-AC04, US04-AC07 (see [System tests](#system-tests)).
+Already passed by automated checks: US04-AC01, US04-AC04, US04-AC07 (see [Automated tests](#automated-tests)).
 
 | Test ID | Steps | Expected result | Actual result | Status | Tester | Date |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -178,7 +179,7 @@ Already passed by system tests: US04-AC01, US04-AC04, US04-AC07 (see [System tes
 
 ## Session outcome
 
-- Acceptance criteria: 9 passed by system tests; 12 waiting for manual testing on the live site (blank rows in the US02–US04 tables); 5 no longer apply because US01 was retired. Recovery checks (US01 record): 4 passed, 1 not run.
+- Acceptance criteria: 9 passed by automated checks; 12 waiting for manual testing on the live site (blank rows in the US02–US04 tables); 5 no longer apply because US01 was retired. Recovery checks (US01 record): 4 passed, 1 not run.
 - Remaining risks and limitations: real new-password login and old-password rejection are not yet confirmed. Mocked API success does not establish a real server-side password update.
 - Test-data cleanup result: automated browser checks created no live accounts, sent no emails and made no real password changes. No shared recovery link was redeemed by the agent.
 - Acceptance decision and reviewer: TBD; passing tests alone does not establish the full Definition of Done.
