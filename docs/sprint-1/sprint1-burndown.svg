@@ -16,28 +16,28 @@
 <line x1="85" y1="110" x2="925" y2="110" stroke="#e7dddf"/>
 <text x="69" y="115" font-size="13" text-anchor="end">16</text>
 <text x="85" y="396" font-size="12" text-anchor="middle">05 Nov</text>
-<text x="925" y="396" font-size="12" text-anchor="middle">06 Nov</text>
-<text x="1765" y="396" font-size="12" text-anchor="middle">07 Nov</text>
-<text x="2605" y="396" font-size="12" text-anchor="middle">08 Nov</text>
-<text x="3445" y="396" font-size="12" text-anchor="middle">09 Nov</text>
-<text x="4285" y="396" font-size="12" text-anchor="middle">10 Nov</text>
-<text x="5125" y="396" font-size="12" text-anchor="middle">11 Nov</text>
-<text x="5965" y="396" font-size="12" text-anchor="middle">12 Nov</text>
-<text x="6805" y="396" font-size="12" text-anchor="middle">13 Nov</text>
-<text x="7645" y="396" font-size="12" text-anchor="middle">14 Nov</text>
-<text x="8485" y="396" font-size="12" text-anchor="middle">15 Nov</text>
-<text x="9325" y="396" font-size="12" text-anchor="middle">16 Nov</text>
-<text x="10165" y="396" font-size="12" text-anchor="middle">17 Nov</text>
-<text x="11005" y="396" font-size="12" text-anchor="middle">18 Nov</text>
+<text x="149.6153846153846" y="396" font-size="12" text-anchor="middle">06 Nov</text>
+<text x="214.23076923076923" y="396" font-size="12" text-anchor="middle">07 Nov</text>
+<text x="278.84615384615387" y="396" font-size="12" text-anchor="middle">08 Nov</text>
+<text x="343.46153846153845" y="396" font-size="12" text-anchor="middle">09 Nov</text>
+<text x="408.0769230769231" y="396" font-size="12" text-anchor="middle">10 Nov</text>
+<text x="472.69230769230774" y="396" font-size="12" text-anchor="middle">11 Nov</text>
+<text x="537.3076923076923" y="396" font-size="12" text-anchor="middle">12 Nov</text>
+<text x="601.9230769230769" y="396" font-size="12" text-anchor="middle">13 Nov</text>
+<text x="666.5384615384615" y="396" font-size="12" text-anchor="middle">14 Nov</text>
+<text x="731.1538461538462" y="396" font-size="12" text-anchor="middle">15 Nov</text>
+<text x="795.7692307692307" y="396" font-size="12" text-anchor="middle">16 Nov</text>
+<text x="860.3846153846155" y="396" font-size="12" text-anchor="middle">17 Nov</text>
+<text x="925" y="396" font-size="12" text-anchor="middle">18 Nov</text>
 <text x="22" y="258" font-size="13" transform="rotate(-90 22 258)">Remaining story points</text>
-<line x1="85" y1="110" x2="11005" y2="370" stroke="#9a9fa8" stroke-width="2.5" stroke-dasharray="8 6"/>
-<line x1="9325" y1="110" x2="10165" y2="110" stroke="#852d4d" stroke-width="3"/>
-<line x1="10165" y1="110" x2="11005" y2="370" stroke="#852d4d" stroke-width="3"/>
-<circle cx="7645" cy="110" r="6" fill="#852d4d"><title>2026-11-14: 16 points remaining</title></circle>
-<circle cx="9325" cy="110" r="6" fill="#852d4d"><title>2026-11-16: 16 points remaining</title></circle>
-<circle cx="10165" cy="110" r="6" fill="#852d4d"><title>2026-11-17: 16 points remaining</title></circle>
-<circle cx="11005" cy="370" r="6" fill="#852d4d"><title>2026-11-18: 0 points remaining</title></circle>
-<text x="11005" y="355" font-size="14" text-anchor="middle" fill="#852d4d">0 remaining</text>
+<line x1="85" y1="110" x2="925" y2="370" stroke="#9a9fa8" stroke-width="2.5" stroke-dasharray="8 6"/>
+<line x1="795.7692307692307" y1="110" x2="860.3846153846155" y2="110" stroke="#852d4d" stroke-width="3"/>
+<line x1="860.3846153846155" y1="110" x2="925" y2="370" stroke="#852d4d" stroke-width="3"/>
+<circle cx="666.5384615384615" cy="110" r="6" fill="#852d4d"><title>2026-11-14: 16 points remaining</title></circle>
+<circle cx="795.7692307692307" cy="110" r="6" fill="#852d4d"><title>2026-11-16: 16 points remaining</title></circle>
+<circle cx="860.3846153846155" cy="110" r="6" fill="#852d4d"><title>2026-11-17: 16 points remaining</title></circle>
+<circle cx="925" cy="370" r="6" fill="#852d4d"><title>2026-11-18: 0 points remaining</title></circle>
+<text x="925" y="355" font-size="14" text-anchor="middle" fill="#852d4d">0 remaining</text>
 <line x1="85" y1="432" x2="125" y2="432" stroke="#9a9fa8" stroke-width="2.5" stroke-dasharray="8 6"/>
 <text x="135" y="437" font-size="13">Ideal (calendar days; includes weekends/holiday)</text>
 <circle cx="525" cy="432" r="5" fill="#852d4d"/>

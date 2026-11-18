@@ -56,7 +56,7 @@ const snapshots = [...latestByDate.values()].sort((a, b) => a.date.localeCompare
 const dayMs = 86400000;
 const dateMs = value => Date.parse(`${value}T00:00:00Z`);
 const days = (dateMs(end) - dateMs(start)) / dayMs;
-const x = date => 85 + ((dateMs(date) - dateMs(start)) / dayMs) * 840;
+const x = date => 85 + ((dateMs(date) - dateMs(start)) / dayMs / days) * 840;
 const y = value => 370 - (value / total) * 260;
 const escape = value => String(value).replace(/[&<>"']/g, char => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;',
