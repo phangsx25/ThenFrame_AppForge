@@ -17,7 +17,7 @@ This project uses Vitest and manual testing. They answer different questions, an
 | Where results are recorded | [Automated checks](#automated-checks) | The acceptance tables under each user story |
 | Current result | 74 Vitest tests and 5 burndown script tests pass | 9 Pass (system tests), 12 waiting for manual testing, 5 no longer apply (US01) |
 
-In the US02–US04 tables, **Type** says how each criterion is tested. **System test** rows were checked by automated or scripted checks against the live backend, and their results are filled in. **Manual** rows need a person on the live site; fill in Actual result, Status (Pass or Fail), Tester and Date after testing.
+In the US02–US04 tables, each criterion shows both kinds of evidence. **System test result** records automated or scripted checks against the live backend. **Manual test result** is for a person testing on the live site. Criteria fully covered by system tests are marked Pass with "Not required" for the manual test. The other 12 have a blank manual result and Status until QA tests them; Status is then Pass or Fail.
 
 ## Test session
 
@@ -92,14 +92,14 @@ Requirements: [US02 acceptance criteria](sprint1-user-story.md#us02--administrat
 
 ### Acceptance test results
 
-| Test ID | Steps | Expected result | Type | Actual result | Status | Tester | Date |
+| Test ID | Steps | Expected result | System test result | Manual test result | Status | Tester | Date |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| US02-AC01 | Log in on the studio login page with the studio username and password. | Authorized admins log in with their username and password. | Manual |  |  |  |  |
-| US02-AC02 | Log in as admin and observe the landing page. | Successful admin login opens the studio dashboard. | Manual |  |  |  |  |
-| US02-AC03 | Enter a wrong password on the studio login page. | Incorrect login details display an error message. | Manual |  |  |  |  |
-| US02-AC04 | Sign in as a non-admin account, then open an admin URL directly. | Non-admin users cannot access admin-only pages. | System test | A non-admin account was rejected by the admin login and signed out; a direct admin URL was blocked before any gallery request (live browser check and tests/auth.test.jsx). | Pass | System test | 15 November 2026 |
-| US02-AC05 | Log out, then open `#/admin` directly. | After logout, the studio dashboard cannot be opened. | Manual |  |  |  |  |
-| US02-AC06 | Try to set an admin role through sign-up metadata or a direct update. | Public users cannot make themselves administrators. | System test | Role tampering and direct role updates were denied (rolled-back database tests). | Pass | System test | 15 November 2026 |
+| US02-AC01 | Log in on the studio login page with the studio username and password. | Authorized admins log in with their username and password. | Admin login and the admin role were verified against the live database (14 Nov). |  |  |  |  |
+| US02-AC02 | Log in as admin and observe the landing page. | Successful admin login opens the studio dashboard. | — |  |  |  |  |
+| US02-AC03 | Enter a wrong password on the studio login page. | Incorrect login details display an error message. | Wrong and unknown logins return the same generic error (live API check, 15 Nov). |  |  |  |  |
+| US02-AC04 | Sign in as a non-admin account, then open an admin URL directly. | Non-admin users cannot access admin-only pages. | A non-admin account was rejected by the admin login and signed out; a direct admin URL was blocked before any gallery request (live browser check and tests/auth.test.jsx). | Not required | Pass | System test | 15 November 2026 |
+| US02-AC05 | Log out, then open `#/admin` directly. | After logout, the studio dashboard cannot be opened. | After sign-out, admin tools are not shown again (tests/auth.test.jsx). |  |  |  |  |
+| US02-AC06 | Try to set an admin role through sign-up metadata or a direct update. | Public users cannot make themselves administrators. | Role tampering and direct role updates were denied (rolled-back database tests). | Not required | Pass | System test | 15 November 2026 |
 
 ## US03 — Gallery management
 
@@ -107,15 +107,15 @@ Requirements: [US03 acceptance criteria](sprint1-user-story.md#us03--gallery-man
 
 ### Acceptance test results
 
-| Test ID | Steps | Expected result | Type | Actual result | Status | Tester | Date |
+| Test ID | Steps | Expected result | System test result | Manual test result | Status | Tester | Date |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| US03-AC01 | As admin, upload a PNG photo. | Logged-in admins can upload wedding photos. | System test | A temporary PNG upload succeeded and was cleaned up (live admin check). | Pass | System test | 14 November 2026 |
-| US03-AC02 | As admin, create and edit a collection with title, description and event type. | Admins can create a collection with a title, description and event type. | System test | The collection was created and edited (live admin check). | Pass | System test | 14 November 2026 |
-| US03-AC03 | Upload a photo into a selected collection; try a path for a different collection. | Uploaded photos are added to the selected collection. | System test | The upload was stored under the selected collection; a wrong-collection path was rejected by the database (live admin check). | Pass | System test | 14 November 2026 |
-| US03-AC04 | Delete one photo, then delete a whole collection. | Admins can view, edit and delete their photos and collections. | Manual |  |  |  |  |
-| US03-AC05 | Upload one JPG and one WebP photo. | JPG/JPEG, PNG and WebP up to 8 MB are accepted; other types and larger files are rejected (rejection already covered by tests/gallery.test.js). | Manual |  |  |  |  |
-| US03-AC06 | Create a collection with photos, then refresh the page. | Photos and collection details remain after refreshing. | Manual |  |  |  |  |
-| US03-AC07 | As a visitor, try to update a collection; as a non-admin, open gallery management. | Visitors and non-admins cannot use upload or gallery management. | System test | An anonymous collection update was denied; a non-admin opening an admin URL was blocked (live check and tests/auth.test.jsx). | Pass | System test | 14 November 2026 |
+| US03-AC01 | As admin, upload a PNG photo. | Logged-in admins can upload wedding photos. | A temporary PNG upload succeeded and was cleaned up (live admin check). | Not required | Pass | System test | 14 November 2026 |
+| US03-AC02 | As admin, create and edit a collection with title, description and event type. | Admins can create a collection with a title, description and event type. | The collection was created and edited (live admin check). | Not required | Pass | System test | 14 November 2026 |
+| US03-AC03 | Upload a photo into a selected collection; try a path for a different collection. | Uploaded photos are added to the selected collection. | The upload was stored under the selected collection; a wrong-collection path was rejected by the database (live admin check). | Not required | Pass | System test | 14 November 2026 |
+| US03-AC04 | Delete one photo, then delete a whole collection. | Admins can view, edit and delete their photos and collections. | Editing checked live; photo and collection deletion covered by tests/gallery.test.js. |  |  |  |  |
+| US03-AC05 | Upload one JPG and one WebP photo. | JPG/JPEG, PNG and WebP up to 8 MB are accepted; other types and larger files are rejected. | The bucket accepts only JPEG, PNG and WebP up to 8,388,608 bytes; SVG and oversized files are rejected (live check, tests/gallery.test.js). |  |  |  |  |
+| US03-AC06 | Create a collection with photos, then refresh the page. | Photos and collection details remain after refreshing. | Records were saved in the live database (14 Nov). |  |  |  |  |
+| US03-AC07 | As a visitor, try to update a collection; as a non-admin, open gallery management. | Visitors and non-admins cannot use upload or gallery management. | An anonymous collection update was denied; a non-admin opening an admin URL was blocked (live check and tests/auth.test.jsx). | Not required | Pass | System test | 14 November 2026 |
 
 ## US04 — Public portfolio browsing
 
@@ -123,16 +123,16 @@ Requirements: [US04 acceptance criteria](sprint1-user-story.md#us04--public-port
 
 ### Acceptance test results
 
-| Test ID | Steps | Expected result | Type | Actual result | Status | Tester | Date |
+| Test ID | Steps | Expected result | System test result | Manual test result | Status | Tester | Date |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| US04-AC01 | Without logging in, open the portfolio. | Visitors browse public collections without logging in. | System test | Anonymous reads of public collections and photos succeeded (live check). | Pass | System test | 14 November 2026 |
-| US04-AC02 | Without logging in, open a public collection. | Visitors can open a collection and see its photos and details. | Manual |  |  |  |  |
-| US04-AC03 | In the portfolio, filter by event type. | Only collections of the chosen event type are shown. | Manual |  |  |  |  |
-| US04-AC04 | As a visitor, request all four public/hidden collection and photo combinations. | Only public photos in public collections are shown. | System test | Only public collections with public photos were returned (live check). | Pass | System test | 14 November 2026 |
-| US04-AC05 | Open the portfolio on a phone and on a laptop. | The layout works on both mobile and desktop. | Manual |  |  |  |  |
-| US04-AC06 | Open a public collection with no photos. | A message says the collection has no photos. | Manual |  |  |  |  |
-| US04-AC07 | As a visitor, try to update a collection. | Visitors cannot upload, edit or delete photos or collections. | System test | The update was denied (live check). | Pass | System test | 14 November 2026 |
-| US04-AC08 | Open the homepage and look at Latest Work. | Latest Work shows the three most recently published public collections, with links and View All; private collections do not appear. | Manual |  |  |  |  |
+| US04-AC01 | Without logging in, open the portfolio. | Visitors browse public collections without logging in. | Anonymous reads of public collections and photos succeeded (live check). | Not required | Pass | System test | 14 November 2026 |
+| US04-AC02 | Without logging in, open a public collection. | Visitors can open a collection and see its photos and details. | Visitor photo requests are limited to the opened collection, with expiring links (tests/gallery.test.js). |  |  |  |  |
+| US04-AC03 | In the portfolio, filter by event type. | Only collections of the chosen event type are shown. | — |  |  |  |  |
+| US04-AC04 | As a visitor, request all four public/hidden collection and photo combinations. | Only public photos in public collections are shown. | Only public collections with public photos were returned (live check). | Not required | Pass | System test | 14 November 2026 |
+| US04-AC05 | Open the portfolio on a phone and on a laptop. | The layout works on both mobile and desktop. | — |  |  |  |  |
+| US04-AC06 | Open a public collection with no photos. | A message says the collection has no photos. | — |  |  |  |  |
+| US04-AC07 | As a visitor, try to update a collection. | Visitors cannot upload, edit or delete photos or collections. | The update was denied (live check). | Not required | Pass | System test | 14 November 2026 |
+| US04-AC08 | Open the homepage and look at Latest Work. | Latest Work shows the three most recently published public collections, with links and View All; private collections do not appear. | Publication order and private exclusion verified in the live database (15 Nov). |  |  |  |  |
 
 ### Latest Work verification — 15 November 2026
 
