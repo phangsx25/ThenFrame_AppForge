@@ -1,4 +1,10 @@
 import { useEffect, useId, useRef } from "react";
+import {
+  INSTAGRAM_HANDLE,
+  INSTAGRAM_URL,
+  SITE_LINKS,
+  WHATSAPP_DISPLAY,
+} from "../lib/site";
 export function Icon({ name = "camera", size = 20 }) {
   const paths = {
     camera: (
@@ -54,6 +60,20 @@ export function Icon({ name = "camera", size = 20 }) {
     "chevron-left": <path d="m15 5-7 7 7 7" />,
     "chevron-right": <path d="m9 5 7 7-7 7" />,
     close: <path d="M6 6l12 12M18 6 6 18" />,
+    menu: <path d="M3 7h18M3 12h18M3 17h18" />,
+    instagram: (
+      <>
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+      </>
+    ),
+    whatsapp: (
+      <>
+        <path d="M3.5 20.5 5 16a8.5 8.5 0 1 1 3.2 3.1z" />
+        <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z" />
+      </>
+    ),
   };
   return (
     <svg
@@ -99,32 +119,108 @@ export function Notice({ children, error = false }) {
     </div>
   ) : null;
 }
+// Long, thin arrow used by the editorial slide controls.
+export function LongArrow({ dir = "right" }) {
+  const d =
+    dir === "left"
+      ? "M63 8H1M9 1 1 8l8 7"
+      : dir === "up"
+        ? "M8 79V1M1 9l7-8 7 8"
+        : "M1 8h62M55 1l8 7-8 7";
+  const vertical = dir === "up";
+  return (
+    <svg
+      width={vertical ? 16 : 64}
+      height={vertical ? 80 : 16}
+      viewBox={vertical ? "0 0 16 80" : "0 0 64 16"}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1"
+      aria-hidden="true"
+    >
+      <path d={d} />
+    </svg>
+  );
+}
+
+// Image slot that shows a tinted placeholder until the client supplies a
+// photograph. Pass `image` (a URL) to show the real photo.
+export function PhotoSlot({ image, label, alt = "", tone = 0, className = "" }) {
+  return (
+    <div className={`photo-slot tone-${tone % 4} ${className}`}>
+      {image ? (
+        <img src={image} alt={alt} loading="lazy" />
+      ) : (
+        <span className="photo-slot-label">
+          <Icon name="camera" size={16} />
+          {label}
+        </span>
+      )}
+    </div>
+  );
+}
+
 export function Footer() {
   return (
-    <footer className="site-footer">
-      <div>
-        <Wordmark />
-        <p>
-          Wedding stories, thoughtfully kept.
-          <br />
-          For the moments that become part of you.
-        </p>
-      </div>
-      <div>
-        <span className="eyebrow">EXPLORE</span>
-        <a href="#/portfolio">Portfolio</a>
-        <a href="#/enquire">Book your date</a>
-      </div>
-      <div>
-        <span className="eyebrow">THE STUDIO</span>
-        <a href="#/admin/login">Studio login</a>
-        <span>ThenFrame · Malaysia</span>
-      </div>
-      <div className="footer-bottom">
-        © {new Date().getFullYear()} ThenFrame · Wedding photography
-        <span>Your story, beautifully kept.</span>
-      </div>
-    </footer>
+    <>
+      <section className="tf-instagram" aria-labelledby="instagram-title">
+        <a
+          className="tf-instagram-head"
+          href={INSTAGRAM_URL}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Icon name="instagram" size={30} />
+          <h2 id="instagram-title">Follow us on Instagram</h2>
+          <span>{INSTAGRAM_HANDLE}</span>
+        </a>
+        <div className="tf-instagram-grid-wrap">
+          <div className="tf-instagram-grid">
+            {[1, 2, 3, 4].map((n) => (
+              <a
+                key={n}
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Instagram post ${n} on ${INSTAGRAM_HANDLE}`}
+              >
+                <PhotoSlot label={`[Instagram 0${n}]`} tone={n} />
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+      <footer className="tf-footer">
+        <div className="tf-footer-contact">
+          <a href="#/contact">
+            <Icon name="whatsapp" size={18} />
+            Contact us · {WHATSAPP_DISPLAY}
+          </a>
+          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+            <Icon name="instagram" size={18} />
+            {INSTAGRAM_HANDLE}
+          </a>
+        </div>
+        <nav aria-label="Footer navigation">
+          {SITE_LINKS.map(([label, href]) => (
+            <a key={href} href={href}>
+              {label}
+            </a>
+          ))}
+        </nav>
+        <a className="tf-footer-studio" href="#/admin/login">
+          Studio login
+        </a>
+        <p>All content copyright © {new Date().getFullYear()} ThenFrame</p>
+        <button
+          className="tf-top"
+          aria-label="Back to top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <LongArrow dir="up" />
+        </button>
+      </footer>
+    </>
   );
 }
 export function Modal({ title, onClose, children, className = "" }) {

@@ -1,186 +1,227 @@
 import { useEffect, useState } from "react";
 import { listCollections, listPhotos } from "../lib/gallery";
-import { Footer, Icon, Modal, Notice, Placeholder } from "./UI";
+import {
+  Footer,
+  Icon,
+  LongArrow,
+  Modal,
+  Notice,
+  PhotoSlot,
+  Placeholder,
+} from "./UI";
 import { Header } from "./Layout";
+import {
+  INSTAGRAM_HANDLE,
+  INSTAGRAM_URL,
+  WHATSAPP_DISPLAY,
+} from "../lib/site";
+
+// Client photographs are still pending. Set `image` to a URL (for example a
+// file in /public) to replace each placeholder.
+const HERO_SLIDES = [
+  { line: "Wedding Photography", image: null },
+  { line: "Defining timeless moments", image: null },
+  { line: "Honest moments, beautiful memories", image: null },
+  { line: "Your story, beautifully kept", image: null },
+];
+const PACKAGES = [
+  {
+    title: "The wedding day",
+    text: "For the meaningful moments, the celebrations and everything in between.",
+    image: null,
+  },
+  {
+    title: "An intimate celebration",
+    text: "A thoughtful approach to the smaller stories that deserve to be remembered.",
+    image: null,
+  },
+  {
+    title: "A moment for two",
+    text: "Natural portraits, honest connections and the beginning of your story.",
+    image: null,
+  },
+];
+const HERITAGE_IMAGE = null;
+
+const pad = (n) => String(n).padStart(2, "0");
+
+function useCarousel(count, interval = 0) {
+  const [index, setIndex] = useState(0);
+  const [resetKey, setResetKey] = useState(0);
+  useEffect(() => {
+    const reduce = window.matchMedia?.(
+      "(prefers-reduced-motion: reduce)",
+    )?.matches;
+    if (!interval || reduce) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % count), interval);
+    return () => clearInterval(id);
+  }, [count, interval, resetKey]);
+  const step = (delta) => {
+    setIndex((i) => (i + delta + count) % count);
+    setResetKey((k) => k + 1);
+  };
+  return [index, step];
+}
+
+function SlideControls({ index, count, onStep, label }) {
+  return (
+    <div className="tf-controls">
+      <button onClick={() => onStep(-1)} aria-label={`Previous ${label}`}>
+        <LongArrow dir="left" />
+      </button>
+      <span className="tf-counter">
+        <span>{pad(index + 1)}</span>
+        <span aria-hidden="true">/</span>
+        <span>{pad(count)}</span>
+      </span>
+      <button onClick={() => onStep(1)} aria-label={`Next ${label}`}>
+        <LongArrow />
+      </button>
+    </div>
+  );
+}
+
+function HeroSlider() {
+  const [index, step] = useCarousel(HERO_SLIDES.length, 6000);
+  return (
+    <section
+      className="tf-hero"
+      aria-roledescription="carousel"
+      aria-label="Featured photographs"
+    >
+      {HERO_SLIDES.map((slide, i) => (
+        <div
+          key={i}
+          className={`tf-hero-slide${i === index ? " active" : ""}`}
+          aria-hidden={i !== index}
+        >
+          <PhotoSlot
+            image={slide.image}
+            label={`[Hero photograph ${pad(i + 1)}]`}
+            tone={i}
+          />
+        </div>
+      ))}
+      <div className="tf-hero-copy">
+        <h1>
+          Welcome to
+          <br />
+          ThenFrame
+        </h1>
+        <p key={index} className="tf-hero-line">
+          {HERO_SLIDES[index].line}
+        </p>
+        <SlideControls
+          index={index}
+          count={HERO_SLIDES.length}
+          onStep={step}
+          label="slide"
+        />
+      </div>
+    </section>
+  );
+}
+
+function PackagesCarousel() {
+  const [index, step] = useCarousel(PACKAGES.length);
+  const current = PACKAGES[index];
+  return (
+    <section
+      className="tf-band tf-dark tf-packages"
+      id="packages"
+      aria-roledescription="carousel"
+      aria-label="Packages"
+    >
+      <div className="tf-narrow">
+        <PhotoSlot
+          key={index}
+          className="tf-package-photo"
+          image={current.image}
+          label={`[Package photograph ${pad(index + 1)}]`}
+          tone={index + 1}
+        />
+        <span className="tf-eyebrow">Packages</span>
+        <h2>{current.title}</h2>
+        <p className="tf-quote">“{current.text}”</p>
+        <SlideControls
+          index={index}
+          count={PACKAGES.length}
+          onStep={step}
+          label="package"
+        />
+        <a className="tf-pill" href="#/contact">
+          Ready to connect
+        </a>
+        <a className="tf-text-link" href="#/packages">
+          See all packages
+        </a>
+      </div>
+    </section>
+  );
+}
 
 export function Home({ client, auth }) {
   return (
     <>
-      <Header auth={auth} />
+      <Header auth={auth} overlay />
       <main id="main-content">
-        <section className="hero page-width">
-          <div className="hero-copy">
-            <span className="eyebrow">WEDDING PHOTOGRAPHY / THENFRAME</span>
-            <h1>
-              Defining
-              <br />
-              Timeless
-              <br />
-              <em>Moments</em>
-            </h1>
+        <HeroSlider />
+        <section className="tf-tagline">
+          <h2>“Defining Timeless Moments”</h2>
+          <p>Wedding photography for the stories you’ll keep</p>
+        </section>
+        <section className="tf-latest">
+          <div className="tf-center">
+            <a className="tf-pill" href="#/portfolio">
+              Click to view our portfolio
+            </a>
+          </div>
+          <PortfolioSection client={client} preview />
+        </section>
+        <section className="tf-band tf-dark" id="our-story">
+          <div className="tf-narrow">
+            <span className="tf-eyebrow">Our story</span>
+            <h2>Where every story begins</h2>
             <p>
-              Wedding photographs that feel like you — thoughtful,
-              <br className="desktop" /> heartfelt, and full of the moments that
-              matter.
+              Not just how your day looked, but how it felt: the tenderness,
+              the traditions and everything in between. ThenFrame captures the
+              honest moments of your celebration and keeps them beautifully for
+              the years to come.
             </p>
-            <div className="button-row">
-              <a className="button-outline" href="#/portfolio">
-                Portfolio
+            <div className="tf-pill-stack">
+              <a className="tf-pill" href="#/portfolio">
+                Explore the portfolio
               </a>
-              <a className="primary" href="#/enquire">
+              <a className="tf-pill" href="#/contact">
                 Begin your story
               </a>
             </div>
-            <div className="hero-footnote">
-              <span className="tiny-line" />
-              YOUR STORY, BEAUTIFULLY KEPT
-            </div>
-          </div>
-          <div className="hero-images">
-            <Placeholder arch label="[Romantic wedding portrait]" />
-            <Placeholder
-              className="hero-inset"
-              label="[A small, beautiful detail]"
-            />
-            <p className="image-caption">
-              A day full of little moments. A story that lasts.
-            </p>
           </div>
         </section>
-        <section className="intro-note page-width">
-          <span className="eyebrow">
-            HONEST MOMENTS.
-            <br />
-            BEAUTIFUL MEMORIES.
-          </span>
-          <p>
-            Not just how your day looked. But how it felt — the tenderness, the
-            <br className="desktop" /> traditions, and everything in between.
-          </p>
-        </section>
-        <PortfolioSection client={client} preview />
-        <section className="packages-section" id="packages">
-          <div className="page-width two-column">
-            <div>
-              <span className="eyebrow">THOUGHTFULLY / YOUR WAY</span>
-              <h2>Your day. Your way.</h2>
-              <p>
-                From the first conversation to the final frame, we’re here to
-                help you find photography coverage that fits your event.
-              </p>
-              <a className="button-outline" href="#/portfolio#packages">
-                Explore our approach
-              </a>
-            </div>
-            <div className="numbered-list">
-              {[
-                [
-                  "01",
-                  "The wedding day",
-                  "For the meaningful moments, the celebrations and everything in between.",
-                ],
-                [
-                  "02",
-                  "An intimate celebration",
-                  "A thoughtful approach to the smaller stories that deserve to be remembered.",
-                ],
-                [
-                  "03",
-                  "A moment for two",
-                  "Natural portraits, honest connections, and the beginning of your story.",
-                ],
-              ].map(([n, t, d]) => (
-                <article key={n}>
-                  <span>{n}</span>
-                  <div>
-                    <h3>{t}</h3>
-                    <p>{d}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
+        <section className="tf-feature" id="heritage">
+          <PhotoSlot
+            image={HERITAGE_IMAGE}
+            label="[Traditional Malay wedding photograph]"
+            tone={2}
+          />
+          <div className="tf-feature-copy">
+            <span className="tf-eyebrow">Rooted in tradition</span>
+            <h2>Malay Wedding Heritage</h2>
           </div>
         </section>
-        <section className="page-width planning">
-          <span className="eyebrow">A LITTLE GUIDANCE</span>
-          <h2>A little planning. A lot of heart.</h2>
-          <div className="three-column">
-            {[
-              [
-                "01",
-                "Find your story",
-                "Explore wedding events and collections to find inspiration for your day.",
-              ],
-              [
-                "02",
-                "Make it personal",
-                "Send a booking enquiry and the studio will follow up with you on WhatsApp.",
-              ],
-              [
-                "03",
-                "Make lovely memories",
-                "Celebrate your day, your traditions, and the people who make it yours.",
-              ],
-            ].map(([n, t, d]) => (
-              <article key={n}>
-                <span className="eyebrow">{n}</span>
-                <h3>{t}</h3>
-                <p>{d}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-        <section className="heritage-section" id="heritage">
-          <div className="page-width two-column">
-            <Placeholder arch label="[Traditional Malay wedding]" />
-            <div>
-              <span className="eyebrow">ROOTED IN TRADITION</span>
-              <h2>
-                Traditions held close.
-                <br />
-                Stories carried forward.
-              </h2>
-              <p>
-                We value the traditions that make each wedding meaningful. A
-                dedicated space for traditional Malay wedding knowledge is
-                planned for a later sprint.
-              </p>
-              <span className="pill light-pill">
-                Heritage guide · Coming soon
-              </span>
-            </div>
-          </div>
-        </section>
-        <section className="page-width two-column story-section" id="our-story">
-          <div>
-            <span className="eyebrow">THE STUDIO / OUR STORY</span>
-            <h2>For the beautifully real.</h2>
+        <section className="tf-band tf-light">
+          <div className="tf-narrow">
             <p>
-              ThenFrame is a wedding photography portfolio and gallery
-              management project developed with our photography studio partner.
+              Traditions held close. Stories carried forward. A dedicated guide
+              to traditional Malay wedding customs is planned for a later
+              sprint.
             </p>
-            <p>
-              A simpler way to discover the studio’s work and keep every public
-              collection in one considered place.
-            </p>
-            <a className="text-link" href="#/portfolio">
-              Discover the portfolio <Icon name="arrow" size={16} />
-            </a>
+            <span className="tf-pill tf-pill-static">
+              Heritage guide · Coming soon
+            </span>
           </div>
-          <Placeholder label="[Behind the lens, on a wedding day]" />
         </section>
-        <section className="closing-cta">
-          <span className="eyebrow">A NEW CHAPTER STARTS HERE</span>
-          <h2>
-            Let’s make something
-            <br />
-            you’ll hold onto forever.
-          </h2>
-          <p>Every story begins somewhere. We’d love to be part of yours.</p>
-          <a className="primary" href="#/enquire">
-            Book your date
-          </a>
-        </section>
+        <PackagesCarousel />
       </main>
       <Footer />
     </>
@@ -224,34 +265,38 @@ export function PortfolioSection({
         .toLowerCase()
         .includes(query.toLowerCase()),
   );
+  const fullPortfolio = !preview && !selectedId;
+  const reload = () => {
+    setLoading(true);
+    setError("");
+    setRefresh((n) => n + 1);
+  };
   return (
-    <section className="portfolio-section page-width" id="portfolio">
-      <div className="section-heading">
-        <div>
-          <span className="eyebrow">{preview ? "FRESH FROM THE STUDIO" : "A FEW FRAMES / OUR PORTFOLIO"}</span>
-          <h2>
-            {preview ? "Latest Work" : selectedId ? "A story, in frames." : "Stories worth holding onto."}
-          </h2>
+    <section
+      className={`portfolio-section page-width${fullPortfolio ? " tf-portfolio" : ""}`}
+      id="portfolio"
+    >
+      {!fullPortfolio && (
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">
+              {preview ? "FRESH FROM THE STUDIO" : "A FEW FRAMES / OUR PORTFOLIO"}
+            </span>
+            <h2>{preview ? "Latest Work" : "A story, in frames."}</h2>
+          </div>
+          {preview ? (
+            <a className="text-link" href="#/portfolio">
+              View All <Icon name="arrow" size={16} />
+            </a>
+          ) : (
+            <button className="text-button" onClick={reload}>
+              Refresh portfolio ↻
+            </button>
+          )}
         </div>
-        {preview ? (
-          <a className="text-link" href="#/portfolio">
-            View All <Icon name="arrow" size={16} />
-          </a>
-        ) : (
-          <button
-            className="text-button"
-            onClick={() => {
-              setLoading(true);
-              setError("");
-              setRefresh((n) => n + 1);
-            }}
-          >
-            Refresh portfolio ↻
-          </button>
-        )}
-      </div>
-      {!preview && !selectedId && (
-        <div className="filters">
+      )}
+      {fullPortfolio && (
+        <div className="filters tf-filters">
           <label>
             Find a story
             <input
@@ -276,6 +321,9 @@ export function PortfolioSection({
               ))}
             </select>
           </label>
+          <button className="text-button" onClick={reload}>
+            Refresh portfolio ↻
+          </button>
         </div>
       )}
       {!client ? (
@@ -289,14 +337,7 @@ export function PortfolioSection({
       ) : error ? (
         <Notice error>
           {error}{" "}
-          <button
-            className="text-button"
-            onClick={() => {
-              setLoading(true);
-              setError("");
-              setRefresh((n) => n + 1);
-            }}
-          >
+          <button className="text-button" onClick={reload}>
             Try again
           </button>
         </Notice>
@@ -314,6 +355,19 @@ export function PortfolioSection({
               : "The studio has not published any collections yet. Come back soon."}
           </p>
         </div>
+      ) : fullPortfolio ? (
+        <Masonry
+          items={shown}
+          render={(c, i) => (
+            <PublicCollection
+              key={c.id + refresh}
+              collection={c}
+              client={client}
+              variant="masonry"
+              tall={i % 5 === 2}
+            />
+          )}
+        />
       ) : (
         <div className={selectedId ? "" : "portfolio-grid"}>
           {(preview ? shown.slice(0, 3) : shown).map((c) => (
@@ -334,7 +388,42 @@ export function PortfolioSection({
     </section>
   );
 }
-function PublicCollection({ collection, client, detail }) {
+function useColumnCount() {
+  const read = () =>
+    window.innerWidth <= 640 ? 1 : window.innerWidth <= 1000 ? 2 : 3;
+  const [count, setCount] = useState(read);
+  useEffect(() => {
+    const onResize = () => setCount(read());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+  return count;
+}
+
+// Row-order masonry: item 1 goes to column 1, item 2 to column 2, and so on,
+// so the newest collections still read first.
+function Masonry({ items, render }) {
+  const count = useColumnCount();
+  const columns = Array.from({ length: count }, () => []);
+  items.forEach((item, i) => columns[i % count].push([item, i]));
+  return (
+    <div className="tf-masonry">
+      {columns.map((column, c) => (
+        <div className="tf-masonry-col" key={c}>
+          {column.map(([item, i]) => render(item, i))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PublicCollection({
+  collection,
+  client,
+  detail,
+  variant = "card",
+  tall = false,
+}) {
   const [photos, setPhotos] = useState([]),
     [error, setError] = useState(""),
     [loading, setLoading] = useState(true),
@@ -365,6 +454,33 @@ function PublicCollection({ collection, client, detail }) {
     return () => window.removeEventListener("keydown", close);
   }, [lightbox]);
   const cover = photos.find((p) => p.url);
+  if (variant === "masonry")
+    return (
+      <article className="tf-story-card">
+        <a className="tf-story-link" href={`#/portfolio/${collection.id}`}>
+          <div className={`tf-story-cover${tall ? " tall" : ""}`}>
+            {cover ? (
+              <img
+                src={cover.url}
+                alt={cover.caption || collection.title}
+                loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+            ) : (
+              <PhotoSlot
+                label={loading ? "[Loading photographs…]" : "[Cover photograph]"}
+                tone={tall ? 2 : 1}
+              />
+            )}
+          </div>
+          <h3>{collection.title}</h3>
+          <span>{collection.style || "ThenFrame stories"}</span>
+        </a>
+        <Notice error>{error}</Notice>
+      </article>
+    );
   return (
     <article className={`portfolio-card ${detail ? "collection-detail" : ""}`}>
       {!detail && (
@@ -476,59 +592,130 @@ function PublicCollection({ collection, client, detail }) {
     </article>
   );
 }
+// Client photographs are still pending for the portfolio and packages pages.
+const PORTFOLIO_HERO_IMAGE = null;
+const PACKAGES_PORTRAIT_IMAGE = null;
+const PACKAGES_BANNER_IMAGE = null;
+
 export function PortfolioPage({ client, auth, selectedId }) {
   return (
     <>
-      <Header auth={auth} />
+      <Header auth={auth} overlay={!selectedId} />
       <main id="main-content">
         {!selectedId && (
-          <section className="portfolio-hero page-width two-column">
-            <div>
-              <span className="eyebrow">WEDDING PHOTOGRAPHY / THENFRAME</span>
-              <h1>
-                Your love story,
-                <br />
-                beautifully
-                <br />
-                <em>captured</em>
-              </h1>
+          <>
+            <section className="tf-hero tf-page-hero">
+              <div className="tf-hero-slide active">
+                <PhotoSlot
+                  image={PORTFOLIO_HERO_IMAGE}
+                  label="[Portfolio cover photograph]"
+                  tone={2}
+                />
+              </div>
+              <div className="tf-hero-copy">
+                <h1>Portfolio</h1>
+                <p className="tf-hero-line">Every photo tells a story</p>
+              </div>
+            </section>
+            <section className="tf-portfolio-intro page-width">
               <p>
-                Wedding photographs that feel like you — thoughtful,
-                <br className="desktop" /> heartfelt, and full of the moments
-                that matter.
+                This is our portfolio of weddings and celebrations. Take a
+                peek at some of the stories we have been trusted to keep.
               </p>
-              <a className="primary" href="#/enquire">
-                Begin your story
-              </a>
-            </div>
-            <Placeholder arch label="[Romantic wedding portrait]" />
-          </section>
+              <p className="tf-note">
+                P/S: Open a collection to see every photograph from the day.
+              </p>
+            </section>
+          </>
         )}
         <PortfolioSection client={client} selectedId={selectedId} />
-        {!selectedId && (
-          <section id="packages" className="packages-section">
-            <div className="page-width two-column">
-              <div>
-                <span className="eyebrow">THOUGHTFULLY / YOUR WAY</span>
-                <h2>Your day. Your way.</h2>
-                <p>
-                  We’re building a thoughtful way to explore the studio’s
-                  photography services.
-                </p>
-              </div>
-              <div>
-                <h3>Tell us about your celebration.</h3>
-                <p>
-                  Share your date, event type and what you have in mind, and
-                  the studio will follow up with you on WhatsApp.
-                </p>
-                <a className="button-outline" href="#/enquire">
-                  Enquire now
-                </a>
-              </div>
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+export function PackagesPage({ auth }) {
+  return (
+    <>
+      <Header auth={auth} />
+      <main id="main-content" className="tf-packages-page">
+        <section className="page-width tf-pk-top">
+          <h1 className="tf-pk-label">Packages</h1>
+          <div className="tf-pk-intro">
+            <h2>Your day, your way</h2>
+            <PhotoSlot
+              className="tf-pk-portrait"
+              image={PACKAGES_PORTRAIT_IMAGE}
+              label="[Portrait]"
+              tone={3}
+            />
+            <div className="tf-pk-text">
+              <p>
+                ThenFrame is a wedding photography studio in Malaysia, capturing
+                akad, reception and every celebration in between.
+              </p>
+              <p>
+                Every package is shaped around your day: the traditions you
+                hold close, the people who matter and the moments you will
+                want to return to for years to come.
+              </p>
             </div>
-          </section>
-        )}
+          </div>
+        </section>
+        <section className="page-width tf-pk-banner">
+          <PhotoSlot
+            image={PACKAGES_BANNER_IMAGE}
+            label="[Wide wedding photograph]"
+            tone={1}
+          />
+        </section>
+        <section className="page-width tf-pk-list">
+          {PACKAGES.map((pkg, i) => (
+            <article key={pkg.title}>
+              <span>{pad(i + 1)}</span>
+              <h3>{pkg.title}</h3>
+              <p>{pkg.text}</p>
+            </article>
+          ))}
+        </section>
+        <section className="page-width tf-pk-closing">
+          <p>
+            Guided by an honest and thoughtful approach, ThenFrame focuses on
+            photographs that feel personal and enduring. Tell us about your
+            date and the studio will share the package that suits you best.
+          </p>
+        </section>
+        <section className="page-width tf-pk-info" aria-label="Contact the studio">
+          <ul>
+            <li>Akad / Nikah</li>
+            <li>Reception</li>
+            <li>Engagement</li>
+          </ul>
+          <ul>
+            <li>
+              <a href="#/contact">{WHATSAPP_DISPLAY} (WhatsApp)</a>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+                {INSTAGRAM_HANDLE}
+              </a>
+            </li>
+          </ul>
+          <ul className="tf-pk-actions">
+            <li>
+              <a href="#/contact">Contact us</a>
+            </li>
+            <li>
+              <a href="#/contact">Book your date</a>
+            </li>
+            <li>
+              <a href="#/portfolio">Portfolio</a>
+            </li>
+          </ul>
+        </section>
       </main>
       <Footer />
     </>

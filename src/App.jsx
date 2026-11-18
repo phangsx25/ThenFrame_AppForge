@@ -7,7 +7,8 @@ import PasswordPage from "./components/PasswordPage";
 import AccountSettings from "./components/AccountSettings";
 import AdminSetup from "./components/AdminSetup";
 import AdminDashboard from "./components/AdminDashboard";
-import { Home, PortfolioPage } from "./components/PublicPages";
+import { Home, PackagesPage, PortfolioPage } from "./components/PublicPages";
+import { ContactPage } from "./components/ContactPage";
 import { Header, Workspace } from "./components/Layout";
 import { LaterCard, Notice } from "./components/UI";
 import "./App.css";
@@ -189,6 +190,8 @@ export default function App({ client = supabase }) {
       />
     );
   else if (route === "/") page = <Home client={client} auth={auth} />;
+  else if (route === "/packages") page = <PackagesPage auth={auth} />;
+  else if (route === "/contact") page = <ContactPage auth={auth} />;
   else if (route === "/enquire")
     page = (
       <ComingSoon auth={auth} eyebrow="BOOK YOUR DATE"
@@ -200,7 +203,7 @@ export default function App({ client = supabase }) {
   else if (route === "/track")
     page = (
       <ComingSoon auth={auth} eyebrow="TRACK YOUR BOOKING"
-        action={["#/enquire", "Book your date"]}>
+        action={["#/contact", "Book your date"]}>
         Soon you’ll be able to check the progress of your booking with your
         booking reference, without creating an account.
       </ComingSoon>
