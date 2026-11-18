@@ -144,11 +144,15 @@ Requirements: [US04 acceptance criteria](sprint1-user-story.md#us04--public-port
 
 | Command / check | Actual date and commit | Result | Evidence |
 | --- | --- | --- | --- |
-| npm run lint | 17 November 2026 / `774e2eb` | Pass | Local execution; [Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43882838433) |
-| npm test (Vitest) | 17 November 2026 / `774e2eb` | Pass — 74 tests across 6 files | Local execution; [Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43882838433) |
-| npm test (burndown script, node --test) | 17 November 2026 / `774e2eb` | Pass — 3 tests | Local execution; [Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43882838433) |
-| npm run build | 17 November 2026 / `774e2eb` | Pass — production/PWA build | Local execution; [Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43882838433) |
-| npm audit --omit=dev | 17 November 2026 / `774e2eb` | Pass — 0 vulnerabilities | Local execution |
+| npm run lint | 18 November 2026 | Pass | Local execution |
+| npm test (Vitest) | 18 November 2026 | Pass — 74 tests across 6 files | Local execution |
+| npm test (burndown script, node --test) | 18 November 2026 | Pass — 5 tests | Local execution |
+| npm run build | 18 November 2026 | Pass — production/PWA build | Local execution |
+| npm audit --omit=dev | 18 November 2026 | Pass — 0 vulnerabilities | Local execution |
+
+The audit failed in CI on 18 November because of picomatch ([GHSA-fc5q-39xc-vjpf](https://github.com/advisories/GHSA-fc5q-39xc-vjpf), no fixed version yet). picomatch is used only by build tools (Vite, Vitest, the PWA plugin). It appeared in the production audit because Tailwind, which runs only during the build, was listed under dependencies. Tailwind now sits in devDependencies, so the production audit passes; the advisory remains in the build tools and is rechecked when a fixed version is released.
+
+Previous record: on 17 November 2026 (`774e2eb`) lint, 74 Vitest tests, 3 burndown tests, the build and the audit passed ([Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43882838433)).
 
 Earlier record: on 14 November 2026 (`05a5154`) lint, 46 tests across 4 files and the build passed ([Verify run](https://github.com/phangsx25/ThenFrame_AppForge/actions/runs/43609938325)).
 
