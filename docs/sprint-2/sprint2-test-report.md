@@ -1,7 +1,7 @@
 # Sprint 2 — Test Report
 
 **Sprint:** 19 November–9 December 2026 · US05–US07.
-**Status:** Manual acceptance cases prepared; US05 automated and live database checks are recorded below. Full acceptance remains pending.
+**Status:** Manual acceptance cases prepared. Testing takes place during Sprint 2.
 **Requirements:** [Sprint stories](sprint2-user-story.md). Criteria below match the supplied refinement; team/Product Owner confirmation and actual execution are pending.
 
 | Session field | Value |
@@ -29,24 +29,6 @@ Requirements: [US05 acceptance criteria](sprint2-user-story.md#us05--service-and
 | US05-AC06 | 6 | TBD | The system displays an error when required information is missing or invalid. | Not recorded | Not run | TBD | TBD | TBD |
 | US05-AC07 | 7 | TBD | Successfully submitted enquiries are saved, and a confirmation message is displayed. | Not recorded | Not run | TBD | TBD | TBD |
 | US05-AC08 | 8 | TBD | Failed submissions display an error message without creating duplicate enquiries. | Not recorded | Not run | TBD | TBD | TBD |
-
-### US05 initial increment — 15 November 2026
-
-**Branch:** `sprint-2-us05-enquiry` (local work; not merged or deployed).
-
-Implemented customer-only service enquiries: service, event type, preferred date, contact name/phone, preferred colour/style and optional additional requirements. Saved records appear in the customer's enquiry history with Pending status and a reference. No date reservation or booking confirmation is implied. Package catalogue, budget/referral fields, WhatsApp handoff, multi-date scheduling and admin management are outside this initial increment.
-
-| Verification | Actual result | Scope / limitation |
-| --- | --- | --- |
-| Automated suite | 69 tests passed; lint and production/PWA build passed. | Includes 13 new enquiry validation, retry and component cases. Component transport is mocked. |
-| Input validation | Unsupported choices, invalid/past calendar dates, invalid phone/name and overlong requirements rejected; only permitted customer fields serialized. | JavaScript validation tests; live database also rejects past-date inserts. |
-| Submission failure and retry | Form values retained after failure; unchanged retry reuses the same request ID; success shows reference/history and resets the form. Duplicate-reference recovery requires identical saved fields. | Component and request tests with mocked transport. Request ID is retained in the mounted form, not across reload/navigation. Editing creates a new submission intent. |
-| Live database ownership | Authenticated customer could insert/read an own enquiry. A different subject could neither read it nor insert using its owner's ID. | Real Postgres authenticated-role/JWT-subject assertions, not an actual browser login or REST test. |
-| Live database restrictions | Duplicate primary key, customer status updates/deletion, anonymous reads and past-date inserts were denied. | Transactional assertions passed; all fixture rows rolled back. No saved test enquiries remain. |
-| Schema and security | Applied `20261115151212_booking_enquiries.sql`; RLS enabled, owner-scoped insert/read, admin read, no customer update/delete privileges. | Additive table in shared Supabase; main application source is unchanged. Security advisor returned no finding for the new table/function; pre-existing advisor findings are unchanged. |
-| Browser / studio acceptance | Not run. | Phone/desktop review, actual customer login → real API submit → reload, email/contact usability and Product Owner acceptance remain pending. |
-
-The US05 acceptance table above is not marked Pass based solely on these narrower checks. This increment implements part of US05; it does not complete US06 or US07.
 
 ## US06 — Booking and consultation management
 

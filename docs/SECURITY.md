@@ -87,12 +87,3 @@ The fixture script does not test role escalation by attempting to promote an acc
 ## Changes after inspection
 
 If a real gap is found, write a targeted reviewed migration in `supabase/migrations/<timestamp>_<description>.sql`. Test in a disposable project first. Preserve existing rows and document rollback. Do not replace tables or assume policies based on this document. Do not deploy authentication/security changes until live checks pass.
-
-
-## US06 booking management
-
-`booking_reservations` and `booking_consultations` have RLS and authenticated read-only grants. Policies allow the studio admin or the linked enquiry's owner to read records. No anonymous access or authenticated direct mutation is granted. Customer forms never set review versions, status, actor IDs or reservation records directly.
-
-`admin_update_enquiry` and `admin_save_consultation` are intentional SECURITY DEFINER APIs. Both reject a null auth.uid() and a caller whose current database profile is not admin; both use an empty search_path and fully qualified objects. PUBLIC/anon execution is revoked. Authenticated EXECUTE is necessary because admin JWTs also use the authenticated database role; it does not authorize customer calls. The [authenticated definer advisory](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable) is expected and must be reviewed against these guards rather than resolved by exposing table writes.
-
-A non-overlapping timestamptz-range exclusion constraint protects event reservations independently of the frontend availability preview. The booking RPC locks its enquiry, checks the expected review version, reserves/reschedules and updates status atomically. Consultation updates lock the same parent and check a separate consultation version. Formal tests should include two genuinely concurrent REST clients; development SQL assertions currently cover the constraint and rollback boundaries sequentially.

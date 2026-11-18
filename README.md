@@ -30,7 +30,6 @@ Hourly burndown synchronization is configured in GitHub Actions; see
 ```sh
 git clone https://github.com/phangsx25/ThenFrame_AppForge.git
 cd ThenFrame_AppForge
-git switch sprint-2
 npm ci
 ```
 
@@ -103,6 +102,5 @@ gallery operations require internet. Install/offline/update behavior needs manua
 checks on HTTPS.
 
 Use focused branches and PRs, keep main stable, and have another member review.
-The Sprint 2 integration branch is `sprint-2`. The unmerged `fix/sprint1-completion`
-work must be integrated separately. Git branches do not isolate the shared database;
+Git branches do not isolate the shared database;
 coordinate schema changes and keep migrations version controlled.
