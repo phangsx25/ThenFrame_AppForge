@@ -7,10 +7,118 @@ import {
   listPhotos,
   saveCollection,
   updatePhoto,
+  refreshPhotoLink,
   uploadPhoto,
+  validateImage,
 } from "../lib/gallery";
 import { Workspace } from "./Layout";
 import { Icon, LaterCard, Modal, Notice } from "./UI";
+
+function formatSize(bytes) {
+  return bytes < 1024 * 1024
+    ? `${Math.max(1, Math.round(bytes / 1024))} KB`
+    : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+// Full-screen photo viewer (like Google Photos / Drive): dark background,
+// the photo centred and scaled to fit the same space whatever its shape,
+// with previous/next arrows and keyboard support (← → Esc).
+function PhotoViewer({ photos, index, fallbackTitle, onIndex, onClose, onExpired }) {
+  const ref = useRef(null);
+  const photo = photos[index];
+  const count = photos.length;
+  useEffect(() => {
+    const dialog = ref.current;
+    const trigger = document.activeElement;
+    dialog.showModal();
+    return () => {
+      dialog.close();
+      if (trigger instanceof HTMLElement && trigger.isConnected)
+        trigger.focus({ preventScroll: true });
+    };
+  }, []);
+  if (!photo) return null;
+  const title = photo.caption || fallbackTitle;
+  const go = (step) => onIndex((index + step + count) % count);
+  return (
+    <dialog
+      ref={ref}
+      className="photo-viewer"
+      aria-label={`Photo ${index + 1} of ${count}: ${title}`}
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
+      onKeyDown={(event) => {
+        if (count < 2) return;
+        if (event.key === "ArrowLeft") go(-1);
+        if (event.key === "ArrowRight") go(1);
+      }}
+    >
+      <div className="photo-viewer-bar">
+        <span className="photo-viewer-title">{title}</span>
+        <span className="photo-viewer-count">
+          {index + 1} / {count}
+        </span>
+        <VisibilityPill visibility={photo.visibility} />
+        <button
+          type="button"
+          className="photo-viewer-button"
+          onClick={onClose}
+          aria-label="Close viewer"
+        >
+          <Icon name="close" size={22} />
+        </button>
+      </div>
+      <div
+        className="photo-viewer-stage"
+        onClick={(event) => {
+          if (event.target === event.currentTarget) onClose();
+        }}
+      >
+        {count > 1 && (
+          <button
+            type="button"
+            className="photo-viewer-button photo-viewer-prev"
+            onClick={() => go(-1)}
+            aria-label="Previous photo"
+          >
+            <Icon name="chevron-left" size={28} />
+          </button>
+        )}
+        <img
+          key={photo.id}
+          src={photo.url}
+          alt={title}
+          onError={(e) => {
+            if (!onExpired(photo, e.timeStamp))
+              e.currentTarget.alt = "This photo could not be loaded. Close and refresh photo links.";
+          }}
+        />
+        {count > 1 && (
+          <button
+            type="button"
+            className="photo-viewer-button photo-viewer-next"
+            onClick={() => go(1)}
+            aria-label="Next photo"
+          >
+            <Icon name="chevron-right" size={28} />
+          </button>
+        )}
+      </div>
+    </dialog>
+  );
+}
+
+function VisibilityPill({ visibility }) {
+  const isPrivate = visibility === "hidden";
+  return (
+    <span className={`pill visibility-pill ${isPrivate ? "is-private" : "is-public"}`}>
+      <Icon name={isPrivate ? "lock" : "eye"} size={12} />
+      {isPrivate ? "Private" : "Public"}
+    </span>
+  );
+}
 
 export default function AdminDashboard({ auth, client }) {
   const [section, setSection] = useState("Overview"),
@@ -25,6 +133,31 @@ export default function AdminDashboard({ auth, client }) {
   const [editor, setEditor] = useState(null),
     [photoEditor, setPhotoEditor] = useState(null),
     [confirmation, setConfirmation] = useState(null);
+  // Files chosen for upload: [{ id, file, url, problem, failed }].
+  // url is a local object URL for the thumbnail; problem means the file
+  // fails validation and will be skipped; failed holds the error from a
+  // previous attempt so the file can be retried.
+  const [chosen, setChosen] = useState([]),
+    [uploadNotice, setUploadNotice] = useState(null),
+    [progress, setProgress] = useState(null);
+  const chosenRef = useRef([]);
+  // Index (within photos that have a link) of the photo open in the
+  // full-screen viewer, or null.
+  const [viewing, setViewing] = useState(null);
+  function replaceChosen(next) {
+    const keep = new Set(next.map((item) => item.url));
+    for (const item of chosenRef.current)
+      if (item.url && !keep.has(item.url)) URL.revokeObjectURL(item.url);
+    chosenRef.current = next;
+    setChosen(next);
+  }
+  useEffect(
+    () => () => {
+      for (const item of chosenRef.current)
+        if (item.url) URL.revokeObjectURL(item.url);
+    },
+    [],
+  );
   const photoGeneration = useRef(0);
   const refreshCollections = useCallback(async () => {
     const data = await listCollections(client, true);
@@ -58,10 +191,34 @@ export default function AdminDashboard({ auth, client }) {
       if (version === photoGeneration.current) setPhotoLoading(false);
     }
   }
+  // Photo links last 60 seconds. When a photo on screen fails to load,
+  // fetch a fresh link for that photo only and swap it in, so the grid
+  // and viewer keep working without a manual refresh. Each photo is
+  // retried at most once every 15 seconds (measured with the error
+  // event's timestamp); returns false when no retry was started so the
+  // caller can show a fallback message.
+  const relinkAttempts = useRef(new Map());
+  function relink(photo, at) {
+    const last = relinkAttempts.current.get(photo.id);
+    if (!photo.storage_path || (last !== undefined && at - last < 15000))
+      return false;
+    relinkAttempts.current.set(photo.id, at);
+    const version = photoGeneration.current;
+    refreshPhotoLink(client, photo)
+      .then((url) => {
+        if (!url || version !== photoGeneration.current) return;
+        setPhotos((list) =>
+          list.map((item) => (item.id === photo.id ? { ...item, url } : item)),
+        );
+      })
+      .catch(() => {});
+    return true;
+  }
   async function run(action, success) {
     setBusy(true);
     setError("");
     setMessage("");
+    setUploadNotice(null);
     try {
       await action();
       if (success) setMessage(success);
@@ -73,7 +230,82 @@ export default function AdminDashboard({ auth, client }) {
       setBusy(false);
     }
   }
+  function pickPhotos(event) {
+    setFiles(Array.from(event.currentTarget.files || []));
+  }
+  // Drag and drop onto the upload box. dragDepth counts enter/leave pairs
+  // so moving over child elements does not flicker the highlight.
+  const dragDepth = useRef(0),
+    [dragging, setDragging] = useState(false);
+  const hasFiles = (event) =>
+    Array.from(event.dataTransfer?.types || []).includes("Files");
+  const dropHandlers = {
+    onDragEnter(event) {
+      if (!hasFiles(event)) return;
+      event.preventDefault();
+      dragDepth.current += 1;
+      if (!busy) setDragging(true);
+    },
+    onDragOver(event) {
+      if (!hasFiles(event)) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = busy ? "none" : "copy";
+    },
+    onDragLeave(event) {
+      if (!hasFiles(event)) return;
+      dragDepth.current = Math.max(0, dragDepth.current - 1);
+      if (!dragDepth.current) setDragging(false);
+    },
+    onDrop(event) {
+      if (!hasFiles(event)) return;
+      event.preventDefault();
+      dragDepth.current = 0;
+      setDragging(false);
+      if (busy) return;
+      const input = event.currentTarget.elements.namedItem("photos");
+      if (input) input.value = "";
+      setFiles(Array.from(event.dataTransfer.files || []));
+    },
+  };
+  // While a collection is open, a file dropped just outside the box would
+  // make the browser open the image and leave the dashboard. Ignore those.
+  const uploadOpen = section === "Gallery management" && Boolean(selected);
+  useEffect(() => {
+    if (!uploadOpen) return;
+    const ignore = (event) => {
+      if (Array.from(event.dataTransfer?.types || []).includes("Files"))
+        event.preventDefault();
+    };
+    window.addEventListener("dragover", ignore);
+    window.addEventListener("drop", ignore);
+    return () => {
+      window.removeEventListener("dragover", ignore);
+      window.removeEventListener("drop", ignore);
+    };
+  }, [uploadOpen]);
+  function setFiles(files) {
+    setUploadNotice(null);
+    replaceChosen(
+      files.map((file, index) => {
+        let problem = "";
+        try {
+          validateImage(file);
+        } catch (e) {
+          problem = e.message;
+        }
+        return {
+          id: `${Date.now()}-${index}`,
+          file,
+          url: file.type.startsWith("image/") ? URL.createObjectURL(file) : null,
+          problem,
+          failed: "",
+        };
+      }),
+    );
+  }
   async function choose(collection) {
+    replaceChosen([]);
+    setUploadNotice(null);
     setSelected(collection);
     setSection("Gallery management");
     await run(() => loadPhotos(collection.id));
@@ -90,40 +322,85 @@ export default function AdminDashboard({ auth, client }) {
       await loadPhotos(saved.id);
     }, "Collection saved.");
   }
+  // Uploads valid files one after another so progress can be shown and one
+  // failure does not stop the rest. Results are reported beside the form.
   async function upload(event) {
     event.preventDefault();
     const form = event.currentTarget,
       data = new FormData(form);
-    await run(async () => {
-      await uploadPhoto(
-        client,
-        selected.id,
-        data.get("photo"),
-        data.get("caption"),
-        data.get("visibility"),
-      );
-      form.reset();
-      await loadPhotos(selected.id);
-    }, "Photo uploaded.");
+    const valid = chosen.filter((item) => !item.problem),
+      skipped = chosen.length - valid.length;
+    if (!valid.length) return;
+    const caption = data.get("caption"),
+      visibility = data.get("visibility");
+    setBusy(true);
+    setError("");
+    setMessage("");
+    setUploadNotice(null);
+    setProgress({ done: 0, total: valid.length });
+    try {
+      const failed = [];
+      for (const [index, item] of valid.entries()) {
+        try {
+          await uploadPhoto(client, selected.id, item.file, caption, visibility);
+        } catch (e) {
+          failed.push({ ...item, failed: e.message });
+        }
+        setProgress({ done: index + 1, total: valid.length });
+      }
+      const uploaded = valid.length - failed.length;
+      const parts = [];
+      if (uploaded)
+        parts.push(`${uploaded} ${uploaded === 1 ? "photo" : "photos"} uploaded.`);
+      if (failed.length)
+        parts.push(
+          `${failed.length} could not be uploaded and ${failed.length === 1 ? "is" : "are"} still selected so you can try again.`,
+        );
+      if (skipped)
+        parts.push(
+          `${skipped} skipped: too large or not a JPG, PNG or WebP.`,
+        );
+      try {
+        await loadPhotos(selected.id);
+      } catch (e) {
+        parts.push(`The photo list could not be refreshed: ${e.message}`);
+      }
+      if (!failed.length) form.reset();
+      const fileInput = form.elements.namedItem("photos");
+      if (fileInput) fileInput.value = "";
+      replaceChosen(failed);
+      setUploadNotice({ error: failed.length > 0, text: parts.join(" ") });
+    } finally {
+      setProgress(null);
+      setBusy(false);
+    }
   }
   const published = collections.filter((c) => c.visibility === "public").length;
+  const overview = section === "Overview";
+  const shownCollections = overview ? collections.slice(0, 3) : collections;
+  const latest = collections[0];
+  const viewable = photos.filter((photo) => photo.url);
+  const invalidCount = chosen.filter((item) => item.problem).length,
+    validCount = chosen.length - invalidCount;
   return (
     <Workspace auth={auth} admin active={section} onSection={setSection}>
       <div className="dashboard-heading">
         <div>
-          <h1>
-            {section === "Overview"
-              ? "Welcome to ThenFrame Studio"
-              : "Gallery management"}
-          </h1>
-          <p>Manage wedding collections and prepare stories to be shared.</p>
+          <h1>{overview ? "Welcome to ThenFrame Studio" : "Gallery management"}</h1>
+          <p>
+            {overview
+              ? "A quick look at your studio and its newest collections."
+              : "Create collections, upload photographs and choose what is shared."}
+          </p>
         </div>
         <button className="primary" onClick={() => setEditor({})}>
-          ＋ New collection
+          <Icon name="plus" size={16} />
+          New collection
         </button>
       </div>
       <Notice error>{error}</Notice>
       <Notice>{message}</Notice>
+      {overview && (
       <div className="stat-grid">
         <article>
           <span>Gallery collections</span>
@@ -149,30 +426,38 @@ export default function AdminDashboard({ auth, client }) {
           <small>Not shared publicly</small>
         </article>
         <article>
-          <span>Photos in selected collection</span>
-          <strong>
-            {photoLoading
-              ? "—"
-              : selected
-                ? photos.length.toString().padStart(2, "0")
-                : "—"}
+          <span>Latest collection</span>
+          <strong className="stat-text" title={latest?.title}>
+            {loading || !latest ? "—" : latest.title}
           </strong>
-          <small>{selected?.title || "Select a collection"}</small>
+          <small>
+            {loading
+              ? "Loading…"
+              : latest
+                ? latest.style || "No event type"
+                : "No collections yet"}
+          </small>
         </article>
       </div>
-      <div className="admin-columns">
+      )}
+      <div className={overview ? "admin-columns" : undefined}>
         <div>
           <section className="dashboard-card">
             <div className="section-heading">
               <div>
-                <h2>Portfolio collections</h2>
-                <p>Review your collections and manage their visibility.</p>
+                <h2>{overview ? "Recent collections" : "Portfolio collections"}</h2>
+                <p>
+                  {overview
+                    ? "Your newest collections. Open one to manage its photographs."
+                    : "Review your collections and manage their visibility."}
+                </p>
               </div>
               <button
                 className="button-outline small"
                 disabled={busy}
                 onClick={() => run(refreshCollections)}
               >
+                <Icon name="refresh" size={14} />
                 Refresh
               </button>
             </div>
@@ -198,7 +483,7 @@ export default function AdminDashboard({ auth, client }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {collections.map((c) => (
+                    {shownCollections.map((c) => (
                       <tr key={c.id}>
                         <td>
                           <strong>{c.title}</strong>
@@ -206,7 +491,7 @@ export default function AdminDashboard({ auth, client }) {
                         </td>
                         <td>{c.style || "—"}</td>
                         <td>
-                          <span className="pill">● {c.visibility === "hidden" ? "Private" : "Public"}</span>
+                          <VisibilityPill visibility={c.visibility} />
                         </td>
                         <td>
                           <button
@@ -223,12 +508,28 @@ export default function AdminDashboard({ auth, client }) {
                 </table>
               </div>
             )}
+            {overview && !loading && collections.length > 0 && (
+              <button
+                className="text-button"
+                onClick={() => setSection("Gallery management")}
+              >
+                View all {collections.length} collections
+                <Icon name="arrow" size={14} />
+              </button>
+            )}
           </section>
-          {selected && (
+          {!overview && selected && (
             <section className="dashboard-card selected-gallery">
               <div className="section-heading">
                 <div>
-                  <span className="eyebrow">CURRENT COLLECTION</span>
+                  <span className="eyebrow">
+                    CURRENT COLLECTION{" "}
+                    <span className="count-box">
+                      {photoLoading
+                        ? "LOADING…"
+                        : `${photos.length} ${photos.length === 1 ? "PHOTOGRAPH" : "PHOTOGRAPHS"}`}
+                    </span>
+                  </span>
                   <h2>{selected.title}</h2>
                   <p>{selected.description}</p>
                 </div>
@@ -264,24 +565,74 @@ export default function AdminDashboard({ auth, client }) {
                       })
                     }
                   >
+                    <Icon name="trash" size={14} />
                     Delete collection
                   </button>
                 </div>
               </div>
-              <form onSubmit={upload} className="upload-form">
-                <h3>Add a photograph</h3>
+              <form
+                key={selected.id}
+                onSubmit={upload}
+                className={`upload-form${dragging ? " is-dragging" : ""}`}
+                {...dropHandlers}
+              >
+                <h3>Add photographs</h3>
                 <div className="form-grid">
                   <label>
-                    Photograph
+                    Photographs
                     <input
-                      aria-label="Photograph"
-                      name="photo"
+                      aria-label="Photographs"
+                      name="photos"
                       type="file"
+                      multiple
                       accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
-                      required
+                      onChange={pickPhotos}
                     />
-                    <small>JPG / JPEG, PNG or WebP · up to 8 MB</small>
+                    <small>
+                      Choose one or several, or drag photos onto this box · JPG / JPEG, PNG or WebP · up to 8 MB each
+                    </small>
                   </label>
+                  {chosen.length > 0 && (
+                    <div className="upload-chosen">
+                      {chosen.length > 1 && (
+                        <p className="upload-summary">
+                          {chosen.length} photos chosen ·{" "}
+                          {formatSize(chosen.reduce((sum, item) => sum + item.file.size, 0))}
+                          {invalidCount > 0 &&
+                            ` · ${invalidCount} will be skipped`}
+                        </p>
+                      )}
+                      <ul className="upload-preview-list">
+                        {chosen.map((item) => (
+                          <li key={item.id} className="upload-preview">
+                            {item.url ? (
+                              <img src={item.url} alt={`Preview of ${item.file.name}`} />
+                            ) : (
+                              <div className="upload-preview-empty">
+                                <Icon name="photo" size={22} />
+                              </div>
+                            )}
+                            <div>
+                              <strong title={item.file.name}>{item.file.name}</strong>
+                              <small>{formatSize(item.file.size)}</small>
+                              {(item.problem || item.failed) && (
+                                <p className="upload-preview-problem">
+                                  {item.problem || `Upload failed: ${item.failed}`}
+                                </p>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                      {invalidCount > 0 && (
+                        <p className="visually-hidden" role="alert">
+                          {invalidCount === 1
+                            ? `${chosen.find((item) => item.problem).problem}`
+                            : `${invalidCount} files will be skipped because they are too large or not a JPG, PNG or WebP.`}
+                        </p>
+                      )}
+                    </div>
+                  )}
                   <label>
                     Caption
                     <input
@@ -289,6 +640,9 @@ export default function AdminDashboard({ auth, client }) {
                       maxLength={500}
                       placeholder="A few words about this moment"
                     />
+                    {validCount > 1 && (
+                      <small>Used for every photo in this upload. You can edit each one afterwards.</small>
+                    )}
                   </label>
                   <label>
                     Visibility
@@ -306,9 +660,27 @@ export default function AdminDashboard({ auth, client }) {
                   A photo is public only when both the photo and its collection
                   are public.
                 </p>
-                <button className="primary" disabled={busy || photoLoading}>
-                  {busy ? "Working…" : "Upload photo"}
+                <button
+                  className="primary"
+                  disabled={busy || photoLoading || validCount === 0}
+                >
+                  {progress
+                    ? `Uploading ${Math.min(progress.done + 1, progress.total)} of ${progress.total}…`
+                    : busy
+                      ? "Working…"
+                      : validCount > 1
+                        ? `Upload ${validCount} photos`
+                        : "Upload photo"}
                 </button>
+                {progress && (
+                  <progress
+                    className="upload-progress"
+                    value={progress.done}
+                    max={progress.total}
+                    aria-label="Upload progress"
+                  />
+                )}
+                <Notice error={uploadNotice?.error}>{uploadNotice?.text}</Notice>
               </form>
               <div className="section-heading">
                 <h3>Photographs</h3>
@@ -317,7 +689,8 @@ export default function AdminDashboard({ auth, client }) {
                   disabled={busy || photoLoading}
                   onClick={() => run(() => loadPhotos(selected.id))}
                 >
-                  Refresh photo links ↻
+                  <Icon name="refresh" size={14} />
+                  Refresh photo links
                 </button>
               </div>
               {photoLoading ? (
@@ -329,15 +702,25 @@ export default function AdminDashboard({ auth, client }) {
                   {photos.map((photo) => (
                     <figure key={photo.id}>
                       {photo.url ? (
-                        <img
-                          src={photo.url}
-                          alt={photo.caption || selected.title}
-                          loading="lazy"
-                          onError={(e) => {
-                            e.currentTarget.alt =
-                              "Link expired. Refresh photo links.";
-                          }}
-                        />
+                        <button
+                          type="button"
+                          className="admin-photo-open"
+                          onClick={() =>
+                            setViewing(viewable.findIndex((p) => p.id === photo.id))
+                          }
+                          aria-label={`View larger: ${photo.caption || selected.title}`}
+                        >
+                          <img
+                            src={photo.url}
+                            alt={photo.caption || selected.title}
+                            loading="lazy"
+                            onError={(e) => {
+                              if (!relink(photo, e.timeStamp))
+                                e.currentTarget.alt =
+                                  "This photo could not be loaded. Refresh photo links.";
+                            }}
+                          />
+                        </button>
                       ) : (
                         <div className="photo-unavailable">
                           Preview unavailable. Check Storage policies or
@@ -345,7 +728,7 @@ export default function AdminDashboard({ auth, client }) {
                         </div>
                       )}
                       <figcaption>
-                        <span className="pill">● {photo.visibility === "hidden" ? "Private" : "Public"}</span>
+                        <VisibilityPill visibility={photo.visibility} />
                         <p>{photo.caption || "No caption yet"}</p>
                         <div className="button-row">
                           <button
@@ -357,7 +740,7 @@ export default function AdminDashboard({ auth, client }) {
                           </button>
                           <button
                             disabled={busy}
-                            className="text-button danger"
+                            className="button-outline small danger"
                             onClick={() =>
                               setConfirmation({
                                 title: "Delete photograph?",
@@ -372,6 +755,7 @@ export default function AdminDashboard({ auth, client }) {
                               })
                             }
                           >
+                            <Icon name="trash" size={14} />
                             Delete
                           </button>
                         </div>
@@ -383,6 +767,7 @@ export default function AdminDashboard({ auth, client }) {
             </section>
           )}
         </div>
+        {overview && (
         <aside>
           <section className="dashboard-card">
             <h2>Portfolio uploads</h2>
@@ -399,8 +784,8 @@ export default function AdminDashboard({ auth, client }) {
               </li>
             </ol>
             <p className="small-text muted">
-              New content starts private. Signed image links expire after one
-              minute; refresh previews when needed.
+              New content starts private. Photo previews renew their links
+              automatically when they expire.
             </p>
           </section>
           <LaterCard title="Bookings & consultations">
@@ -417,6 +802,7 @@ export default function AdminDashboard({ auth, client }) {
             sprints. These features are not available yet.
           </LaterCard>
         </aside>
+        )}
       </div>
       {editor && (
         <Modal
@@ -477,6 +863,16 @@ export default function AdminDashboard({ auth, client }) {
             </button>
           </form>
         </Modal>
+      )}
+      {viewing !== null && viewable[viewing] && (
+        <PhotoViewer
+          photos={viewable}
+          index={viewing}
+          fallbackTitle={selected?.title || "Photograph"}
+          onIndex={setViewing}
+          onClose={() => setViewing(null)}
+          onExpired={relink}
+        />
       )}
       {photoEditor && (
         <Modal
@@ -543,7 +939,7 @@ export default function AdminDashboard({ auth, client }) {
             </button>
             <button
               disabled={busy}
-              className="primary"
+              className="primary danger-fill"
               onClick={async () => {
                 if (await run(confirmation.action, "Deleted."))
                   setConfirmation(null);

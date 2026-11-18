@@ -10,39 +10,38 @@ export default function AdminSetup() {
         <span className="eyebrow">STUDIO OWNER / FIRST ACCOUNT</span>
         <h1>Set up your studio access.</h1>
         <p>
-          There is no shared or hidden admin password. An admin uses their own
-          Supabase email/password account, with an admin role assigned by the
+          There is no shared or hidden admin password, and the website has no
+          sign-up page. Each studio admin has their own account, created by the
           project owner.
         </p>
         <ol className="setup-steps">
           <li>
-            <h2>Create your account</h2>
+            <h2>The owner creates your account</h2>
             <p>
-              <a href="#/register">Register with your own email and name</a>,
-              confirm the email if required, and keep your password private.
+              In the Supabase dashboard, the project owner adds a user with your
+              email address and gives you your username.
             </p>
           </li>
           <li>
-            <h2>Ask the project owner to assign Admin</h2>
+            <h2>The owner assigns Admin</h2>
             <p>
-              In the existing Supabase project, the owner matches your Auth user
-              ID to its profiles row and assigns role admin. Use only an
-              explicitly authorized account. The application never promotes
-              users automatically.
+              The owner matches your Auth user ID to its profiles row and
+              assigns role admin. Use only an explicitly authorized account.
+              The application never promotes users automatically.
             </p>
           </li>
           <li>
             <h2>Sign in to the studio</h2>
             <p>
-              Choose Admin on the login screen and use that same email and
-              password. If you do not know the password,{" "}
+              Use your username and password on the studio login. To set or
+              change your password,{" "}
               <a href="#/reset">request a reset email</a>.
             </p>
           </li>
         </ol>
         <Notice>
-          The owner must explicitly designate the first admin account. Selecting
-          Admin on the login page never grants that role.
+          Only the owner can create studio accounts. Opening the studio login
+          never grants admin access.
         </Notice>
       </main>
       <Footer />

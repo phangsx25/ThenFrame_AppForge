@@ -23,16 +23,23 @@ export function Header({ auth }) {
         <a href="#/portfolio#packages">Packages</a>
         <a href="#/#heritage">Heritage</a>
         <a href="#/#our-story">Our story</a>
+        <a href="#/track">Track booking</a>
       </nav>
-      <a
-        className="account-link"
-        href={
-          auth.session ? (auth.isAdmin ? "#/admin" : "#/dashboard") : "#/login"
-        }
-      >
-        <Icon name="user" size={16} />
-        {auth.session ? "My space" : "Login / Register"}
-      </a>
+      {auth.isAdmin ? (
+        <a className="account-link" href="#/admin">
+          <Icon name="user" size={16} />
+          Studio
+        </a>
+      ) : (
+        <a
+          className="account-link studio-icon-link"
+          href="#/admin/login"
+          aria-label="Studio login"
+          title="Studio login"
+        >
+          <Icon name="user" size={18} />
+        </a>
+      )}
     </header>
   );
 }
@@ -50,30 +57,23 @@ export function Workspace({
     setBusy(true);
     try {
       await auth.logout();
-      window.location.hash = "/login";
+      window.location.hash = "/admin/login";
     } catch (e) {
       setError(e.message);
     } finally {
       setBusy(false);
     }
   }
-  const items = admin
-    ? [
-        ["Overview", "grid"],
-        ["Gallery management", "photo"],
-      ]
-    : [
-        ["Overview", "grid"],
-        ["My albums", "lock"],
-      ];
+  const items = [
+    ["Overview", "grid"],
+    ["Gallery management", "photo"],
+  ];
   return (
-    <div className="workspace">
+    <div className={`workspace${admin ? " admin-workspace" : ""}`}>
       <aside className="sidebar">
         <Wordmark light />
-        <p className="eyebrow">
-          {admin ? "STUDIO MANAGEMENT" : "YOUR EXCLUSIVE SPACE"}
-        </p>
-        <nav aria-label={admin ? "Studio navigation" : "Customer navigation"}>
+        <p className="eyebrow">STUDIO MANAGEMENT</p>
+        <nav aria-label="Studio navigation">
           {items.map(([label, icon]) => (
             <button
               key={label}
@@ -101,7 +101,7 @@ export function Workspace({
         </nav>
         <div className="sidebar-bottom">
           <p className="sidebar-note">
-            {admin ? "Your studio, in focus." : "Just for you."}
+            Your studio, in focus.
             <span>Defining Timeless Moments</span>
           </p>
           <a href="#/portfolio">
@@ -118,9 +118,7 @@ export function Workspace({
       <div className="workspace-main">
         <header className="workspace-header">
           <div>
-            <span className="eyebrow">
-              {admin ? "STUDIO" : "CUSTOMER SPACE"}
-            </span>
+            <span className="eyebrow">STUDIO</span>
             <span className="breadcrumb">/</span>
             {active}
           </div>
@@ -132,7 +130,7 @@ export function Workspace({
             <span className="avatar">{name.charAt(0).toUpperCase()}</span>
             <div>
               {name}
-              <small>{admin ? "Studio admin" : "Customer account"}</small>
+              <small>Studio admin</small>
             </div>
           </a>
         </header>

@@ -60,63 +60,6 @@ async function loginFields(user) {
   );
 }
 describe("auth flows with a mocked Supabase boundary", () => {
-  it.each([
-    { data: null, error: { code: "user_already_exists", message: "User already registered" } },
-    { data: null, error: { code: "email_exists", message: "Email exists" } },
-    { data: null, error: { message: "Email already exists" } },
-    { data: { session: null, user: { identities: [] } }, error: null },
-  ])("guides duplicate registration responses to login or password reset", async (response) => {
-    const user = userEvent.setup(), client = fakeClient();
-    client.auth.signUp.mockResolvedValue(response);
-    render(<AuthPage client={client} auth={anonymous} mode="register" />);
-    await user.type(screen.getByLabelText("Full name"), "A customer");
-    await loginFields(user);
-    await user.type(screen.getByLabelText("Confirm password", { exact: true }), "password123");
-    await user.click(screen.getByRole("checkbox"));
-    await user.click(screen.getByRole("button", { name: "Register" }));
-    expect(await screen.findByRole("alert")).toHaveTextContent(/already be registered|already registered/);
-    expect(screen.getByRole("alert")).toHaveTextContent(/log in or reset/);
-    expect(client.from).not.toHaveBeenCalled();
-  });
-  it("shows mismatched passwords and does not call signUp", async () => {
-    const user = userEvent.setup(),
-      client = fakeClient();
-    render(<AuthPage client={client} auth={anonymous} mode="register" />);
-    await user.type(screen.getByLabelText("Full name"), "A customer");
-    await loginFields(user);
-    await user.type(
-      screen.getByLabelText("Confirm password", { exact: true }),
-      "different123",
-    );
-    await user.click(screen.getByRole("checkbox"));
-    await user.click(screen.getByRole("button", { name: "Register" }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("do not match");
-    expect(client.auth.signUp).not.toHaveBeenCalled();
-  });
-  it("registers through Supabase without user-controlled role metadata and asks for email confirmation", async () => {
-    const user = userEvent.setup(),
-      client = fakeClient();
-    render(<AuthPage client={client} auth={anonymous} mode="register" />);
-    await user.type(screen.getByLabelText("Full name"), "A customer");
-    await loginFields(user);
-    await user.type(
-      screen.getByLabelText("Confirm password", { exact: true }),
-      "password123",
-    );
-    await user.click(screen.getByRole("checkbox"));
-    await user.click(screen.getByRole("button", { name: "Register" }));
-    expect(await screen.findByRole("status")).toHaveTextContent(
-      "Check your email",
-    );
-    expect(client.auth.signUp.mock.calls[0][0]).toMatchObject({
-      email: "person@example.test",
-      password: "password123",
-      options: { data: { display_name: "A customer", username: "test_customer" } },
-    });
-    expect(client.auth.signUp.mock.calls[0][0].options.data).not.toHaveProperty(
-      "role",
-    );
-  });
   it("passes username credentials to the backend and displays generic authentication errors", async () => {
     const client = fakeClient(),
       user = userEvent.setup();
@@ -148,9 +91,9 @@ describe("auth flows with a mocked Supabase boundary", () => {
     expect(client.auth.signOut).toHaveBeenCalledOnce();
     expect(client.from).toHaveBeenCalledWith("profiles");
   });
-  it.each(["login", "admin"])("uses username only on the %s login form", mode => {
+  it("uses username only on the studio login form", () => {
     const client = fakeClient();
-    render(<AuthPage client={client} auth={anonymous} mode={mode} />);
+    render(<AuthPage client={client} auth={anonymous} />);
     expect(screen.getByLabelText("Username", { exact: true })).toBeVisible();
     expect(screen.queryByLabelText(/email address/i)).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Use email instead/ })).not.toBeInTheDocument();
@@ -209,7 +152,8 @@ describe("auth flows with a mocked Supabase boundary", () => {
     render(<App client={client} />);
     await screen.findByRole("button", { name: "Login" });
     act(() => client.auth.onAuthStateChange.mock.calls[0][0]("SIGNED_IN", { user: { id: "u1" } }));
-    await waitFor(() => expect(window.location.hash).toBe("#/dashboard"));
+    await waitFor(() => expect(client.from).toHaveBeenCalledWith("profiles"));
+    expect(window.location.hash).toBe("#/login");
     expect(screen.queryByRole("heading", { name: "Choose a new password." })).not.toBeInTheDocument();
   });
   it("shows expiry when an invalid callback is opened in the same application tab", async () => {
@@ -283,39 +227,36 @@ describe("auth flows with a mocked Supabase boundary", () => {
       ).not.toBeInTheDocument(),
     );
   });
-  it("lets the visitor switch login roles without authenticating or changing permissions", async () => {
-    window.location.hash = "/login";
+  it.each(["/login", "/admin/login"])("shows only the studio login at %s, with no customer login or registration", async (path) => {
+    window.location.hash = path;
     const client = fakeClient();
-    client.auth.getSession.mockResolvedValue({
-      data: { session: null },
-      error: null,
-    });
-    const user = userEvent.setup();
+    client.auth.getSession.mockResolvedValue({ data: { session: null }, error: null });
     render(<App client={client} />);
-    const picker = await screen.findByRole("navigation", {
-      name: "Login role",
-    });
-    expect(picker.querySelector('[aria-current="page"]')).toHaveTextContent(
-      "Customer",
-    );
-    await user.click(screen.getByRole("link", { name: "Admin", exact: true }));
-    expect(
-      await screen.findByRole("heading", { name: "Studio Login." }),
-    ).toBeVisible();
-    expect(
-      screen.getByRole("link", { name: "Admin", exact: true }),
-    ).toHaveAttribute("aria-current", "page");
-    await user.click(
-      screen.getByRole("link", { name: "Customer", exact: true }),
-    );
-    expect(
-      await screen.findByRole("heading", {
-        name: "Welcome back.",
-        exact: true,
-      }),
-    ).toBeVisible();
-    expect(client.auth.signInWithPassword).not.toHaveBeenCalled();
-    expect(client.from).not.toHaveBeenCalled();
+    expect(await screen.findByRole("heading", { name: "Studio Login." })).toBeVisible();
+    expect(screen.queryByRole("navigation", { name: "Login role" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /customer|register/i })).not.toBeInTheDocument();
+    expect(client.auth.signUp).not.toHaveBeenCalled();
+  });
+  it.each([
+    ["/enquire", "BOOK YOUR DATE"],
+    ["/track", "TRACK YOUR BOOKING"],
+  ])("shows a public coming-soon page at %s without logging in", async (path, eyebrow) => {
+    window.location.hash = path;
+    const client = fakeClient();
+    client.auth.getSession.mockResolvedValue({ data: { session: null }, error: null });
+    render(<App client={client} />);
+    expect(await screen.findByRole("heading", { name: "Coming soon." })).toBeVisible();
+    expect(screen.getByText(eyebrow)).toBeVisible();
+    expect(screen.getByRole("link", { name: "Track booking" })).toHaveAttribute("href", "#/track");
+    expect(screen.getByRole("link", { name: "Studio login" })).toHaveAttribute("href", "#/admin/login");
+    expect(screen.queryByRole("heading", { name: "Studio Login." })).not.toBeInTheDocument();
+  });
+  it.each(["/register", "/dashboard", "/album"])("no longer serves the customer page %s", async (path) => {
+    window.location.hash = path;
+    const client = fakeClient();
+    client.auth.getSession.mockResolvedValue({ data: { session: null }, error: null });
+    render(<App client={client} />);
+    expect(await screen.findByRole("heading", { name: "This story isn’t here." })).toBeVisible();
   });
 });
 

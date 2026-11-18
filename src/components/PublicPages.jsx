@@ -27,7 +27,7 @@ export function Home({ client, auth }) {
               <a className="button-outline" href="#/portfolio">
                 Portfolio
               </a>
-              <a className="primary" href="#/register">
+              <a className="primary" href="#/enquire">
                 Begin your story
               </a>
             </div>
@@ -114,7 +114,7 @@ export function Home({ client, auth }) {
               [
                 "02",
                 "Make it personal",
-                "Create your customer account to begin your journey with the studio.",
+                "Send a booking enquiry and the studio will follow up with you on WhatsApp.",
               ],
               [
                 "03",
@@ -146,7 +146,7 @@ export function Home({ client, auth }) {
                 planned for a later sprint.
               </p>
               <span className="pill light-pill">
-                Heritage content · Coming later
+                Heritage guide · Coming soon
               </span>
             </div>
           </div>
@@ -177,8 +177,8 @@ export function Home({ client, auth }) {
             you’ll hold onto forever.
           </h2>
           <p>Every story begins somewhere. We’d love to be part of yours.</p>
-          <a className="primary" href="#/register">
-            Create your customer account
+          <a className="primary" href="#/enquire">
+            Book your date
           </a>
         </section>
       </main>
@@ -453,10 +453,6 @@ function PublicCollection({ collection, client, detail }) {
                 </figure>
               ))}
             </div>
-            <p className="muted small-text">
-              Photo links expire after one minute. Refresh them if a photograph
-              stops loading.
-            </p>
           </>
         )
       ) : (
@@ -501,7 +497,7 @@ export function PortfolioPage({ client, auth, selectedId }) {
                 <br className="desktop" /> heartfelt, and full of the moments
                 that matter.
               </p>
-              <a className="primary" href="#/register">
+              <a className="primary" href="#/enquire">
                 Begin your story
               </a>
             </div>
@@ -523,12 +519,11 @@ export function PortfolioPage({ client, auth, selectedId }) {
               <div>
                 <h3>Tell us about your celebration.</h3>
                 <p>
-                  Booking enquiries and package customization are planned for a
-                  later sprint. For now, explore the portfolio and create your
-                  customer account.
+                  Share your date, event type and what you have in mind, and
+                  the studio will follow up with you on WhatsApp.
                 </p>
-                <a className="button-outline" href="#/register">
-                  Create an account
+                <a className="button-outline" href="#/enquire">
+                  Enquire now
                 </a>
               </div>
             </div>

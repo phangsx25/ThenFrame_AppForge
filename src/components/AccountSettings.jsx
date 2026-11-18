@@ -88,13 +88,8 @@ export default function AccountSettings({ auth, client }) {
       setMessage("Your password has been changed.");
     });
   }
-  function navigate(section) {
-    window.location.hash =
-      section === "Gallery management"
-        ? "/admin"
-        : admin
-          ? "/admin"
-          : "/dashboard";
+  function navigate() {
+    window.location.hash = "/admin";
   }
   return (
     <Workspace
@@ -118,7 +113,7 @@ export default function AccountSettings({ auth, client }) {
           <h2>{name}</h2>
           <p>{user.email}</p>
           {username && <p>@{username}</p>}
-          <span className="pill">{admin ? "Studio admin" : "Customer"}</span>
+          <span className="pill">Studio admin</span>
         </div>
         <div className="identity-confirmation">
           <Icon name="shield" size={18} />
@@ -133,7 +128,7 @@ export default function AccountSettings({ auth, client }) {
         <section className="dashboard-card">
           <span className="eyebrow">SIGN-IN DETAILS</span>
           <h2>Your username</h2>
-          <p>Choose a unique username for customer or admin login. Your email is still used for account confirmation and password recovery.</p>
+          <p>Choose a unique username for the studio login. Your email is still used for account confirmation and password recovery.</p>
           <form onSubmit={saveUsername}>
             <label>
               Username
@@ -164,7 +159,7 @@ export default function AccountSettings({ auth, client }) {
             </label>
             <label>
               Account role
-              <input readOnly value={admin ? "Studio admin" : "Customer"} />
+              <input readOnly value="Studio admin" />
             </label>
             <small className="muted">
               Your account role is managed by the studio owner.
@@ -344,7 +339,7 @@ export default function AccountSettings({ auth, client }) {
           </div>
           <div>
             <dt>Account role</dt>
-            <dd>{admin ? "Studio admin" : "Customer"}</dd>
+            <dd>Studio admin</dd>
           </div>
           {user.created_at && (
             <div>
