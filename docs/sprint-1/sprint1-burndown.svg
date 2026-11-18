@@ -43,5 +43,5 @@
 <circle cx="525" cy="432" r="5" fill="#852d4d"/>
 <text x="540" y="437" font-size="13">Actual (subtask close dates)</text>
 <text x="85" y="470" font-size="13">Each story's points are split evenly across its subtasks. Days before the first board observation are not plotted.</text>
-<text x="85" y="490" font-size="12" fill="#756770">Latest observation: 2026-11-18T04:47:23.449Z (UTC)</text>
+<text x="85" y="490" font-size="12" fill="#756770">Latest observation: 2026-11-18T13:57:57.835Z (UTC)</text>
 </g></svg>
