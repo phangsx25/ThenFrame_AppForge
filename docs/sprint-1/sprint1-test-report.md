@@ -1,7 +1,7 @@
 # Sprint 1 — Test Report
 
 **Scope:** US01–US04, 5–18 November 2026.
-**Status:** Acceptance tables filled from checks run during development: 9 Pass, 9 Partial, 3 Not run, 5 No longer applicable (US01 retired after the Sprint 1 review). QA (Awwab) completes the Partial and Not run cases: US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61).
+**Status:** 9 criteria passed by system tests. 12 criteria need a manual test on the live site; their result columns are blank until QA (Awwab) fills them in: US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61). 5 criteria (US01) no longer apply after the Sprint 1 review.
 **Requirements:** [Sprint 1 stories](sprint1-user-story.md). Existing historical checks and their limits remain in [VERIFICATION.md](../VERIFICATION.md); this template does not reset or replace those records.
 
 Work progress and responsibility are recorded in the [shared daily log](../daily-log.md). This report records test steps, actual outcomes, defects and retest evidence.
@@ -15,9 +15,9 @@ This project uses Vitest and manual testing. They answer different questions, an
 | Who runs them | The computer: Vitest, with `npm test`, locally and in the GitHub **verify** check on every pull request | A person, in a real browser or on a phone |
 | What they check | Application logic, such as validation, access guards and upload rules, using simulated backend responses | Each user story’s acceptance criteria, end to end, on the deployed app |
 | Where results are recorded | [Automated checks](#automated-checks) | The acceptance tables under each user story |
-| Current result | 74 Vitest tests and 3 burndown script tests pass | 9 Pass, 9 Partial, 3 Not run, 5 No longer applicable |
+| Current result | 74 Vitest tests and 5 burndown script tests pass | 9 Pass (system tests), 12 waiting for manual testing, 5 no longer apply (US01) |
 
-Passing automated tests does not pass an acceptance criterion by itself. In the acceptance tables, **Tested during development** means the result comes from checks made while building the feature; the Status and Evidence columns say whether that was a live check, a browser check or a unit test. Rows marked Partial or Not run still need a person to complete them.
+In the US02–US04 tables, **Type** says how each criterion is tested. **System test** rows were checked by automated or scripted checks against the live backend, and their results are filled in. **Manual** rows need a person on the live site; fill in Actual result, Status (Pass or Fail), Tester and Date after testing.
 
 ## Test session
 
@@ -30,7 +30,7 @@ Passing automated tests does not pass an acceptance criterion by itself. In the 
 | Environment and test account roles | Production user recovery flow (manual); synthetic customer and intercepted Auth/profile responses (browser regression) |
 | Test data and cleanup plan | Automated checks used synthetic credentials and did not send real emails or change real account passwords. Manual test used a fresh reset email; no reset links or credentials retained here. |
 
-Tests are grouped by user story and reference the numbered acceptance criteria in the story document. Record actual execution dates and testers for each case; leave unexecuted cases as **Not run**. Existing supporting checks retain their original scope and do not automatically pass an acceptance criterion.
+Tests are grouped by user story and reference the numbered acceptance criteria in the story document. Record actual execution dates and testers for each case; leave a manual row blank until it has been tested.
 
 ## US01 — Customer registration and login
 
@@ -92,14 +92,14 @@ Requirements: [US02 acceptance criteria](sprint1-user-story.md#us02--administrat
 
 ### Acceptance test results
 
-| Test ID | AC no. | Steps / test data | Expected result | Actual result | Status | Tester | Execution date | Evidence / defect |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| US02-AC01 | 1 | Log in on the admin form with the admin username and password. | Authorized admins log in with their username and password. | Admin login and the database admin role were verified on 14 November. Admin login with the new username has not been confirmed by the account owner. | Partial | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
-| US02-AC02 | 2 | Log in as admin and observe the landing page. | Successful admin login redirects to the admin dashboard. | Redirect to the admin dashboard was not separately recorded. | Not run | — | — | — |
-| US02-AC03 | 3 | Enter a wrong password on the admin form. | Incorrect login details display an error message. | Login uses the same generic failure handling verified in [USER02](#username-login-validation--15-november-2026); the admin form itself was not tested with wrong details. | Partial | Tested during development | 15 November 2026 | [USER02](#username-login-validation--15-november-2026) |
-| US02-AC04 | 4 | Sign in as a customer, then use the admin form and open an admin URL directly. | Regular customers cannot access admin-only pages. | The customer was rejected by the admin login and signed out; a direct admin URL was blocked before any gallery request. | Pass — live browser and unit test | Tested during development | 15 November 2026 | [USER05](#username-login-validation--15-november-2026); tests/auth.test.jsx |
-| US02-AC05 | 5 | Log out as admin, then open the dashboard. | Admins can log out, and protected dashboard pages cannot be accessed after logout. | Admin tools are not restored after sign-out in a unit test; not checked in a browser. | Partial | Tested during development | 15 November 2026 | tests/auth.test.jsx |
-| US02-AC06 | 6 | Sign up publicly and try to set an admin role through metadata or a direct update. | Public users cannot register themselves as administrators. | New accounts are forced to the customer role; role tampering and direct role updates were denied. | Pass — rolled-back database fixtures | Tested during development | 15 November 2026 | [USER04](#username-login-validation--15-november-2026) |
+| Test ID | Steps | Expected result | Type | Actual result | Status | Tester | Date |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| US02-AC01 | Log in on the studio login page with the studio username and password. | Authorized admins log in with their username and password. | Manual |  |  |  |  |
+| US02-AC02 | Log in as admin and observe the landing page. | Successful admin login opens the studio dashboard. | Manual |  |  |  |  |
+| US02-AC03 | Enter a wrong password on the studio login page. | Incorrect login details display an error message. | Manual |  |  |  |  |
+| US02-AC04 | Sign in as a non-admin account, then open an admin URL directly. | Non-admin users cannot access admin-only pages. | System test | A non-admin account was rejected by the admin login and signed out; a direct admin URL was blocked before any gallery request (live browser check and tests/auth.test.jsx). | Pass | System test | 15 November 2026 |
+| US02-AC05 | Log out, then open `#/admin` directly. | After logout, the studio dashboard cannot be opened. | Manual |  |  |  |  |
+| US02-AC06 | Try to set an admin role through sign-up metadata or a direct update. | Public users cannot make themselves administrators. | System test | Role tampering and direct role updates were denied (rolled-back database tests). | Pass | System test | 15 November 2026 |
 
 ## US03 — Gallery management
 
@@ -107,15 +107,15 @@ Requirements: [US03 acceptance criteria](sprint1-user-story.md#us03--gallery-man
 
 ### Acceptance test results
 
-| Test ID | AC no. | Steps / test data | Expected result | Actual result | Status | Tester | Execution date | Evidence / defect |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| US03-AC01 | 1 | As admin, upload a PNG photo. | Logged-in admins can upload wedding photos to the system. | A temporary PNG upload succeeded; the fixture was cleaned up. | Pass — live admin check | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
-| US03-AC02 | 2 | As admin, create and edit a collection with title, description and event type. | Admins can create a gallery collection with a title, description and event type. | Collection metadata was created and edited successfully. | Pass — live admin check | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
-| US03-AC03 | 3 | Upload a photo into a selected collection; try a path for a different collection. | Admins can add uploaded photos to a selected collection. | The upload was stored under the selected collection; a wrong-collection path was rejected by the database constraint. | Pass — live admin check | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
-| US03-AC04 | 4 | Edit, then delete a photo and a collection. | Admins can view, edit and delete their uploaded photos and collections. | Editing was checked live. Photo and collection deletion are covered by unit tests only. | Partial | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work); tests/gallery.test.js |
-| US03-AC05 | 5 | Upload JPG, PNG and WebP files; try an SVG and a file over 8 MB. | The system accepts JPG/JPEG, PNG and WebP images up to 8 MB (8,388,608 bytes) per file, and rejects unsupported file types or larger files. | Bucket limits (8,388,608 bytes; JPEG/PNG/WebP) and the path constraint were verified; SVG and oversized files are rejected. Live JPEG and WebP uploads were not performed. | Partial | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work); tests/gallery.test.js |
-| US03-AC06 | 6 | Create a collection with photos, then refresh the page. | Uploaded photos and collection details remain saved after refreshing the page. | Records were saved in the live database; a page refresh check was not recorded. | Partial | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
-| US03-AC07 | 7 | As a visitor and as a customer, try to open gallery management or update a collection. | Regular customers and visitors cannot access photo upload or gallery management functions. | An anonymous collection update was denied live; a customer opening an admin URL was blocked. | Pass — live check and unit test | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work); tests/auth.test.jsx |
+| Test ID | Steps | Expected result | Type | Actual result | Status | Tester | Date |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| US03-AC01 | As admin, upload a PNG photo. | Logged-in admins can upload wedding photos. | System test | A temporary PNG upload succeeded and was cleaned up (live admin check). | Pass | System test | 14 November 2026 |
+| US03-AC02 | As admin, create and edit a collection with title, description and event type. | Admins can create a collection with a title, description and event type. | System test | The collection was created and edited (live admin check). | Pass | System test | 14 November 2026 |
+| US03-AC03 | Upload a photo into a selected collection; try a path for a different collection. | Uploaded photos are added to the selected collection. | System test | The upload was stored under the selected collection; a wrong-collection path was rejected by the database (live admin check). | Pass | System test | 14 November 2026 |
+| US03-AC04 | Delete one photo, then delete a whole collection. | Admins can view, edit and delete their photos and collections. | Manual |  |  |  |  |
+| US03-AC05 | Upload one JPG and one WebP photo. | JPG/JPEG, PNG and WebP up to 8 MB are accepted; other types and larger files are rejected (rejection already covered by tests/gallery.test.js). | Manual |  |  |  |  |
+| US03-AC06 | Create a collection with photos, then refresh the page. | Photos and collection details remain after refreshing. | Manual |  |  |  |  |
+| US03-AC07 | As a visitor, try to update a collection; as a non-admin, open gallery management. | Visitors and non-admins cannot use upload or gallery management. | System test | An anonymous collection update was denied; a non-admin opening an admin URL was blocked (live check and tests/auth.test.jsx). | Pass | System test | 14 November 2026 |
 
 ## US04 — Public portfolio browsing
 
@@ -123,16 +123,16 @@ Requirements: [US04 acceptance criteria](sprint1-user-story.md#us04--public-port
 
 ### Acceptance test results
 
-| Test ID | AC no. | Steps / test data | Expected result | Actual result | Status | Tester | Execution date | Evidence / defect |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| US04-AC01 | 1 | Without logging in, open the portfolio. | Visitors can browse public wedding photography collections without logging in. | Anonymous reads of public collections and photos succeeded. | Pass — live anonymous check | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
-| US04-AC02 | 2 | Open a public collection. | Visitors can open a collection to view its wedding photos and details. | Visitor photo requests are scoped to the collection with expiring links (unit test); a browser check was not recorded. | Partial | Tested during development | 14 November 2026 | tests/gallery.test.js |
-| US04-AC03 | 3 | Filter collections by event type. | Visitors can browse and filter collections by event type. | Not recorded. | Not run | — | — | — |
-| US04-AC04 | 4 | As a visitor, view all four public/hidden collection and photo combinations. | Only photos and collections marked as public are displayed to visitors. | Only public collections with public photos were returned. | Pass — live anonymous check | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
-| US04-AC05 | 5 | Open the portfolio on a phone and a desktop screen. | The gallery works properly on both mobile and desktop screens. | Only an earlier automated mobile-layout check exists (since removed); no current device check was recorded. | Partial | Tested during development | 14 November 2026 | — |
-| US04-AC06 | 6 | Open a public collection with no photos. | The system displays a message when a collection has no photos. | The message exists in the code but was not tested. | Not run | — | — | — |
-| US04-AC07 | 7 | As a visitor, try to update a collection. | Visitors cannot upload, edit or delete gallery photos or collections. | The unauthorized update was denied. | Pass — live anonymous check | Tested during development | 14 November 2026 | [VERIFICATION](../VERIFICATION.md#completed-work) |
-| US04-AC08 | 8 | Publish, edit and republish collections, then view the homepage. | The homepage displays the three most recently published public collections in Latest Work, with links to each collection and View All; private collections are excluded and ordinary edits do not change publication order. | Database assertions passed for publication order and private exclusion; the homepage was not checked in a browser. | Partial | Tested during development | 15 November 2026 | [Latest Work verification](#latest-work-verification--15-november-2026) |
+| Test ID | Steps | Expected result | Type | Actual result | Status | Tester | Date |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| US04-AC01 | Without logging in, open the portfolio. | Visitors browse public collections without logging in. | System test | Anonymous reads of public collections and photos succeeded (live check). | Pass | System test | 14 November 2026 |
+| US04-AC02 | Without logging in, open a public collection. | Visitors can open a collection and see its photos and details. | Manual |  |  |  |  |
+| US04-AC03 | In the portfolio, filter by event type. | Only collections of the chosen event type are shown. | Manual |  |  |  |  |
+| US04-AC04 | As a visitor, request all four public/hidden collection and photo combinations. | Only public photos in public collections are shown. | System test | Only public collections with public photos were returned (live check). | Pass | System test | 14 November 2026 |
+| US04-AC05 | Open the portfolio on a phone and on a laptop. | The layout works on both mobile and desktop. | Manual |  |  |  |  |
+| US04-AC06 | Open a public collection with no photos. | A message says the collection has no photos. | Manual |  |  |  |  |
+| US04-AC07 | As a visitor, try to update a collection. | Visitors cannot upload, edit or delete photos or collections. | System test | The update was denied (live check). | Pass | System test | 14 November 2026 |
+| US04-AC08 | Open the homepage and look at Latest Work. | Latest Work shows the three most recently published public collections, with links and View All; private collections do not appear. | Manual |  |  |  |  |
 
 ### Latest Work verification — 15 November 2026
 
@@ -165,7 +165,7 @@ Earlier record: on 14 November 2026 (`05a5154`) lint, 46 tests across 4 files an
 
 ## Session outcome
 
-- Recovery checks: 4 passed with evidence types shown under US01; 1 live login check not run. Of the 26 acceptance cases, 9 pass, 9 are partial, 3 are not run and 5 no longer apply because US01 was retired, based on checks run during development; each partial or not-run row states what still needs testing.
+- Acceptance criteria: 9 passed by system tests; 12 waiting for manual testing on the live site (blank rows in the US02–US04 tables); 5 no longer apply because US01 was retired. Recovery checks (US01 record): 4 passed, 1 not run.
 - Remaining risks and limitations: real new-password login and old-password rejection are not yet confirmed. Mocked API success does not establish a real server-side password update.
 - Test-data cleanup result: automated browser checks created no live accounts, sent no emails and made no real password changes. No shared recovery link was redeemed by the agent.
 - Acceptance decision and reviewer: TBD; passing tests alone does not establish the full Definition of Done.
