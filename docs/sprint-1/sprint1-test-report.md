@@ -25,7 +25,7 @@ Work progress and responsibility are recorded in the [shared daily log](../daily
 | Browser / device | Headless Microsoft Edge for browser checks | Desktop browser and a phone |
 | Test data | Temporary records, removed after each check; no real emails sent | Create test collections as needed, then delete them so the demo shows no test data |
 
-Each manual row records Pass or Fail, the tester and the date. The test tasks (#52, #58, #60, #61) were closed on the Kanban on 18 November; the manual tests on the live site were run and recorded on 19 November.
+Each manual row records Pass or Fail, the tester and the date, with a screenshot link where one was taken ([all manual test screenshots](#manual-test-screenshots--19-november-2026)). US03-AC06 (refresh) and US04-AC05 (phone and laptop) were checked by eye without a screenshot. The admin username is cropped out of the login screenshot. The test tasks (#52, #58, #60, #61) were closed on the Kanban on 18 November; the manual tests on the live site were run and recorded on 19 November.
 
 ## Automated tests
 
@@ -129,10 +129,10 @@ Already passed by automated checks: US02-AC04, US02-AC06 (see [Automated tests](
 
 | Test ID | Steps | Expected result | Actual result | Status | Tester | Date |
 | --- | --- | --- | --- | --- | --- | --- |
-| US02-AC01 | Log in on the studio login page with the studio username and password. | Authorized admins log in with their username and password. | Logged in with the studio account on the live site; login succeeded. | Pass | Phang | 19 November 2026 |
-| US02-AC02 | Log in as admin and observe the landing page. | Successful admin login opens the studio dashboard. | After login the studio dashboard (Overview) opened. | Pass | Phang | 19 November 2026 |
-| US02-AC03 | Enter a wrong password on the studio login page. | Incorrect login details display an error message. | A wrong password showed "Invalid username or password." | Pass | Phang | 19 November 2026 |
-| US02-AC05 | Log out, then open `#/admin` directly. | After logout, the studio dashboard cannot be opened. | After logout, opening `#/admin` showed "Please log in to continue"; the dashboard did not open. | Pass | Phang | 19 November 2026 |
+| US02-AC01 | Log in on the studio login page with the studio username and password. | Authorized admins log in with their username and password. | Logged in with the studio account on the live site; login succeeded. [Screenshot](test-evidence/us02-ac01-ac02-dashboard.png) | Pass | Phang | 19 November 2026 |
+| US02-AC02 | Log in as admin and observe the landing page. | Successful admin login opens the studio dashboard. | After login the studio dashboard (Overview) opened. [Screenshot](test-evidence/us02-ac01-ac02-dashboard.png) | Pass | Phang | 19 November 2026 |
+| US02-AC03 | Enter a wrong password on the studio login page. | Incorrect login details display an error message. | A wrong password showed "Invalid username or password." [Screenshot](test-evidence/us02-ac03-wrong-password.png) | Pass | Phang | 19 November 2026 |
+| US02-AC05 | Log out, then open `#/admin` directly. | After logout, the studio dashboard cannot be opened. | After logout, opening `#/admin` showed "Please log in to continue"; the dashboard did not open. [Screenshot](test-evidence/us02-ac05-after-logout.png) | Pass | Phang | 19 November 2026 |
 
 ## US03 — Gallery management
 
@@ -144,8 +144,8 @@ Already passed by automated checks: US03-AC01, US03-AC02, US03-AC03, US03-AC07 (
 
 | Test ID | Steps | Expected result | Actual result | Status | Tester | Date |
 | --- | --- | --- | --- | --- | --- | --- |
-| US03-AC04 | Delete one photo, then delete a whole collection. | Admins can view, edit and delete their photos and collections. | Deleted one photo and a whole test collection; both showed a "Deleted." confirmation. | Pass | Phang | 19 November 2026 |
-| US03-AC05 | Upload one JPG and one WebP photo. | JPG/JPEG, PNG and WebP up to 8 MB are accepted; other types and larger files are rejected. | A WebP photo uploaded; a PDF was rejected with "Choose a JPG / JPEG, PNG or WebP image." Files over 8 MB are rejected by the app check (tests/gallery.test.js) and the 8 MB Storage limit. | Pass | Phang | 19 November 2026 |
+| US03-AC04 | Delete one photo, then delete a whole collection. | Admins can view, edit and delete their photos and collections. | Deleted one photo and a whole test collection; both showed a "Deleted." confirmation. [Screenshot](test-evidence/us03-ac04-deleted.png) | Pass | Phang | 19 November 2026 |
+| US03-AC05 | Upload one JPG and one WebP photo. | JPG/JPEG, PNG and WebP up to 8 MB are accepted; other types and larger files are rejected. | A WebP photo uploaded; a PDF was rejected with "Choose a JPG / JPEG, PNG or WebP image." Files over 8 MB are rejected by the app check (tests/gallery.test.js) and the 8 MB Storage limit. [Screenshot 1](test-evidence/us03-ac05-webp-accepted.png) [Screenshot 2](test-evidence/us03-ac05-pdf-rejected.png) | Pass | Phang | 19 November 2026 |
 | US03-AC06 | Create a collection with photos, then refresh the page. | Photos and collection details remain after refreshing. | Created test collections with photos and refreshed; collections and photos remained. | Pass | Phang | 19 November 2026 |
 
 ## US04 — Public portfolio browsing
@@ -158,11 +158,11 @@ Already passed by automated checks: US04-AC01, US04-AC04, US04-AC07 (see [Automa
 
 | Test ID | Steps | Expected result | Actual result | Status | Tester | Date |
 | --- | --- | --- | --- | --- | --- | --- |
-| US04-AC02 | Without logging in, open a public collection. | Visitors can open a collection and see its photos and details. | Without logging in, opened collection 4; its title, description and two photos were shown. | Pass | Phang | 19 November 2026 |
-| US04-AC03 | In the portfolio, filter by event type. | Only collections of the chosen event type are shown. | Filtering by Engagement showed only the Engagement collection. | Pass | Phang | 19 November 2026 |
+| US04-AC02 | Without logging in, open a public collection. | Visitors can open a collection and see its photos and details. | Without logging in, opened collection 4; its title, description and two photos were shown. [Screenshot](test-evidence/us04-ac02-open-collection.png) | Pass | Phang | 19 November 2026 |
+| US04-AC03 | In the portfolio, filter by event type. | Only collections of the chosen event type are shown. | Filtering by Engagement showed only the Engagement collection. [Screenshot](test-evidence/us04-ac03-filter.png) | Pass | Phang | 19 November 2026 |
 | US04-AC05 | Open the portfolio on a phone and on a laptop. | The layout works on both mobile and desktop. | Portfolio checked on a phone and a laptop; the layout worked on both. | Pass | Phang | 19 November 2026 |
-| US04-AC06 | Open a public collection with no photos. | A message says the collection has no photos. | An empty public collection showed "This collection has no published photographs yet." | Pass | Phang | 19 November 2026 |
-| US04-AC08 | Open the homepage and look at Latest Work. | Latest Work shows the three most recently published public collections, with links and View All; private collections do not appear. | Latest Work showed the three newest public collections with View collection links and View All; the private collection did not appear. | Pass | Phang | 19 November 2026 |
+| US04-AC06 | Open a public collection with no photos. | A message says the collection has no photos. | An empty public collection showed "This collection has no published photographs yet." [Screenshot](test-evidence/us04-ac06-empty-collection.png) | Pass | Phang | 19 November 2026 |
+| US04-AC08 | Open the homepage and look at Latest Work. | Latest Work shows the three most recently published public collections, with links and View All; private collections do not appear. | Latest Work showed the three newest public collections with View collection links and View All; the private collection did not appear. [Screenshot](test-evidence/us04-ac08-latest-work.png) | Pass | Phang | 19 November 2026 |
 
 ### Latest Work verification — 15 November 2026
 
@@ -176,6 +176,50 @@ Already passed by automated checks: US04-AC01, US04-AC04, US04-AC07 (see [Automa
 | --- | --- | --- | --- | --- | --- |
 | RESET-01: Email redirected to the old Sites home page; recovery event was not handled explicitly. | US01-RESET01–03 | Blocks password recovery | Phang | `ac900f6` | User confirmed recovery routing works after correction; automated frontend regression passed. |
 | RESET-02: Same-tab expired-link navigation retained the earlier callback error state. | US01-RESET04 | Incorrect link-error feedback | Phang | `05a5154` | Vitest and deployed frontend expiry checks passed. |
+
+## Manual test screenshots — 19 November 2026
+
+Taken on the live site by Phang during the manual tests. Test collections 1–5 were created for these checks.
+
+**US02-AC03: Wrong password shows an error**
+
+![US02-AC03: Wrong password shows an error](test-evidence/us02-ac03-wrong-password.png)
+
+**US02-AC01, AC02: Login opens the studio dashboard**
+
+![US02-AC01, AC02: Login opens the studio dashboard](test-evidence/us02-ac01-ac02-dashboard.png)
+
+**US02-AC05: After logout, the admin page asks to log in**
+
+![US02-AC05: After logout, the admin page asks to log in](test-evidence/us02-ac05-after-logout.png)
+
+**US03-AC05: WebP photo accepted**
+
+![US03-AC05: WebP photo accepted](test-evidence/us03-ac05-webp-accepted.png)
+
+**US03-AC05: PDF rejected**
+
+![US03-AC05: PDF rejected](test-evidence/us03-ac05-pdf-rejected.png)
+
+**US03-AC04: Collection deleted**
+
+![US03-AC04: Collection deleted](test-evidence/us03-ac04-deleted.png)
+
+**US04-AC08: Latest Work shows the three newest public collections**
+
+![US04-AC08: Latest Work shows the three newest public collections](test-evidence/us04-ac08-latest-work.png)
+
+**US04-AC02: Visitor opens a public collection with its photos**
+
+![US04-AC02: Visitor opens a public collection with its photos](test-evidence/us04-ac02-open-collection.png)
+
+**US04-AC03: Filtering by event type**
+
+![US04-AC03: Filtering by event type](test-evidence/us04-ac03-filter.png)
+
+**US04-AC06: Empty public collection message**
+
+![US04-AC06: Empty public collection message](test-evidence/us04-ac06-empty-collection.png)
 
 ## Session outcome
 
