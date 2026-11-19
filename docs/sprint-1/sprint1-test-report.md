@@ -25,7 +25,7 @@ Work progress and responsibility are recorded in the [shared daily log](../daily
 | Browser / device | Headless Microsoft Edge for browser checks | Desktop browser and a phone |
 | Test data | Temporary records, removed after each check; no real emails sent | Create test collections as needed, then delete them so the demo shows no test data |
 
-Each manual row stays blank until it has been tested. Record Pass or Fail, the tester and the date.
+Each manual row records Pass or Fail, the tester and the date. The test tasks (#52, #58, #60, #61) were closed on the Kanban on 18 November; the manual tests on the live site were run and recorded on 19 November.
 
 ## Automated tests
 
