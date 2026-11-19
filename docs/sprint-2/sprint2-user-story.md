@@ -1,6 +1,6 @@
 # Sprint 2 — User Story Details
 
-Booking Enquiries, Booking and Consultation Management, and Heritage Education
+Booking Enquiry Form, Enquiry List and Status, and Heritage Education
 
 - Stories: US05–US07
 - Planned dates: 19 November 2026 – 9 December 2026 (including the agreed holiday extension).
@@ -12,11 +12,13 @@ Sprint goal: customers submit service enquiries; admins review availability, arr
 
 The previous US07 consultation story is merged into US06. Current US07 is heritage education. No owners or completed tasks are inferred from blank fields in the supplied refinement.
 
-## US05 — Service and booking enquiries
+## US05 — Booking enquiry form
 
-**Test results:** [US05 test report](sprint2-test-report.md#us05--service-and-booking-enquiries). Expected evidence remains in the task table; record actual outcomes in the linked report.
+**Updated 19 November 2026** ([Refinement 3](../sprint-1/sprint1-refinement.md#refinement-3--19-november-2026-studio-follow-up)): renamed and simplified after the studio follow-up. The enquiry is saved in the system and then opens the studio's WhatsApp; the admin tracks each enquiry's status. The acceptance criteria below are from the earlier version and will be revised at Sprint 2 planning.
 
-**User story:** As a customer, I want to submit a photography service enquiry with my event details, preferred style, and package requirements so that ThenFrame can understand my needs and recommend suitable services.
+**Test results:** [US05 test report](sprint2-test-report.md#us05--booking-enquiry-form). Expected evidence remains in the task table; record actual outcomes in the linked report.
+
+**User story:** As a customer, I want to send a booking enquiry with my event details without creating an account, so that the studio gets everything it needs in one message and can reply on WhatsApp.
 
 **Priority:** Must · **Estimate:** 8 points · **Evidence:** INT01
 
@@ -50,11 +52,13 @@ The previous US07 consultation story is merged into US06. Current US07 is herita
 | Implement enquiry submission and data storage | TBD on Kanban | Saved enquiry records |
 | Test form validation and submission | TBD on Kanban | Test results |
 
-## US06 — Booking and consultation management
+## US06 — Enquiry list and status
 
-**Test results:** [US06 test report](sprint2-test-report.md#us06--booking-and-consultation-management). Expected evidence remains in the task table; record actual outcomes in the linked report.
+**Updated 19 November 2026** ([Refinement 3](../sprint-1/sprint1-refinement.md#refinement-3--19-november-2026-studio-follow-up)): renamed and simplified after the studio follow-up. The enquiry is saved in the system and then opens the studio's WhatsApp; the admin tracks each enquiry's status. The acceptance criteria below are from the earlier version and will be revised at Sprint 2 planning.
 
-**User story:** As a ThenFrame studio admin, I want to review customer enquiries, check booking availability, and schedule consultations so that I can manage bookings efficiently and confirm details with customers.
+**Test results:** [US06 test report](sprint2-test-report.md#us06--enquiry-list-and-status). Expected evidence remains in the task table; record actual outcomes in the linked report.
+
+**User story:** As the ThenFrame studio admin, I want to see all booking enquiries in one list and update their status, so that I do not miss any customer.
 
 **Priority:** Must · **Estimate:** 8 points · **Evidence:** INT01
 

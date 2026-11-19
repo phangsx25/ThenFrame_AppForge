@@ -13,9 +13,9 @@
 
 Tests are grouped by user story and reference the numbered acceptance criteria in the story document. Record actual execution dates and testers for each case; leave unexecuted cases as **Not run**. Existing supporting checks retain their original scope and do not automatically pass an acceptance criterion.
 
-## US05 — Service and booking enquiries
+## US05 — Booking enquiry form
 
-Requirements: [US05 acceptance criteria](sprint2-user-story.md#us05--service-and-booking-enquiries).
+Requirements: [US05 acceptance criteria](sprint2-user-story.md#us05--booking-enquiry-form).
 
 ### Acceptance test results
 
@@ -30,9 +30,9 @@ Requirements: [US05 acceptance criteria](sprint2-user-story.md#us05--service-and
 | US05-AC07 | 7 | TBD | Successfully submitted enquiries are saved, and a confirmation message is displayed. | Not recorded | Not run | TBD | TBD | TBD |
 | US05-AC08 | 8 | TBD | Failed submissions display an error message without creating duplicate enquiries. | Not recorded | Not run | TBD | TBD | TBD |
 
-## US06 — Booking and consultation management
+## US06 — Enquiry list and status
 
-Requirements: [US06 acceptance criteria](sprint2-user-story.md#us06--booking-and-consultation-management).
+Requirements: [US06 acceptance criteria](sprint2-user-story.md#us06--enquiry-list-and-status).
 
 ### Acceptance test results
 

@@ -37,8 +37,8 @@ Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative 
 | 2 / US02 | Secure administrator login | Must | 3 | 1 | Security assumption |
 | 3 / US03 | Gallery upload and management | Must | 5 | 1 | INT01 |
 | 4 / US04 | Public portfolio browsing | Must | 5 | 1 | ASM01 |
-| 5 / US05 | Service and booking enquiries | Must | 8 | 2 | INT01 |
-| 6 / US06 | Booking and consultation management | Must | 8 | 2 | INT01 |
+| 5 / US05 | Booking enquiry form | Must | 8 | 2 | INT01 |
+| 6 / US06 | Enquiry list and status | Must | 8 | 2 | INT01 |
 | 7 / US07 | Traditional Malay wedding heritage guide | Should | 3 | 2 | SULAM01 |
 | 8 / US08 | Private client albums and final photo delivery management (**retired 19 Nov 2026**: studio sends full-quality files directly) | Retired | 8 | 3 | INT01 |
 | 9 / US09 | Customer private album viewing, selection and download (**retired 19 Nov 2026** with US08) | Retired | 8 | 3 | INT01 |
@@ -54,8 +54,8 @@ Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative 
 - **US02:** As a ThenFrame studio admin, I want to log in securely with administrator credentials, so that I can access the backend dashboard without unauthorized users breaking in.
 - **US03:** As a ThenFrame studio admin, I want to upload and manage wedding photos in the gallery, so that I can organize and display my photography collections online.
 - **US04:** As a visitor or newlywed couple, I want to browse wedding events and collections, so that I can find ideas for my wedding before deciding to book.
-- **US05:** As a customer, I want to submit a photography service enquiry with my event details, preferred style, and package requirements so that ThenFrame can understand my needs and recommend suitable services.
-- **US06:** As a ThenFrame studio admin, I want to review customer enquiries, check booking availability, and schedule consultations so that I can manage bookings efficiently and confirm details with customers.
+- **US05:** As a customer, I want to send a booking enquiry with my event details without creating an account, so that the studio gets everything it needs in one message and can reply on WhatsApp.
+- **US06:** As the ThenFrame studio admin, I want to see all booking enquiries in one list and update their status, so that I do not miss any customer.
 - **US07:** As a visitor or customer from any cultural background, I want to browse and learn about traditional Malay wedding attire and heritage stories on the website so that I can appreciate local Malay customs and explore traditional Malay wedding photography styles.
 - **US08:** As a ThenFrame studio admin, I want to upload and organize client wedding photos into private albums and provide final edited photos for delivery, so that I can manage photo selection and delivery in one system. *(Retired 19 November 2026: the studio said website uploads lower image quality and prefers to send full-quality files directly to clients; see [Refinement 3](sprint-1/sprint1-refinement.md#refinement-3--19-november-2026-studio-follow-up).)*
 - **US09:** As a customer, I want to view my private wedding album, select my preferred photos and download the final edited photos, so that I can receive my wedding photos conveniently. *(Retired 19 November 2026 with US08.)*
@@ -188,9 +188,11 @@ These are requirement lists, not completed checklists. Record results and eviden
 
 US05–US07 follow the supplied refinement. Approval and task allocation remain pending; these are requirements and expected evidence, not completed work. See the Sprint 2 document for [evidence context](sprint-2/sprint2-user-story.md#evidence-context) and [open implementation decisions](sprint-2/sprint2-user-story.md#clarifications-before-implementation).
 
-### US05 — Service and booking enquiries
+### US05 — Booking enquiry form
 
-**User story:** As a customer, I want to submit a photography service enquiry with my event details, preferred style, and package requirements so that ThenFrame can understand my needs and recommend suitable services.
+**Updated 19 November 2026** ([Refinement 3](sprint-1/sprint1-refinement.md#refinement-3--19-november-2026-studio-follow-up)): renamed and simplified after the studio follow-up. The enquiry is saved in the system and then opens the studio's WhatsApp; the admin tracks each enquiry's status. The acceptance criteria below are from the earlier version and will be revised at Sprint 2 planning.
+
+**User story:** As a customer, I want to send a booking enquiry with my event details without creating an account, so that the studio gets everything it needs in one message and can reply on WhatsApp.
 
 **Priority:** Must · **Estimate:** 8 points · **Evidence:** INT01
 
@@ -222,9 +224,11 @@ US05–US07 follow the supplied refinement. Approval and task allocation remain 
 | Implement enquiry submission and data storage | TBD on Kanban | Saved enquiry records |
 | Test form validation and submission | TBD on Kanban | Test results |
 
-### US06 — Booking and consultation management
+### US06 — Enquiry list and status
 
-**User story:** As a ThenFrame studio admin, I want to review customer enquiries, check booking availability, and schedule consultations so that I can manage bookings efficiently and confirm details with customers.
+**Updated 19 November 2026** ([Refinement 3](sprint-1/sprint1-refinement.md#refinement-3--19-november-2026-studio-follow-up)): renamed and simplified after the studio follow-up. The enquiry is saved in the system and then opens the studio's WhatsApp; the admin tracks each enquiry's status. The acceptance criteria below are from the earlier version and will be revised at Sprint 2 planning.
+
+**User story:** As the ThenFrame studio admin, I want to see all booking enquiries in one list and update their status, so that I do not miss any customer.
 
 **Priority:** Must · **Estimate:** 8 points · **Evidence:** INT01
 
