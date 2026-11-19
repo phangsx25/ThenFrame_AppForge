@@ -239,7 +239,6 @@ describe("auth flows with a mocked Supabase boundary", () => {
   });
   it.each([
     ["/enquire", "BOOK YOUR DATE"],
-    ["/track", "TRACK YOUR BOOKING"],
   ])("shows a public coming-soon page at %s without logging in", async (path, eyebrow) => {
     window.location.hash = path;
     const client = fakeClient();
@@ -247,11 +246,12 @@ describe("auth flows with a mocked Supabase boundary", () => {
     render(<App client={client} />);
     expect(await screen.findByRole("heading", { name: "Coming soon." })).toBeVisible();
     expect(screen.getByText(eyebrow)).toBeVisible();
-    expect(screen.getByRole("link", { name: "Track booking" })).toHaveAttribute("href", "#/track");
+    // Booking tracking was dropped at the studio's request (19 November 2026).
+    expect(screen.queryByRole("link", { name: "Track booking" })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Studio login" })).toHaveAttribute("href", "#/admin/login");
     expect(screen.queryByRole("heading", { name: "Studio Login." })).not.toBeInTheDocument();
   });
-  it.each(["/register", "/dashboard", "/album"])("no longer serves the customer page %s", async (path) => {
+  it.each(["/register", "/dashboard", "/album", "/track"])("no longer serves the customer page %s", async (path) => {
     window.location.hash = path;
     const client = fakeClient();
     client.auth.getSession.mockResolvedValue({ data: { session: null }, error: null });

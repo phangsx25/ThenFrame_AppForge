@@ -200,14 +200,6 @@ export default function App({ client = supabase }) {
         soon.
       </ComingSoon>
     );
-  else if (route === "/track")
-    page = (
-      <ComingSoon auth={auth} eyebrow="TRACK YOUR BOOKING"
-        action={["#/contact", "Book your date"]}>
-        Soon you’ll be able to check the progress of your booking with your
-        booking reference, without creating an account.
-      </ComingSoon>
-    );
   else
     page = (
       <>
