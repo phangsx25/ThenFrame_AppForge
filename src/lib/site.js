@@ -14,7 +14,6 @@ export const SITE_LINKS = [
   ["Packages", "#/packages"],
   ["Heritage", "#/#heritage"],
   ["Our story", "#/#our-story"],
-  ["Track booking", "#/track"],
   ["Contact", "#/contact"],
 ];
 
