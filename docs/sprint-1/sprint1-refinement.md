@@ -1,7 +1,7 @@
 # Sprint 1 — Backlog Refinement Record
 
 **Sprint:** 5–18 November 2026 · US01–US04.
-**Status:** Two refinements recorded: the scheduled refinement on 11 November and a refinement on 18 November after the Sprint 1 user review.
+**Status:** Three refinements recorded: the scheduled refinement on 11 November, a refinement on 18 November after the Sprint 1 user review, and a studio follow-up on 19 November.
 **Source:** [Sprint stories](sprint1-user-story.md), [product backlog](../PRODUCT_BACKLOG.md), [user review](sprint1-user-review.md).
 
 ## Refinement 1 — 11 November 2026 (no meeting held)
@@ -36,5 +36,21 @@ The full mapping is in [Backlog refinement and story mapping](../PRODUCT_BACKLOG
 | US04 | “Create your customer account” calls to action | Point to “Book your date” (Coming soon until US05 is ready); new Track booking tab (Coming soon) | Customers book without an account | Studio manager to confirm | US05 in Sprint 2 |
 
 Changes to later stories (US05 guest booking form with email and WhatsApp follow-up, US06, US07, US08–US09, US12) are refined in Sprint 2.
+
+## Refinement 3 — 19 November 2026 (studio follow-up)
+
+| Session field | Value |
+| --- | --- |
+| Actual date | 19 November 2026 |
+| Basis | Questions from the team answered by the studio, relayed by Naqyuddin in the group chat |
+| Reason | Customer accounts were removed after the Sprint 1 review, so later stories that assumed accounts needed confirmation |
+
+| Item / US | Previous requirement or priority | Proposed change | Reason / evidence | Product Owner decision | Owner / follow-up |
+| --- | --- | --- | --- | --- | --- |
+| US05 | Guest booking form; enquiry sent to the studio's email, WhatsApp follow-up | Contact form sends the enquiry straight to the studio's WhatsApp; email as an optional backup later | Studio: WhatsApp reaches them on their phone right away; email is not urgent | Confirmed by the studio | Contact page merged in [#76](https://github.com/phangsx25/ThenFrame_AppForge/pull/76); refine at Sprint 2 planning |
+| US06 | Booking and consultation management for the admin | Keep it simple; admin booking management can stay | Everything goes through WhatsApp | Confirmed by the studio | Simplify scope at Sprint 2 planning |
+| Track booking | Customers track booking status with a reference number | Not needed for now | Customers can ask the studio on WhatsApp | Confirmed by the studio | Remove the Track booking link |
+| US08–US09 | Private client albums; customers view, select and download photos | Retired | Studio: uploading photos to the website lowers image quality; they send full-quality files directly to clients | Confirmed by the studio | Backlog updated; Sprint 3 scope to be agreed |
+| Website design | Wine editorial theme | Follow the studio's reference photography sites | Studio's request | Confirmed by the studio | Redesign by Naqyuddin merged in [#76](https://github.com/phangsx25/ThenFrame_AppForge/pull/76); the studio will provide photos once the UI is complete |
 
 Record actual outcomes, including a decision to make no changes. Add approved requirement changes to the shared backlog and task changes to [GitHub Projects](https://github.com/users/phangsx25/projects/1). New suggestions do not automatically change current sprint scope.

@@ -64,10 +64,10 @@ Git timestamps below identify when code was committed, not the start date of eve
 
 ## Sprint 2 — 19 November–9 December 2026
 
-No activity entries recorded yet.
-
 | Date | Focus | Work summary | Responsible person | Next action | Blockers / outstanding checks |
 | --- | --- | --- | --- | --- | --- |
+| 19 November | Public Site Redesign | Redesign the public website following the studio's reference sites: new homepage, full-screen menu, portfolio grid, Packages page, Contact page with an enquiry form that opens the studio's WhatsApp, and footer with Instagram links. Merged in [#76](https://github.com/phangsx25/ThenFrame_AppForge/pull/76). | Naqyuddin | Replace photo placeholders when the studio sends photos. | Studio photos pending. |
+| 19 November | Studio Follow-up | Confirm later stories with the studio after customer accounts were removed: WhatsApp enquiries are enough, booking management stays simple, booking tracking not needed, US08–US09 retired. Recorded as [Refinement 3](sprint-1/sprint1-refinement.md#refinement-3--19-november-2026-studio-follow-up) and in the [backlog](PRODUCT_BACKLOG.md). | Naqyuddin, Phang | Plan Sprint 2 scope after the Sprint 1 demo. | None. |
 
 ## Sprint 3 — 10–23 December 2026
 

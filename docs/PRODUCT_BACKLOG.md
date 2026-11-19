@@ -40,8 +40,8 @@ Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative 
 | 5 / US05 | Service and booking enquiries | Must | 8 | 2 | INT01 |
 | 6 / US06 | Booking and consultation management | Must | 8 | 2 | INT01 |
 | 7 / US07 | Traditional Malay wedding heritage guide | Should | 3 | 2 | SULAM01 |
-| 8 / US08 | Private client albums and final photo delivery management | Should | 8 | 3 | INT01 |
-| 9 / US09 | Customer private album viewing, selection and download | Must | 8 | 3 | INT01 |
+| 8 / US08 | Private client albums and final photo delivery management (**retired 19 Nov 2026**: studio sends full-quality files directly) | Retired | 8 | 3 | INT01 |
+| 9 / US09 | Customer private album viewing, selection and download (**retired 19 Nov 2026** with US08) | Retired | 8 | 3 | INT01 |
 | 10 / US10 | AI booking enquiry summaries | Must | 5 | 4 | ASM01 |
 | 11 / US11 | AI FAQ assistant | Could | 5 | 4 | ASM01 |
 | 12 / US12 | Customer ratings and feedback | Could | 3 | 4 | ASM01 |
@@ -57,8 +57,8 @@ Estimates use Fibonacci story points (1, 2, 3, 5, 8, 13), representing relative 
 - **US05:** As a customer, I want to submit a photography service enquiry with my event details, preferred style, and package requirements so that ThenFrame can understand my needs and recommend suitable services.
 - **US06:** As a ThenFrame studio admin, I want to review customer enquiries, check booking availability, and schedule consultations so that I can manage bookings efficiently and confirm details with customers.
 - **US07:** As a visitor or customer from any cultural background, I want to browse and learn about traditional Malay wedding attire and heritage stories on the website so that I can appreciate local Malay customs and explore traditional Malay wedding photography styles.
-- **US08:** As a ThenFrame studio admin, I want to upload and organize client wedding photos into private albums and provide final edited photos for delivery, so that I can manage photo selection and delivery in one system.
-- **US09:** As a customer, I want to view my private wedding album, select my preferred photos and download the final edited photos, so that I can receive my wedding photos conveniently.
+- **US08:** As a ThenFrame studio admin, I want to upload and organize client wedding photos into private albums and provide final edited photos for delivery, so that I can manage photo selection and delivery in one system. *(Retired 19 November 2026: the studio said website uploads lower image quality and prefers to send full-quality files directly to clients; see [Refinement 3](sprint-1/sprint1-refinement.md#refinement-3--19-november-2026-studio-follow-up).)*
+- **US09:** As a customer, I want to view my private wedding album, select my preferred photos and download the final edited photos, so that I can receive my wedding photos conveniently. *(Retired 19 November 2026 with US08.)*
 - **US10:** As a ThenFrame studio admin, I want the system to use AI to summarize customer booking enquiries, so that I can quickly understand customer needs and respond more efficiently.
 - **US11:** As a newlywed couple or visitor, I want to interact with an AI assistant to get instant answers to common questions (FAQ) about packages and studio information, so that I can get quick information anytime without waiting for manual replies.
 - **US12:** As a newlywed couple, I want to submit ratings and feedback after our photo session, so that I can share my experience and help improve future services.
@@ -292,7 +292,9 @@ US05–US07 follow the supplied refinement. Approval and task allocation remain 
 
 **Included MVP:** US02–US07 (US01 retired 18 November 2026). Customers browse collections without an account, specify services, event details and preferences, select available package options if supplied, submit an enquiry and receive confirmation after consultation. Admins log in, manage galleries, review enquiries, check availability, schedule consultations and confirm bookings. Package options are included only when provided by the studio; an admin package-catalogue editor is not an agreed requirement. Visitors can access the Malay wedding heritage guide without logging in.
 
-**Deferred beyond MVP:** US08–US09 (private albums, selection and download in Sprint 3), US10 (AI enquiry summaries), US11 (FAQ assistant) and US12 (ratings/feedback) in Sprint 4. Deferred does not mean removed from the backlog.
+**Retired:** US01 (18 November 2026) and US08–US09 (19 November 2026), at the studio's request.
+
+**Deferred beyond MVP:** US10 (AI enquiry summaries), US11 (FAQ assistant) and US12 (ratings/feedback) in Sprint 4. Deferred does not mean removed from the backlog.
 
 | Success measure | Proposed target | Method |
 | --- | --- | --- |
@@ -317,7 +319,7 @@ Sprint 2 includes a one-week holiday extension. Sprints 3 and 4 each run for two
 | --- | --- | --- | --- |
 | 1 | 5–18 November 2026 | US01–US04 | Admin login, upload/collections and public portfolio; customer registration built, then retired after the review. |
 | 2 | 19 November–9 December 2026 | US05–US07 | Enquiries, booking/consultation management and heritage education. |
-| 3 | 10–23 December 2026 | US08–US09 | Private client albums, customer photo selection and final download. |
+| 3 | 10–23 December 2026 | To be planned | US08–US09 retired on 19 November 2026; Sprint 3 scope to be agreed at the Sprint 2 review. |
 | 4 | 24 December 2026–6 January 2027 | US10–US12 | AI enquiry summaries, AI FAQ and customer ratings/feedback. |
 
 ## Sprint 1 calendar and completion rules
@@ -387,7 +389,9 @@ Customers and admins use a unique username and password. Usernames have 3–40 c
 - **US03 upload acceptance:** verify JPG/JPEG, PNG and WebP uploads at or below 8 MB, and rejection of unsupported formats and files above 8 MB.
 - **Test framework:** use Vitest and actual manual/integration checks for this React/Vite project; the earlier Pest reference is superseded.
 - **Partner validation:** the 17 November review is done; confirm the OBS01 observation and use findings to refine the backlog.
-- **Customer features without accounts (US09, US12):** with US01 retired, decide at Sprint 2 planning how customers open private albums and leave feedback, for example with a booking reference or access code.
+- **Studio follow-up (19 November 2026):** enquiries go to the studio's WhatsApp through the contact form (email optional later); booking management stays simple; booking tracking by reference number is not needed; US08–US09 retired. See [Refinement 3](sprint-1/sprint1-refinement.md#refinement-3--19-november-2026-studio-follow-up).
+- **Customer feedback without accounts (US12):** decide at Sprint 2 planning how customers leave feedback without an account.
+- **Sprint 3 scope:** with US08–US09 retired, agree what Sprint 3 delivers.
 
 Record approved scope changes and their reasons in the relevant sprint refinement document.
 
@@ -405,5 +409,7 @@ The contributor supplied a refined backlog dated 11 November 2026. Local documen
 | US11–US12 | US11–US12 | Retain FAQ and feedback in Sprint 4. |
 
 Sprint 1 remains US01–US04. Retain subsequent agreed details: username-only login, 8 MB image limit, event-type portfolio filtering and Latest Work. Historical evidence may use previous IDs; interpret it using this mapping. GitHub Projects was aligned on 16 November 2026: 12 active stories and 64 points, matching story details, priorities, estimates, planned sprint dates and order. At that time US01–US04 were In review, US05 and US06 were In progress, and US07–US12 remain Backlog. US06 development is on sprint-2-us06-booking-management, created from the US05 branch; it is not merged into main. The superseded standalone consultation issue is closed as not planned and removed from the board; its scope is included in US06. Issue numbers remain unchanged to preserve history.
+
+**Update 19 November 2026 (studio follow-up, relayed by Naqyuddin):** US08–US09 retired; WhatsApp enquiries are enough for now; booking tracking is not needed. The public site redesign with Packages and Contact pages was merged in [#76](https://github.com/phangsx25/ThenFrame_AppForge/pull/76).
 
 **Update 18 November 2026 (after the Sprint 1 review):** US01–US04 are Done on the Kanban and all 26 Sprint 1 subtasks are closed. US01 is retired and customer accounts were removed from the website; the review changes are recorded in [Sprint 1 refinement](sprint-1/sprint1-refinement.md#refinement-2--18-november-2026-after-the-sprint-1-user-review) and [#75](https://github.com/phangsx25/ThenFrame_AppForge/issues/75).

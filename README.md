@@ -53,13 +53,14 @@ Use the agreed existing Supabase project; do not recreate or clear its tables.
   PNG or WebP uploads up to 8 MB. Admins can confirm deletion of a collection
   together with its photos and stored files; partial failures are reported.
 - US04: public collections, search/event-type filtering, details and photo viewer.
-- Users open their own profile/security settings through the avatar. Customers
-  register themselves; admin customer-account management is outside scope.
+- US01 was retired after the Sprint 1 review: there are no customer accounts;
+  only the studio admin logs in.
+- Public site (redesigned 19 November, #76): Packages page and a Contact page whose
+  enquiry form opens the studio's WhatsApp.
 - Booking and Heritage navigation currently show later-sprint notices.
 
 UI uses the wine editorial theme and intentional placeholders. Public photographs
-come from Supabase. Enquiries and booking/consultation management (US05–US06), Heritage (US07), private albums and
-selection/delivery (US08–US09), AI summaries (US10), FAQ chatbot (US11) and feedback (US12) remain planned. No AI photo categorization is planned or implemented.
+come from Supabase. Enquiries and booking/consultation management (US05–US06), Heritage (US07), AI summaries (US10), FAQ chatbot (US11) and feedback (US12) remain planned. Private albums (US08–US09) were retired on 19 November at the studio's request. No AI photo categorization is planned or implemented.
 
 ## Portfolio classification
 
