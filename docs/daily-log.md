@@ -37,6 +37,8 @@ Record who worked on what and the next action here. Responsible people follow th
 | 18 November | Burndown, Audit and Test Report | Burn down story points per closed subtask and fix the chart's date scale (#72). Move Tailwind to build-only dependencies so the production audit passes (#73). Restructure the [test report](sprint-1/sprint1-test-report.md): automated tests recorded once; 12 manual tests listed for QA. | Phang | Awwab completes the 12 manual tests on the live site. | Manual test results pending. |
 | 18 November | Acceptance Tests | Test tasks for each story: registration and login ([#58](https://github.com/phangsx25/ThenFrame_AppForge/issues/58)), unauthorized access ([#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60)), gallery create, edit and upload ([#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52)), public and hidden content ([#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61)). US01 tests no longer apply after US01 was retired. | Awwab | Run the 12 manual tests for US02–US04 on the live site and record them in the [test report](sprint-1/sprint1-test-report.md). | Manual test results pending. |
 | 18 November | Sprint 1 Presentation | Prepare the Sprint 1 demo slides: goal and backlog, testing and burndown, development practices, live demo, manager feedback and Sprint 2 plan. | Awwab, Phang, Munif, Ezz, Naqyuddin | Team splits the presentation parts and rehearses before 20 November. | Slides due 19 November, 6 PM. |
+| 19 November | Public Site Redesign | Redesign the public website before the Sprint 1 demo, following the studio's reference sites: new homepage, full-screen menu, portfolio grid, Packages page, Contact page with an enquiry form that opens the studio's WhatsApp, and footer with Instagram links. Merged in [#76](https://github.com/phangsx25/ThenFrame_AppForge/pull/76); Track booking removed in [#77](https://github.com/phangsx25/ThenFrame_AppForge/pull/77); tracked as [#78](https://github.com/phangsx25/ThenFrame_AppForge/issues/78). | Naqyuddin | Replace photo placeholders when the studio sends photos. | Studio photos pending. |
+| 19 November | Studio Follow-up | Confirm later stories with the studio after customer accounts were removed: WhatsApp enquiries are enough, booking management stays simple, booking tracking not needed, US08–US09 retired. Recorded as [Refinement 3](sprint-1/sprint1-refinement.md#refinement-3--19-november-2026-studio-follow-up) and in the [backlog](PRODUCT_BACKLOG.md). | Naqyuddin, Phang | Plan Sprint 2 scope after the Sprint 1 demo. | None. |
 
 ### Supporting references
 
@@ -51,6 +53,7 @@ Git timestamps below identify when code was committed, not the start date of eve
 | Latest Work implementation | `39eaa8c`, [test report](sprint-1/sprint1-test-report.md#latest-work-verification--15-november-2026) | 15 November; homepage preview, publication timestamp migration and automated/database verification. |
 | Review changes and admin gallery | #74 (`0e2e48d`), #75 | Ezz's commits 16–17 November; review changes 18 November. |
 | Burndown and audit | #72 (`baecee8`), #73 (`2c38249`) | 18 November. |
+| Public site redesign | #76 (`55f8df2`), #77 (`18049e7`), #78 | Naqyuddin's commit 19 November, before the Sprint 1 demo. |
 | Remaining verification | [VERIFICATION.md](VERIFICATION.md) | Consult the recorded limits and outstanding live acceptance checks. |
 
 ### Follow-up
@@ -64,10 +67,10 @@ Git timestamps below identify when code was committed, not the start date of eve
 
 ## Sprint 2 — 19 November–9 December 2026
 
+No activity entries recorded yet.
+
 | Date | Focus | Work summary | Responsible person | Next action | Blockers / outstanding checks |
 | --- | --- | --- | --- | --- | --- |
-| 19 November | Public Site Redesign | Redesign the public website following the studio's reference sites: new homepage, full-screen menu, portfolio grid, Packages page, Contact page with an enquiry form that opens the studio's WhatsApp, and footer with Instagram links. Merged in [#76](https://github.com/phangsx25/ThenFrame_AppForge/pull/76). | Naqyuddin | Replace photo placeholders when the studio sends photos. | Studio photos pending. |
-| 19 November | Studio Follow-up | Confirm later stories with the studio after customer accounts were removed: WhatsApp enquiries are enough, booking management stays simple, booking tracking not needed, US08–US09 retired. Recorded as [Refinement 3](sprint-1/sprint1-refinement.md#refinement-3--19-november-2026-studio-follow-up) and in the [backlog](PRODUCT_BACKLOG.md). | Naqyuddin, Phang | Plan Sprint 2 scope after the Sprint 1 demo. | None. |
 
 ## Sprint 3 — 10–23 December 2026
 
