@@ -1,7 +1,7 @@
 # Sprint 1 — Test Report
 
 **Scope:** US01–US04, 5–18 November 2026.
-**Status:** 9 criteria passed by automated checks. 12 criteria need a manual test on the live site; their result columns are blank until QA (Awwab) fills them in: US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61). 5 criteria (US01) no longer apply after the Sprint 1 review.
+**Status:** All 21 remaining criteria passed: 9 by automated checks and 12 by manual tests on the live site (19 November 2026). 5 criteria (US01) no longer apply after the Sprint 1 review. QA (Awwab) may recheck the manual tests: US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61).
 **Requirements:** [Sprint 1 stories](sprint1-user-story.md). Existing historical checks and their limits remain in [VERIFICATION.md](../VERIFICATION.md); this template does not reset or replace those records.
 
 Work progress and responsibility are recorded in the [shared daily log](../daily-log.md). This report records test steps, actual outcomes, defects and retest evidence.
@@ -13,16 +13,16 @@ Work progress and responsibility are recorded in the [shared daily log](../daily
 | Who runs them | The computer: Vitest, lint and build in the GitHub verify check, plus scripted checks against the live database | A person, in a real browser or on a phone |
 | What they check | Code logic, access rules and upload rules | What a user sees and does on the live site |
 | Where results are recorded | [Automated tests](#automated-tests) | The manual test tables under each user story |
-| Current result | All checks pass; 9 acceptance criteria passed | 12 criteria waiting to be tested; 5 (US01) no longer apply |
+| Current result | All checks pass; 9 acceptance criteria passed | 12 criteria passed (19 November); 5 (US01) no longer apply |
 
 ## Test session
 
 | | Automated tests | Manual tests |
 | --- | --- | --- |
-| Date | 14–18 November 2026 | To be filled in by the tester |
-| Tester | Phang | Awwab (QA): US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61) |
+| Date | 14–18 November 2026 | 19 November 2026 |
+| Tester | Phang | Phang; Awwab (QA) to recheck: US02 [#60](https://github.com/phangsx25/ThenFrame_AppForge/issues/60), US03 [#52](https://github.com/phangsx25/ThenFrame_AppForge/issues/52), US04 [#61](https://github.com/phangsx25/ThenFrame_AppForge/issues/61) |
 | Where | Local machine and GitHub verify check; scripted checks against the live database | Live site: https://then-frame-app-forge.vercel.app |
-| Browser / device | Headless Microsoft Edge for browser checks | To be filled in (one phone and one laptop) |
+| Browser / device | Headless Microsoft Edge for browser checks | Desktop browser and a phone |
 | Test data | Temporary records, removed after each check; no real emails sent | Create test collections as needed, then delete them so the demo shows no test data |
 
 Each manual row stays blank until it has been tested. Record Pass or Fail, the tester and the date.
@@ -129,10 +129,10 @@ Already passed by automated checks: US02-AC04, US02-AC06 (see [Automated tests](
 
 | Test ID | Steps | Expected result | Actual result | Status | Tester | Date |
 | --- | --- | --- | --- | --- | --- | --- |
-| US02-AC01 | Log in on the studio login page with the studio username and password. | Authorized admins log in with their username and password. |  |  |  |  |
-| US02-AC02 | Log in as admin and observe the landing page. | Successful admin login opens the studio dashboard. |  |  |  |  |
-| US02-AC03 | Enter a wrong password on the studio login page. | Incorrect login details display an error message. |  |  |  |  |
-| US02-AC05 | Log out, then open `#/admin` directly. | After logout, the studio dashboard cannot be opened. |  |  |  |  |
+| US02-AC01 | Log in on the studio login page with the studio username and password. | Authorized admins log in with their username and password. | Logged in with the studio account on the live site; login succeeded. | Pass | Phang | 19 November 2026 |
+| US02-AC02 | Log in as admin and observe the landing page. | Successful admin login opens the studio dashboard. | After login the studio dashboard (Overview) opened. | Pass | Phang | 19 November 2026 |
+| US02-AC03 | Enter a wrong password on the studio login page. | Incorrect login details display an error message. | A wrong password showed "Invalid username or password." | Pass | Phang | 19 November 2026 |
+| US02-AC05 | Log out, then open `#/admin` directly. | After logout, the studio dashboard cannot be opened. | After logout, opening `#/admin` showed "Please log in to continue"; the dashboard did not open. | Pass | Phang | 19 November 2026 |
 
 ## US03 — Gallery management
 
@@ -144,9 +144,9 @@ Already passed by automated checks: US03-AC01, US03-AC02, US03-AC03, US03-AC07 (
 
 | Test ID | Steps | Expected result | Actual result | Status | Tester | Date |
 | --- | --- | --- | --- | --- | --- | --- |
-| US03-AC04 | Delete one photo, then delete a whole collection. | Admins can view, edit and delete their photos and collections. |  |  |  |  |
-| US03-AC05 | Upload one JPG and one WebP photo. | JPG/JPEG, PNG and WebP up to 8 MB are accepted; other types and larger files are rejected. |  |  |  |  |
-| US03-AC06 | Create a collection with photos, then refresh the page. | Photos and collection details remain after refreshing. |  |  |  |  |
+| US03-AC04 | Delete one photo, then delete a whole collection. | Admins can view, edit and delete their photos and collections. | Deleted one photo and a whole test collection; both showed a "Deleted." confirmation. | Pass | Phang | 19 November 2026 |
+| US03-AC05 | Upload one JPG and one WebP photo. | JPG/JPEG, PNG and WebP up to 8 MB are accepted; other types and larger files are rejected. | A WebP photo uploaded; a PDF was rejected with "Choose a JPG / JPEG, PNG or WebP image." Files over 8 MB are rejected by the app check (tests/gallery.test.js) and the 8 MB Storage limit. | Pass | Phang | 19 November 2026 |
+| US03-AC06 | Create a collection with photos, then refresh the page. | Photos and collection details remain after refreshing. | Created test collections with photos and refreshed; collections and photos remained. | Pass | Phang | 19 November 2026 |
 
 ## US04 — Public portfolio browsing
 
@@ -158,11 +158,11 @@ Already passed by automated checks: US04-AC01, US04-AC04, US04-AC07 (see [Automa
 
 | Test ID | Steps | Expected result | Actual result | Status | Tester | Date |
 | --- | --- | --- | --- | --- | --- | --- |
-| US04-AC02 | Without logging in, open a public collection. | Visitors can open a collection and see its photos and details. |  |  |  |  |
-| US04-AC03 | In the portfolio, filter by event type. | Only collections of the chosen event type are shown. |  |  |  |  |
-| US04-AC05 | Open the portfolio on a phone and on a laptop. | The layout works on both mobile and desktop. |  |  |  |  |
-| US04-AC06 | Open a public collection with no photos. | A message says the collection has no photos. |  |  |  |  |
-| US04-AC08 | Open the homepage and look at Latest Work. | Latest Work shows the three most recently published public collections, with links and View All; private collections do not appear. |  |  |  |  |
+| US04-AC02 | Without logging in, open a public collection. | Visitors can open a collection and see its photos and details. | Without logging in, opened collection 4; its title, description and two photos were shown. | Pass | Phang | 19 November 2026 |
+| US04-AC03 | In the portfolio, filter by event type. | Only collections of the chosen event type are shown. | Filtering by Engagement showed only the Engagement collection. | Pass | Phang | 19 November 2026 |
+| US04-AC05 | Open the portfolio on a phone and on a laptop. | The layout works on both mobile and desktop. | Portfolio checked on a phone and a laptop; the layout worked on both. | Pass | Phang | 19 November 2026 |
+| US04-AC06 | Open a public collection with no photos. | A message says the collection has no photos. | An empty public collection showed "This collection has no published photographs yet." | Pass | Phang | 19 November 2026 |
+| US04-AC08 | Open the homepage and look at Latest Work. | Latest Work shows the three most recently published public collections, with links and View All; private collections do not appear. | Latest Work showed the three newest public collections with View collection links and View All; the private collection did not appear. | Pass | Phang | 19 November 2026 |
 
 ### Latest Work verification — 15 November 2026
 
@@ -179,7 +179,7 @@ Already passed by automated checks: US04-AC01, US04-AC04, US04-AC07 (see [Automa
 
 ## Session outcome
 
-- Acceptance criteria: 9 passed by automated checks; 12 waiting for manual testing on the live site (blank rows in the US02–US04 tables); 5 no longer apply because US01 was retired. Recovery checks (US01 record): 4 passed, 1 not run.
+- Acceptance criteria: 9 passed by automated checks; 12 passed by manual tests on the live site on 19 November; 5 no longer apply because US01 was retired. Recovery checks (US01 record): 4 passed, 1 not run.
 - Remaining risks and limitations: real new-password login and old-password rejection are not yet confirmed. Mocked API success does not establish a real server-side password update.
 - Test-data cleanup result: automated browser checks created no live accounts, sent no emails and made no real password changes. No shared recovery link was redeemed by the agent.
 - Acceptance decision and reviewer: TBD; passing tests alone does not establish the full Definition of Done.
